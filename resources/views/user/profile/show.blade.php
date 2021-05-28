@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', 'Master Farmer Create')
+@section('title', 'Blank')
 
 @section('content')
 
@@ -18,60 +18,28 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <button type="button" class="btn btn-primary btn-action" data-action="store">Save</button>
+                <a href="#" class="btn btn-primary">This is action area</a>
             </div>
         </div>
     </div>
 
     <div id="app" class="wrapper wrapper-content">
-        <form action="{!! route('master-farmer.store') !!}" method="post" id="form">@csrf
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Account Info
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" name="password" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Retype Password</label>
-                                <input type="password" name="confirm-password" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8">
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Basic Info
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label>First name</label>
-                                <input type="text" name="first-name" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Middle name</label>
-                                <input type="text" name="middle-name" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Last name</label>
-                                <input type="text" name="last-name" class="form-control">
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Blank <small>page</small></h5>
                     </div>
+                    <div class="ibox-content">
 
+
+
+                    </div>
                 </div>
             </div>
-        </form>
+        </div>
+
     </div>
 
     <div class="modal inmodal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category="" data-variant="" data-bal="">
@@ -109,14 +77,6 @@
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
         $(document).ready(function(){
-            $(document).on('click', '.btn-action', function(){
-                switch ($(this).data('action')) {
-                    case 'store':
-                        $('#form').submit();
-                        break;
-                }
-            });
-
             {{--var modal = $('#modal');--}}
             {{--$(document).on('click', '', function(){--}}
             {{--    modal.modal({backdrop: 'static', keyboard: false});--}}

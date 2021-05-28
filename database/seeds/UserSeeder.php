@@ -56,36 +56,30 @@ class UserSeeder extends Seeder
             }
         }
 
+        $roles = array(
+            'Super Admin',
+            'Master Farmer',
+            'Farmer'
+        );
+
+        foreach($roles as $role) {
+            Role::create(array(
+                'name' => stringSlug($role),
+                'display_name' => $role
+            ));
+        }
+
         $user = new User();
-        $user->name = 'Super Admin';
+        $user->name = 'Agravah Admin';
         $user->email = 'agravah@gmail.com';
         $user->password = bcrypt('grassfruitrabbitengine');
         $user->passkey = 'grassfruitrabbitengine';
         $user->active = 1;
         if($user->save()) {
-            $role = 'Super Admin';
-            Role::create(array(
-                'name' => stringSlug($role),
-                'display_name' => $role
-            ));
-            $user->assignRole(stringSlug($role));
-            $profile = new Profile();
-            $profile->user_id = $user->id;
-            $profile->first_name = 'Agravah';
-            $profile->last_name = 'Trace';
-            $profile->save();
+
+            $user->assignRole(stringSlug('Super Admin'));
             $user->markEmailAsVerified();
 
-            $mFarmer = 'Master Farmer';
-            Role::create(array(
-                'name' => stringSlug($mFarmer),
-                'display_name' => $mFarmer
-            ));
-            $farmer = 'Farmer';
-            Role::create(array(
-                'name' => stringSlug($farmer),
-                'display_name' => $farmer
-            ));
         }
 
     }

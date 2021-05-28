@@ -28,6 +28,8 @@ class HomeController extends Controller
         $host_names = explode(".", $_SERVER['HTTP_HOST']);
         $domain = $host_names[count($host_names)-2] . "." . $host_names[count($host_names)-1];
 
+
+
         return view('dashboard', compact( 'subdomain', 'domain'));
     }
 }

@@ -92,4 +92,13 @@ class TraceController extends Controller
     {
         //
     }
+
+    public function farmerInventoryList()
+    {
+        if(auth()->user()->hasRole('super-admin')){
+
+        }
+
+
+    }
 }
