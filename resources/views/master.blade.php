@@ -33,7 +33,8 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
 {{--                        <img alt="image" class="rounded-circle" src="/img/profile_small.jpg"/>--}}
-                        <img alt="image" class="rounded-circle profile-pic" src="{{ authProfilePic(Auth::user()->id) }}"/>
+{{--                        <img alt="image" class="rounded-circle profile-pic" src="{{ authProfilePic(Auth::user()->id) }}"/>--}}
+                        <img alt="image" class="rounded-circle profile-pic" src=""/>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="block m-t-xs font-bold">{!! Auth::user()->name !!}</span>
 {{--                            <span class="text-muted text-xs block">{{ getRoleName('display_name') }} <b class="caret"></b></span>--}}
