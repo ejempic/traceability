@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Farmer;
 use App\Inventory;
+use App\ModelInfo;
 use App\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -30,10 +32,11 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        $datas = Product::get();
-        $random = Str::random(10);
-
-        return response()->view('user.inventory.create', compact('datas', 'random'));
+        $datas = Farmer::with('profile')
+            ->where('master_id', Auth::user()->master->id)
+            ->get();
+//        return $datas;
+        return response()->view('user.inventory.create', compact('datas'));
     }
 
     /**
@@ -45,16 +48,22 @@ class InventoryController extends Controller
     public function store(Request $request)
     {
         $data = new Inventory();
-        $data->user_id = Auth::user()->id;
-        $data->product_id = $request->input('product-id');
-        $data->reference = $request->input('reference');
-        $data->unit = $request->input('unit');
-        $data->quantity = $request->input('quantity');
-        $data->quality = $request->input('quality');
-        $data->cost = $request->input('cost');
-        $data->retail = $request->input('retail');
+        $data->master_id = Auth::user()->master->id;
+        $data->farmer_id = $request->input('farmer_id');
+        $data->name = $request->input('name');
+        $data->details = $request->input('details');
+        $data->status = 'Accepted';
+        $data->remark = 'Warehouse';
+        $data->user_id = Auth::user()->master->id;
         if($data->save()){
-            return response()->view('user.inventory.index');
+
+            $modelInfo = new ModelInfo();
+            $modelInfo->type = 'status';
+            $modelInfo->value_0 = $data->status;
+            $modelInfo->value_1 = $data->remark;
+            $data->info()->save($modelInfo);
+
+            return redirect()->route('inventory.index');
         }
     }
 
@@ -101,5 +110,26 @@ class InventoryController extends Controller
     public function destroy(Inventory $inventory)
     {
         //
+    }
+
+    public function farmerInventoryList(Request $request)
+    {
+//        $ids = array();
+        $data = Inventory::whereNotIn('id', $request->input('ids'))
+            ->where('master_id', Auth::user()->master->id)
+            ->with('farmer')
+            ->where('status', 'Accepted')
+            ->get();
+
+        return response()->json($data);
+    }
+
+    public function farmerInventoryListItem(Request $request)
+    {
+        $data = Inventory::whereIn('id', $request->input('ids'))
+            ->with('farmer')
+            ->get();
+
+        return response()->json($data);
     }
 }

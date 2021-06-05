@@ -19,6 +19,7 @@ class CreateTracesTable extends Migration
             $table->string('image')->nullable();
             $table->string('url')->nullable();
             $table->boolean('active')->default(1);
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

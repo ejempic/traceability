@@ -20,27 +20,36 @@ Route::get('/', function () {
 //Auth::routes();
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth', 'verified'])->group(function () {
 
-Route::resource('master-farmer', 'MasterFarmerController');
+    Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('farmer', 'FarmerController');
+    Route::resource('master-farmer', 'MasterFarmerController');
 
-Route::resource('product', 'ProductController');
+    Route::resource('farmer', 'FarmerController');
 
-Route::resource('inventory', 'InventoryController');
-Route::get('farmer-inventory-list', 'InventoryController@farmerInventoryList')->name('farmer-inventory-list');
+    Route::resource('product', 'ProductController');
 
-Route::resource('trace', 'TraceController');
+    Route::resource('inventory', 'InventoryController');
+    Route::get('farmer-inventory-list', 'InventoryController@farmerInventoryList')->name('farmer-inventory-list');
+    Route::get('farmer-inventory-list-item', 'InventoryController@farmerInventoryListItem')->name('farmer-inventory-list-item');
 
-Route::resource('user', 'UserController');
+    Route::resource('trace', 'TraceController');
+    Route::post('trace-store', 'TraceController@traceStore')->name('trace-store');
+    Route::get('trace-update-status', 'TraceController@traceUpdate')->name('trace-update-status');
+    Route::get('trace-info/{code}', 'TraceController@traceInfo')->name('trace-info');
+
+    Route::resource('user', 'UserController');
 //        Route::get('user-list', 'UserController@userList')->name('user-list');
-Route::get('user-list', 'UserController@userList')->name('user-list');
-Route::get('personnel-info', 'UserController@personnelInfo')->name('personnel-info');
-Route::post('create-user', 'UserController@createUser')->name('create-user');
+    Route::get('user-list', 'UserController@userList')->name('user-list');
+    Route::get('personnel-info', 'UserController@personnelInfo')->name('personnel-info');
+    Route::post('create-user', 'UserController@createUser')->name('create-user');
 
 
-Route::get('role', 'RoleController@index')->name('role');
-Route::get('role-show/{id}', 'RoleController@show')->name('role-show');
-Route::post('role-update/{id}', 'RoleController@update')->name('role-update');
-Route::post('add-role', 'RoleController@addRole')->name('add-role');
+    Route::get('role', 'RoleController@index')->name('role');
+    Route::get('role-show/{id}', 'RoleController@show')->name('role-show');
+    Route::post('role-update/{id}', 'RoleController@update')->name('role-update');
+    Route::post('add-role', 'RoleController@addRole')->name('add-role');
+
+});
+

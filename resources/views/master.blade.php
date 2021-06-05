@@ -34,11 +34,11 @@
                     <div class="dropdown profile-element">
 {{--                        <img alt="image" class="rounded-circle" src="/img/profile_small.jpg"/>--}}
 {{--                        <img alt="image" class="rounded-circle profile-pic" src="{{ authProfilePic(Auth::user()->id) }}"/>--}}
-                        <img alt="image" class="rounded-circle profile-pic" src=""/>
+                        <img alt="image" class="rounded-circle profile-pic" src="/img/blank-profile.jpg"/>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="block m-t-xs font-bold">{!! Auth::user()->name !!}</span>
 {{--                            <span class="text-muted text-xs block">{{ getRoleName('display_name') }} <b class="caret"></b></span>--}}
-                            <span class="text-muted text-xs block"> Farmer <b class="caret"></b></span>
+                            <span class="text-muted text-xs block"> {{ getRoleName('display_name') }} <b class="caret"></b></span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a class="dropdown-item" href="#">Profile</a></li>

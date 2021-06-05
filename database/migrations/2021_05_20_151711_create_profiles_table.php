@@ -21,13 +21,13 @@ class CreateProfilesTable extends Migration
             $table->string('mobile')->nullable();
             $table->text('address')->nullable();
             $table->string('education')->nullable();
-            $table->boolean('4ps')->default(0);
+            $table->boolean('four_ps')->default(0);
             $table->boolean('pwd')->default(0);
             $table->boolean('indigenous')->default(0);
             $table->boolean('livelihood')->default(0);
-            $table->string('farmLot')->nullable();
-            $table->string('farmingSince')->nullable();
-            $table->string('memberOrganization')->nullable();
+            $table->string('farm_lot')->nullable();
+            $table->string('farming_since')->nullable();
+            $table->string('organization')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

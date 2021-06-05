@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', 'Blank')
+@section('title', 'Trace List')
 
 @section('content')
 
@@ -28,9 +28,9 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Blank <small>page</small></h5>
-                    </div>
+{{--                    <div class="ibox-title">--}}
+{{--                        <h5>Blank <small>page</small></h5>--}}
+{{--                    </div>--}}
                     <div class="ibox-content">
 
                         <div class="row">
@@ -44,8 +44,9 @@
                         <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                             <thead>
                             <tr>
-                                <th>Company</th>
-                                <th>Contact Person</th>
+                                <th>Reference</th>
+                                <th>Client</th>
+                                <th>Status</th>
                                 <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                             </tr>
                             </thead>
@@ -54,9 +55,11 @@
                                 <tr>
                                     <td>{{ $data->reference }}</td>
                                     <td>{{ $data->url }}</td>
+                                    <td>{{ $data->status }}</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
-                                            <a href="" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
+                                            <a href="{{ route('trace.show', array('trace'=>$data)) }}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
+                                            <a href="{{ route('trace-info', array('code'=>$data->reference)) }}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Page</a>
                                         </div>
                                     </td>
                                 </tr>

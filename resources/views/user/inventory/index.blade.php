@@ -45,17 +45,19 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Quality
-                                <th>Quantity</th>
+                                <th>Details</th>
+                                <th>Status</th>
+                                <th>Farmer</th>
                                 <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($datas as $data)
                                 <tr>
-                                    <td>{{ $data->product->display_name }}</td>
-                                    <td>{{ $data->quality }}</td>
-                                    <td>{{ $data->quantity }} {{ $data->unit }}/s</td>
+                                    <td>{{ $data->name }}</td>
+                                    <td>{{ $data->details }}</td>
+                                    <td>{{ $data->status }}</td>
+                                    <td>{{ $data->farmer->profile->first_name }} {{ $data->farmer->profile->last_name }}</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
                                             <a href="" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>

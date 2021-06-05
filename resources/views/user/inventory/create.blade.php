@@ -30,62 +30,34 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="form-group">
-                                <label>Reference</label>
-                                <input type="text" name="reference" value="{{ $random }}" class="form-control" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Select Product</label>
-                                <select name="product-id" class="form-control">
-                                    <option value="">Select Product</option>
+                                <label>Select Farmer</label>
+                                <select name="farmer_id" class="form-control">
+                                    <option value="">Select Farmer</option>
                                     @foreach($datas as $data)
-                                        <option value="{{ $data->id }}">{{ $data->display_name }}</option>
+                                        <option value="{{ $data->id }}">{{ $data->profile->first_name }} {{ $data->profile->last_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Product Quality</label>
-                                <select name="quality" class="form-control">
-                                    <option value="">Select Product</option>
-                                    <option value="high">High</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="low">Low</option>
-                                </select>
-                            </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Product details</h5>
+                        </div>
                         <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>Unit</label>
-                                        <input type="text" name="unit" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>Quantity</label>
-                                        <input type="text" name="quantity" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>Cost</label>
-                                        <input type="text" name="cost" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>Retail</label>
-                                        <input type="text" name="retail" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
 
+                            <div class="form-group">
+                                <label>Name</label>
+                                {{ Form::text('name', null, array('class'=>'form-control')) }}
+                            </div>
+                            <div class="form-group">
+                                <label>Details</label>
+                                {{ Form::textarea('details', null, array('class'=>'form-control no-resize')) }}
+{{--                                <textarea id="field" rows="10" class="form-control"></textarea>--}}
+                            </div>
 
                         </div>
                     </div>

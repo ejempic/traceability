@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use App\User;
 use App\Profile;
+use App\MasterFarmer;
 use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
@@ -71,13 +72,30 @@ class UserSeeder extends Seeder
 
         $user = new User();
         $user->name = 'Agravah Admin';
-        $user->email = 'agravah@gmail.com';
-        $user->password = bcrypt('grassfruitrabbitengine');
-        $user->passkey = 'grassfruitrabbitengine';
+        $user->email = 'superadmin@gmail.com';
+        $user->password = bcrypt('agrabah');
+        $user->passkey = 'agrabah';
         $user->active = 1;
         if($user->save()) {
 
             $user->assignRole(stringSlug('Super Admin'));
+            $user->markEmailAsVerified();
+
+        }
+
+        $user = new User();
+        $user->name = 'Master Farmer';
+        $user->email = 'masterfarmer@gmail.com';
+        $user->password = bcrypt('agrabah');
+        $user->passkey = 'agrabah';
+        $user->active = 1;
+        if($user->save()) {
+
+            $master = new MasterFarmer();
+            $master->user_id = $user->id;
+            $master->save();
+
+            $user->assignRole(stringSlug('Master Farmer'));
             $user->markEmailAsVerified();
 
         }

@@ -15,14 +15,14 @@ class CreateInventoriesTable extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
+            $table->integer('master_id');
+            $table->integer('farmer_id');
+            $table->string('name');
+            $table->text('details');
+            $table->enum('status', array('Accepted', 'Loaded', 'Depart', 'Transit', 'Arrive', 'Delivered', 'Returned'));
+            $table->string('remark');
             $table->integer('user_id');
-            $table->integer('product_id');
-            $table->string('reference');
-            $table->string('unit');
-            $table->integer('quantity');
-            $table->string('quality');
-            $table->float('cost')->nullable();
-            $table->float('retail')->nullable();
+            $table->integer('trace_id')->nullable();
             $table->timestamps();
         });
     }

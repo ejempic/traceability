@@ -27,34 +27,40 @@
 
         <div class="row">
             <div class="col-sm-4">
-                <div class="ibox float-e-margins">
-{{--                    <div class="ibox-title">--}}
-{{--                        <h5>Blank <small>page</small></h5>--}}
-{{--                    </div>--}}
-                    <div class="ibox-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h5>Receiver <small>info</small></h5>
+                    </div>
+                    <div class="panel-body">
                         <div class="form-group">
-                            <label>Reference</label>
-                            <input type="text" name="reference" value="{{ $random }}" class="form-control" readonly>
-{{--                            <p>{{ $domain }}</p>--}}
-                            <input type="hidden" name="url" value="{{ $url }}">
+                            <label>Name</label>
+                            <input type="text" name="receiver-name" class="form-control">
                         </div>
-
-                        <div class="visible-print text-center">
-                            {!! QrCode::size(100)->generate($url.'/'.$random); !!}
-{{--                            <p>Scan me to return to the original page.</p>--}} <br><br>
-                            <small>url: {{ $url.'/'.$random }}</small>
+                        <div class="form-group">
+                            <label>Mobile</label>
+                            <input type="text" name="receiver-mobile" class="form-control">
                         </div>
-
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea name="receiver-address" class="form-control no-resize"></textarea>
+                        </div>
                     </div>
                 </div>
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
+            </div>
+
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
                         <h5>Dispatch <small>info</small></h5>
                     </div>
-                    <div class="ibox-content">
+                    <div class="panel-body">
                         <div class="form-group">
                             <label>Driver Name</label>
                             <input type="text" name="driver-name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile no.</label>
+                            <input type="text" name="driver-mobile" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Vehicle Type</label>
@@ -68,44 +74,68 @@
                 </div>
             </div>
 
-            <div class="col-sm-8">
-                <div class="ibox float-e-margins">
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h5>Reference <small>details</small></h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Reference</label>
+                            <input type="text" name="reference" value="{{ $random }}" class="form-control" readonly>
+                            <input type="hidden" name="url" value="{{ $url }}" class="form-control">
+                        </div>
+                        <div class="visible-print text-center">
+                            {!! QrCode::size(200)->generate($url); !!} <br><br>
+                            <strong class="text-success">URL</strong>
+                            <p> {{ $url }}</p>
+                        </div>
+                    </div>
 
-                    <div class="ibox-content">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h5>Inventory <small>Info</small></h5>
+                    </div>
+                    <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
                                     <th>Product</th>
-                                    <th class="text-right" style="width: 120px">Qty</th>
-                                    <th class="text-right" style="width: 100px" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
+                                    <th>Detail</th>
+                                    <th class="text-right">Farmer</th>
+                                    <th class="text-right" style="width: 50px" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                @foreach($datas as $data)
-                                    <tr>
-                                        <td>{{ $data->product->display_name }}
-{{--                                        <td class="text-right"><input type="text" value="{{ $data->quantity }}" data-id="{{ $data->id }}" class="form-control numonly input-s"></td>--}}
-                                        <td class="text-right">{{ $data->quantity }} {{ $data->unit }}</td>
-                                        <td class="text-right">
-                                            <div class="btn-group text-right">
-                                                <a href="" class="action btn-white btn btn-xs"><i class="fa fa-times text-danger"></i> remove</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                <tbody id="item-list">
+                                {{--                                <tr>--}}
+                                {{--                                    <td>Product</td>--}}
+                                {{--                                    <td>Detail</td>--}}
+                                {{--                                    <td class="text-right">farmer</td>--}}
+                                {{--                                    <td class="text-right">--}}
+                                {{--                                        <div class="btn-group text-right">--}}
+                                {{--                                            <button class="btn btn-white btn-xs btn-action" data-action="remove-item"><i class="fa fa-times text-danger"></i></button>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </td>--}}
+                                {{--                                </tr>--}}
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <td class="text-right" colspan="3">
+                                    <td class="text-right" colspan="4">
                                         <button type="button" class="btn btn-success btn-action" data-action="add-item">Add</button>
                                     </td>
                                 </tr>
                                 </tfoot>
                             </table>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
@@ -120,12 +150,10 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title"></h4>
                 </div>
-                <div class="modal-body">
-
-                </div>
+                <div class="modal-body"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="modal-save-btn">Save changes</button>
+                    <button type="button" class="btn btn-primary btn-action" data-action="list-item">Save changes</button>
                 </div>
             </div>
         </div>
@@ -135,12 +163,14 @@
 
 
 @section('styles')
+    {!! Html::style('/css/template/plugins/iCheck/custom.css') !!}
     {{--{!! Html::style('') !!}--}}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
 @endsection
 
 @section('scripts')
+    {!! Html::script('/js/template/plugins/iCheck/icheck.min.js') !!}
     {{--    {!! Html::script('') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
@@ -153,28 +183,71 @@
                 switch ($(this).data('action')) {
                     case 'store':
                         // $('#form').submit();
-                        var datas = new Array();
-                        var inv = new Array();
-                        datas.push($('input[name=reference]').val());
-                        datas.push($('input[name=url]').val());
-                        datas.push($('input[name=driver-name]').val());
-                        datas.push($('input[name=vehicle-type]').val());
-                        datas.push($('input[name=vehicle-plate]').val());
+                        var datas = new Array(), ids = new Array();
+                        $('#item-list > tr').each(function(){
+                            ids.push($(this).data('id'));
+                        });
+
+                        $('.form-control').each(function(){
+                            datas.push($(this).val());
+                        });
+                        // datas.push($('input[name=receiver-name]').val());
+                        // datas.push($('input[name=receiver-mobile]').val());
+                        // datas.push($('textarea[name=receiver-address]').val());
+                        // datas.push($('input[name=driver-name]').val());
+                        // datas.push($('input[name=driver-mobile]').val());
+                        // datas.push($('input[name=vehicle-type]').val());
+                        // datas.push($('input[name=vehicle-plate]').val());
+                        // datas.push($('input[name=reference]').val());
+                        // datas.push($('input[name=url]').val());
+                        datas.push(ids);
                         // datas.push($('input[name=]').val());
 
                         console.log(datas);
-                        console.log(inv);
 
-                        {{--$.post('{!! route('trace-store') !!}', {--}}
-                        {{--    datas: datas,--}}
-                        {{--    inv : inv--}}
-                        {{--}, function(data){--}}
-
-                        {{--});--}}
+                        $.post('{!! route('trace-store') !!}', {
+                            _token: '{!! csrf_token() !!}',
+                            datas: datas
+                        }, function(data){
+                            window.location.replace('{!! route('trace.index') !!}');
+                        });
 
                         break;
                     case 'add-item':
-                        addItem();
+                        getItem();
+                        break;
+                    case 'list-item':
+                        var ids = $('.modal-item:checked').map(function(){
+                            return $(this).val();
+                        }).toArray();
+                        // console.log(ids);
+                        var products = new Array();
+                        $.get('{!! route('farmer-inventory-list-item') !!}', {
+                            ids: ids
+                        }, function(data){
+                            // console.log(data);
+                            if(data.length > 0){
+                                for(var a = 0; a < data.length; a++){
+                                    products.push('' +
+                                        '<tr data-id="'+ data[a].id +'">' +
+                                            '<td>'+ data[a].name +'</td>' +
+                                            '<td>'+ data[a].details +'</td>' +
+                                            '<td class="text-right">'+ data[a].farmer.profile.first_name +' '+ data[a].farmer.profile.last_name +'</td>' +
+                                            '<td class="text-right">' +
+                                                '<div class="btn-group text-right">' +
+                                                    '<button class="btn btn-white btn-xs btn-action" data-action="remove-item"><i class="fa fa-times text-danger"></i></button>' +
+                                                '</div>' +
+                                            '</td>' +
+                                        '</tr>' +
+                                    '');
+                                }
+                            }
+                            $('#item-list').append(products.join(''));
+                        });
+                        modal.modal('toggle');
+                        break;
+                    case 'remove-item':
+                        $(this).closest('tr').remove();
                         break;
                 }
             });
@@ -205,10 +278,63 @@
 
             {{--table.ajax.reload();--}}
 
-            function addItem() {
+            function getItem() {
                 modal.find('.modal-title').text('Farmer Inventory');
                 modal.find('#modal-size').removeClass().addClass('modal-dialog modal-lg');
-                $.get('');
+                var products = new Array(), ids = new Array();
+                ids.push(0);
+
+                $('#item-list > tr').each(function(){
+                    ids.push($(this).data('id'));
+                });
+
+                console.log(ids);
+
+                $.get('{!! route('farmer-inventory-list') !!}', {
+                    ids: ids
+                }, function(data){
+                    // console.log(data);
+                    if(data.length > 0){
+                        for(var a = 0; a < data.length; a++){
+                            products.push('' +
+                                '<tr>' +
+                                '<td>' +
+                                '<div class="i-checks">' +
+                                '<label>' +
+                                '<input type="checkbox" name="" class="modal-item" value="'+ data[a].id +'">' +
+                                '<i></i> ' + data[a].name +
+                                '</label>' +
+                                '</div>' +
+                                '</td>' +
+                                '<td>'+ data[a].details +'</td>' +
+                                '<td class="text-right">'+ data[a].farmer.profile.first_name +' '+ data[a].farmer.profile.last_name +'</td>' +
+                                '</tr>' +
+                            '');
+                        }
+                    }
+
+                    modal.find('.modal-body').empty().append('' +
+                        '<div class="table-responsive">' +
+                            '<table class="table table-striped">' +
+                                '<thead>' +
+                                '<tr>' +
+                                    '<th>Product</th>' +
+                                    '<th>Details</th>' +
+                                    '<th class="text-right">Farmer</th>' +
+                                '</tr>' +
+                                '</thead>' +
+                                '<tbody>'+ products.join('') +'</tbody>' +
+                            '</table>' +
+                        '</div>' +
+                    '');
+
+                    $('.i-checks').iCheck({
+                        checkboxClass: 'icheckbox_square-green',
+                        radioClass: 'iradio_square-green',
+                    });
+
+                });
+
                 modal.modal({backdrop: 'static', keyboard: false});
             }
 

@@ -6,7 +6,9 @@ use App\Farmer;
 use App\MasterFarmer;
 use App\Profile;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FarmerController extends Controller
 {
@@ -18,6 +20,7 @@ class FarmerController extends Controller
     public function index()
     {
         $datas = Farmer::with(array('master', 'profile'))->get();
+//        return $datas;
         return response()->view('user.farmer.index', compact('datas'));
     }
 
@@ -40,26 +43,33 @@ class FarmerController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
-        $user->name = $request->input('first-name').' '.$request->input('last-name');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
-        $user->passkey = $request->input('password');
-        $user->active = 1;
-        if($user->save()) {
-            $user->assignRole(stringSlug('farmer'));
-            $profile = new Profile();
-            $profile->user_id = $user->id;
-            $profile->first_name = $request->input('first-name');
-            $profile->middle_name = $request->input('middle-name');
-            $profile->last_name = $request->input('last-name');
-            if($profile->save()){
-                $masterFarmer = new Farmer();
-                $masterFarmer->master_id = $request->input('master-id');
-                $masterFarmer->profile_id = $profile->id;
-                if($masterFarmer->save()){
-                    return response()->view('user.farmer.index');
-                }
+        $profile = new Profile();
+        $profile->first_name = $request->input('first_name');
+        $profile->middle_name = $request->input('middle_name');
+        $profile->last_name = $request->input('last_name');
+        $profile->mobile = $request->input('mobile');
+        $profile->address = $request->input('address');
+        $profile->education = $request->input('education');
+
+        $profile->four_ps = $request->input('four_ps', 0);
+        $profile->pwd = $request->input('pwd', 0);
+        $profile->indigenous = $request->input('indigenous', 0);
+        $profile->livelihood = $request->input('livelihood', 0);
+
+//        $profile->four_ps = ($request->input('four_ps') === 1) ? 1 : 0;
+//        $profile->pwd = ($request->input('pwd') === 1) ? 1 : 0;
+//        $profile->indigenous = ($request->input('indigenous') === 1) ? 1 : 0;
+//        $profile->livelihood = ($request->input('livelihood') === 1) ? 1 : 0;
+
+        $profile->farm_lot = $request->input('farm_lot');
+        $profile->farming_since = $request->input('farming_since');
+        $profile->organization = $request->input('organization');
+        if($profile->save()){
+            $farmer = new Farmer();
+            $farmer->master_id = Auth::user()->master->id;
+            $farmer->profile_id = $profile->id;
+            if($farmer->save()){
+                return redirect()->route('farmer.index');
             }
         }
 
