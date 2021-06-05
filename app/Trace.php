@@ -20,7 +20,7 @@ class Trace extends Model
 
     public function getTraceAttribute()
     {
-        $data = $this->morphMany(ModelInfo::class, 'model')->where('type', 'status')->first();
+        $data = $this->morphMany(ModelInfo::class, 'model')->where('type', 'status')->orderBy('id', 'desc')->first();
         return $data->value_0;
     }
 

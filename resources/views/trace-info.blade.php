@@ -49,19 +49,25 @@
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="row">
-
+                            @if(($data->trace == 'Delivered') || ($data->trace == 'Returned'))
+                                <div class="col-sm-12">
+                                    <div class="text-center">
+                                        <h2>Completed</h2>
+                                    </div>
+                                </div>
+                            @else
                                 @switch($data->trace)
                                     @case('Arrive')
                                     <div class="col-sm-6">
-                                        <button class="btn btn-block btn-success btn-action" data-action="Delivered">Delivered: {{ $data->trace }}</button>
+                                        <button class="btn btn-block btn-success btn-action" data-id="{{ $data->id }}" data-action="Delivered">Delivered: {{ $data->trace }}</button>
                                     </div>
                                     <div class="col-sm-6">
-                                        <button class="btn btn-block btn-success btn-action" data-action="Returned">Returned: {{ $data->trace }}</button>
+                                        <button class="btn btn-block btn-danger btn-action" data-id="{{ $data->id }}" data-action="Returned">Undeliverable: {{ $data->trace }}</button>
                                     </div>
                                     @break
                                     @default
                                     <div class="col-sm-12">
-                                        <button class="btn btn-block btn-success btn-action" data-action="{{ $data->trace }}">
+                                        <button class="btn btn-block btn-success btn-action" data-id="{{ $data->id }}" data-action="{{ $data->trace }}">
                                             @switch($data->trace)
                                                 @case('Loaded')
                                                 Depart: {{ $data->trace }}
@@ -75,6 +81,8 @@
                                         </button>
                                     </div>
                                 @endswitch
+                            @endif
+
 
 
                         </div>
@@ -121,19 +129,21 @@
                     case 'Loaded':
                         action = 'Depart';
                         break;
-                    case '':
+                    case 'Transit':
+                        action = 'Transit';
                         break;
-                    case '':
+                    case 'Arrive':
+                        action = 'Arrive';
                         break;
-                    case '':
+                    case 'Delivered':
+                        action = 'Delivered';
                         break;
-                    case '':
+                    case 'Undeliverable':
+                        action = 'Undeliverable';
                         break;
-                    case '':
-                        break;
-
                 }
                 $.get('{!! route('trace-update-status') !!}', {
+                    id: $(this).data('id'),
                     action: action
                 }, function(){
                     location.reload();

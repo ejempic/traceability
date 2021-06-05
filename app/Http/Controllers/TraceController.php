@@ -154,5 +154,32 @@ class TraceController extends Controller
     public function traceUpdate(Request $request)
     {
         $action = $request->input('action');
+        $trace = Trace::find($request->input('id'));
+        $modelInfo = new ModelInfo();
+        $modelInfo->type = 'status';
+        switch ($action){
+            case 'Depart':
+                $modelInfo->value_0 = 'Transit';
+                $modelInfo->value_1 = 'On Transit';
+                break;
+            case 'Transit':
+                $modelInfo->value_0 = 'Arrive';
+                $modelInfo->value_1 = 'Arrived at destination';
+                break;
+            case 'Arrive':
+                $modelInfo->value_0 = 'Loaded';
+                $modelInfo->value_1 = 'Waiting to travel';
+                break;
+            case 'Delivered':
+                $modelInfo->value_0 = $action;
+                $modelInfo->value_1 = 'Delivered to Client';
+                break;
+            case 'Undeliverable':
+                $modelInfo->value_0 = $action;
+                $modelInfo->value_1 = 'Undeliverable';
+                break;
+        }
+
+        $trace->info()->save($modelInfo);
     }
 }
