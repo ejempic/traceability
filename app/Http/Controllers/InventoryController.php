@@ -75,7 +75,8 @@ class InventoryController extends Controller
      */
     public function show(Inventory $inventory)
     {
-        //
+        $inventory = Inventory::find($inventory->id);
+        return view('user.inventory.show', compact('inventory'));
     }
 
     /**

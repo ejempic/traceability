@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Farmer;
+use App\Inventory;
 use App\MasterFarmer;
+use App\Product;
 use App\Profile;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -56,11 +58,6 @@ class FarmerController extends Controller
         $profile->indigenous = $request->input('indigenous', 0);
         $profile->livelihood = $request->input('livelihood', 0);
 
-//        $profile->four_ps = ($request->input('four_ps') === 1) ? 1 : 0;
-//        $profile->pwd = ($request->input('pwd') === 1) ? 1 : 0;
-//        $profile->indigenous = ($request->input('indigenous') === 1) ? 1 : 0;
-//        $profile->livelihood = ($request->input('livelihood') === 1) ? 1 : 0;
-
         $profile->farm_lot = $request->input('farm_lot');
         $profile->farming_since = $request->input('farming_since');
         $profile->organization = $request->input('organization');
@@ -84,7 +81,26 @@ class FarmerController extends Controller
      */
     public function show(Farmer $farmer)
     {
-        //
+        $data = Farmer::with('profile', 'inventory')->find($farmer->id);
+//        return $data;
+        $group = array();
+        if($data->profile->four_ps == 1){
+            array_push($group,'4Ps');
+        }
+        if($data->profile->pwd == 1){
+            array_push($group,'PWD');
+        }
+        if($data->profile->indigenous == 1){
+            array_push($group,'Indigenous');
+        }
+        if($data->profile->livelihood == 1){
+            array_push($group,'Livelihood');
+        }
+
+        $inventories = Inventory::where('farmer_id', $farmer->id)->get();
+
+//        return $group;
+        return view('user.farmer.show', compact('data', 'group', 'inventories'));
     }
 
     /**
@@ -95,7 +111,7 @@ class FarmerController extends Controller
      */
     public function edit(Farmer $farmer)
     {
-        //
+        return view('user.farmer.edit', compact('farmer'));
     }
 
     /**
@@ -107,7 +123,29 @@ class FarmerController extends Controller
      */
     public function update(Request $request, Farmer $farmer)
     {
-        //
+        $farmer = Farmer::find($farmer->id);
+
+        $profile = Profile::find($farmer->profile_id);
+        $profile->first_name = $request->input('first_name');
+        $profile->middle_name = $request->input('middle_name');
+        $profile->last_name = $request->input('last_name');
+        $profile->mobile = $request->input('mobile');
+        $profile->address = $request->input('address');
+        $profile->education = $request->input('education');
+
+        $profile->four_ps = $request->input('four_ps', 0);
+        $profile->pwd = $request->input('pwd', 0);
+        $profile->indigenous = $request->input('indigenous', 0);
+        $profile->livelihood = $request->input('livelihood', 0);
+
+        $profile->farm_lot = $request->input('farm_lot');
+        $profile->farming_since = $request->input('farming_since');
+        $profile->organization = $request->input('organization');
+        if($profile->save()){
+            return redirect()->route('farmer.show', array('farmer'=>$farmer->id));
+        }
+
+        return redirect()->back();
     }
 
     /**

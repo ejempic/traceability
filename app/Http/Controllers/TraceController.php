@@ -60,7 +60,10 @@ class TraceController extends Controller
      */
     public function show(Trace $trace)
     {
-        //
+        $trace = Trace::find($trace->id);
+        $inventory = Inventory::with('farmer')->where('trace_id', $trace->id)->get();
+//        return $trace;
+        return view('user.trace.show', compact('trace', 'inventory'));
     }
 
     /**

@@ -16,4 +16,9 @@ class Farmer extends Model
         return $this->belongsTo(Profile::class, 'profile_id');
     }
 
+    public function inventory()
+    {
+        return $this->hasMany(Inventory::class, 'farmer_id');
+    }
+
 }

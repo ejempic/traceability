@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', 'Master Farmer Info')
+@section('title', 'Farmer Info')
 
 @section('content')
 
@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <button type="button" class="btn btn-primary btn-action" data-action="store">Store</button>
+                <a href="{{ route('farmer.edit', array('farmer'=>$data)) }}" class="btn btn-primary">Edit</a>
             </div>
         </div>
     </div>
@@ -26,19 +26,113 @@
     <div id="app" class="wrapper wrapper-content">
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Information</h5>
-                    </div>
                     <div class="ibox-content">
-
-                        <h2>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</h2>
-
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $data->profile->first_name }} {{ $data->profile->last_name }}</h3>
+                                    <small class="text-success">Name</small>
+                                </div>
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $data->profile->mobile }}</h3>
+                                    <small class="text-success">Mobile</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $data->profile->address }}</h3>
+                                    <small class="text-success">Address</small>
+                                </div>
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $data->profile->education }}</h3>
+                                    <small class="text-success">Education</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ join(', ',$group) }}</h3>
+                                    <small class="text-success">Membership / Group</small>
+                                </div>
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $data->profile->organization }}</h3>
+                                    <small class="text-success">Organization</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $data->profile->farm_lot }}</h3>
+                                    <small class="text-success">Farm Lot</small>
+                                </div>
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $data->profile->farming_since }}</h3>
+                                    <small class="text-success">Farming Since</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Inventory <small>list</small></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
+                                </div>
+                            </div>
+                        </div>
+                        <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Details</th>
+                                <th>Status</th>
+                                <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($inventories as $data)
+                                <tr>
+                                    <td>{{ $data->name }}</td>
+                                    <td>{{ $data->details }}</td>
+                                    <td>{{ $data->status }}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group text-right">
+                                            <a href="" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="4">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -65,12 +159,14 @@
 
 
 @section('styles')
+    {!! Html::style('css/template/plugins/footable/footable.core.css') !!}
     {{--{!! Html::style('') !!}--}}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
 @endsection
 
 @section('scripts')
+    {!! Html::script('js/template/plugins/footable/footable.all.min.js') !!}
     {{--    {!! Html::script('') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
@@ -78,6 +174,7 @@
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
         $(document).ready(function(){
+            $('.footable').footable();
             {{--var modal = $('#modal');--}}
             {{--$(document).on('click', '', function(){--}}
             {{--    modal.modal({backdrop: 'static', keyboard: false});--}}
