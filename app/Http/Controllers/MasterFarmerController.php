@@ -49,15 +49,15 @@ class MasterFarmerController extends Controller
         if($user->save()) {
             $user->assignRole(stringSlug('master-farmer'));
             $profile = new Profile();
-            $profile->user_id = $user->id;
             $profile->first_name = $request->input('first-name');
             $profile->middle_name = $request->input('middle-name');
             $profile->last_name = $request->input('last-name');
             if($profile->save()){
                 $masterFarmer = new MasterFarmer();
+                $masterFarmer->user_id = $profile->id;
                 $masterFarmer->profile_id = $profile->id;
                 if($masterFarmer->save()){
-                    return response()->view('user.master-farmer.index');
+                    return redirect()->route('master-farmer.index');
                 }
             }
         }

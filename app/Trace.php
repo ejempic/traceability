@@ -10,7 +10,8 @@ class Trace extends Model
         'trace',
         'status',
         'receiver',
-        'dispatch'
+        'dispatch',
+        'timeline'
     ];
 
     public function info()
@@ -22,6 +23,11 @@ class Trace extends Model
     {
         $data = $this->morphMany(ModelInfo::class, 'model')->where('type', 'status')->orderBy('id', 'desc')->first();
         return $data->value_0;
+    }
+
+    public function getTimelineAttribute()
+    {
+        return $this->morphMany(ModelInfo::class, 'model')->where('type', 'status')->orderBy('id', 'desc')->get();
     }
 
     public function getStatusAttribute()

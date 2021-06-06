@@ -18,7 +18,9 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a href="{{ route('farmer.edit', array('farmer'=>$data)) }}" class="btn btn-primary">Edit</a>
+                @if(auth()->user()->hasRole('master-farmer'))
+                    <a href="{{ route('farmer.edit', array('farmer'=>$data)) }}" class="btn btn-primary">Edit</a>
+                @endif
             </div>
         </div>
     </div>

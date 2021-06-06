@@ -18,7 +18,9 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a href="{!! route('farmer.create') !!}" class="btn btn-primary">Create</a>
+                @if(auth()->user()->hasRole('master-farmer'))
+                    <a href="{!! route('farmer.create') !!}" class="btn btn-primary">Create</a>
+                @endif
             </div>
         </div>
     </div>

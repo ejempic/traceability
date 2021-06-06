@@ -77,10 +77,8 @@ class UserSeeder extends Seeder
         $user->passkey = 'agrabah';
         $user->active = 1;
         if($user->save()) {
-
             $user->assignRole(stringSlug('Super Admin'));
             $user->markEmailAsVerified();
-
         }
 
         $user = new User();
@@ -90,15 +88,17 @@ class UserSeeder extends Seeder
         $user->passkey = 'agrabah';
         $user->active = 1;
         if($user->save()) {
-
-            $master = new MasterFarmer();
-            $master->user_id = $user->id;
-            $master->save();
-
+            $profile = new Profile();
+            $profile->first_name = 'Master';
+            $profile->last_name = 'Farmer';
+            if($profile->save()){
+                $master = new MasterFarmer();
+                $master->user_id = $user->id;
+                $master->profile_id = $profile->id;
+                $master->save();
+            }
             $user->assignRole(stringSlug('Master Farmer'));
             $user->markEmailAsVerified();
-
         }
-
     }
 }

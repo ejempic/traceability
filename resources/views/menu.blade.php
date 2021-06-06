@@ -1,5 +1,5 @@
-<li class="{{ (request()->is('/')) ? 'active' : '' }}">
-    <a href="/"><i class="fa fa-tachometer"></i> <span class="nav-label">Dashboard</span></a>
+<li class="{{ (request()->is('home')) ? 'active' : '' }}">
+    <a href="/home"><i class="fa fa-tachometer"></i> <span class="nav-label">Dashboard</span></a>
 </li>
 
 {{--<li class="">--}}
@@ -52,13 +52,6 @@
 
 
 @if(auth()->user()->hasRole('super-admin'))
-    <li class="{{ (request()->is('farmer*')) ? 'active' : '' }}">
-        <a href="#"><i class="fa fa-user-circle"></i> <span class="nav-label">Farmer</span><span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level collapse">
-            <li class="{{ (request()->is('farmer')) ? 'active' : '' }}"><a href="{!! route('farmer.index') !!}">List</a></li>
-            <li class="{{ (request()->is('farmer/create')) ? 'active' : '' }}"><a href="{!! route('farmer.create') !!}">Create</a></li>
-        </ul>
-    </li>
 
     <li class="{{ (request()->is('master-farmer*')) ? 'active' : '' }}">
         <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Master Farmer</span><span class="fa arrow"></span></a>
@@ -68,28 +61,16 @@
         </ul>
     </li>
 
-    <li class="{{ (request()->is('product*')) ? 'active' : '' }}">
-        <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Products</span><span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level collapse">
-            <li class="{{ (request()->is('product')) ? 'active' : '' }}"><a href="{!! route('product.index') !!}">List</a></li>
-            <li class="{{ (request()->is('product/create')) ? 'active' : '' }}"><a href="{!! route('product.create') !!}">Create</a></li>
-        </ul>
+    <li class="{{ (request()->is('farmer*')) ? 'active' : '' }}">
+        <a href="{!! route('farmer.index') !!}"><i class="fa fa-user-circle"></i> <span class="nav-label">Farmer</span></a>
     </li>
 
     <li class="{{ (request()->is('inventory*')) ? 'active' : '' }}">
-        <a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">Inventory</span><span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level collapse">
-            <li class="{{ (request()->is('inventory')) ? 'active' : '' }}"><a href="{!! route('inventory.index') !!}">List</a></li>
-            <li class="{{ (request()->is('inventory/create')) ? 'active' : '' }}"><a href="{!! route('inventory.create') !!}">Create</a></li>
-        </ul>
+        <a href="{!! route('inventory.index') !!}"><i class="fa fa-list-alt"></i> <span class="nav-label">Inventory</span></a>
     </li>
 
     <li class="{{ (request()->is('trace*')) ? 'active' : '' }}">
-        <a href="#"><i class="fa fa-truck"></i> <span class="nav-label">Trace</span><span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level collapse">
-            <li class="{{ (request()->is('trace')) ? 'active' : '' }}"><a href="{!! route('trace.index') !!}">List</a></li>
-            <li class="{{ (request()->is('trace/create')) ? 'active' : '' }}"><a href="{!! route('trace.create') !!}">Create</a></li>
-        </ul>
+        <a href="{!! route('trace.index') !!}"><i class="fa fa-truck"></i> <span class="nav-label">Trace</span></a>
     </li>
 
 {{--    <li class="">--}}

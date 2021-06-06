@@ -21,7 +21,14 @@ class FarmerController extends Controller
      */
     public function index()
     {
-        $datas = Farmer::with(array('master', 'profile'))->get();
+        if(auth()->user()->hasRole('super-admin')){
+            $datas = Farmer::with(array('master', 'profile'))->get();
+        }else{
+            $datas = Farmer::with(array('master', 'profile'))
+                ->where('master_id', Auth::user()->master->id)
+                ->get();
+        }
+
 //        return $datas;
         return response()->view('user.farmer.index', compact('datas'));
     }

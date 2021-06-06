@@ -39,10 +39,10 @@
                                 <div>
                                     <h3>Dispatch:</h3>
                                     <span><i class="fa fa-user"></i> <strong>{{ $data->dispatch->value_0 }}</strong></span><br>
-                                    <span><i class="fa fa-mobile"></i> {{ $data->receiver->value_1 }}</span><br><br>
+                                    <span><i class="fa fa-mobile"></i> {{ $data->dispatch->value_1 }}</span><br><br>
                                     <dl>
-                                        <dd>Type: {{ $data->receiver->value_1 }}</dd>
-                                        <dd>Plate: {{ $data->receiver->value_1 }}</dd>
+                                        <dd>Type: {{ $data->dispatch->value_2 }}</dd>
+                                        <dd>Plate: {{ $data->dispatch->value_3 }}</dd>
                                     </dl>
                                 </div>
                             </div>
@@ -59,10 +59,10 @@
                                 @switch($data->trace)
                                     @case('Arrive')
                                     <div class="col-sm-6">
-                                        <button class="btn btn-block btn-success btn-action" data-id="{{ $data->id }}" data-action="Delivered">Delivered: {{ $data->trace }}</button>
+                                        <button class="btn btn-block btn-success btn-action" data-id="{{ $data->id }}" data-action="Delivered">Delivered</button>
                                     </div>
                                     <div class="col-sm-6">
-                                        <button class="btn btn-block btn-danger btn-action" data-id="{{ $data->id }}" data-action="Returned">Undeliverable: {{ $data->trace }}</button>
+                                        <button class="btn btn-block btn-danger btn-action" data-id="{{ $data->id }}" data-action="Returned">Undeliverable</button>
                                     </div>
                                     @break
                                     @default
@@ -70,11 +70,11 @@
                                         <button class="btn btn-block btn-success btn-action" data-id="{{ $data->id }}" data-action="{{ $data->trace }}">
                                             @switch($data->trace)
                                                 @case('Loaded')
-                                                Depart: {{ $data->trace }}
+                                                Depart
                                                 @break
 
                                                 @case('Transit')
-                                                Arrive: {{ $data->trace }}
+                                                Arrive
                                                 @break
                                             @endswitch
 

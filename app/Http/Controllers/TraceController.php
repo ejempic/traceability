@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Farmer;
 use App\Inventory;
 use App\Trace;
 use App\ModelInfo;
@@ -19,7 +20,11 @@ class TraceController extends Controller
      */
     public function index()
     {
-        $datas = Trace::get();
+        if(auth()->user()->hasRole('super-admin')){
+            $datas = Trace::get();
+        }else{
+            $datas = Trace::where('user_id', Auth::user()->id)->get();
+        }
 //        return $datas;
         return response()->view('user.trace.index', compact('datas'));
     }

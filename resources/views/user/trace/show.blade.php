@@ -27,110 +27,141 @@
     <div id="app" class="wrapper wrapper-content">
 
         <div class="row">
-            <div class="col-sm-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h5>Receiver <small>info</small></h5>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h5>Receiver <small>info</small></h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $trace->receiver->value_0 }}</h3>
+                                    <small class="text-success">Name</small>
+                                </div>
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $trace->receiver->value_1 }}</h3>
+                                    <small class="text-success">Mobile</small>
+                                </div>
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $trace->receiver->text_0 }}</h3>
+                                    <small class="text-success">Address</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="mb-2">
-                            <h3 class="mb-0">{{ $trace->receiver->value_0 }}</h3>
-                            <small class="text-success">Name</small>
+
+                    <div class="col-sm-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h5>Dispatch <small>info</small></h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $trace->dispatch->value_0 }}</h3>
+                                    <small class="text-success">Driver Name</small>
+                                </div>
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $trace->dispatch->value_1 }}</h3>
+                                    <small class="text-success">Mobile no.</small>
+                                </div>
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $trace->dispatch->value_2 }}</h3>
+                                    <small class="text-success">Vehicle Type</small>
+                                </div>
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $trace->dispatch->value_3 }}</h3>
+                                    <small class="text-success">Plate No.</small>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="mb-2">
-                            <h3 class="mb-0">{{ $trace->receiver->value_1 }}</h3>
-                            <small class="text-success">Mobile</small>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h5>Reference <small>details</small></h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $trace->reference }}</h3>
+                                    <small class="text-success">Reference</small>
+                                </div>
+                                <div class="visible-print text-center">
+                                    {!! QrCode::size(150)->generate($trace->url); !!} <br><br>
+                                    <strong class="text-success">URL</strong>
+                                    <p> {{ $trace->url }}</p>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="mb-2">
-                            <h3 class="mb-0">{{ $trace->receiver->text_0 }}</h3>
-                            <small class="text-success">Address</small>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h5>Inventory <small>Info</small></h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Detail</th>
+                                            <th class="text-right">Farmer</th>
+                                            <th class="text-right">Status</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="item-list">
+                                        @foreach($inventory as $data)
+                                            <tr>
+                                                <td>{{ $data->name }}</td>
+                                                <td>{{ $data->details }}</td>
+                                                <td class="text-right">{{ $data->farmer->profile->first_name }} {{ $data->farmer->profile->last_name }}</td>
+                                                <td class="text-right">{{ $data->status }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="col-sm-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h5>Dispatch <small>info</small></h5>
+                        <h5>Timeline <small>info</small></h5>
                     </div>
-                    <div class="panel-body">
-                        <div class="mb-2">
-                            <h3 class="mb-0">{{ $trace->dispatch->value_0 }}</h3>
-                            <small class="text-success">Driver Name</small>
-                        </div>
-                        <div class="mb-2">
-                            <h3 class="mb-0">{{ $trace->dispatch->value_1 }}</h3>
-                            <small class="text-success">Mobile no.</small>
-                        </div>
-                        <div class="mb-2">
-                            <h3 class="mb-0">{{ $trace->dispatch->value_2 }}</h3>
-                            <small class="text-success">Vehicle Type</small>
-                        </div>
-                        <div class="mb-2">
-                            <h3 class="mb-0">{{ $trace->dispatch->value_3 }}</h3>
-                            <small class="text-success">Plate No.</small>
-                        </div>
-
+                    <div class="panel-body inspinia-timeline">
+                        @foreach($trace->timeline as $timeline)
+                            <div class="timeline-item">
+                                <div class="row">
+                                    <div class="col-3 date">
+{{--                                        <i class="fa fa-file-text"></i>--}}
+                                        {{ \Carbon\Carbon::parse($timeline->created_at)->toFormattedDateString() }}
+                                        <br/>
+                                        <small class="text-navy">{{ \Carbon\Carbon::parse($timeline->created_at)->diffForHumans(\Carbon\Carbon::now()) }}</small>
+                                    </div>
+                                    <div class="col-7 content">
+                                        <p class="m-b-xs"><strong>{{ $timeline->value_0 }}</strong></p>
+                                        <p>{{ $timeline->value_1 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h5>Reference <small>details</small></h5>
-                    </div>
-                    <div class="panel-body">
-                        <div class="mb-2">
-                            <h3 class="mb-0">{{ $trace->reference }}</h3>
-                            <small class="text-success">Reference</small>
-                        </div>
-                        <div class="visible-print text-center">
-                            {!! QrCode::size(200)->generate($trace->url); !!} <br><br>
-                            <strong class="text-success">URL</strong>
-                            <p> {{ $trace->url }}</p>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h5>Inventory <small>Info</small></h5>
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Detail</th>
-                                    <th class="text-right">Farmer</th>
-                                    <th class="text-right">Status</th>
-                                </tr>
-                                </thead>
-                                <tbody id="item-list">
-                                @foreach($inventory as $data)
-                                    <tr>
-                                        <td>{{ $data->name }}</td>
-                                        <td>{{ $data->details }}</td>
-                                        <td class="text-right">{{ $data->farmer->profile->first_name }} {{ $data->farmer->profile->last_name }}</td>
-                                        <td class="text-right">{{ $data->status }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
 
-                </div>
-            </div>
-        </div>
 
     </div>
     {{--    </form>--}}
