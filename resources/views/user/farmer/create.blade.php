@@ -37,6 +37,10 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
+                                <label>Account ID</label>
+                                {{ Form::text('account_id', $number, array('class'=>'form-control', 'readonly')) }}
+                            </div>
+                            <div class="form-group">
                                 <label>First name</label>
                                 {{ Form::text('first_name', null, array('class'=>'form-control')) }}
                             </div>

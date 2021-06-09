@@ -40,8 +40,9 @@ class FarmerController extends Controller
      */
     public function create()
     {
-        $datas = MasterFarmer::with('profile')->get();
-        return response()->view('user.farmer.create', compact('datas'));
+        $number = str_pad(Farmer::count() + 1, 6, 0, STR_PAD_LEFT);
+        $number = Auth::user()->master->account_id.'-'.$number;
+        return response()->view('user.farmer.create', compact( 'number'));
     }
 
     /**
@@ -69,7 +70,10 @@ class FarmerController extends Controller
         $profile->farming_since = $request->input('farming_since');
         $profile->organization = $request->input('organization');
         if($profile->save()){
+            $number = str_pad(MasterFarmer::count() + 1, 10, 0, STR_PAD_LEFT);
+            $number = Auth::user()->master->account_id.'-'.$number;
             $farmer = new Farmer();
+            $farmer->account_id = $number;
             $farmer->master_id = Auth::user()->master->id;
             $farmer->profile_id = $profile->id;
             if($farmer->save()){

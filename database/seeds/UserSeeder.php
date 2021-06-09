@@ -81,26 +81,27 @@ class UserSeeder extends Seeder
             $user->markEmailAsVerified();
         }
 
-        $user = new User();
-        $user->name = 'Master Farmer';
-        $user->email = 'masterfarmer@gmail.com';
-        $user->password = bcrypt('agrabah');
-        $user->passkey = 'agrabah';
-        $user->active = 1;
-        if($user->save()) {
-            $profile = new Profile();
-            $profile->first_name = 'Master';
-            $profile->last_name = 'Farmer';
-            if($profile->save()){
-                $number = str_pad(MasterFarmer::count() + 1, 5, 0, STR_PAD_LEFT);
-                $master = new MasterFarmer();
-                $master->account_id = $user->id;
-                $master->user_id = $user->id;
-                $master->profile_id = $profile->id;
-                $master->save();
-            }
-            $user->assignRole(stringSlug('Master Farmer'));
-            $user->markEmailAsVerified();
-        }
+//        $user = new User();
+//        $user->name = 'Master Farmer';
+//        $user->email = 'masterfarmer@gmail.com';
+//        $user->password = bcrypt('agrabah');
+//        $user->passkey = 'agrabah';
+//        $user->active = 1;
+//        if($user->save()) {
+//            $profile = new Profile();
+//            $profile->first_name = 'Master';
+//            $profile->last_name = 'Farmer';
+//            if($profile->save()){
+//                $number = str_pad(MasterFarmer::count() + 1, 5, 0, STR_PAD_LEFT);
+//                $master = new MasterFarmer();
+//                $master->account_id = $number;
+//                $master->user_id = $user->id;
+//                $master->profile_id = $profile->id;
+//                $master->save();
+//            }
+//            $user->assignRole(stringSlug('Master Farmer'));
+//            $user->markEmailAsVerified();
+//        }
+
     }
 }

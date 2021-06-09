@@ -13,7 +13,7 @@ class Farmer extends Model
 
     public function profile()
     {
-        return $this->belongsTo(Profile::class, 'profile_id');
+        return $this->morphOne(Profile::class, 'model');
     }
 
     public function inventory()
