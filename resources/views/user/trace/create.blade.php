@@ -86,7 +86,7 @@
                             <input type="hidden" name="url" value="{{ $url }}" class="form-control">
                         </div>
                         <div class="visible-print text-center">
-                            {!! QrCode::size(200)->generate($url); !!} <br><br>
+                            {!! QrCode::size(200)->format('svg')->generate($url); !!} <br><br>
                             <strong class="text-success">URL</strong>
                             <p> {{ $url }}</p>
                         </div>

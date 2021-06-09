@@ -53,8 +53,10 @@ class MasterFarmerController extends Controller
             $profile->middle_name = $request->input('middle-name');
             $profile->last_name = $request->input('last-name');
             if($profile->save()){
+                $number = str_pad(MasterFarmer::count() + 1, 5, 0, STR_PAD_LEFT);
                 $masterFarmer = new MasterFarmer();
-                $masterFarmer->user_id = $profile->id;
+                $masterFarmer->account_id = $user->id;
+                $masterFarmer->user_id = $user->id;
                 $masterFarmer->profile_id = $profile->id;
                 if($masterFarmer->save()){
                     return redirect()->route('master-farmer.index');

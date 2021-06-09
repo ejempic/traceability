@@ -92,7 +92,9 @@ class UserSeeder extends Seeder
             $profile->first_name = 'Master';
             $profile->last_name = 'Farmer';
             if($profile->save()){
+                $number = str_pad(MasterFarmer::count() + 1, 5, 0, STR_PAD_LEFT);
                 $master = new MasterFarmer();
+                $master->account_id = $user->id;
                 $master->user_id = $user->id;
                 $master->profile_id = $profile->id;
                 $master->save();
