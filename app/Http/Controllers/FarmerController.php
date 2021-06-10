@@ -22,9 +22,9 @@ class FarmerController extends Controller
     public function index()
     {
         if(auth()->user()->hasRole('super-admin')){
-            $datas = Farmer::with(array('master', 'profile'))->get();
+            $datas = Farmer::with('master')->get();
         }else{
-            $datas = Farmer::with(array('master', 'profile'))
+            $datas = Farmer::with('master')
                 ->where('master_id', Auth::user()->master->id)
                 ->get();
         }
@@ -53,34 +53,30 @@ class FarmerController extends Controller
      */
     public function store(Request $request)
     {
-        $profile = new Profile();
-        $profile->first_name = $request->input('first_name');
-        $profile->middle_name = $request->input('middle_name');
-        $profile->last_name = $request->input('last_name');
-        $profile->mobile = $request->input('mobile');
-        $profile->address = $request->input('address');
-        $profile->education = $request->input('education');
-
-        $profile->four_ps = $request->input('four_ps', 0);
-        $profile->pwd = $request->input('pwd', 0);
-        $profile->indigenous = $request->input('indigenous', 0);
-        $profile->livelihood = $request->input('livelihood', 0);
-
-        $profile->farm_lot = $request->input('farm_lot');
-        $profile->farming_since = $request->input('farming_since');
-        $profile->organization = $request->input('organization');
-        if($profile->save()){
-            $number = str_pad(MasterFarmer::count() + 1, 10, 0, STR_PAD_LEFT);
-            $number = Auth::user()->master->account_id.'-'.$number;
-            $farmer = new Farmer();
-            $farmer->account_id = $number;
-            $farmer->master_id = Auth::user()->master->id;
-            $farmer->profile_id = $profile->id;
-            if($farmer->save()){
+        $number = str_pad(MasterFarmer::count() + 1, 5, 0, STR_PAD_LEFT);
+        $number = Auth::user()->master->account_id.'-'.$number;
+        $farmer = new Farmer();
+        $farmer->account_id = $number;
+        $farmer->master_id = Auth::user()->master->id;
+        if($farmer->save()){
+            $profile = new Profile();
+            $profile->first_name = $request->input('first_name');
+            $profile->middle_name = $request->input('middle_name');
+            $profile->last_name = $request->input('last_name');
+            $profile->mobile = $request->input('mobile');
+            $profile->address = $request->input('address');
+            $profile->education = $request->input('education');
+            $profile->four_ps = $request->input('four_ps', 0);
+            $profile->pwd = $request->input('pwd', 0);
+            $profile->indigenous = $request->input('indigenous', 0);
+            $profile->livelihood = $request->input('livelihood', 0);
+            $profile->farm_lot = $request->input('farm_lot');
+            $profile->farming_since = $request->input('farming_since');
+            $profile->organization = $request->input('organization');
+            if($farmer->profile()->save($profile)){
                 return redirect()->route('farmer.index');
             }
         }
-
         return redirect()->back();
     }
 
@@ -92,7 +88,7 @@ class FarmerController extends Controller
      */
     public function show(Farmer $farmer)
     {
-        $data = Farmer::with('profile', 'inventory')->find($farmer->id);
+        $data = Farmer::with('inventory')->find($farmer->id);
 //        return $data;
         $group = array();
         if($data->profile->four_ps == 1){
@@ -136,7 +132,7 @@ class FarmerController extends Controller
     {
         $farmer = Farmer::find($farmer->id);
 
-        $profile = Profile::find($farmer->profile_id);
+        $profile = Profile::find($farmer->profile->id);
         $profile->first_name = $request->input('first_name');
         $profile->middle_name = $request->input('middle_name');
         $profile->last_name = $request->input('last_name');

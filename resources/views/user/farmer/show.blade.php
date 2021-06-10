@@ -31,12 +31,12 @@
             <div class="col-sm-6">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <div class="mb-2">
-                            <h3 class="mb-0">{{ $data->account_id }}</h3>
-                            <small class="text-success">Name</small>
-                        </div>
                         <div class="row">
                             <div class="col-sm-6">
+                                <div class="mb-2">
+                                    <h3 class="mb-0">{{ $data->account_id }}</h3>
+                                    <small class="text-success">Name</small>
+                                </div>
                                 <div class="mb-2">
                                     <h3 class="mb-0">{{ $data->profile->first_name }} {{ $data->profile->last_name }}</h3>
                                     <small class="text-success">Name</small>

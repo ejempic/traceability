@@ -23,6 +23,7 @@ class MasterFarmerSeeder extends Seeder
             if($master->save()){
                 $profile = new Profile();
                 $profile->first_name = $faker->firstName;
+                $profile->middle_name = $faker->lastName;
                 $profile->last_name = $faker->lastName;
                 if($master->profile()->save($profile)){
                     $user = new User();
