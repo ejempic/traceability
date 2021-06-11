@@ -31,14 +31,13 @@
         </ul>
     </li>
 
-{{--    <li class="{{ (request()->is('product*')) ? 'active' : '' }}">--}}
-{{--        <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Products</span><span class="fa arrow"></span></a>--}}
-{{--        <ul class="nav nav-second-level collapse">--}}
-{{--            <li class="{{ (request()->is('product')) ? 'active' : '' }}"><a href="{!! route('product.index') !!}">List</a></li>--}}
-{{--            <li class="{{ (request()->is('product/create')) ? 'active' : '' }}"><a href="{!! route('product.create') !!}">Create</a></li>--}}
-{{--        </ul>--}}
-{{--    </li>--}}
-
+    <li class="{{ (request()->is('product*')) ? 'active' : '' }}">
+        <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Products</span><span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse">
+            <li class="{{ (request()->is('product')) ? 'active' : '' }}"><a href="{!! route('product.index') !!}">List</a></li>
+            <li class="{{ (request()->is('product/create')) ? 'active' : '' }}"><a href="{!! route('product.create') !!}">Create</a></li>
+        </ul>
+    </li>
 
     <li class="{{ (request()->is('trace*')) ? 'active' : '' }}">
         <a href="#"><i class="fa fa-truck"></i> <span class="nav-label">Trace</span><span class="fa arrow"></span></a>
@@ -63,6 +62,14 @@
 
     <li class="{{ (request()->is('farmer*')) ? 'active' : '' }}">
         <a href="{!! route('farmer.index') !!}"><i class="fa fa-user-circle"></i> <span class="nav-label">Farmer</span></a>
+    </li>
+
+    <li class="{{ (request()->is('product*')) ? 'active' : '' }}">
+        <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Products</span><span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse">
+            <li class="{{ (request()->is('product')) ? 'active' : '' }}"><a href="{!! route('product.index') !!}">List</a></li>
+            <li class="{{ (request()->is('product/create')) ? 'active' : '' }}"><a href="{!! route('product.create') !!}">Create</a></li>
+        </ul>
     </li>
 
     <li class="{{ (request()->is('inventory*')) ? 'active' : '' }}">

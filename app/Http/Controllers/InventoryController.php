@@ -133,4 +133,11 @@ class InventoryController extends Controller
 
         return response()->json($data);
     }
+
+    public function farmerInventoryListing($account)
+    {
+        $data = Farmer::where('account_id', $account)->first();
+
+        return view('inventory-listing', compact('data'));
+    }
 }
