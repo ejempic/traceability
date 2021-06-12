@@ -21,4 +21,9 @@ class Farmer extends Model
         return $this->hasMany(Inventory::class, 'farmer_id');
     }
 
+    public function listing()
+    {
+        return $this->hasMany(Inventory::class, 'farmer_id')->where('status', 'Accepted');
+    }
+
 }

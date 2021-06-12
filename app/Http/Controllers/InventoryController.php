@@ -136,8 +136,37 @@ class InventoryController extends Controller
 
     public function farmerInventoryListing($account)
     {
-        $data = Farmer::where('account_id', $account)->first();
+        $data = Farmer::with('listing')->where('account_id', $account)->first();
 
         return view('inventory-listing', compact('data'));
+    }
+
+    public function inventoryListingStore(Request $request)
+    {
+        $details = $request->input('details');
+        $inventory = new Inventory();
+        $inventory->master_id = $details[0];
+        $inventory->farmer_id = $details[1];
+        $inventory->product_id = $details[2];
+        $inventory->quality = $details[3];
+        $inventory->unit = $details[4];
+        $inventory->quantity = $details[5];
+        $inventory->remark = $details[6];
+        $inventory->status = 'Accepted';
+        if($inventory->save()){
+            $inventory = Inventory::with('product')->find($inventory->id);
+//            $modelInfo = new ModelInfo();
+//            $modelInfo->type = 'status';
+//            $modelInfo->value_0 = 'Loaded';
+//            $modelInfo->value_1 = 'Waiting to travel';
+//            $inventory->info()->save($modelInfo);
+            return response()->json($inventory);
+        }
+
+    }
+
+    public function inventoryListingDelete(Request $request)
+    {
+        Inventory::where('id', $request->input('id'))->delete();
     }
 }

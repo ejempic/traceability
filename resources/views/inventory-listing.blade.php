@@ -44,23 +44,23 @@
                                 <tr>
                                     <th>Product</th>
                                     <th>Quality</th>
-                                    <th style="width: 50px;">Qty</th>
-                                    <th style="width: 50px;">Unit</th>
-                                    <th>Remark</th>
+                                    <th class="text-right" style="width: 100px;">Qty</th>
                                     <th class="text-right" style="width: 50px" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                                 </tr>
                                 </thead>
-                                <tbody id="item-list">
-                                {{--                                <tr>--}}
-                                {{--                                    <td>Product</td>--}}
-                                {{--                                    <td>Detail</td>--}}
-                                {{--                                    <td class="text-right">farmer</td>--}}
-                                {{--                                    <td class="text-right">--}}
-                                {{--                                        <div class="btn-group text-right">--}}
-                                {{--                                            <button class="btn btn-white btn-xs btn-action" data-action="remove-item"><i class="fa fa-times text-danger"></i></button>--}}
-                                {{--                                        </div>--}}
-                                {{--                                    </td>--}}
-                                {{--                                </tr>--}}
+                                <tbody id="inv-list">
+                                @foreach($data->listing as $list)
+                                <tr>
+                                    <td>{{ $list->product->display_name }}</td>
+                                    <td>{{ $list->quality }}</td>
+                                    <td class="text-right">{{ $list->quantity }} {{ $list->unit }}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group text-right">
+                                            <button class="btn btn-white btn-xs btn-action" data-action="remove-item" data-id="{{ $list->id }}"><i class="fa fa-times text-danger"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
                                 </tbody>
                                 <tfoot>
 {{--                                <tr>--}}
@@ -72,11 +72,11 @@
                             </table>
                         </div>
                         <div class="row">
-                            <div class="col"></div>
-                            <div class="col-sm-8">
-                                <button type="button" class="btn btn-success btn-action btn-block" data-action="add-inventory">Add Inventory</button>
+{{--                            <div class="col"></div>--}}
+                            <div class="col">
+                                <button type="button" class="btn btn-success btn-action btn-block p-2" data-action="add-inventory" data-master="{!! $data->master_id !!}" data-farmer="{!! $data->id !!}"><h2><strong>ADD INVENTORY</strong></h2></button>
                             </div>
-                            <div class="col"></div>
+{{--                            <div class="col"></div>--}}
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary btn-action" data-action="insert-list">Insert</button>
+                    <button type="button" class="btn btn-primary btn-action" data-action="store-inventory">Save</button>
                 </div>
             </div>
         </div>
@@ -132,20 +132,22 @@
                                 }
                             }
                         });
+                        modal.data('master', $(this).data('master'));
+                        modal.data('farmer', $(this).data('farmer'));
                         modal.find('.modal-title').text('Inventory Info');
                         modal.find('#modal-size').removeClass().addClass('modal-dialog modal-sm');
-                        modal.find('.modal-body').append('' +
+                        modal.find('.modal-body').empty().append('' +
                             '<div class="form-group">' +
-                                '<label>Products</label>' +
+                                '<label>Products <small class="text-danger">*</small></label>' +
                                 // '<select name="product" class="form-control">' +
-                                '<select class="select2_demo_2 form-control" multiple="multiple">' +
+                                '<select name="product" class="select2_demo_3 form-control">' +
                                     '<option value="">select</option>' +
                                     lists.join('') +
                                 '</select>' +
                             '</div>' +
                             '<div class="form-group">' +
-                                '<label>Quality</label>' +
-                                '<select name="" class="form-control">' +
+                                '<label>Quality <small class="text-danger">*</small></label>' +
+                                '<select name="quality" class="form-control">' +
                                     '<option value="">select</option>' +
                                     '<option value="High">High</option>' +
                                     '<option value="Medium">Medium</option>' +
@@ -154,11 +156,11 @@
                             '</div>' +
                             '<div class="row">' +
                                 '<div class="col form-group">' +
-                                    '<label>Unit</label>' +
+                                    '<label>Unit <small class="text-danger">*</small></label>' +
                                     '<input type="text" name="unit" class="form-control">' +
                                 '</div>' +
                                 '<div class="col form-group">' +
-                                    '<label>Qty</label>' +
+                                    '<label>Qty <small class="text-danger">*</small></label>' +
                                     '<input type="text" name="quantity" class="form-control numonly">' +
                                 '</div>' +
                             '</div>' +
@@ -167,14 +169,55 @@
                                 '<textarea name="remark" class="form-control no-resize"></textarea>' +
                             '</div>' +
                         '');
-                        $(".select2_demo_2").select2({
+                        $(".select2_demo_3").select2({
                             theme: 'bootstrap4',
+                            placeholder: "Select product",
+                            allowClear: true
                         });
                         modal.modal({backdrop: 'static', keyboard: false});
                         break;
-                    case 'insert-list':
-                        break;
                     case 'store-inventory':
+                        var invDetails = new Array();
+                        invDetails.push(modal.data('master'));
+                        invDetails.push(modal.data('farmer'));
+                        invDetails.push(modal.find('select[name=product]').val());
+                        invDetails.push(modal.find('select[name=quality]').val());
+                        invDetails.push(modal.find('input[name=unit]').val());
+                        invDetails.push(modal.find('input[name=quantity]').val());
+                        invDetails.push(modal.find('textarea[name=remark]').val());
+
+                        console.log(invDetails);
+
+                        $.post('{!! route('inv-listing-store') !!}', {
+                            _token: '{!! csrf_token() !!}',
+                            details: invDetails
+                        }, function(data){
+                            console.log(data);
+                            $('#inv-list').append('' +
+                                '<tr>' +
+                                    '<td>'+ data.product.display_name +'</td>' +
+                                    '<td>'+ data.quality +'</td>' +
+                                    '<td class="text-right">'+ data.quantity +' '+ data.unit +'</td>' +
+                                    '<td class="text-right">' +
+                                        '<div class="btn-group text-right">' +
+                                            '<button class="btn btn-white btn-xs btn-action" data-action="remove-item" data-id="'+ data.id +'"><i class="fa fa-times text-danger"></i></button>' +
+                                        '</div>' +
+                                    '</td>' +
+                                '</tr>' +
+                            '');
+                            modal.modal('toggle');
+                        });
+
+                        break;
+                    case 'remove-item':
+                        var tr = $(this).closest('tr');
+                        $.get('{!! route('inv-listing-delete') !!}', {
+                            id: $(this).data('id')
+                        }, function(data){
+                            tr.remove();
+
+                            console.log('deleted');
+                        });
                         break;
                 }
 
