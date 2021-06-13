@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a href="#" class="btn btn-primary">This is action area</a>
+{{--                <a href="#" class="btn btn-primary">This is action area</a>--}}
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
                                     <td>{{ $data->farmer->profile->first_name }} {{ $data->farmer->profile->last_name }}</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
-                                            <a href="" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
+                                            <a href="{{ route('inventory.show', array('inventory'=>$data)) }}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -68,7 +68,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="4">
+                                <td colspan="5">
                                     <ul class="pagination pull-right"></ul>
                                 </td>
                             </tr>

@@ -46,6 +46,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Description</th>
+                                <th>Inventories</th>
                                 <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                             </tr>
                             </thead>
@@ -54,6 +55,7 @@
                                 <tr>
                                     <td>{{ $data->display_name }}</td>
                                     <td>{{ $data->description }}</td>
+                                    <td>0</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
                                             <a href="{!! route('product.show', array('product' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>

@@ -15,8 +15,8 @@ class CreateFarmersTable extends Migration
     {
         Schema::create('farmers', function (Blueprint $table) {
             $table->id();
+            $table->string('account_id')->unique();
             $table->integer('master_id');
-            $table->integer('profile_id')->nullable();
             $table->timestamps();
         });
     }

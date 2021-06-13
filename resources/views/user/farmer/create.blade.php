@@ -37,19 +37,20 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
+                                <label>Account ID</label>
+                                {{ Form::text('account_id', $number, array('class'=>'form-control', 'readonly')) }}
+                            </div>
+                            <div class="form-group">
                                 <label>First name</label>
                                 {{ Form::text('first_name', null, array('class'=>'form-control')) }}
-{{--                                <input type="text" name="first_name" class="form-control">--}}
                             </div>
                             <div class="form-group">
                                 <label>Middle name</label>
                                 {{ Form::text('middle_name', null, array('class'=>'form-control')) }}
-{{--                                <input type="text" name="middle_name" class="form-control">--}}
                             </div>
                             <div class="form-group">
                                 <label>Last name</label>
                                 {{ Form::text('last_name', null, array('class'=>'form-control')) }}
-{{--                                <input type="text" name="last_name" class="form-control">--}}
                             </div>
                         </div>
                     </div>
@@ -67,17 +68,14 @@
                                     <div class="form-group">
                                         <label>Mobile</label>
                                         {{ Form::text('mobile', null, array('class'=>'form-control')) }}
-{{--                                        <input type="text" name="mobile" class="form-control">--}}
                                     </div>
                                     <div class="form-group">
                                         <label>Address</label>
                                         {{ Form::textarea('address', null, array('class'=>'form-control no-resize')) }}
-{{--                                        <textarea name="address" class="form-control no-resize"></textarea>--}}
                                     </div>
                                     <div class="form-group">
                                         <label>Education</label>
                                         {{ Form::textarea('education', null, array('class'=>'form-control no-resize')) }}
-{{--                                        <textarea name="education" class="form-control no-resize"></textarea>--}}
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -87,36 +85,20 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <div class="i-checks">
-                                                    <label>
-                                                        {{ Form::checkbox('four_ps', 1) }}
-{{--                                                        <input type="checkbox" name="four_ps" value="1">--}}
-                                                        <i></i> 4P's
-                                                    </label>
+                                                    <label>{{ Form::checkbox('four_ps', 1) }}<i></i> 4P's</label>
                                                 </div>
                                                 <div class="i-checks">
-                                                    <label>
-                                                        {{ Form::checkbox('pwd', 1) }}
-{{--                                                        <input type="checkbox" name="pwd" value="1">--}}
-                                                        <i></i> PWD
-                                                    </label>
+                                                    <label>{{ Form::checkbox('pwd', 1) }}<i></i> PWD</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <div class="i-checks">
-                                                    <label>
-                                                        {{ Form::checkbox('indigenous', 1) }}
-{{--                                                        <input type="checkbox" name="indigenous" value="1">--}}
-                                                        <i></i> Indigenous
-                                                    </label>
+                                                    <label>{{ Form::checkbox('indigenous', 1) }}<i></i> Indigenous</label>
                                                 </div>
                                                 <div class="i-checks">
-                                                    <label>
-                                                        {{ Form::checkbox('livelihood', 1) }}
-{{--                                                        <input type="checkbox" name="livelihood" value="1">--}}
-                                                        <i></i> Livelihood
-                                                    </label>
+                                                    <label>{{ Form::checkbox('livelihood', 1) }}<i></i> Livelihood</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -127,17 +109,14 @@
                                             <div class="form-group">
                                                 <label>Organization</label>
                                                 {{ Form::text('organization', null, array('class'=>'form-control')) }}
-{{--                                                <input type="text" name="organization" class="form-control">--}}
                                             </div>
                                             <div class="form-group">
                                                 <label>Farm lot</label>
                                                 {{ Form::text('farm_lot', null, array('class'=>'form-control')) }}
-{{--                                                <input type="text" name="farm_lot" class="form-control">--}}
                                             </div>
                                             <div class="form-group">
                                                 <label>Farming since</label>
                                                 {{ Form::text('farming_since', null, array('class'=>'form-control')) }}
-{{--                                                <input type="text" name="farming_since" class="form-control">--}}
                                             </div>
                                         </div>
                                     </div>
@@ -147,31 +126,6 @@
                         </div>
                     </div>
                 </div>
-{{--                <div class="col-sm-4">--}}
-{{--                    <div class="ibox float-e-margins">--}}
-{{--                        <div class="ibox-content">--}}
-{{--                            <div class="form-group">--}}
-{{--                                <label>Master Farmer</label>--}}
-{{--                                <select name="master-id" class="form-control">--}}
-{{--                                    <option value="">Select Master Farmer</option>--}}
-{{--                                    @foreach($datas as $data)--}}
-{{--                                        <option value="{{ $data->id }}">{{ $data->profile->first_name }} {{ $data->profile->last_name }}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                            <div class="form-group">--}}
-{{--                                <label>Email</label>--}}
-{{--                                <input type="email" name="email" class="form-control">--}}
-{{--                            </div>--}}
-{{--                            <div class="form-group">--}}
-{{--                                <label>Password</label>--}}
-{{--                                <input type="password" name="password" class="form-control">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-            </div>
-{{--        </form>--}}
         {{ Form::close() }}
 
     </div>

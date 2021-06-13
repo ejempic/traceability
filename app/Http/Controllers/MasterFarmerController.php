@@ -40,24 +40,27 @@ class MasterFarmerController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
-        $user->name = $request->input('first-name').' '.$request->input('last-name');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
-        $user->passkey = $request->input('password');
-        $user->active = 1;
-        if($user->save()) {
-            $user->assignRole(stringSlug('master-farmer'));
+        $number = str_pad(MasterFarmer::count() + 1, 5, 0, STR_PAD_LEFT);
+        $master = new MasterFarmer();
+        $master->account_id = $number;
+        if($master->save()){
             $profile = new Profile();
-            $profile->user_id = $user->id;
             $profile->first_name = $request->input('first-name');
             $profile->middle_name = $request->input('middle-name');
             $profile->last_name = $request->input('last-name');
-            if($profile->save()){
-                $masterFarmer = new MasterFarmer();
-                $masterFarmer->profile_id = $profile->id;
-                if($masterFarmer->save()){
-                    return response()->view('user.master-farmer.index');
+            if($master->profile()->save($profile)){
+                $user = new User();
+                $user->name = $profile->first_name.' '.$profile->last_name;
+                $user->email = $request->input('email');
+                $user->password = bcrypt($request->input('password'));
+                $user->passkey = $request->input('password');
+                $user->active = 1;
+                if($user->save()) {
+                    $user->assignRole(stringSlug('master-farmer'));
+                    $user->markEmailAsVerified();
+                    $master->user_id = $user->id;
+                    $master->save();
+                    return redirect()->route('master-farmer.index');
                 }
             }
         }

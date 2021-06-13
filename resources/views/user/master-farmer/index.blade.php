@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a href="#" class="btn btn-primary">This is action area</a>
+{{--                <a href="#" class="btn btn-primary">This is action area</a>--}}
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
     <div id="app" class="wrapper wrapper-content">
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-7">
                 <div class="ibox float-e-margins">
 {{--                    <div class="ibox-title">--}}
 {{--                        <h5>Blank <small>page</small></h5>--}}
@@ -34,17 +34,19 @@
                     <div class="ibox-content">
 
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
                                 </div>
                             </div>
                         </div>
 
-                        <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                        <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Email</th>
+                                <th>Farmer</th>
                                 <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                             </tr>
                             </thead>
@@ -52,6 +54,8 @@
                             @foreach($datas as $data)
                                 <tr>
                                     <td>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</td>
+                                    <td>{{ $data->user->email }}</td>
+                                    <td>{{ farmerCount($data->id) }}</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
                                             <a href="{!! route('master-farmer.show', array('master_farmer' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>

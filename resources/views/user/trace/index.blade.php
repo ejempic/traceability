@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a href="#" class="btn btn-primary">This is action area</a>
+{{--                <a href="#" class="btn btn-primary">This is action area</a>--}}
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
                                     <td class="text-right">
                                         <div class="btn-group text-right">
                                             <a href="{{ route('trace.show', array('trace'=>$data)) }}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
-                                            <a href="{{ route('trace-info', array('code'=>$data->reference)) }}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Page</a>
+                                            <a href="{{ route('trace-info', array('code'=>$data->reference)) }}" class="action btn-white btn btn-xs" target="_blank"><i class="fa fa-search text-success"></i> Page</a>
                                         </div>
                                     </td>
                                 </tr>

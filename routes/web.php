@@ -29,10 +29,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('farmer', 'FarmerController');
 
     Route::resource('product', 'ProductController');
+    Route::get('product-list', 'ProductController@productList')->name('product-list');
 
     Route::resource('inventory', 'InventoryController');
     Route::get('farmer-inventory-list', 'InventoryController@farmerInventoryList')->name('farmer-inventory-list');
     Route::get('farmer-inventory-list-item', 'InventoryController@farmerInventoryListItem')->name('farmer-inventory-list-item');
+    Route::get('inv-listing/{account}', 'InventoryController@farmerInventoryListing')->name('inv-listing');
+    Route::post('inv-listing-store', 'InventoryController@inventoryListingStore')->name('inv-listing-store');
+    Route::get('inv-listing-delete', 'InventoryController@inventoryListingDelete')->name('inv-listing-delete');
 
     Route::resource('trace', 'TraceController');
     Route::post('trace-store', 'TraceController@traceStore')->name('trace-store');

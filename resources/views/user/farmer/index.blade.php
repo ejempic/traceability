@@ -18,7 +18,9 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a href="#" class="btn btn-primary">This is action area</a>
+                @if(auth()->user()->hasRole('master-farmer'))
+                    <a href="{!! route('farmer.create') !!}" class="btn btn-primary">Create</a>
+                @endif
             </div>
         </div>
     </div>
@@ -55,6 +57,7 @@
                                     <td class="text-right">
                                         <div class="btn-group text-right">
                                             <a href="{!! route('farmer.show', array('farmer' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
+                                            <a href="{!! route('inv-listing', array('account' => $data->account_id)) !!}" class="action btn-white btn btn-xs" target="blank_"><i class="fa fa-plus text-success"></i> Inv</a>
                                         </div>
                                     </td>
                                 </tr>

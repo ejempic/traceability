@@ -90,4 +90,10 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function productList()
+    {
+        $data = Product::get();
+        return response()->json($data);
+    }
 }

@@ -1,7 +1,16 @@
 <?php
 
 use App\Profile;
+use App\Farmer;
 
+if (!function_exists('farmerCount')) {
+    function farmerCount($id)
+    {
+        $count = Farmer::where('master_id', $id)->count();
+
+        return $count;
+    }
+}
 if (!function_exists('mobileMask')) {
     function mobileMask($string)
     {
