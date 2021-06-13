@@ -127,6 +127,9 @@ class TraceController extends Controller
             QrCode::size(500)
                 ->format('png')
                 ->generate($trace->url, public_path('images/trace/'.$trace->reference.'.png'));
+            $trace->image = $trace->reference.'.png';
+            $trace->image_path = '/images/trace/'.$trace->reference.'.png';
+            $trace->save();
 
             $modelInfo = new ModelInfo();
             $modelInfo->type = 'status';
