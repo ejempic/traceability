@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap");
+.profile-pic {
+  height: 48px;
+  width: 48px;
+}
+
+.no-resize {
+  resize: vertical;
+  overflow: auto;
+  height: 106px !important;
+}
+
+body {
+  font-size: 1rem !important;
+  font-family: "Source Sans Pro", sans-serif !important;
+}
+
+.nav-header {
+  background-color: #094e9d !important;
+  background-image: none !important;
+}
+.nav-header a.dropdown-toggle .text-muted {
+  color: #fff !important;
+  margin: 1rem 0;
+  opacity: 1 !important;
+}
+
+.nav li a {
+  font-weight: 400 !important;
+}
+.nav li a:hover, .nav li a:focus {
+  background: #074080 !important;
+}
+.nav li.active {
+  background: #074080 !important;
+  border-left: 0 !important;
+}
+.nav li.active a {
+  border-left: 4px solid #3a8cdd !important;
+}
+.nav li.active .nav-second-level li a {
+  border-left: 0 !important;
+}
+.nav li .nav-second-level li {
+  border-left: none !important;
+}
+
+.navbar-minimalize {
+  background: #094e9d !important;
+  border-color: #094e9d !important;
+}
+
+#page-wrapper {
+  background: #e4e8ed !important;
+}
+
+.navbar-default {
+  background-color: #094e9d !important;
+}
+
+.nav.navbar-right .btn-logout {
+  color: #948b96 !important;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+.nav.navbar-right .btn-logout:hover {
+  color: #fff !important;
+}
+
+#side-menu li a:not(.dropdown-item) {
+  color: #fff !important;
+}
+#side-menu li a.dropdown-item:hover {
+  color: #fff !important;
+}
+
+.panel-success .panel-heading {
+  background: #3a8cdd !important;
+  border-color: #3a8cdd !important;
+}
+
+.dropdown-menu li a {
+  color: #000 !important;
+}
+
+.btn-primary {
+  background-color: #094e9d !important;
+  border-color: #094e9d !important;
+  font-size: 0.9rem !important;
+}
+.btn-primary:hover {
+  background-color: #074080 !important;
+}
