@@ -30,6 +30,8 @@ class CreateProfilesTable extends Migration
             $table->string('farm_lot')->nullable();
             $table->string('farming_since')->nullable();
             $table->string('organization')->nullable();
+            $table->string('qr_image')->nullable();
+            $table->string('qr_image_path')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

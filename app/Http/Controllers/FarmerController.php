@@ -11,6 +11,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class FarmerController extends Controller
 {
@@ -58,7 +59,11 @@ class FarmerController extends Controller
         $farmer = new Farmer();
         $farmer->account_id = $number;
         $farmer->master_id = Auth::user()->master->id;
+        $farmer->url = route('inv-listing', array('account'=>$number));
         if($farmer->save()){
+            QrCode::size(500)
+                ->format('png')
+                ->generate($farmer->url, public_path('images/farmer/'.$farmer->account_id.'.png'));
             $profile = new Profile();
             $profile->first_name = $request->input('first_name');
             $profile->middle_name = $request->input('middle_name');
@@ -73,6 +78,8 @@ class FarmerController extends Controller
             $profile->farm_lot = $request->input('farm_lot');
             $profile->farming_since = $request->input('farming_since');
             $profile->organization = $request->input('organization');
+            $profile->qr_image = $farmer->account_id.'.png';
+            $profile->qr_image_path = '/images/farmer/'.$farmer->account_id.'.png';
             if($farmer->profile()->save($profile)){
                 return redirect()->route('farmer.index');
             }
@@ -105,9 +112,11 @@ class FarmerController extends Controller
         }
 
         $inventories = Inventory::where('farmer_id', $farmer->id)->get();
+        $host_names = explode(".", $_SERVER['HTTP_HOST']);
+        $url = $host_names[count($host_names)-2] . "." . $host_names[count($host_names)-1]."/inv-listing/".$data->account_id;
 
 //        return $group;
-        return view('user.farmer.show', compact('data', 'group', 'inventories'));
+        return view('user.farmer.show', compact('data', 'group', 'inventories', 'url'));
     }
 
     /**
@@ -164,5 +173,11 @@ class FarmerController extends Controller
     public function destroy(Farmer $farmer)
     {
         //
+    }
+
+    public function farmerQrPrint($account)
+    {
+        $data = Farmer::where('account_id', $account)->first();
+        return view('farmer-qr-print', compact('data'));
     }
 }

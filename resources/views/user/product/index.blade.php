@@ -55,7 +55,7 @@
                                 <tr>
                                     <td>{{ $data->display_name }}</td>
                                     <td>{{ $data->description }}</td>
-                                    <td>0</td>
+                                    <td>{{ productInvCount($data->id) }}</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
                                             <a href="{!! route('product.show', array('product' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>

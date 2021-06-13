@@ -80,15 +80,19 @@
                         <h5>Reference <small>details</small></h5>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group">
-                            <label>Reference</label>
-                            <input type="text" name="reference" value="{{ $random }}" class="form-control" readonly>
-                            <input type="hidden" name="url" value="{{ $url }}" class="form-control">
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <label>Reference</label>--}}
+{{--                            <input type="hidden" name="reference" value="{{ $random }}" class="form-control" readonly>--}}
+{{--                            <input type="hidden" name="url" value="{{ $url }}" class="form-control">--}}
+{{--                        </div>--}}
+
+                        <input type="hidden" name="reference" value="{{ $random }}" class="form-control" readonly>
+                        <input type="hidden" name="url" value="{{ $url }}" class="form-control">
+
                         <div class="visible-print text-center">
                             {!! QrCode::size(200)->generate($url); !!} <br><br>
-                            <strong class="text-success">URL</strong>
-                            <p> {{ $url }}</p>
+{{--                            <strong class="text-success">URL</strong>--}}
+                            <p><small class="text-success">{{ $random }}</small></p>
                         </div>
                     </div>
 
@@ -225,13 +229,13 @@
                         $.get('{!! route('farmer-inventory-list-item') !!}', {
                             ids: ids
                         }, function(data){
-                            // console.log(data);
+                            console.log(data);
                             if(data.length > 0){
                                 for(var a = 0; a < data.length; a++){
                                     products.push('' +
                                         '<tr data-id="'+ data[a].id +'">' +
-                                            '<td>'+ data[a].name +'</td>' +
-                                            '<td>'+ data[a].details +'</td>' +
+                                            '<td>'+ data[a].product.display_name +'</td>' +
+                                            '<td>'+ data[a].quality +'; '+ data[a].quantity +' '+ data[a].unit +'</td>' +
                                             '<td class="text-right">'+ data[a].farmer.profile.first_name +' '+ data[a].farmer.profile.last_name +'</td>' +
                                             '<td class="text-right">' +
                                                 '<div class="btn-group text-right">' +
@@ -293,7 +297,7 @@
                 $.get('{!! route('farmer-inventory-list') !!}', {
                     ids: ids
                 }, function(data){
-                    // console.log(data);
+                    console.log(data);
                     if(data.length > 0){
                         for(var a = 0; a < data.length; a++){
                             products.push('' +
@@ -302,11 +306,11 @@
                                 '<div class="i-checks">' +
                                 '<label>' +
                                 '<input type="checkbox" name="" class="modal-item" value="'+ data[a].id +'">' +
-                                '<i></i> ' + data[a].name +
+                                '<i></i> ' + data[a].product.display_name +
                                 '</label>' +
                                 '</div>' +
                                 '</td>' +
-                                '<td>'+ data[a].details +'</td>' +
+                                '<td>'+ data[a].quality +'; '+ data[a].quantity +' '+ data[a].unit +'</td>' +
                                 '<td class="text-right">'+ data[a].farmer.profile.first_name +' '+ data[a].farmer.profile.last_name +'</td>' +
                                 '</tr>' +
                             '');

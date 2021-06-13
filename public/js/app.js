@@ -37413,6 +37413,9 @@ $(document).on('click', '.btn-logout', function (event) {
   //     window.location.replace(url);
   // });
 });
+$(document).on('select2:open', function () {
+  document.querySelector('.select2-search__field').focus();
+});
 $(document).on('keydown', '.numonly', function (event) {
   // Allow: backspace, delete, tab, escape, and enter
   if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 || // Allow: Num Pad Decimal
