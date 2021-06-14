@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Farmer;
 use App\Profile;
 use App\MasterFarmer;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class FarmerSeeder extends Seeder
 {
@@ -24,7 +25,11 @@ class FarmerSeeder extends Seeder
             $farmer = new Farmer();
             $farmer->account_id = $number;
             $farmer->master_id = $masterFarmer->id;
+            $farmer->url = route('inv-listing', array('account'=>$number));
             if($farmer->save()){
+                QrCode::size(500)
+                    ->format('png')
+                    ->generate($farmer->url, public_path('images/farmer/'.$farmer->account_id.'.png'));
                 $profile = new Profile();
                 $profile->first_name = $faker->firstName;
                 $profile->last_name = $faker->lastName;
@@ -39,6 +44,8 @@ class FarmerSeeder extends Seeder
                 $profile->farm_lot = rand(100,5000);
                 $profile->farming_since = rand(1980,2019);
                 $profile->organization = $faker->word(2);
+                $profile->qr_image = $farmer->account_id.'.png';
+                $profile->qr_image_path = '/images/farmer/'.$farmer->account_id.'.png';
                 $farmer->profile()->save($profile);
             }
         }

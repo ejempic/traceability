@@ -27,10 +27,14 @@
 
     <div id="app" class="wrapper wrapper-content">
 
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Profile <small>info</small></h5>
+            </div>
+            <div class="ibox-content">
+
+                <div class="row">
+                    <div class="col-sm-5">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="mb-2">
@@ -58,11 +62,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content">
+                    <div class="col-sm-4">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="mb-2">
@@ -86,9 +86,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-3">
+                        <div class="visible-print text-center">
+                            <img src="{{ $data->profile->qr_image_path }}" alt="{{ $data->profile->qr_image_path }}" class="img-fluid">
+                            <a href="{{ route('farmer-qr-print', array('account'=>$data->account_id)) }}" target="_blank" class="btn btn-success btn-block mt-2"><i class="fa fa-print"></i> Print QR </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
 
         <div class="row">

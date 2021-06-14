@@ -54,8 +54,8 @@
                             <tbody>
                             @foreach($datas as $data)
                                 <tr>
-                                    <td>{{ $data->name }}</td>
-                                    <td>{{ $data->details }}</td>
+                                    <td>{{ $data->product->display_name }}</td>
+                                    <td>{{ $data->quality }}; {{ $data->quantity }} {{ $data->unit }}</td>
                                     <td>{{ $data->status }}</td>
                                     <td>{{ $data->farmer->profile->first_name }} {{ $data->farmer->profile->last_name }}</td>
                                     <td class="text-right">

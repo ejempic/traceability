@@ -17,6 +17,7 @@ class CreateFarmersTable extends Migration
             $table->id();
             $table->string('account_id')->unique();
             $table->integer('master_id');
+            $table->string('url');
             $table->timestamps();
         });
     }

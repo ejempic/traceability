@@ -1,6 +1,6 @@
 @extends('layouts.login')
 
-@section('title', 'Blank')
+@section('title', 'Inventory Listing')
 
 @section('content')
     <div class="ibox-content">
@@ -140,8 +140,8 @@
                             '<div class="form-group">' +
                                 '<label>Products <small class="text-danger">*</small></label>' +
                                 // '<select name="product" class="form-control">' +
-                                '<select name="product" class="select2_demo_3 form-control">' +
-                                    '<option value="">select</option>' +
+                                '<select name="product" class="select2 form-control">' +
+                                    '<option value=""></option>' +
                                     lists.join('') +
                                 '</select>' +
                             '</div>' +
@@ -169,11 +169,20 @@
                                 '<textarea name="remark" class="form-control no-resize"></textarea>' +
                             '</div>' +
                         '');
-                        $(".select2_demo_3").select2({
+
+                        // $(".select2_demo_3").select2({
+                        //     theme: 'bootstrap4',
+                        //     placeholder: "Select product",
+                        //     allowClear: true
+                        // });
+
+                        $(".select2").select2({
                             theme: 'bootstrap4',
-                            placeholder: "Select product",
-                            allowClear: true
+                            tags: true,
+                            dropdownParent: $("#modal"),
+                            placeholder: "Select product"
                         });
+
                         modal.modal({backdrop: 'static', keyboard: false});
                         break;
                     case 'store-inventory':
@@ -223,6 +232,7 @@
 
                 // modal.modal('toggle');
             });
+
 
             {{-- var table = $('#table').DataTable({--}}
             {{--     processing: true,--}}
