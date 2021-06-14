@@ -213,7 +213,7 @@
                             _token: '{!! csrf_token() !!}',
                             datas: datas
                         }, function(data){
-                            window.location.replace('{!! route('trace.index') !!}');
+                            window.location.replace('/trace/'+ data.id);
                         });
 
                         break;

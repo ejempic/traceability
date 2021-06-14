@@ -84,14 +84,10 @@
                                 <h5>Reference <small>details</small></h5>
                             </div>
                             <div class="panel-body">
-                                <div class="mb-2">
-                                    <h3 class="mb-0">{{ $trace->reference }}</h3>
-                                    <small class="text-success">Reference</small>
-                                </div>
                                 <div class="visible-print text-center">
-                                    {!! QrCode::size(150)->generate($trace->url); !!} <br><br>
-                                    <strong class="text-success">URL</strong>
-                                    <p> {{ $trace->url }}</p>
+                                    <img src="{{ $trace->image_path }}" alt="" class="img-fluid">
+{{--                                    <small class="text-success">{{ $trace->url }}</small>--}}
+                                    <a href="{{ route('trace-qr-print', array('reference'=>$trace->reference)) }}" target="_blank" class="btn btn-success btn-block mt-2"><i class="fa fa-print"></i> Print QR </a>
                                 </div>
                             </div>
 
@@ -119,8 +115,8 @@
                                         <tbody id="item-list">
                                         @foreach($inventory as $data)
                                             <tr>
-                                                <td>{{ $data->name }}</td>
-                                                <td>{{ $data->details }}</td>
+                                                <td>{{ $data->product->display_name }}</td>
+                                                <td>{{ $data->quality }}; {{ $data->quantity }} {{ $data->unit }}</td>
                                                 <td class="text-right">{{ $data->farmer->profile->first_name }} {{ $data->farmer->profile->last_name }}</td>
                                                 <td class="text-right">{{ $data->status }}</td>
                                             </tr>
