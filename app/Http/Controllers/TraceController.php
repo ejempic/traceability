@@ -158,6 +158,7 @@ class TraceController extends Controller
                 $inventory->trace_id = $trace->id;
                 $inventory->save();
             }
+            return response()->json($trace);
         }
     }
 
@@ -198,5 +199,12 @@ class TraceController extends Controller
         }
 
         $trace->info()->save($modelInfo);
+    }
+
+    public function traceQrPrint($reference)
+    {
+        $data = Trace::where('reference', $reference)->first();
+
+        return view('trace-qr-print', compact('data'));
     }
 }

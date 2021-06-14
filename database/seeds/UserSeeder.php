@@ -72,7 +72,7 @@ class UserSeeder extends Seeder
 
         $user = new User();
         $user->name = 'Agravah Admin';
-        $user->email = 'superadmin@gmail.com';
+        $user->email = 'superadmin@agrabah.com';
         $user->password = bcrypt('agrabah');
         $user->passkey = 'agrabah';
         $user->active = 1;

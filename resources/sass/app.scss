@@ -21,3 +21,21 @@
 .agravah {
 
 }
+
+.farmer-id {
+    border: 2px solid #808080;
+    background-color: #FFFFFF;
+    max-width: 300px;
+    width: 50%;
+    margin: auto;
+    img {
+        &.logo {
+            width: 150px;
+        }
+        &.qr{
+            border: 1px solid #3d3d3d;
+            padding: 5px;
+            width: 200px;
+        }
+    }
+}
