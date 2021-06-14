@@ -98,3 +98,248 @@ body {
 .btn-primary:hover {
   background-color: #074080 !important;
 }
+
+.page-forms a.link {
+  text-align: center;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  color: #000;
+}
+.page-forms h2, .page-forms h1 {
+  font-weight: bold;
+  padding-bottom: 1rem;
+}
+.page-forms h1.title {
+  font-weight: bold;
+  border-bottom: 1px solid #000;
+  font-family: "Work Sans";
+}
+.page-forms form {
+  margin-top: 3rem;
+}
+.page-forms form .form-group {
+  margin-bottom: 1rem;
+  /* Change Autocomplete styles in Chrome*/
+}
+.page-forms form .form-group label {
+  display: block;
+  font-size: 1.1rem;
+}
+.page-forms form .form-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #dadada !important;
+  outline: none;
+  font-size: 1.3rem;
+}
+.page-forms form .form-group input::-webkit-input-placeholder {
+  color: #dadada;
+}
+.page-forms form .form-group input::-moz-placeholder {
+  color: #dadada;
+}
+.page-forms form .form-group input:-ms-input-placeholder {
+  color: #dadada;
+}
+.page-forms form .form-group input::-ms-input-placeholder {
+  color: #dadada;
+}
+.page-forms form .form-group input::placeholder {
+  color: #dadada;
+}
+.page-forms form .form-group input:-webkit-autofill,
+.page-forms form .form-group input:-webkit-autofill:hover,
+.page-forms form .form-group input:-webkit-autofill:focus,
+.page-forms form .form-group textarea:-webkit-autofill,
+.page-forms form .form-group textarea:-webkit-autofill:hover,
+.page-forms form .form-group textarea:-webkit-autofill:focus,
+.page-forms form .form-group select:-webkit-autofill,
+.page-forms form .form-group select:-webkit-autofill:hover,
+.page-forms form .form-group select:-webkit-autofill:focus {
+  border: 1px solid transparent;
+  -webkit-text-fill-color: #000;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+}
+.page-forms form .form-group .check-group .checkmark {
+  display: none;
+}
+.page-forms form .form-group .check-group label {
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  min-height: 30px;
+  background: transparent;
+  text-indent: 30px;
+  font-size: 0.95rem;
+  line-height: 29px;
+}
+.page-forms form .form-group .check-group label:before, .page-forms form .form-group .check-group label:after {
+  content: "";
+  position: absolute;
+}
+.page-forms form .form-group .check-group label:before {
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  top: 50%;
+  left: 0;
+  border: 1px solid #dadada;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.page-forms form .form-group .check-group label:after {
+  top: 50%;
+  left: 2px;
+  width: 5px;
+  height: 13px;
+  margin-top: -3px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  -webkit-transform: rotate(45deg) translateY(-50%);
+          transform: rotate(45deg) translateY(-50%);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.page-forms form .form-group .check-group input[type=checkbox] {
+  display: none !important;
+}
+.page-forms form .form-group .check-group input[type=checkbox]:checked + label:before {
+  background-color: #3a8cdd;
+  border: 1px solid #3a8cdd;
+}
+.page-forms form .form-group .check-group input[type=checkbox]:checked + label:after {
+  opacity: 1;
+  visibility: visible;
+}
+.page-forms form .line {
+  position: relative;
+  text-align: center;
+  margin: 1rem 0;
+}
+.page-forms form .line:before {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100%;
+  background-color: #000;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: -1;
+}
+.page-forms form .line small {
+  padding: 10px 1.5rem;
+  background-color: #fff;
+}
+.page-forms form .btn-submit {
+  background-color: #548714;
+  width: 40%;
+  display: block;
+  margin: auto;
+  color: #fff;
+  outline: none;
+  border: 0;
+  font-size: 1.1rem;
+  padding: 0.8rem;
+  border-radius: 5px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+@media (max-width: 768px) {
+  .page-forms form .btn-submit {
+    width: 100%;
+  }
+}
+.page-forms form .btn-submit:hover {
+  opacity: 0.9;
+}
+.page-forms .social-container {
+  background-color: #eee;
+  min-height: 100px;
+  margin: 2rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.page-forms .social-container a {
+  margin: 0 10px;
+}
+.page-forms .register-text {
+  margin-top: 3rem;
+}
+.page-forms .sign-in .left, .page-forms .sign-in .right {
+  min-height: 100vh;
+}
+.page-forms .sign-in .left {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.2rem;
+  padding: 7rem 8%;
+  background-color: #084d91;
+  color: #fff;
+}
+@media (max-width: 1650px) {
+  .page-forms .sign-in .left {
+    padding: 3rem 5%;
+  }
+}
+@media (max-width: 1440px) {
+  .page-forms .sign-in .left {
+    padding: 3rem 5%;
+  }
+}
+.page-forms .sign-in .left.farmers {
+  background-color: #9ed35a;
+}
+.page-forms .sign-in .left .logo {
+  margin-bottom: 5rem;
+}
+.page-forms .sign-in .left ul {
+  padding: 0;
+  list-style: none;
+}
+.page-forms .sign-in .left a.link {
+  color: #fff;
+}
+.page-forms .sign-in .right {
+  padding: 7rem 15%;
+}
+@media (max-width: 1650px) {
+  .page-forms .sign-in .right {
+    padding: 2rem 5%;
+  }
+}
+@media (max-width: 1440px) {
+  .page-forms .sign-in .right {
+    padding: 1rem 5%;
+  }
+}
