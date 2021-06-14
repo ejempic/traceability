@@ -76,6 +76,11 @@ body {
   color: #fff !important;
 }
 
+.profile-element img {
+  -webkit-filter: brightness(0) invert(1);
+          filter: brightness(0) invert(1);
+}
+
 .panel-success .panel-heading {
   background: #3a8cdd !important;
   border-color: #3a8cdd !important;
