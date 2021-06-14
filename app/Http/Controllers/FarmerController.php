@@ -42,7 +42,7 @@ class FarmerController extends Controller
     public function create()
     {
         $number = str_pad(Farmer::count() + 1, 6, 0, STR_PAD_LEFT);
-        $number = Auth::user()->master->account_id.'-'.$number;
+//        $number = Auth::user()->master->account_id.'-'.$number;
         return response()->view('user.farmer.create', compact( 'number'));
     }
 
@@ -54,8 +54,8 @@ class FarmerController extends Controller
      */
     public function store(Request $request)
     {
-        $number = str_pad(MasterFarmer::count() + 1, 5, 0, STR_PAD_LEFT);
-        $number = Auth::user()->master->account_id.'-'.$number;
+        $number = str_pad(Farmer::count() + 1, 5, 0, STR_PAD_LEFT);
+//        $number = Auth::user()->master->account_id.'-'.$number;
         $farmer = new Farmer();
         $farmer->account_id = $number;
         $farmer->master_id = Auth::user()->master->id;
