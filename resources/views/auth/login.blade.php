@@ -18,7 +18,7 @@
                     </div>
                 </div>
 
-                {{--<a href="" class="link">Back to homepage</a>--}}
+                <a href="{{ asset('/') }}" class="link">Back to homepage</a>
 
             </div>
             <div class="col-12 col-lg-8 right d-flex align-items-center justify-content-center">
