@@ -32,11 +32,11 @@
                         </div>
                         <div class="ibox-content">
                             <div class="mb-2">
-                                <h3 class="mb-0">{{ $inventory->name }}</h3>
+                                <h3 class="mb-0">{{ $inventory->product->display_name }}</h3>
                                 <small class="text-success">Name</small>
                             </div>
                             <div class="mb-2">
-                                <h3 class="mb-0">{{ $inventory->details }}</h3>
+                                <h3 class="mb-0">{{ $inventory->quality }}; {{ $inventory->quantity }} {{ $inventory->unit }}</h3>
                                 <small class="text-success">Details</small>
                             </div>
                             <div class="mb-2">

@@ -10953,3 +10953,21 @@ a.text-dark:focus {
   height: 106px !important;
 }
 
+.farmer-id {
+  border: 2px solid #808080;
+  background-color: #FFFFFF;
+  max-width: 300px;
+  width: 50%;
+  margin: auto;
+}
+
+.farmer-id img.logo {
+  width: 150px;
+}
+
+.farmer-id img.qr {
+  border: 1px solid #3d3d3d;
+  padding: 5px;
+  width: 200px;
+}
+

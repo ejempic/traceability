@@ -2,6 +2,8 @@
 
 use App\Profile;
 use App\Farmer;
+use App\Inventory;
+use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('farmerCount')) {
     function farmerCount($id)
@@ -11,6 +13,21 @@ if (!function_exists('farmerCount')) {
         return $count;
     }
 }
+if (!function_exists('productInvCount')) {
+    function productInvCount($id)
+    {
+        if(auth()->user()->hasRole('super-admin')){
+            $count = Inventory::where('product_id', $id)
+                ->count();
+        }else{
+            $count = Inventory::where('product_id', $id)
+                ->where('master_id', Auth::user()->master->id)
+                ->count();
+        }
+        return $count;
+    }
+}
+
 if (!function_exists('mobileMask')) {
     function mobileMask($string)
     {

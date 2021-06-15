@@ -20,7 +20,13 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $datas = Inventory::with('product')->get();
+        if(auth()->user()->hasRole('super-admin')){
+            $datas = Inventory::with('product')->get();
+        }else{
+            $datas = Inventory::with('product')
+                ->where('master_id', Auth::user()->master->id)
+                ->get();
+        }
 //        return $datas;
         return view('user.inventory.index', compact('datas'));
     }
@@ -118,7 +124,7 @@ class InventoryController extends Controller
 //        $ids = array();
         $data = Inventory::whereNotIn('id', $request->input('ids'))
             ->where('master_id', Auth::user()->master->id)
-            ->with('farmer')
+            ->with('farmer', 'product')
             ->where('status', 'Accepted')
             ->get();
 
@@ -128,7 +134,7 @@ class InventoryController extends Controller
     public function farmerInventoryListItem(Request $request)
     {
         $data = Inventory::whereIn('id', $request->input('ids'))
-            ->with('farmer')
+            ->with('farmer', 'product')
             ->get();
 
         return response()->json($data);

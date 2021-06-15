@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('purchase-order', 'PurchaseOrderController');
 
     Route::resource('farmer', 'FarmerController');
+    Route::get('farmer-qr-print/{account}', 'FarmerController@farmerQrPrint')->name('farmer-qr-print');
 
     Route::resource('product', 'ProductController');
     Route::get('product-list', 'ProductController@productList')->name('product-list');
@@ -44,6 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('trace-store', 'TraceController@traceStore')->name('trace-store');
     Route::get('trace-update-status', 'TraceController@traceUpdate')->name('trace-update-status');
     Route::get('trace-info/{code}', 'TraceController@traceInfo')->name('trace-info');
+    Route::get('trace-qr-print/{reference}', 'TraceController@traceQrPrint')->name('trace-qr-print');
 
     Route::resource('user', 'UserController');
 //        Route::get('user-list', 'UserController@userList')->name('user-list');

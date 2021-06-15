@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class TraceController extends Controller
 {
@@ -40,9 +41,10 @@ class TraceController extends Controller
 //            return $datas;
         $random = Str::random(15);
 
-        $host_names = explode(".", $_SERVER['HTTP_HOST']);
-        $url = $host_names[count($host_names)-2] . "." . $host_names[count($host_names)-1]."/".$random;
-//        $url = $request->fullUrlWithQuery(['bar' => 'baz']);
+//        $host_names = explode(".", $_SERVER['HTTP_HOST']);
+//        $url = $host_names[count($host_names)-2] . "." . $host_names[count($host_names)-1]."/".$random;
+
+        $url = route('trace-info', array('code'=>$random));
         return response()->view('user.trace.create', compact('datas', 'random', 'url'));
     }
 
@@ -119,9 +121,16 @@ class TraceController extends Controller
         $data = $request->input('datas');
         $trace = new Trace();
         $trace->reference = $data[7];
-        $trace->url = $data[8];
+        $trace->url = route('trace-info', array('code'=>$data[7]));
         $trace->user_id = Auth::user()->id;
         if($trace->save()){
+            QrCode::size(500)
+                ->format('png')
+                ->generate($trace->url, public_path('images/trace/'.$trace->reference.'.png'));
+            $trace->image = $trace->reference.'.png';
+            $trace->image_path = '/images/trace/'.$trace->reference.'.png';
+            $trace->save();
+
             $modelInfo = new ModelInfo();
             $modelInfo->type = 'status';
             $modelInfo->value_0 = 'Loaded';
@@ -149,6 +158,7 @@ class TraceController extends Controller
                 $inventory->trace_id = $trace->id;
                 $inventory->save();
             }
+            return response()->json($trace);
         }
     }
 
@@ -189,5 +199,12 @@ class TraceController extends Controller
         }
 
         $trace->info()->save($modelInfo);
+    }
+
+    public function traceQrPrint($reference)
+    {
+        $data = Trace::where('reference', $reference)->first();
+
+        return view('trace-qr-print', compact('data'));
     }
 }
