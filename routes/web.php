@@ -26,6 +26,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('master-farmer', 'MasterFarmerController');
 
+    Route::resource('purchase-order', 'PurchaseOrderController');
+
     Route::resource('farmer', 'FarmerController');
 
     Route::resource('product', 'ProductController');

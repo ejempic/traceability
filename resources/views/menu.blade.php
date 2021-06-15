@@ -2,6 +2,13 @@
     <a href="/home"><i class="fa fa-tachometer"></i> <span class="nav-label">Dashboard</span></a>
 </li>
 
+<li class="{{ (request()->is('purchase-order*')) ? 'active' : '' }}">
+    <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Purchase Order</span><span class="fa arrow"></span></a>
+    <ul class="nav nav-second-level collapse">
+        <li class="{{ (request()->is('purchase-order')) ? 'active' : '' }}"><a href="{!! route('purchase-order.index') !!}">List</a></li>
+        <li class="{{ (request()->is('purchase-order/create')) ? 'active' : '' }}"><a href="{!! route('purchase-order.create') !!}">Create</a></li>
+    </ul>
+</li>
 {{--<li class="">--}}
 {{--    <a href="#"><i class="fa fa-user-circle-o"></i> <span class="nav-label">Personnel</span><span class="fa arrow"></span></a>--}}
 {{--    <ul class="nav nav-second-level collapse">--}}
