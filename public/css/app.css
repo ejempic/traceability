@@ -10953,6 +10953,25 @@ a.text-dark:focus {
   height: 106px !important;
 }
 
+.farmer-login {
+  max-width: 500px;
+  width: 90%;
+  margin: auto;
+}
+
+.farmer-login input {
+  border: none;
+  border-bottom: 2px solid #808080;
+  background-color: transparent;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.farmer-login input:focus {
+  background-color: transparent;
+}
+
 .farmer-id {
   border: 2px solid #808080;
   background-color: #FFFFFF;

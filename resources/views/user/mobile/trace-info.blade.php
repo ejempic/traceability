@@ -5,7 +5,7 @@
 @section('content')
     <div class="ibox-content">
         <div class="text-center">
-            <h1>AGRABAH TRACEABILITY</h1>
+            <img src="{{ URL::to('/images/logo.png') }}" alt="agrabah-logo" class="logo img-fluid mt-3" width="250">
         </div>
     </div>
 
@@ -59,25 +59,23 @@
                                 @switch($data->trace)
                                     @case('Arrive')
                                     <div class="col-sm-6">
-                                        <button class="btn btn-block btn-success btn-action" data-id="{{ $data->id }}" data-action="Delivered">Delivered</button>
+                                        <button class="btn btn-block btn-success btn-action p-3" data-id="{{ $data->id }}" data-action="Delivered">DELIVERED</button>
                                     </div>
                                     <div class="col-sm-6">
-                                        <button class="btn btn-block btn-danger btn-action" data-id="{{ $data->id }}" data-action="Returned">Undeliverable</button>
+                                        <button class="btn btn-block btn-danger btn-action p-3" data-id="{{ $data->id }}" data-action="Returned">UNDELIVERABLE</button>
                                     </div>
                                     @break
                                     @default
                                     <div class="col-sm-12">
-                                        <button class="btn btn-block btn-success btn-action" data-id="{{ $data->id }}" data-action="{{ $data->trace }}">
+                                        <button class="btn btn-block btn-success btn-action p-3" data-id="{{ $data->id }}" data-action="{{ $data->trace }}">
                                             @switch($data->trace)
                                                 @case('Loaded')
                                                 Depart
                                                 @break
-
                                                 @case('Transit')
                                                 Arrive
                                                 @break
                                             @endswitch
-
                                         </button>
                                     </div>
                                 @endswitch
@@ -117,13 +115,16 @@
 
 @section('styles')
     {{--{!! Html::style('') !!}--}}
+    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}
 @endsection
 
 @section('scripts')
     {{--    {!! Html::script('') !!}--}}
+        {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}
     <script>
         $(document).ready(function(){
             $(document).on('click', '.btn-action', function(){
+                var id = $(this).data('id');
                 let action;
                 switch ($(this).data('action')){
                     case 'Loaded':
@@ -142,12 +143,31 @@
                         action = 'Undeliverable';
                         break;
                 }
-                $.get('{!! route('trace-update-status') !!}', {
-                    id: $(this).data('id'),
-                    action: action
-                }, function(){
-                    location.reload();
+
+                swal({
+                    title: "Are you sure?",
+                    text: "Your will not be able to undo this action!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes!",
+                    cancelButtonText: "No!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.get('{!! route('trace-update-status') !!}', {
+                            id: id,
+                            action: action
+                        }, function(){
+                            location.reload();
+                        });
+                    } else {
+                        swal("Cancelled", "Trace unchanged", "error");
+                    }
                 });
+
+
             });
 
         });

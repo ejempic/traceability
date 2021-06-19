@@ -155,9 +155,10 @@
                                 '</select>' +
                             '</div>' +
                             '<div class="row">' +
-                                '<div class="col form-group">' +
+                                '<div class="col-sm-7 form-group">' +
                                     '<label>Unit <small class="text-danger">*</small></label>' +
-                                    '<input type="text" name="unit" class="form-control">' +
+                                    '<select name="unit" class="form-control"></select>' +
+                                    // '<input type="text" name="unit" class="form-control">' +
                                 '</div>' +
                                 '<div class="col form-group">' +
                                     '<label>Qty <small class="text-danger">*</small></label>' +
@@ -191,7 +192,7 @@
                         invDetails.push(modal.data('farmer'));
                         invDetails.push(modal.find('select[name=product]').val());
                         invDetails.push(modal.find('select[name=quality]').val());
-                        invDetails.push(modal.find('input[name=unit]').val());
+                        invDetails.push(modal.find('select[name=unit]').val());
                         invDetails.push(modal.find('input[name=quantity]').val());
                         invDetails.push(modal.find('textarea[name=remark]').val());
 
@@ -231,6 +232,22 @@
                 }
 
                 // modal.modal('toggle');
+            });
+
+            $(document).on('change', 'select[name=product]', function(){
+                console.log('change');
+                var lists = new Array();
+                jQuery.ajaxSetup({async:false});
+                $.get('{!! route('product-unit-list') !!}', {
+                    id: $(this).val()
+                }, function(data){
+                    if(data.length > 0){
+                        for(var a = 0; a < data.length; a++){
+                            lists.push('<option value="'+ data[a].name +'">'+ data[a].name +'</option>');
+                        }
+                    }
+                });
+                modal.find('select[name=unit]').empty().append(lists);
             });
 
 

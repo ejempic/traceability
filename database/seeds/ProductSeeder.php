@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Product;
+use App\Unit;
 
 class ProductSeeder extends Seeder
 {
@@ -71,11 +72,39 @@ class ProductSeeder extends Seeder
             'Peas'
         );
 
+        $units = array(
+            array(
+                array('kilogram', 'kg'),
+                array('gram', 'g'),
+                array('milligram', 'mg')
+            ),
+            array(
+                array('gallon', 'g'),
+                array('liter', 'ltr'),
+                array('ounce', 'oz')
+            ),
+            array(
+                array('meter', 'm'),
+                array('feet', 'ft'),
+                array('millimeter', 'mm'),
+                array('centimeter', 'cm'),
+                array('inch', 'in')
+            )
+        );
+
         foreach ($lists as $list){
             $data = new Product();
             $data->name = stringSlug($list);
             $data->display_name = $list;
-            $data->save();
+            if($data->save()){
+                $unitsData = $units[rand(0,2)];
+                foreach ($unitsData as $unitData){
+                    $unit = new Unit();
+                    $unit->name = $unitData[0];
+                    $unit->abbr = $unitData[1];
+                    $data->units()->save($unit);
+                }
+            }
         }
     }
 }

@@ -46,6 +46,7 @@
                             <tr>
                                 <th>Reference</th>
                                 <th>Client</th>
+                                <th>Client Address</th>
                                 <th>Status</th>
                                 <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                             </tr>
@@ -54,7 +55,8 @@
                             @foreach($datas as $data)
                                 <tr>
                                     <td>{{ $data->reference }}</td>
-                                    <td>{{ $data->url }}</td>
+                                    <td>{{ $data->receiver->value_0 }}</td>
+                                    <td>{{ $data->receiver->text_0 }}</td>
                                     <td>{{ $data->status }}</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">

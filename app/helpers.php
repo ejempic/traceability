@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\Auth;
 if (!function_exists('farmerCount')) {
     function farmerCount($id)
     {
-        $count = Farmer::where('master_id', $id)->count();
+        $ids = Inventory::where('master_id', $id)->distinct('farmer_id')->pluck('farmer_id')->toArray();
+        $count = Farmer::whereIn('id', $ids)
+            ->count();
+
+//        $count = Farmer::where('master_id', $id)->count();
 
         return $count;
     }

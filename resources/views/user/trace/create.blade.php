@@ -37,6 +37,10 @@
                             <input type="text" name="receiver-name" class="form-control">
                         </div>
                         <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="receiver-email" class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label>Mobile</label>
                             <input type="text" name="receiver-mobile" class="form-control">
                         </div>
@@ -196,6 +200,7 @@
                             datas.push($(this).val());
                         });
                         // datas.push($('input[name=receiver-name]').val());
+                        // datas.push($('input[name=receiver-email]').val());
                         // datas.push($('input[name=receiver-mobile]').val());
                         // datas.push($('textarea[name=receiver-address]').val());
                         // datas.push($('input[name=driver-name]').val());
@@ -213,7 +218,8 @@
                             _token: '{!! csrf_token() !!}',
                             datas: datas
                         }, function(data){
-                            window.location.replace('/trace/'+ data.id);
+                            window.location.replace(data);
+                            // window.location.hostname('/trace/'+ data.id);
                         });
 
                         break;

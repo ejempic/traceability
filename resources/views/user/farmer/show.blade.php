@@ -88,7 +88,7 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="visible-print text-center">
-                            <img src="{{ $data->profile->qr_image_path }}" alt="{{ $data->profile->qr_image_path }}" class="img-fluid">
+                            <img src="{{ URL::to($data->profile->qr_image_path) }}" alt="{{ $data->profile->qr_image_path }}" class="img-fluid">
                             <a href="{{ route('farmer-qr-print', array('account'=>$data->account_id)) }}" target="_blank" class="btn btn-success btn-block mt-2"><i class="fa fa-print"></i> Print QR </a>
                         </div>
                     </div>

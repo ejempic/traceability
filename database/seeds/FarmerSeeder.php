@@ -17,14 +17,15 @@ class FarmerSeeder extends Seeder
     {
         $accounts = 100;
         for($a = 0; $a < $accounts; $a++){
-            $masterFarmer = MasterFarmer::find(rand(1,20));
+//            $masterFarmer = MasterFarmer::find(rand(1,20));
             $faker = Faker\Factory::create();
-            $number = str_pad(Farmer::count() + 1, 5, 0, STR_PAD_LEFT);
+            $number = Farmer::count() + 1;
+//            $number = str_pad(Farmer::count() + 1, 5, 0, STR_PAD_LEFT);
 //            $number = $masterFarmer->account_id.'-'.$number;
 
             $farmer = new Farmer();
             $farmer->account_id = $number;
-            $farmer->master_id = $masterFarmer->id;
+//            $farmer->master_id = $masterFarmer->id;
             $farmer->url = route('inv-listing', array('account'=>$number));
             if($farmer->save()){
                 QrCode::size(500)

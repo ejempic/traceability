@@ -22,6 +22,25 @@
 
 }
 
+.farmer-login {
+
+    //border: 2px solid #808080;
+    max-width: 500px;
+    width: 90%;
+    margin: auto;
+    input {
+        border: none;
+        border-bottom: 2px solid #808080;
+        background-color: transparent;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        &:focus {
+            background-color: transparent;
+        }
+    }
+}
+
 .farmer-id {
     border: 2px solid #808080;
     background-color: #FFFFFF;

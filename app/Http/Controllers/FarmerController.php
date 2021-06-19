@@ -11,6 +11,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class FarmerController extends Controller
@@ -25,8 +26,9 @@ class FarmerController extends Controller
         if(auth()->user()->hasRole('super-admin')){
             $datas = Farmer::with('master')->get();
         }else{
+            $ids = Inventory::where('master_id', Auth::user()->master->id)->distinct('farmer_id')->pluck('farmer_id')->toArray();
             $datas = Farmer::with('master')
-                ->where('master_id', Auth::user()->master->id)
+                ->whereIn('id', $ids)
                 ->get();
         }
 
@@ -41,7 +43,8 @@ class FarmerController extends Controller
      */
     public function create()
     {
-        $number = str_pad(Farmer::count() + 1, 6, 0, STR_PAD_LEFT);
+//        $number = str_pad(Farmer::count() + 1, 6, 0, STR_PAD_LEFT);
+        $number = Farmer::count() + 1;
 //        $number = Auth::user()->master->account_id.'-'.$number;
         return response()->view('user.farmer.create', compact( 'number'));
     }
@@ -178,6 +181,45 @@ class FarmerController extends Controller
     public function farmerQrPrint($account)
     {
         $data = Farmer::where('account_id', $account)->first();
-        return view('farmer-qr-print', compact('data'));
+        return view('user.mobile.farmer-qr-print', compact('data'));
+    }
+
+    public function farmerQr(Request $request)
+    {
+        return view('user.mobile.scan-qr-farmer');
+    }
+
+    public function farmerLogin()
+    {
+        return view('user.mobile.farmer.login');
+    }
+
+    public function farmerLoginForm(Request $request)
+    {
+        $rules = array(
+            'farmer' => 'required|exists:farmers,account_id'
+        );
+        $messages = [
+            'farmer'    => 'Farmer does not exists.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        return redirect()->route('farmers-info', array('account'=>$request->input('farmer')));
+    }
+
+    public function farmerInfo($account)
+    {
+        $data = Farmer::where('account_id', $account)->first();
+        return view('user.mobile.farmer.info', compact('data'));
+    }
+
+    public function farmerInventory(Request $request)
+    {
+        return view('user.mobile.farmer.inventory');
     }
 }

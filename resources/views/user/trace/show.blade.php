@@ -85,7 +85,7 @@
                             </div>
                             <div class="panel-body">
                                 <div class="visible-print text-center">
-                                    <img src="{{ $trace->image_path }}" alt="" class="img-fluid">
+                                    <img src="{{ URL::to($trace->image_path) }}" alt="" class="img-fluid">
 {{--                                    <small class="text-success">{{ $trace->url }}</small>--}}
                                     <a href="{{ route('trace-qr-print', array('reference'=>$trace->reference)) }}" target="_blank" class="btn btn-success btn-block mt-2"><i class="fa fa-print"></i> Print QR </a>
                                 </div>
@@ -109,15 +109,17 @@
                                             <th>Product</th>
                                             <th>Detail</th>
                                             <th class="text-right">Farmer</th>
+                                            <th class="text-right">Community Leader</th>
                                             <th class="text-right">Status</th>
                                         </tr>
                                         </thead>
                                         <tbody id="item-list">
-                                        @foreach($inventory as $data)
+                                        @foreach($trace->inventories as $data)
                                             <tr>
                                                 <td>{{ $data->product->display_name }}</td>
                                                 <td>{{ $data->quality }}; {{ $data->quantity }} {{ $data->unit }}</td>
                                                 <td class="text-right">{{ $data->farmer->profile->first_name }} {{ $data->farmer->profile->last_name }}</td>
+                                                <td class="text-right">{{ $data->master->profile->first_name }} {{ $data->master->profile->last_name }}</td>
                                                 <td class="text-right">{{ $data->status }}</td>
                                             </tr>
                                         @endforeach

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Farmer;
+use App\Inventory;
+use App\Trace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -28,8 +32,16 @@ class HomeController extends Controller
         $host_names = explode(".", $_SERVER['HTTP_HOST']);
         $domain = $host_names[count($host_names)-2] . "." . $host_names[count($host_names)-1];
 
+        if(auth()->user()->hasRole('super-admin')){
+            return view('admin.dashboard');
+        }else{
+            $inventory = Inventory::where('master_id', Auth::user()->master->account_id)->count();
+            $trace = Trace::where('user_id', Auth::user()->id)->count();
+            $farmer = Inventory::where('master_id', Auth::user()->master->account_id)->distinct('farmer_id')->count('farmer_id');
 
 
-        return view('dashboard', compact( 'subdomain', 'domain'));
+            return view('dashboard', compact( 'inventory', 'trace', 'farmer'));
+        }
+
     }
 }

@@ -45,4 +45,9 @@ class Trace extends Model
     {
         return $this->morphMany(ModelInfo::class, 'model')->where('type', 'dispatch')->first();
     }
+
+    public function inventories()
+    {
+        return $this->hasMany(Inventory::class, 'trace_id')->with('product', 'farmer', 'master');
+    }
 }

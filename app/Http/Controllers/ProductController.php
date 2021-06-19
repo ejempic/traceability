@@ -53,7 +53,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $data = Product::find($product->id);
+        $data = Product::with('units')->find($product->id);
+//        return $data;
         return response()->view('user.product.show', compact('data'));
     }
 
@@ -93,7 +94,13 @@ class ProductController extends Controller
 
     public function productList()
     {
-        $data = Product::get();
+        $data = Product::with('units')->get();
         return response()->json($data);
+    }
+
+    public function productUnitList(Request $request)
+    {
+        $data = Product::with('units')->find($request->input('id'));
+        return response()->json($data->units);
     }
 }

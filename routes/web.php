@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('farmer-qr', 'FarmerController@farmerQr')->name('farmer-qr');
+Route::get('trace-shipped/{code}', 'PublicController@traceShipped')->name('trace-shipped');
+Route::get('trace-tracking/{code}', 'PublicController@traceTracking')->name('trace-tracking');
+
 //Auth::routes();
 Auth::routes(['verify' => true]);
 
@@ -24,13 +28,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+
     Route::resource('master-farmer', 'MasterFarmerController');
 
     Route::resource('farmer', 'FarmerController');
     Route::get('farmer-qr-print/{account}', 'FarmerController@farmerQrPrint')->name('farmer-qr-print');
+    Route::get('farmers/login', 'FarmerController@farmerLogin')->name('farmer-login');
+    Route::post('farmers/login-form', 'FarmerController@farmerLoginForm')->name('farmer-login-form');
+    Route::get('farmers-info/{account}', 'FarmerController@farmerInfo')->name('farmers-info');
+    Route::get('farmers/inventory-listing/{account}', 'FarmerController@farmerInventory')->name('farmer-inventory-listing');
+    Route::get('farmers/inventory/{account}', 'FarmerController@farmerInventory')->name('farmer-inventory');
 
     Route::resource('product', 'ProductController');
     Route::get('product-list', 'ProductController@productList')->name('product-list');
+    Route::get('product-unit-list', 'ProductController@productUnitList')->name('product-unit-list');
 
     Route::resource('inventory', 'InventoryController');
     Route::get('farmer-inventory-list', 'InventoryController@farmerInventoryList')->name('farmer-inventory-list');
@@ -44,6 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('trace-update-status', 'TraceController@traceUpdate')->name('trace-update-status');
     Route::get('trace-info/{code}', 'TraceController@traceInfo')->name('trace-info');
     Route::get('trace-qr-print/{reference}', 'TraceController@traceQrPrint')->name('trace-qr-print');
+//    Route::get('trace-shipped/{reference}', 'TraceController@traceShipped')->name('trace-shipped');
 
     Route::resource('user', 'UserController');
 //        Route::get('user-list', 'UserController@userList')->name('user-list');
