@@ -33,7 +33,11 @@ class HomeController extends Controller
         $domain = $host_names[count($host_names)-2] . "." . $host_names[count($host_names)-1];
 
         if(auth()->user()->hasRole('super-admin')){
-            return view('admin.dashboard');
+            $inventory = Inventory::count();
+            $trace = Trace::count();
+            $farmer = Inventory::distinct('farmer_id')->count('farmer_id');
+
+            return view('admin.dashboard', compact( 'inventory', 'trace', 'farmer'));
         }else{
             $inventory = Inventory::where('master_id', Auth::user()->master->account_id)->count();
             $trace = Trace::where('user_id', Auth::user()->id)->count();

@@ -16,6 +16,7 @@ class CreateTracesTable extends Migration
         Schema::create('traces', function (Blueprint $table) {
             $table->id();
             $table->string('reference')->nullable();
+            $table->string('code')->nullable();
             $table->string('url')->nullable();
             $table->string('image')->nullable();
             $table->string('image_path')->nullable();

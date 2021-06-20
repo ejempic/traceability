@@ -23,15 +23,15 @@
         </div>
     </div>
 {{--    <form action="{!! route('trace.store') !!}" method="post" id="form">--}}
-    <div id="app" class="wrapper wrapper-content">
+    <div id="toaster" class="wrapper wrapper-content sk-loading">
 
         <div class="row">
             <div class="col-sm-4">
-                <div class="panel panel-default">
+                <div class="panel panel-default sk-loading">
                     <div class="panel-heading">
                         <h5>Receiver <small>info</small></h5>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body sk-loading">
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" name="receiver-name" class="form-control">
@@ -172,6 +172,7 @@
 
 @section('styles')
     {!! Html::style('/css/template/plugins/iCheck/custom.css') !!}
+    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}
     {{--{!! Html::style('') !!}--}}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
@@ -179,6 +180,7 @@
 
 @section('scripts')
     {!! Html::script('/js/template/plugins/iCheck/icheck.min.js') !!}
+    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}
     {{--    {!! Html::script('') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
@@ -213,11 +215,27 @@
                         // datas.push($('input[name=]').val());
 
                         console.log(datas);
+                        var content = '' +
+                            '<div class="row" id="spinner-box">' +
+                                '<div class="col-sm-12">' +
+                                    '<div class="sk-spinner sk-spinner-wave"><div class="sk-rect1"></div>&nbsp;<div class="sk-rect2"></div>&nbsp;<div class="sk-rect3"></div>&nbsp;<div class="sk-rect4"></div>&nbsp;<div class="sk-rect5"></div>&nbsp;</div></br>' +
+                                '</div>' +
+                            '</div>' +
+                        '';
+
+                        swal({
+                            html: true,
+                            title: 'Saving Details',
+                            text: content,
+                            showConfirmButton: false,
+                            showCancelButton: false
+                        });
 
                         $.post('{!! route('trace-store') !!}', {
                             _token: '{!! csrf_token() !!}',
                             datas: datas
                         }, function(data){
+
                             window.location.replace(data);
                             // window.location.hostname('/trace/'+ data.id);
                         });

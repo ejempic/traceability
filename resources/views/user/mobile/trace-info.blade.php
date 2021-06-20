@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
-                        <div class="row">
+                        <div class="row status-btn-box">
                             @if(($data->trace == 'Delivered') || ($data->trace == 'Returned'))
                                 <div class="col-sm-12">
                                     <div class="text-center">
@@ -126,24 +126,62 @@
             $(document).on('click', '.btn-action', function(){
                 var id = $(this).data('id');
                 let action;
+                console.log('id: '+ id);
+                console.log('action: '+ $(this).data('action'));
                 switch ($(this).data('action')){
                     case 'Loaded':
                         action = 'Depart';
+                        updateStatus(id, action);
                         break;
                     case 'Transit':
                         action = 'Transit';
+                        updateStatus(id, action);
                         break;
                     case 'Arrive':
                         action = 'Arrive';
-                        break;
-                    case 'Delivered':
-                        action = 'Delivered';
+                        updateStatus(id, action);
                         break;
                     case 'Undeliverable':
                         action = 'Undeliverable';
+                        updateStatus(id, action);
+                        break;
+                    case 'Delivered':
+                        action = 'Delivered';
+                        clientReference(id, action);
+                        break;
+                    case 'Reference':
+                        var input = $('.status-btn-box').find('input[name=code]');
+                        $.get('{!! route('trace-shipped') !!}', {
+                            code: input.val()
+                        }, function(data){
+                            if(data === 'success'){
+                                swal({
+                                    title: "Good job!",
+                                    text: "Package delivered!",
+                                    type: "success",
+                                    confirmButtonColor: "#5563dd",
+                                    confirmButtonText: "ok!",
+                                    closeOnConfirm: true
+                                },function (isConfirm) {
+                                    if (isConfirm) {
+                                        location.reload();
+                                    }
+                                });
+
+                            }else{
+                                input.closest('.form-group').addClass('has-error');
+                            }
+                        });
+
                         break;
                 }
 
+
+
+
+            });
+
+            function updateStatus(id, action){
                 swal({
                     title: "Are you sure?",
                     text: "Your will not be able to undo this action!",
@@ -166,9 +204,35 @@
                         swal("Cancelled", "Trace unchanged", "error");
                     }
                 });
+            }
 
+            function clientReference(id, action){
+                var box = $('.status-btn-box');
+                switch (action){
+                    case 'Delivered':
+                        box.empty().append('' +
+                            '<div class="farmer-login text-center">' +
+                                '<div class="form-group mb-3">' +
+                                    '<input type="text" name="code" class="form-control numonly">' +
+                                    '<label><strong class="text-uppercase">receiver REFERENCE ID</strong></label>' +
+                                '</div>' +
+                                '<button type="submit" class="btn btn-block btn-xl btn-action btn-success p-3" data-action="Reference" data-id="'+ id +'">PROCEED</button>' +
+                            '</div>' +
+                        '');
+                        break;
+                    case 'Reference':
+                        // box.empty().append('' +
+                        //     '<div class="col-sm-6">' +
+                        //         '<button class="btn btn-block btn-success btn-action p-3" data-id="" data-action="Delivered">DELIVERED</button>' +
+                        //     '</div>' +
+                        //     '<div class="col-sm-6">' +
+                        //         '<button class="btn btn-block btn-danger btn-action p-3" data-id="" data-action="Returned">UNDELIVERABLE</button>' +
+                        //     '</div>' +
+                        // '');
+                        break;
+                }
 
-            });
+            }
 
         });
     </script>

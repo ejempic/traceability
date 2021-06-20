@@ -18,8 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('farmer-qr', 'FarmerController@farmerQr')->name('farmer-qr');
-Route::get('trace-shipped/{code}', 'PublicController@traceShipped')->name('trace-shipped');
+Route::get('trace-shipped', 'PublicController@traceShipped')->name('trace-shipped');
 Route::get('trace-tracking/{code}', 'PublicController@traceTracking')->name('trace-tracking');
+Route::get('trace-update-status', 'PublicController@traceUpdate')->name('trace-update-status');
 
 //Auth::routes();
 Auth::routes(['verify' => true]);
@@ -52,7 +53,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('trace', 'TraceController');
     Route::post('trace-store', 'TraceController@traceStore')->name('trace-store');
-    Route::get('trace-update-status', 'TraceController@traceUpdate')->name('trace-update-status');
     Route::get('trace-info/{code}', 'TraceController@traceInfo')->name('trace-info');
     Route::get('trace-qr-print/{reference}', 'TraceController@traceQrPrint')->name('trace-qr-print');
 //    Route::get('trace-shipped/{reference}', 'TraceController@traceShipped')->name('trace-shipped');

@@ -7,19 +7,19 @@
 
     <section class="container animated fadeInRight">
         <div class="row">
-            <div class="col-lg-3">
-                <div class="widget style1 blue-bg">
-                    <div class="row">
-                        <div class="col-4 text-center">
-                            <i class="fa fa-money fa-5x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span> Today's income </span>
-                            <h2 class="font-bold">4,232</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{--            <div class="col-lg-3">--}}
+{{--                <div class="widget style1 blue-bg">--}}
+{{--                    <div class="row">--}}
+{{--                        <div class="col-4 text-center">--}}
+{{--                            <i class="fa fa-money fa-5x"></i>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-8 text-right">--}}
+{{--                            <span> Today's income </span>--}}
+{{--                            <h2 class="font-bold">4,232</h2>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="col-lg-3">
                 <div class="widget style1 navy-bg">
                     <div class="row">
@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-8 text-right">
                             <span> Farmers </span>
-                            <h2 class="font-bold">26</h2>
+                            <h2 class="font-bold">{{ $farmer }}</h2>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-8 text-right">
                             <span> Inventories </span>
-                            <h2 class="font-bold">260</h2>
+                            <h2 class="font-bold">{{ $inventory }}</h2>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-8 text-right">
                             <span> Trace </span>
-                            <h2 class="font-bold">12</h2>
+                            <h2 class="font-bold">{{ $trace }}</h2>
                         </div>
                     </div>
                 </div>
