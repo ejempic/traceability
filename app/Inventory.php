@@ -20,4 +20,9 @@ class Inventory extends Model
     {
         return $this->belongsTo(Farmer::class, 'farmer_id')->with('profile');
     }
+
+    public function master()
+    {
+        return $this->belongsTo(MasterFarmer::class, 'master_id')->with('profile');
+    }
 }

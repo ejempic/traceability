@@ -32,7 +32,7 @@ class Trace extends Model
 
     public function getStatusAttribute()
     {
-        $data = $this->morphMany(ModelInfo::class, 'model')->where('type', 'status')->first();
+        $data = $this->morphMany(ModelInfo::class, 'model')->where('type', 'status')->orderBy('id', 'desc')->first();
         return $data->value_0.': '. $data->value_1;
     }
 
@@ -44,5 +44,10 @@ class Trace extends Model
     public function getDispatchAttribute()
     {
         return $this->morphMany(ModelInfo::class, 'model')->where('type', 'dispatch')->first();
+    }
+
+    public function inventories()
+    {
+        return $this->hasMany(Inventory::class, 'trace_id')->with('product', 'farmer', 'master');
     }
 }

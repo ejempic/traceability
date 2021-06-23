@@ -9,7 +9,7 @@
             <h2>@yield('title')</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="\">Dashboard</a>
+                    <a href="{{ route('home') }}">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>@yield('title')</strong>
@@ -41,11 +41,13 @@
                             </div>
                         </div>
 
-                        <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                        <div class="table-responsive">
+                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                             <thead>
                             <tr>
                                 <th>Reference</th>
                                 <th>Client</th>
+                                <th>Client Address</th>
                                 <th>Status</th>
                                 <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                             </tr>
@@ -54,7 +56,8 @@
                             @foreach($datas as $data)
                                 <tr>
                                     <td>{{ $data->reference }}</td>
-                                    <td>{{ $data->url }}</td>
+                                    <td>{{ $data->receiver->value_0 }}</td>
+                                    <td>{{ $data->receiver->text_0 }}</td>
                                     <td>{{ $data->status }}</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
@@ -73,6 +76,7 @@
                             </tr>
                             </tfoot>
                         </table>
+                        </div>
 
                     </div>
                 </div>

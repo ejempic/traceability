@@ -9,7 +9,7 @@
             <h2>@yield('title')</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="\">Dashboard</a>
+                    <a href="{{ route('home') }}">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>@yield('title')</strong>
@@ -28,7 +28,7 @@
     <div id="app" class="wrapper wrapper-content">
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="ibox float-e-margins">
 {{--                    <div class="ibox-title">--}}
 {{--                        <h5>Blank <small>page</small></h5>--}}
@@ -43,7 +43,8 @@
                             </div>
                         </div>
 
-                        <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                        <div class="table-responsive">
+                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -57,7 +58,7 @@
                                     <td class="text-right">
                                         <div class="btn-group text-right">
                                             <a href="{!! route('farmer.show', array('farmer' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
-                                            <a href="{!! route('inv-listing', array('account' => $data->account_id)) !!}" class="action btn-white btn btn-xs" target="blank_"><i class="fa fa-plus text-success"></i> Inv</a>
+{{--                                            <a href="{!! route('inv-listing', array('account' => $data->account_id)) !!}" class="action btn-white btn btn-xs" target="blank_"><i class="fa fa-plus text-success"></i> Inv</a>--}}
                                         </div>
                                     </td>
                                 </tr>
@@ -71,6 +72,7 @@
                             </tr>
                             </tfoot>
                         </table>
+                        </div>
 
                     </div>
                 </div>

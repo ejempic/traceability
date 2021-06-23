@@ -39,7 +39,6 @@ class InventoryController extends Controller
     public function create()
     {
         $datas = Farmer::with('profile')
-            ->where('master_id', Auth::user()->master->id)
             ->get();
 //        return $datas;
         return response()->view('user.inventory.create', compact('datas'));
@@ -151,7 +150,7 @@ class InventoryController extends Controller
     {
         $details = $request->input('details');
         $inventory = new Inventory();
-        $inventory->master_id = $details[0];
+        $inventory->master_id = Auth::user()->master->id;
         $inventory->farmer_id = $details[1];
         $inventory->product_id = $details[2];
         $inventory->quality = $details[3];

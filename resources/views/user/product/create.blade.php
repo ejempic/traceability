@@ -9,7 +9,7 @@
             <h2>@yield('title')</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="\">Dashboard</a>
+                    <a href="{{ route('home') }}">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>@yield('title')</strong>
@@ -29,45 +29,49 @@
             <div class="col-sm-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Information</h5>
+                        <h5>Product Info</h5>
                     </div>
-                    <div class="ibox-content">
-
-                        <form action="{!! route('product.store') !!}" method="post" id="form">
-                            @csrf
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" name="name">
+                    <div class="ibox-content" id="product-info">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description" class="form-control no-resize"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Product Unit/s</h5>
+                    </div>
+                    <div class="ibox-content" id="unit-info">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" name="unit-name" class="form-control">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="description" class="form-control no-resize"></textarea>
-                            </div>
-                        </form>
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label>Abbreviation</label>
+                                    <input type="text" name="unit-abbr" class="form-control">
+                                </div>
 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-footer">
+                        <button type="button" class="btn btn-block btn-success btn-action" data-action="add-unit">Add another</button>
                     </div>
                 </div>
             </div>
         </div>
 
-    </div>
-
-    <div class="modal inmodal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category="" data-variant="" data-bal="">
-        <div id="modal-size">
-            <div class="modal-content">
-                <div class="modal-header" style="padding: 15px;">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title"></h4>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="modal-save-btn">Save changes</button>
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection
@@ -114,9 +118,54 @@
             {{--table.ajax.reload();--}}
 
             $(document).on('click', '.btn-action', function(){
+                var box = $(this).closest('.ibox').find('.ibox-content');
+                console.log($(this).data('action'));
                 switch ($(this).data('action')) {
+                    case 'add-unit':
+                        box.append('' +
+                            '<div class="row">' +
+                                '<div class="col-sm-7">' +
+                                    '<div class="form-group">' +
+                                        '<input type="text" name="unit-name" class="form-control">' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="col-sm-5">' +
+                                    '<div class="form-group">' +
+                                        '<div class="input-group">' +
+                                            '<input type="text" name="unit-abbr" class="form-control">' +
+                                            '<span class="input-group-append">' +
+                                                '<button type="button" class="btn btn-white btn-action" data-action="remove-unit"><i class="fa fa-minus-circle text-danger"></i></button>' +
+                                            '</span>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '');
+                        break;
                     case 'store':
-                        $('#form').submit();
+                        var product = new Array();
+                        var unit = new Array();
+                        $('#product-info').find('.form-control').each(function(){
+                            product.push($(this).val());
+                        });
+                        $('#unit-info').find('.row').each(function(){
+                            var unitList = new Array();
+                            unitList.push($(this).find('input[name=unit-name]').val());
+                            unitList.push($(this).find('input[name=unit-abbr]').val());
+                            unit.push(unitList);
+                        });
+                        console.log(product);
+                        console.log(unit);
+                        $.post('{!! route('product-store') !!}', {
+                            _token: '{!! csrf_token() !!}',
+                            product: product,
+                            unit: unit
+                        }, function(data){
+                            window.location.replace(data);
+                        });
+                        break;
+                    case 'remove-unit':
+                        $(this).closest('.row').remove();
                         break;
                 }
             });
