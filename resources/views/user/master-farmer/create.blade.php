@@ -9,7 +9,7 @@
             <h2>@yield('title')</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="\">Dashboard</a>
+                    <a href="{{ route('home') }}">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>@yield('title')</strong>
@@ -24,7 +24,7 @@
     </div>
 
     <div id="app" class="wrapper wrapper-content">
-        <form action="{!! route('master-farmer.store') !!}" method="post" id="form">@csrf
+        <form action="{!! route('community-leader.store') !!}" method="post" id="form">@csrf
             <div class="row">
                 <div class="col-sm-4">
                     <div class="panel panel-default">

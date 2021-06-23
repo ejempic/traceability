@@ -2,7 +2,7 @@
 # {{ $details['title'] }}
 
 <div style="text-align: center">
-    <p>{{ $details['body'] }}</p><br>
+    {!! $details['body'] !!}
     <h1 style="text-align: center">{{ $details['code'] }}</h1>
     <small>CODE</small><br><br>
 {{--    <img src="data:image/png;base64,{{ $details['qrcode'] }}" alt="" width="200">--}}

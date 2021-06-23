@@ -12,21 +12,32 @@
     <section class="container">
 
         <div class="row mt-5">
-            <div class="col-sm-4">
+            <div class="col">
                 <div class="wrapper wrapper-content text-center">
                     <h3 class="mb-0">Reference ID:</h3>
                     <h1 class="mt-0 mb-4">{{ $data->reference }}</h1>
                     {{ QrCode::size(200)->generate($data->url) }}
+                    @if(($data->trace == 'Delivered') || ($data->trace == 'Returned'))
+                        <div class="wrapper wrapper-content">
+                            <div class="ibox-content">
+                                <div class="text-center">
+                                    <h2><strong>Completed</strong></h2>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
+            @if(($data->trace == 'Delivered') || ($data->trace == 'Returned'))
+            @else
             <div class="col-sm-8">
+
                 <div class="wrapper wrapper-content">
                     <div class="ibox-content ibox-heading">
                         <h3><i class="fa fa-user-o"></i> Trace Info</h3>
                     </div>
                     <div class="ibox-content">
                         <div class="row feed-activity-list">
-
                             <div class="col-sm-6">
                                 <div>
                                     <h3>Receiver:</h3>
@@ -41,7 +52,7 @@
                                     <span><i class="fa fa-user"></i> <strong>{{ $data->dispatch->value_0 }}</strong></span><br>
                                     <span><i class="fa fa-mobile"></i> {{ $data->dispatch->value_1 }}</span><br><br>
                                     <dl>
-                                        <dd>Type: {{ $data->dispatch->value_2 }}</dd>
+                                        <dd>Vehicle Type: {{ $data->dispatch->value_2 }}</dd>
                                         <dd>Plate: {{ $data->dispatch->value_3 }}</dd>
                                     </dl>
                                 </div>
@@ -49,49 +60,63 @@
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="row status-btn-box">
-                            @if(($data->trace == 'Delivered') || ($data->trace == 'Returned'))
-                                <div class="col-sm-12">
-                                    <div class="text-center">
-                                        <h2>Completed</h2>
-                                    </div>
+{{--                            <div class="col-sm-12">--}}
+{{--                                <p>Please present this CODE upon receiving your package.</p>--}}
+{{--                                <table>--}}
+{{--                                    <thead>--}}
+{{--                                    <tr>--}}
+{{--                                        <th colspan="4">Dispatch Information</th>--}}
+{{--                                    </tr>--}}
+{{--                                    </thead>--}}
+{{--                                    <tbody>--}}
+{{--                                    <tr>--}}
+{{--                                        <td width="150">Driver Name</td>--}}
+{{--                                        <td>{{ $data->dispatch->value_0 }}</td>--}}
+{{--                                    </tr>--}}
+{{--                                    <tr>--}}
+{{--                                        <td>Mobile no.</td>--}}
+{{--                                        <td>{{ $data->dispatch->value_1 }}</td>--}}
+{{--                                    </tr>--}}
+{{--                                    <tr>--}}
+{{--                                        <td>Vehicle Type</td>--}}
+{{--                                        <td>{{ $data->dispatch->value_2 }}</td>--}}
+{{--                                    </tr>--}}
+{{--                                    <tr>--}}
+{{--                                        <td>Plate No.</td>--}}
+{{--                                        <td>{{ $data->dispatch->value_3 }}</td>--}}
+{{--                                    </tr>--}}
+{{--                                    </tbody>--}}
+{{--                                </table>--}}
+{{--                            </div>--}}
+                            @switch($data->trace)
+                                @case('Arrive')
+                                <div class="col-sm-6">
+                                    <button class="btn btn-block btn-success btn-action p-3" data-id="{{ $data->id }}" data-action="Delivered">DELIVERED</button>
                                 </div>
-                            @else
-                                @switch($data->trace)
-                                    @case('Arrive')
-                                    <div class="col-sm-6">
-                                        <button class="btn btn-block btn-success btn-action p-3" data-id="{{ $data->id }}" data-action="Delivered">DELIVERED</button>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button class="btn btn-block btn-danger btn-action p-3" data-id="{{ $data->id }}" data-action="Returned">UNDELIVERABLE</button>
-                                    </div>
-                                    @break
-                                    @default
-                                    <div class="col-sm-12">
-                                        <button class="btn btn-block btn-success btn-action p-3" data-id="{{ $data->id }}" data-action="{{ $data->trace }}">
-                                            @switch($data->trace)
-                                                @case('Loaded')
-                                                Depart
-                                                @break
-                                                @case('Transit')
-                                                Arrive
-                                                @break
-                                            @endswitch
-                                        </button>
-                                    </div>
-                                @endswitch
-                            @endif
-
-
-
+                                <div class="col-sm-6">
+                                    <button class="btn btn-block btn-danger btn-action p-3" data-id="{{ $data->id }}" data-action="Returned">UNDELIVERABLE</button>
+                                </div>
+                                @break
+                                @default
+                                <div class="col-sm-12">
+                                    <button class="btn btn-block btn-success btn-action p-3" data-id="{{ $data->id }}" data-action="{{ $data->trace }}">
+                                        @switch($data->trace)
+                                            @case('Loaded')
+                                            Depart
+                                            @break
+                                            @case('Transit')
+                                            Arrive
+                                            @break
+                                        @endswitch
+                                    </button>
+                                </div>
+                            @endswitch
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="wrapper wrapper-content">
 
-                </div>
             </div>
+            @endif
         </div>
     </section>
 
@@ -213,7 +238,7 @@
                         box.empty().append('' +
                             '<div class="farmer-login text-center">' +
                                 '<div class="form-group mb-3">' +
-                                    '<input type="text" name="code" class="form-control numonly">' +
+                                    '<input type="text" name="code" class="form-control">' +
                                     '<label><strong class="text-uppercase">receiver REFERENCE ID</strong></label>' +
                                 '</div>' +
                                 '<button type="submit" class="btn btn-block btn-xl btn-action btn-success p-3" data-action="Reference" data-id="'+ id +'">PROCEED</button>' +

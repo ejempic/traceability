@@ -26,6 +26,10 @@ class PublicController extends Controller
             $modelInfo->value_0 = 'Delivered';
             $modelInfo->value_1 = 'Delivered to Client';
             $trace->info()->save($modelInfo);
+            Trace::find($trace->id)->inventories()->update(array(
+                'status'=>'Delivered'
+            ));
+
             return response()->json('success');
         }
         return response()->json('error');

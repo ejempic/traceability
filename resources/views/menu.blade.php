@@ -64,11 +64,11 @@
 
 @if(auth()->user()->hasRole('super-admin'))
 
-    <li class="{{ (request()->is('master-farmer*')) ? 'active' : '' }}">
-        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Master Farmer</span><span class="fa arrow"></span></a>
+    <li class="{{ (request()->is('community-leader*')) ? 'active' : '' }}">
+        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Community Leader</span><span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
-            <li class="{{ (request()->is('master-farmer')) ? 'active' : '' }}"><a href="{!! route('master-farmer.index') !!}">List</a></li>
-            <li class="{{ (request()->is('master-farmer/create')) ? 'active' : '' }}"><a href="{!! route('master-farmer.create') !!}">Create</a></li>
+            <li class="{{ (request()->is('master-farmer')) ? 'active' : '' }}"><a href="{!! route('community-leader.index') !!}">List</a></li>
+            <li class="{{ (request()->is('master-farmer/create')) ? 'active' : '' }}"><a href="{!! route('community-leader.create') !!}">Create</a></li>
         </ul>
     </li>
 

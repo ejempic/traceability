@@ -9,7 +9,7 @@
             <h2>@yield('title')</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="\">Dashboard</a>
+                    <a href="{{ route('home') }}">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>@yield('title')</strong>
@@ -41,7 +41,8 @@
                             </div>
                         </div>
 
-                        <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
+                        <div class="table-responsive">
+                            <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -58,7 +59,7 @@
                                     <td>{{ farmerCount($data->id) }}</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
-                                            <a href="{!! route('master-farmer.show', array('master_farmer' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
+                                            <a href="{!! route('community-leader.show', array('community_leader' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -72,6 +73,7 @@
                             </tr>
                             </tfoot>
                         </table>
+                        </div>
 
                     </div>
                 </div>

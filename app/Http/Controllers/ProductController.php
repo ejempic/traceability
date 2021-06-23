@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Unit;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -102,5 +103,28 @@ class ProductController extends Controller
     {
         $data = Product::with('units')->find($request->input('id'));
         return response()->json($data->units);
+    }
+
+    public function productStore(Request $request)
+    {
+        $product = $request->input('product');
+        $units = $request->input('unit');
+
+        $data = new Product();
+        $data->name = stringSlug($product[0]);
+        $data->display_name = $product[0];
+        $data->description = $product[1];
+        if($data->save()){
+            foreach ($units as $unitData){
+                $unit = new Unit();
+                $unit->name = $unitData[0];
+                $unit->abbr = $unitData[1];
+                $data->units()->save($unit);
+            }
+
+            $url = route('product.show', array('product'=>$data));
+            return response()->json($url);
+
+        }
     }
 }
