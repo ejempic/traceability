@@ -66,11 +66,11 @@
                         <div class="ibox-content">
                             <div class="form-group">
                                 <label>Product</label>
-                                <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="eg. Rice/Sugar">
+                                <input type="text" class="form-control input-sm m-b-xs product_input" placeholder="eg. Rice/Sugar">
                             </div>
                             <div class="form-group">
                                 <label>Qty</label>
-                                <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="">
+                                <input type="number" class="form-control input-sm m-b-xs" id="qty" value="1" placeholder="">
                             </div>
 
                             <div class="form-group">
@@ -135,38 +135,20 @@
 @endsection
 
 @section('scripts')
-    {{--    {!! Html::script('') !!}--}}
-    {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
-    {{--    {!! $dataTable->scripts() !!}--}}
-    {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
-    {{--    {!! Html::script('/js/template/moment.js') !!}--}}
+
+    {!! Html::script('/js/template/plugins/typehead/bootstrap3-typeahead.js') !!}
+
     <script>
         $(document).ready(function () {
-            {{--var modal = $('#modal');--}}
-            {{--$(document).on('click', '', function(){--}}
-            {{--    modal.modal({backdrop: 'static', keyboard: false});--}}
-            {{--    modal.modal('toggle');--}}
-            {{--});--}}
 
-            {{-- var table = $('#table').DataTable({--}}
-            {{--     processing: true,--}}
-            {{--     serverSide: true,--}}
-            {{--     ajax: {--}}
-            {{--         url: '{!! route('') !!}',--}}
-            {{--         data: function (d) {--}}
-            {{--             d.branch_id = '';--}}
-            {{--         }--}}
-            {{--     },--}}
-            {{--     columnDefs: [--}}
-            {{--         { className: "text-right", "targets": [ 0 ] }--}}
-            {{--     ],--}}
-            {{--     columns: [--}}
-            {{--         { data: 'name', name: 'name' },--}}
-            {{--         { data: 'action', name: 'action' }--}}
-            {{--     ]--}}
-            {{-- });--}}
+            $(document).on('click', '.btn-action', function () {
 
-            {{--table.ajax.reload();--}}
+            });
+
+            $.get('{{route('product-list')}}', function(data){
+                console.log(data)
+                $(".product_input").typeahead({ source:data });
+            },'json');
 
             $(document).on('click', '.btn-action', function () {
                 switch ($(this).data('action')) {
