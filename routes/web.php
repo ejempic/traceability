@@ -33,6 +33,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('community-leader', 'MasterFarmerController');
 
+    Route::resource('purchase-order', 'PurchaseOrderController');
+
     Route::resource('farmer', 'FarmerController');
     Route::get('farmer-qr-print/{account}', 'FarmerController@farmerQrPrint')->name('farmer-qr-print');
     Route::get('farmers/login', 'FarmerController@farmerLogin')->name('farmer-login');
