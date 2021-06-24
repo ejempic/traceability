@@ -19,7 +19,7 @@ class MasterFarmerController extends Controller
     {
         $datas = MasterFarmer::with('profile')->get();
 //        return $datas;
-        return response()->view('user.master-farmer.index', compact('datas'));
+        return response()->view(subDomainPath('master-farmer.index'), compact('datas'));
     }
 
     /**
@@ -29,7 +29,7 @@ class MasterFarmerController extends Controller
      */
     public function create()
     {
-        return response()->view('user.master-farmer.create');
+        return response()->view(subDomainPath('master-farmer.create'));
     }
 
     /**
@@ -60,7 +60,7 @@ class MasterFarmerController extends Controller
                     $user->markEmailAsVerified();
                     $master->user_id = $user->id;
                     $master->save();
-                    return redirect()->route('master-farmer.index');
+                    return redirect()->route('community-leader.index');
                 }
             }
         }

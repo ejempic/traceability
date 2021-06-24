@@ -28,7 +28,7 @@ class InventoryController extends Controller
                 ->get();
         }
 //        return $datas;
-        return view('user.inventory.index', compact('datas'));
+        return view(subDomainPath('inventory.index'), compact('datas'));
     }
 
     /**
@@ -41,7 +41,7 @@ class InventoryController extends Controller
         $datas = Farmer::with('profile')
             ->get();
 //        return $datas;
-        return response()->view('user.inventory.create', compact('datas'));
+        return response()->view(subDomainPath('inventory.create'), compact('datas'));
     }
 
     /**
@@ -81,7 +81,7 @@ class InventoryController extends Controller
     public function show(Inventory $inventory)
     {
         $inventory = Inventory::find($inventory->id);
-        return view('user.inventory.show', compact('inventory'));
+        return view(subDomainPath('inventory.show'), compact('inventory'));
     }
 
     /**
@@ -143,7 +143,7 @@ class InventoryController extends Controller
     {
         $data = Farmer::with('listing')->where('account_id', $account)->first();
 
-        return view('inventory-listing', compact('data'));
+        return view(subDomainPath('inventory-listing'), compact('data'));
     }
 
     public function inventoryListingStore(Request $request)

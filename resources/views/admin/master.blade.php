@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ subdomain_title(null) }} | @yield('title')</title>
+    <title>{{ config('app.name') }} | @yield('title')</title>
     <title>Trace | @yield('title')</title>
 
     {{--    <link rel="apple-touch-icon" sizes="180x180" href="{{ URL::to('/favicon_io/apple-touch-icon.png') }}">--}}
@@ -57,7 +57,7 @@
                     </div>
                 </li>
 
-                @include(subdomain_name().'.menu')
+                @include('admin.menu')
 
             </ul>
 

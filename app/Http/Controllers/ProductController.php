@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index()
     {
         $datas = Product::get();
-        return response()->view('user.product.index', compact('datas'));
+        return response()->view(subDomainPath('product.index'), compact('datas'));
     }
 
     /**
@@ -56,7 +56,10 @@ class ProductController extends Controller
     {
         $data = Product::with('units')->find($product->id);
 //        return $data;
-        return response()->view('user.product.show', compact('data'));
+        if(auth()->user()->hasRole('super-admin')){
+            return response()->view('user.product.show', compact('data'));
+        }
+        return response()->view(subDomainPath('product.show'), compact('data'));
     }
 
     /**

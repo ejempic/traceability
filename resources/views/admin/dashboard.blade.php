@@ -1,4 +1,4 @@
-@extends('master')
+@extends('admin.master')
 
 {{--@section('title', 'Dashboard | '.getRoleName('display_name'))--}}
 @section('title', 'Dashboard')
@@ -8,6 +8,7 @@
     <section class="container animated fadeInRight">
         <div class="row">
 {{--            <div class="col-lg-3">--}}
+{{--                {!! config('dev.domain_ext') !!}--}}
 {{--                <div class="widget style1 blue-bg">--}}
 {{--                    <div class="row">--}}
 {{--                        <div class="col-4 text-center">--}}

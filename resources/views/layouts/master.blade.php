@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ subdomain_title(null) }} | @yield('title')</title>
+    <title>Agrabah | @yield('title')</title>
     <title>Trace | @yield('title')</title>
 
-    {{--    <link rel="apple-touch-icon" sizes="180x180" href="{{ URL::to('/favicon_io/apple-touch-icon.png') }}">--}}
-    {{--    <link rel="icon" type="image/png" sizes="32x32" href="{{ URL::to('/favicon_io/favicon-32x32.png') }}">--}}
-    {{--    <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('/favicon_io/favicon-16x16.png') }}">--}}
-    {{--    <link rel="manifest" href="{{ URL::to('/favicon_io/site.webmanifest') }}">--}}
+{{--    <link rel="apple-touch-icon" sizes="180x180" href="{{ URL::to('/favicon_io/apple-touch-icon.png') }}">--}}
+{{--    <link rel="icon" type="image/png" sizes="32x32" href="{{ URL::to('/favicon_io/favicon-32x32.png') }}">--}}
+{{--    <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('/favicon_io/favicon-16x16.png') }}">--}}
+{{--    <link rel="manifest" href="{{ URL::to('/favicon_io/site.webmanifest') }}">--}}
 
     {!! Html::style('/css/app.css') !!}
     {!! Html::style('/css/styles.css') !!}
@@ -34,13 +34,13 @@
 
                 <li class="nav-header">
                     <div class="dropdown profile-element">
-                        {{--                        <img alt="image" class="rounded-circle" src="/img/profile_small.jpg"/>--}}
-                        {{--                        <img alt="image" class="rounded-circle profile-pic" src="{{ authProfilePic(Auth::user()->id) }}"/>--}}
+{{--                        <img alt="image" class="rounded-circle" src="/img/profile_small.jpg"/>--}}
+{{--                        <img alt="image" class="rounded-circle profile-pic" src="{{ authProfilePic(Auth::user()->id) }}"/>--}}
                         {{--<img alt="image" class="rounded-circle profile-pic" src="/img/blank-profile.jpg"/>--}}
                         <img alt="image" class="img-fluid" src="{{ asset('images/logo.png') }}"/>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            {{--                            <span class="block m-t-xs font-bold">{!! Auth::user()->name !!}</span>--}}
-                            {{--                            <span class="text-muted text-xs block">{{ getRoleName('display_name') }} <b class="caret"></b></span>--}}
+{{--                            <span class="block m-t-xs font-bold">{!! Auth::user()->name !!}</span>--}}
+{{--                            <span class="text-muted text-xs block">{{ getRoleName('display_name') }} <b class="caret"></b></span>--}}
                             {{--<span class="text-muted text-xs block"> {{ getRoleName('display_name') }} <b class="caret"></b></span>--}}
                             <span class="text-muted text-xs block"> {!! Auth::user()->name !!} <b class="caret"></b></span>
                         </a>
@@ -57,7 +57,7 @@
                     </div>
                 </li>
 
-                @include(subdomain_name().'.menu')
+                @include('menu')
 
             </ul>
 

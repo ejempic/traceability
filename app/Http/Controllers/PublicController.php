@@ -14,7 +14,7 @@ class PublicController extends Controller
     {
         $trace = Trace::with('inventories')->where('reference', $code)->first();
 //        return $trace;
-        return view('user.mobile.trace-tracking', compact('trace'));
+        return view(subDomainPath('mobile.trace-tracking'), compact('trace'));
     }
 
     public function traceShipped(Request $request)

@@ -44,7 +44,7 @@ class HomeController extends Controller
             $farmer = Inventory::where('master_id', Auth::user()->master->account_id)->distinct('farmer_id')->count('farmer_id');
 
 
-            return view('dashboard', compact( 'inventory', 'trace', 'farmer'));
+            return view(subDomainPath('dashboard'), compact( 'inventory', 'trace', 'farmer'));
         }
 
     }

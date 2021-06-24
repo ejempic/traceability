@@ -33,7 +33,7 @@ class FarmerController extends Controller
         }
 
 //        return $datas;
-        return response()->view('user.farmer.index', compact('datas'));
+        return response()->view(subDomainPath('farmer.index'), compact('datas'));
     }
 
     /**
@@ -46,7 +46,7 @@ class FarmerController extends Controller
 //        $number = str_pad(Farmer::count() + 1, 6, 0, STR_PAD_LEFT);
         $number = Farmer::count() + 1;
 //        $number = Auth::user()->master->account_id.'-'.$number;
-        return response()->view('user.farmer.create', compact( 'number'));
+        return response()->view(subDomainPath('farmer.create'), compact( 'number'));
     }
 
     /**
@@ -119,7 +119,7 @@ class FarmerController extends Controller
         $url = $host_names[count($host_names)-2] . "." . $host_names[count($host_names)-1]."/inv-listing/".$data->account_id;
 
 //        return $group;
-        return view('user.farmer.show', compact('data', 'group', 'inventories', 'url'));
+        return view(subDomainPath('farmer.show'), compact('data', 'group', 'inventories', 'url'));
     }
 
     /**
@@ -130,7 +130,7 @@ class FarmerController extends Controller
      */
     public function edit(Farmer $farmer)
     {
-        return view('user.farmer.edit', compact('farmer'));
+        return view(subDomainPath('farmer.edit'), compact('farmer'));
     }
 
     /**
@@ -181,17 +181,17 @@ class FarmerController extends Controller
     public function farmerQrPrint($account)
     {
         $data = Farmer::where('account_id', $account)->first();
-        return view('user.mobile.farmer-qr-print', compact('data'));
+        return view(subDomainPath('mobile.farmer-qr-print'), compact('data'));
     }
 
     public function farmerQr(Request $request)
     {
-        return view('user.mobile.scan-qr-farmer');
+        return view(subDomainPath('mobile.scan-qr-farmer'));
     }
 
     public function farmerLogin()
     {
-        return view('user.mobile.farmer.login');
+        return view(subDomainPath('mobile.farmer.login'));
     }
 
     public function farmerLoginForm(Request $request)
@@ -215,11 +215,11 @@ class FarmerController extends Controller
     public function farmerInfo($account)
     {
         $data = Farmer::where('account_id', $account)->first();
-        return view('user.mobile.farmer.info', compact('data'));
+        return view(subDomainPath('mobile.farmer.info'), compact('data'));
     }
 
     public function farmerInventory(Request $request)
     {
-        return view('user.mobile.farmer.inventory');
+        return view(subDomainPath('mobile.farmer.inventory'));
     }
 }

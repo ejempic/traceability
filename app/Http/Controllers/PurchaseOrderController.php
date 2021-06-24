@@ -20,7 +20,7 @@ class PurchaseOrderController extends Controller
     {
         $datas = PurchaseOrder::get();
 //        return $datas;
-        return response()->view('purchase-order.index', compact('datas'));
+        return response()->view(subDomainPath('purchase-order.index'), compact('datas'));
     }
 
     /**
@@ -30,7 +30,7 @@ class PurchaseOrderController extends Controller
      */
     public function create()
     {
-        return response()->view('purchase-order.create');
+        return response()->view(subDomainPath('purchase-order.create'));
     }
 
     /**
@@ -82,7 +82,7 @@ class PurchaseOrderController extends Controller
         $data = MasterFarmer::find($masterFarmer->id);
 
 //        return $data;
-        return response()->view('user.master-farmer.show', compact('data'));
+        return response()->view(subDomainPath('master-farmer.show'), compact('data'));
     }
 
     /**

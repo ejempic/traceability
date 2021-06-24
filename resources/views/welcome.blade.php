@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ subdomain_title(null) }}</title>
 
 
         <link href="{{ asset('images/favicon.png') }}" rel="shortcut icon">
@@ -116,7 +116,7 @@
 
             <section class="section-content">
                 <h3>Welcome to</h3>
-                <h1 class="title">AGRABAH TRACE</h1>
+                <h1 class="title">{{ subdomain_title(null) }}</h1>
 
                 <div class="boxes">
                     <ul>
