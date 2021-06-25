@@ -46,21 +46,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 // ROUTES FOR WHARF
-Route::domain('wharf.agrabah.'.config('dev.domain_ext'))->group(function () {
+Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('purchase-order', 'PurchaseOrderController');
     });
 });
 
 // ROUTES FOR LOAN
-Route::domain('loan.agrabah.'.config('dev.domain_ext'))->group(function () {
+Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
 
     });
 });
 
 // ROUTES FOR TRACE
-Route::domain('trace.agrabah.'.config('dev.domain_ext'))->group(function () {
+Route::domain('trace.'.config('dev.domain_ext'))->group(function () {
 
     Route::get('farmer-qr', 'FarmerController@farmerQr')->name('farmer-qr');
     Route::get('trace-shipped', 'PublicController@traceShipped')->name('trace-shipped');
