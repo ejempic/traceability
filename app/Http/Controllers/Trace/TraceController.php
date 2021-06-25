@@ -191,15 +191,6 @@ class TraceController extends Controller
         }
     }
 
-    public function traceInfo($code)
-    {
-        $data = Trace::where('reference', $code)->first();
-//        return $data;
-        return view(subDomainPath('mobile.trace-info'), compact('data'));
-    }
-
-
-
     public function traceQrPrint($reference)
     {
         $data = Trace::where('reference', $reference)->first();

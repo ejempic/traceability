@@ -62,11 +62,11 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 // ROUTES FOR TRACE
 Route::domain('trace.'.config('dev.domain_ext'))->group(function () {
 
-    Route::get('farmer-qr', 'FarmerController@farmerQr')->name('farmer-qr');
+    Route::get('farmer-qr', 'PublicController@farmerQr')->name('farmer-qr');
     Route::get('trace-shipped', 'PublicController@traceShipped')->name('trace-shipped');
     Route::get('trace-tracking/{code}', 'PublicController@traceTracking')->name('trace-tracking');
     Route::get('trace-update-status', 'PublicController@traceUpdate')->name('trace-update-status');
-    Route::get('trace-info/{code}', 'TraceController@traceInfo')->name('trace-info');
+    Route::get('trace-info/{code}', 'PublicController@traceInfo')->name('trace-info');
 
     Route::middleware(['auth', 'verified'])->group(function () {
 

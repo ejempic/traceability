@@ -184,11 +184,6 @@ class FarmerController extends Controller
         return view(subDomainPath('mobile.farmer-qr-print'), compact('data'));
     }
 
-    public function farmerQr(Request $request)
-    {
-        return view(subDomainPath('mobile.scan-qr-farmer'));
-    }
-
     public function farmerLogin()
     {
         return view(subDomainPath('mobile.farmer.login'));

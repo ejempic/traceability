@@ -80,4 +80,16 @@ class PublicController extends Controller
 
 //        return response()->json();
     }
+
+    public function traceInfo($code)
+    {
+        $data = Trace::where('reference', $code)->first();
+//        return $data;
+        return view(subDomainPath('mobile.trace-info'), compact('data'));
+    }
+
+    public function farmerQr(Request $request)
+    {
+        return view(subDomainPath('mobile.scan-qr-farmer'));
+    }
 }
