@@ -195,6 +195,6 @@ class TraceController extends Controller
     {
         $data = Trace::where('reference', $reference)->first();
 
-        return view(subDomainPath('user.mobile.trace-qr-print'), compact('data'));
+        return view(subDomainPath('mobile.trace-qr-print'), compact('data'));
     }
 }
