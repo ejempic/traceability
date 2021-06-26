@@ -79,8 +79,8 @@ class MasterFarmerController extends Controller
     {
         $data = MasterFarmer::find($masterFarmer->id);
 
-//        return $data;
-        return response()->view('user.master-farmer.show', compact('data'));
+        return $data;
+        return response()->view(subDomainPath('master-farmer.show'), compact('data'));
     }
 
     /**
