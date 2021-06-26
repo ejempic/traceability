@@ -29,7 +29,7 @@ class RoleController extends Controller
             ->pluck('permission_id')
             ->toArray();
 
-        return view('headoffice.admin.role.show', compact('role','permissions','default'));
+        return view('admin.role.show', compact('role','permissions','default'));
     }
 
     public function update(Request $request, $id)
