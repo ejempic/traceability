@@ -26,8 +26,9 @@ class FarmerSeeder extends Seeder
             $farmer = new Farmer();
             $farmer->account_id = $number;
 //            $farmer->master_id = $masterFarmer->id;
-            $farmer->url = route('inv-listing', array('account'=>$number));
             if($farmer->save()){
+                $farmer->url = route('farmer.show', array('farmer'=>$farmer));
+                $farmer->save();
                 QrCode::size(500)
                     ->format('png')
                     ->generate($farmer->url, public_path('images/farmer/'.$farmer->account_id.'.png'));

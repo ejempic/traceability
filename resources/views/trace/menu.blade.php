@@ -2,7 +2,7 @@
     <a href="{!! route('home') !!}"><i class="fa fa-tachometer"></i> <span class="nav-label">Dashboard</span></a>
 </li>
 
-@if(auth()->user()->hasRole('master-farmer'))
+@if(auth()->user()->hasRole('community-leader'))
 
     <li class="{{ (request()->is('farmer*')) ? 'active' : '' }}">
         <a href="{!! route('farmer.index') !!}"><i class="fa fa-users"></i> <span class="nav-label">Farmer</span></a>

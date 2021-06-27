@@ -60,7 +60,7 @@
                                     <td>{{ $data->quality }}; {{ $data->quantity }} {{ $data->unit }}</td>
                                     <td>{{ $data->status }}</td>
                                     <td>{{ $data->farmer->profile->first_name }} {{ $data->farmer->profile->last_name }}</td>
-                                    <td>{{ $data->master->profile->first_name }} {{ $data->master->profile->last_name }}</td>
+                                    <td>{{ $data->leader->profile->first_name }} {{ $data->leader->profile->last_name }}</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
                                             <a href="{{ route('inventory.show', array('inventory'=>$data)) }}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>

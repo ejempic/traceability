@@ -39,9 +39,9 @@ class HomeController extends Controller
 
             return view('admin.dashboard', compact( 'inventory', 'trace', 'farmer'));
         }else{
-            $inventory = Inventory::where('master_id', Auth::user()->master->account_id)->count();
+            $inventory = Inventory::where('leader_id', Auth::user()->leader->account_id)->count();
             $trace = Trace::where('user_id', Auth::user()->id)->count();
-            $farmer = Inventory::where('master_id', Auth::user()->master->account_id)->distinct('farmer_id')->count('farmer_id');
+            $farmer = Inventory::where('leader_id', Auth::user()->leader->account_id)->distinct('farmer_id')->count('farmer_id');
 
 
             return view(subDomainPath('dashboard'), compact( 'inventory', 'trace', 'farmer'));

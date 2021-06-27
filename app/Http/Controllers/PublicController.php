@@ -69,7 +69,7 @@ class PublicController extends Controller
             case 'Undeliverable':
                 $update = $action;
                 $modelInfo->value_0 = $action;
-                $modelInfo->value_1 = 'Undeliverable';
+                $modelInfo->value_1 = 'Unable to Deliver';
                 break;
         }
         $trace->info()->save($modelInfo);

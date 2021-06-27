@@ -113,7 +113,7 @@ class TraceController extends Controller
 
     public function farmerInventoryList()
     {
-        $data = Inventory::where('master_id', Auth::user()->id)
+        $data = Inventory::where('leader_id', Auth::user()->id)
             ->where('status', 'Accepted')
             ->get();
 

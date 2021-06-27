@@ -6,8 +6,16 @@
     </ul>
 </li>
 
+{{--<li class="{{ (request()->is('farmer*')) ? 'active' : '' }}">--}}
+{{--    <a href="{!! route('farmer.index') !!}"><i class="fa fa-user-circle"></i> <span class="nav-label">Farmer</span></a>--}}
+{{--</li>--}}
+
 <li class="{{ (request()->is('farmer*')) ? 'active' : '' }}">
-    <a href="{!! route('farmer.index') !!}"><i class="fa fa-user-circle"></i> <span class="nav-label">Farmer</span></a>
+    <a href="#"><i class="fa fa-user-circle"></i> <span class="nav-label">Farmers</span><span class="fa arrow"></span></a>
+    <ul class="nav nav-second-level collapse">
+        <li class="{{ (request()->is('farmer')) ? 'active' : '' }}"><a href="{!! route('farmer.index') !!}">List</a></li>
+        <li class="{{ (request()->is('farmer/create')) ? 'active' : '' }}"><a href="{!! route('farmer.create') !!}">Create</a></li>
+    </ul>
 </li>
 
 <li class="{{ (request()->is('product*')) ? 'active' : '' }}">

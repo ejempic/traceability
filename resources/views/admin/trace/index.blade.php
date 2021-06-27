@@ -1,6 +1,6 @@
-@extends(subdomain_name().'.master')
+@extends('admin.master')
 
-@section('title', 'Master Farmer Create')
+@section('title', 'Trace List')
 
 @section('content')
 
@@ -18,60 +18,71 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <button type="button" class="btn btn-primary btn-action" data-action="store">Save</button>
+{{--                <a href="#" class="btn btn-primary">This is action area</a>--}}
             </div>
         </div>
     </div>
 
     <div id="app" class="wrapper wrapper-content">
-        <form action="{!! route('community-leader.store') !!}" method="post" id="form">@csrf
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Account Info
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" name="password" class="form-control">
-                            </div>
-{{--                            <div class="form-group">--}}
-{{--                                <label>Retype Password</label>--}}
-{{--                                <input type="password" name="confirm-password" class="form-control">--}}
-{{--                            </div>--}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8">
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Basic Info
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label>First name</label>
-                                <input type="text" name="first-name" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Middle name</label>
-                                <input type="text" name="middle-name" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Last name</label>
-                                <input type="text" name="last-name" class="form-control">
-                            </div>
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+{{--                    <div class="ibox-title">--}}
+{{--                        <h5>Blank <small>page</small></h5>--}}
+{{--                    </div>--}}
+                    <div class="ibox-content">
 
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <thead>
+                            <tr>
+                                <th>Reference</th>
+                                <th>Client</th>
+                                <th>Client Address</th>
+                                <th>Status</th>
+                                <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($datas as $data)
+                                <tr>
+                                    <td>{{ $data->reference }}</td>
+                                    <td>{{ $data->receiver->value_0 }}</td>
+                                    <td>{{ $data->receiver->text_0 }}</td>
+                                    <td>{{ $data->status }}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group text-right">
+                                            <a href="{{ route('trace.show', array('trace'=>$data)) }}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
+                                            <a href="{{ route('trace-info', array('code'=>$data->reference)) }}" class="action btn-white btn btn-xs" target="_blank"><i class="fa fa-search text-success"></i> Page</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </form>
+        </div>
+
     </div>
 
     <div class="modal inmodal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category="" data-variant="" data-bal="">
@@ -109,14 +120,6 @@
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
         $(document).ready(function(){
-            $(document).on('click', '.btn-action', function(){
-                switch ($(this).data('action')) {
-                    case 'store':
-                        $('#form').submit();
-                        break;
-                }
-            });
-
             {{--var modal = $('#modal');--}}
             {{--$(document).on('click', '', function(){--}}
             {{--    modal.modal({backdrop: 'static', keyboard: false});--}}

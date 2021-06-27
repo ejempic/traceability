@@ -59,7 +59,7 @@ class UserSeeder extends Seeder
 
         $roles = array(
             'Super Admin',
-            'Master Farmer',
+            'Community Leader',
             'Farmer'
         );
 

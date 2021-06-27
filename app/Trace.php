@@ -48,6 +48,6 @@ class Trace extends Model
 
     public function inventories()
     {
-        return $this->hasMany(Inventory::class, 'trace_id')->with('product', 'farmer', 'master');
+        return $this->hasMany(Inventory::class, 'trace_id')->with('product', 'farmer', 'leader');
     }
 }

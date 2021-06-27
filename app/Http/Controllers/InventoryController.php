@@ -24,7 +24,7 @@ class InventoryController extends Controller
             $datas = Inventory::with('product')->get();
         }else{
             $datas = Inventory::with('product')
-                ->where('master_id', Auth::user()->master->id)
+                ->where('leader_id', Auth::user()->leader->id)
                 ->get();
         }
 //        return $datas;
@@ -53,13 +53,13 @@ class InventoryController extends Controller
     public function store(Request $request)
     {
         $data = new Inventory();
-        $data->master_id = Auth::user()->master->id;
+        $data->leader_id = Auth::user()->leader->id;
         $data->farmer_id = $request->input('farmer_id');
         $data->name = $request->input('name');
         $data->details = $request->input('details');
         $data->status = 'Accepted';
         $data->remark = 'Warehouse';
-        $data->user_id = Auth::user()->master->id;
+        $data->user_id = Auth::user()->leader->id;
         if($data->save()){
 
             $modelInfo = new ModelInfo();
@@ -122,7 +122,7 @@ class InventoryController extends Controller
     {
 //        $ids = array();
         $data = Inventory::whereNotIn('id', $request->input('ids'))
-            ->where('master_id', Auth::user()->master->id)
+            ->where('leader_id', Auth::user()->leader->id)
             ->with('farmer', 'product')
             ->where('status', 'Accepted')
             ->get();
@@ -150,7 +150,7 @@ class InventoryController extends Controller
     {
         $details = $request->input('details');
         $inventory = new Inventory();
-        $inventory->master_id = Auth::user()->master->id;
+        $inventory->leader_id = Auth::user()->leader->id;
         $inventory->farmer_id = $details[1];
         $inventory->product_id = $details[2];
         $inventory->quality = $details[3];

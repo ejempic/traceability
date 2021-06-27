@@ -21,8 +21,8 @@ class Inventory extends Model
         return $this->belongsTo(Farmer::class, 'farmer_id')->with('profile');
     }
 
-    public function master()
+    public function leader()
     {
-        return $this->belongsTo(MasterFarmer::class, 'master_id')->with('profile');
+        return $this->belongsTo(CommunityLeader::class, 'leader_id')->with('profile');
     }
 }

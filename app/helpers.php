@@ -46,7 +46,7 @@ if (!function_exists('subDomainPath')) {
 if (!function_exists('farmerCount')) {
     function farmerCount($id)
     {
-        $ids = Inventory::where('master_id', $id)->distinct('farmer_id')->pluck('farmer_id')->toArray();
+        $ids = Inventory::where('leader_id', $id)->distinct('farmer_id')->pluck('farmer_id')->toArray();
         $count = Farmer::whereIn('id', $ids)
             ->count();
 
@@ -63,7 +63,7 @@ if (!function_exists('productInvCount')) {
                 ->count();
         }else{
             $count = Inventory::where('product_id', $id)
-                ->where('master_id', Auth::user()->master->id)
+                ->where('leader_id', Auth::user()->leader->id)
                 ->count();
         }
         return $count;

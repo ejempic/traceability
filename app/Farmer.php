@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Farmer extends Model
 {
-    public function master()
+    public function leader()
     {
-        return $this->belongsTo(MasterFarmer::class, 'master_id');
+        return $this->belongsTo(CommunityLeader::class, 'leader_id');
     }
 
     public function profile()

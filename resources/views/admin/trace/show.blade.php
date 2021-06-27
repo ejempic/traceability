@@ -1,4 +1,4 @@
-@extends(subdomain_name().'.master')
+@extends('admin.master')
 
 @section('title', 'Trace Show')
 

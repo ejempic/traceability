@@ -17,18 +17,18 @@
                     <h3 class="mb-0">Reference ID:</h3>
                     <h1 class="mt-0 mb-4">{{ $data->reference }}</h1>
                     {{ QrCode::size(200)->generate($data->url) }}
-                    @if(($data->trace == 'Delivered') || ($data->trace == 'Returned'))
+                    @if(($data->trace == 'Delivered') || ($data->trace == 'Undeliverable'))
                         <div class="wrapper wrapper-content">
                             <div class="ibox-content">
                                 <div class="text-center">
-                                    <h2><strong>Completed</strong></h2>
+                                    <h2><strong>Completed: <small>{{ $data->trace }}</small></strong></h2>
                                 </div>
                             </div>
                         </div>
                     @endif
                 </div>
             </div>
-            @if(($data->trace == 'Delivered') || ($data->trace == 'Returned'))
+            @if(($data->trace == 'Delivered') || ($data->trace == 'Undeliverable'))
             @else
             <div class="col-sm-8">
 
@@ -94,7 +94,7 @@
                                     <button class="btn btn-block btn-success btn-action p-3" data-id="{{ $data->id }}" data-action="Delivered">DELIVERED</button>
                                 </div>
                                 <div class="col-sm-6">
-                                    <button class="btn btn-block btn-danger btn-action p-3" data-id="{{ $data->id }}" data-action="Returned">UNDELIVERABLE</button>
+                                    <button class="btn btn-block btn-danger btn-action p-3" data-id="{{ $data->id }}" data-action="Undeliverable">UNDELIVERABLE</button>
                                 </div>
                                 @break
                                 @default

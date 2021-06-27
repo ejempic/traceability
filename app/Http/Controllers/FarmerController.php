@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Farmer;
 use App\Inventory;
-use App\MasterFarmer;
+use App\CommunityLeader;
 use App\Product;
 use App\Profile;
 use App\User;
@@ -24,10 +24,10 @@ class FarmerController extends Controller
     public function index()
     {
         if(auth()->user()->hasRole('super-admin')){
-            $datas = Farmer::with('master')->get();
+            $datas = Farmer::with('leader')->get();
         }else{
-            $ids = Inventory::where('master_id', Auth::user()->master->id)->distinct('farmer_id')->pluck('farmer_id')->toArray();
-            $datas = Farmer::with('master')
+            $ids = Inventory::where('leader_id', Auth::user()->leader->id)->distinct('farmer_id')->pluck('farmer_id')->toArray();
+            $datas = Farmer::with('leader')
                 ->whereIn('id', $ids)
                 ->get();
         }
@@ -57,13 +57,15 @@ class FarmerController extends Controller
      */
     public function store(Request $request)
     {
-        $number = str_pad(Farmer::count() + 1, 5, 0, STR_PAD_LEFT);
+//        $number = str_pad(Farmer::count() + 1, 5, 0, STR_PAD_LEFT);
+        $number = Farmer::count() + 1;
 //        $number = Auth::user()->master->account_id.'-'.$number;
         $farmer = new Farmer();
         $farmer->account_id = $number;
-        $farmer->master_id = Auth::user()->master->id;
-        $farmer->url = route('inv-listing', array('account'=>$number));
+//        $farmer->leader_id = Auth::user()->leader->id;
         if($farmer->save()){
+            $farmer->url = route('farmer.show', array('farmer'=>$farmer));
+            $farmer->save();
             QrCode::size(500)
                 ->format('png')
                 ->generate($farmer->url, public_path('images/farmer/'.$farmer->account_id.'.png'));

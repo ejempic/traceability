@@ -27,7 +27,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('farmer', 'FarmerController');
 
-    Route::resource('community-leader', 'MasterFarmerController');
+    Route::resource('community-leader', 'CommunityLeaderController');
+
+    Route::resource('product', 'ProductController');
+    Route::get('product-list', 'ProductController@productList')->name('product-list');
+    Route::get('product-unit-list', 'ProductController@productUnitList')->name('product-unit-list');
+    Route::post('product-store', 'ProductController@productStore')->name('product-store');
 
     Route::resource('user', 'UserController');
     // Route::get('user-list', 'UserController@userList')->name('user-list');
@@ -78,13 +83,6 @@ Route::domain('trace.'.config('dev.domain_ext'))->group(function () {
         Route::get('farmers/inventory-listing/{account}', 'FarmerController@farmerInventory')->name('farmer-inventory-listing');
         Route::get('farmers/inventory/{account}', 'FarmerController@farmerInventory')->name('farmer-inventory');
         // FARMER END
-
-        // FARMER START
-        Route::resource('product', 'ProductController');
-        Route::get('product-list', 'ProductController@productList')->name('product-list');
-        Route::get('product-unit-list', 'ProductController@productUnitList')->name('product-unit-list');
-        Route::post('product-store', 'ProductController@productStore')->name('product-store');
-        // FARMER START
 
         // FARMER START
         Route::resource('inventory', 'InventoryController');

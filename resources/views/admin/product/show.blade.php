@@ -1,6 +1,6 @@
-@extends(subdomain_name().'.master')
+@extends('admin.master')
 
-@section('title', 'Master Farmer Info')
+@section('title', 'Product Info')
 
 @section('content')
 
@@ -32,8 +32,26 @@
                         <h5>Information</h5>
                     </div>
                     <div class="ibox-content">
+                        <div class="mb-2">
+                            <h3 class="mb-0">{{ $data->display_name }}</h3>
+                            <small class="text-success">Name</small>
+                        </div>
 
-                        <h2>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</h2>
+                        @if($data->description !== null)
+                            <div class="mb-2">
+                                <h3 class="mb-0">{{ $data->description }}</h3>
+                                <small class="text-success">Description</small>
+                            </div>
+                        @endif
+
+                        <div class="mb-2">
+                            <h3 class="mb-0">
+                                @foreach($data->units as $unit)
+                                    {{ $unit->name }} ({{ $unit->abbr }}) <br>
+                                @endforeach
+                            </h3>
+                            <small class="text-success">Units</small>
+                        </div>
 
                     </div>
                 </div>

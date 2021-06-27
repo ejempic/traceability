@@ -1,6 +1,6 @@
-@extends('master')
+@extends('admin.master')
 
-@section('title', 'Master Farmer')
+@section('title', 'Inventory')
 
 @section('content')
 
@@ -26,7 +26,7 @@
     <div id="app" class="wrapper wrapper-content">
 
         <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-12">
                 <div class="ibox float-e-margins">
 {{--                    <div class="ibox-title">--}}
 {{--                        <h5>Blank <small>page</small></h5>--}}
@@ -34,7 +34,7 @@
                     <div class="ibox-content">
 
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
                                 </div>
@@ -42,24 +42,28 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
+                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Email</th>
+                                <th>Details</th>
+                                <th>Status</th>
                                 <th>Farmer</th>
+                                <th>Comm. Leader</th>
                                 <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($datas as $data)
                                 <tr>
-                                    <td>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</td>
-                                    <td>{{ $data->user->email }}</td>
-                                    <td>{{ farmerCount($data->id) }}</td>
+                                    <td>{{ $data->product->display_name }}</td>
+                                    <td>{{ $data->quality }}; {{ $data->quantity }} {{ $data->unit }}</td>
+                                    <td>{{ $data->status }}</td>
+                                    <td>{{ $data->farmer->profile->first_name }} {{ $data->farmer->profile->last_name }}</td>
+                                    <td>{{ $data->leader->profile->first_name }} {{ $data->leader->profile->last_name }}</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
-                                            <a href="{!! route('community-leader.show', array('community_leader' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
+                                            <a href="{{ route('inventory.show', array('inventory'=>$data)) }}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -67,7 +71,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="3">
+                                <td colspan="6">
                                     <ul class="pagination pull-right"></ul>
                                 </td>
                             </tr>
@@ -104,14 +108,14 @@
 
 
 @section('styles')
-    {!! Html::style('css/template/plugins/footable/footable.core.css') !!}
+    {!! Html::style('/css/template/plugins/footable/footable.core.css') !!}
     {{--{!! Html::style('') !!}--}}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
 @endsection
 
 @section('scripts')
-    {!! Html::script('js/template/plugins/footable/footable.all.min.js') !!}
+    {!! Html::script('/js/template/plugins/footable/footable.all.min.js') !!}
     {{--    {!! Html::script('') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
@@ -120,7 +124,6 @@
     <script>
         $(document).ready(function(){
             $('.footable').footable();
-
             {{--var modal = $('#modal');--}}
             {{--$(document).on('click', '', function(){--}}
             {{--    modal.modal({backdrop: 'static', keyboard: false});--}}

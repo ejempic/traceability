@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return response()->view('user.product.create');
+        return response()->view(subDomainPath('product.create'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ProductController extends Controller
         $data = Product::with('units')->find($product->id);
 //        return $data;
         if(auth()->user()->hasRole('super-admin')){
-            return response()->view('user.product.show', compact('data'));
+            return response()->view(subDomainPath('product.show'), compact('data'));
         }
         return response()->view(subDomainPath('product.show'), compact('data'));
     }

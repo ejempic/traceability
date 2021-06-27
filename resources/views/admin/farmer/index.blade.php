@@ -1,4 +1,4 @@
-@extends(subdomain_name().'.master')
+@extends('admin.master')
 
 @section('title', 'Farmer')
 
@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                @if(auth()->user()->hasRole('community-leader'))
+                @if(auth()->user()->hasRole('master-farmer'))
                     <a href="{!! route('farmer.create') !!}" class="btn btn-primary">Create</a>
                 @endif
             </div>

@@ -1,6 +1,6 @@
-@extends(subdomain_name().'.master')
+@extends('admin.master')
 
-@section('title', 'Farmer')
+@section('title', 'Inventory Create')
 
 @section('content')
 
@@ -18,67 +18,52 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                @if(auth()->user()->hasRole('community-leader'))
-                    <a href="{!! route('farmer.create') !!}" class="btn btn-primary">Create</a>
-                @endif
+                <button type="button" class="btn btn-primary btn-action" data-action="store">Store</button>
             </div>
         </div>
     </div>
 
     <div id="app" class="wrapper wrapper-content">
-
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="ibox float-e-margins">
-{{--                    <div class="ibox-title">--}}
-{{--                        <h5>Blank <small>page</small></h5>--}}
-{{--                    </div>--}}
-                    <div class="ibox-content">
-
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
-                                </div>
+        <form action="{!! route('inventory.store') !!}" method="post" id="form"> @csrf
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="form-group">
+                                <label>Select Farmer</label>
+                                <select name="farmer_id" class="form-control">
+                                    <option value="">Select Farmer</option>
+                                    @foreach($datas as $data)
+                                        <option value="{{ $data->id }}">{{ $data->profile->first_name }} {{ $data->profile->last_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                        </div>
 
-                        <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($datas as $data)
-                                <tr>
-                                    <td>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</td>
-                                    <td class="text-right">
-                                        <div class="btn-group text-right">
-                                            <a href="{!! route('farmer.show', array('farmer' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
-{{--                                            <a href="{!! route('inv-listing', array('account' => $data->account_id)) !!}" class="action btn-white btn btn-xs" target="blank_"><i class="fa fa-plus text-success"></i> Inv</a>--}}
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="2">
-                                    <ul class="pagination pull-right"></ul>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
                         </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Product details</h5>
+                        </div>
+                        <div class="ibox-content">
 
+                            <div class="form-group">
+                                <label>Name</label>
+                                {{ Form::text('name', null, array('class'=>'form-control')) }}
+                            </div>
+                            <div class="form-group">
+                                <label>Details</label>
+                                {{ Form::textarea('details', null, array('class'=>'form-control no-resize')) }}
+{{--                                <textarea id="field" rows="10" class="form-control"></textarea>--}}
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </form>
     </div>
 
     <div class="modal inmodal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category="" data-variant="" data-bal="">
@@ -103,14 +88,12 @@
 
 
 @section('styles')
-    {!! Html::style('css/template/plugins/footable/footable.core.css') !!}
     {{--{!! Html::style('') !!}--}}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
 @endsection
 
 @section('scripts')
-    {!! Html::script('js/template/plugins/footable/footable.all.min.js') !!}
     {{--    {!! Html::script('') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
@@ -118,7 +101,14 @@
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
         $(document).ready(function(){
-            $('.footable').footable();
+            $(document).on('click', '.btn-action', function(){
+                switch ($(this).data('action')) {
+                    case 'store':
+                        $('#form').submit();
+                        break;
+                }
+            });
+
             {{--var modal = $('#modal');--}}
             {{--$(document).on('click', '', function(){--}}
             {{--    modal.modal({backdrop: 'static', keyboard: false});--}}

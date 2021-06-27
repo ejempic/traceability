@@ -39,8 +39,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function master()
+    public function leader()
     {
-        return $this->hasOne(MasterFarmer::class, 'user_id', 'id');
+        return $this->hasOne(CommunityLeader::class, 'user_id', 'id');
     }
 }
