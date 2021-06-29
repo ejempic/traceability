@@ -43,4 +43,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(CommunityLeader::class, 'user_id', 'id');
     }
+
+    public function provider()
+    {
+        return $this->hasOne(LoanProvider::class, 'user_id', 'id');
+    }
 }

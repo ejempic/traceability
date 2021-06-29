@@ -33,3 +33,10 @@
 <li class="{{ (request()->is('trace*')) ? 'active' : '' }}">
     <a href="{!! route('trace.index') !!}"><i class="fa fa-truck"></i> <span class="nav-label">Trace</span></a>
 </li>
+
+<li class="{{ (request()->is('role*')) ? 'active' : '' }}">
+    <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
+    <ul class="nav nav-second-level collapse">
+        <li class="{{ (request()->is('role*')) ? 'active' : '' }}"><a href="{!! route('role') !!}">Role</a></li>
+    </ul>
+</li>

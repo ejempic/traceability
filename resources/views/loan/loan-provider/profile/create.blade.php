@@ -10,7 +10,8 @@
             <div class="col-sm-6"></div>
             <div class="col-sm-6">
 
-                <form id="form" action="#" class="wizard-big">
+                <form id="form" action="{{ route('loan-provider-profile-store') }}" method="post" class="wizard-big">
+                    @csrf
                     <h1>Profile</h1>
                     <fieldset>
                         <h2>Personal Information</h2>
@@ -67,7 +68,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Account number *</label>
-                                    <input name="account_nuumberr" type="text" class="form-control required">
+                                    <input name="account_number" type="text" class="form-control required">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -86,11 +87,11 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Contact person *</label>
-                                    <input name="contact-person" type="text" class="form-control required">
+                                    <input name="contact_person" type="text" class="form-control required">
                                 </div>
                                 <div class="form-group">
                                     <label>Contact number *</label>
-                                    <input name="contact-number" type="text" class="form-control required">
+                                    <input name="contact_number" type="text" class="form-control required">
                                 </div>
                                 <div class="form-group">
                                     <label>Designation *</label>
@@ -176,10 +177,6 @@
                 onFinished: function (event, currentIndex)
                 {
                     var form = $(this);
-                    $('#acceptTerms').iCheck({
-                        checkboxClass: 'icheckbox_square-green',
-                    });
-
                     // Submit form input
                     form.submit();
                 }
@@ -190,9 +187,8 @@
                 }
             });
 
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
+            $('#acceptTerms').iCheck({
+                checkboxClass: 'icheckbox_square-green'
             });
 
         });

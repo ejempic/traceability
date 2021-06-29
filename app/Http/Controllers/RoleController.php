@@ -13,7 +13,7 @@ class RoleController extends Controller
 {
     public function index(RoleDataTable $dataTable)
     {
-        return $dataTable->render('headoffice.admin.role.index');
+        return $dataTable->render('admin.role.index');
     }
 
     public function show($id)

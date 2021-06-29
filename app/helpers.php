@@ -4,6 +4,7 @@ use App\Profile;
 use App\Farmer;
 use App\Inventory;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Permission;
 
 if (!function_exists('subdomain_title')) {
     function subdomain_title($case)
@@ -37,9 +38,14 @@ if (!function_exists('subDomainPath')) {
     function subDomainPath($path)
     {
         $subdomain = join('.', explode('.', $_SERVER['HTTP_HOST'], -2));
-        if(auth()->user()->hasRole('super-admin')){
-            return 'admin.'.$path;
+        if(is_null(Auth::user())){
+
+        }else{
+            if(auth()->user()->hasRole('super-admin')){
+                return 'admin.'.$path;
+            }
         }
+
         return $subdomain.'.'.$path;
     }
 }

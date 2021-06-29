@@ -33,14 +33,15 @@ class CreateProfilesTable extends Migration
             $table->string('qr_image')->nullable();
             $table->string('qr_image_path')->nullable();
             $table->string('status')->nullable();
-            $table->string('bank_name');
-            $table->string('branch_name');
-            $table->string('address_line');
-            $table->string('account_name');
-            $table->string('account_number');
-            $table->string('tin');
-            $table->string('contact_person');
-            $table->string('contact_number');
+            $table->string('bank_name')->nullable();
+            $table->string('branch_name')->nullable();
+            $table->string('address_line')->nullable();
+            $table->string('account_name')->nullable();
+            $table->string('account_number')->nullable();
+            $table->string('tin')->nullable();
+            $table->string('contact_person')->nullable();
+            $table->string('contact_number')->nullable();
+            $table->string('designation')->nullable();
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use App\ModelInfo;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PublicController extends Controller
@@ -129,7 +130,8 @@ class PublicController extends Controller
         if($data->save()){
             $data->assignRole(stringSlug('Loan Provider'));
 //            $data->markEmailAsVerified();
-            return redirect(route('home'));
+            Auth::loginUsingId($data->id);
+            return redirect()->route('home');
         }
 
     }

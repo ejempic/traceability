@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
+        "datatables.net-bs4": "^3.2.2",
+        "datatables.net-buttons-bs4": "^1.7.1",
         "html5-qrcode": "^2.0.10",
         "instascan": "^1.0.0",
         "vue-qrcode-reader": "^3.0.3",
