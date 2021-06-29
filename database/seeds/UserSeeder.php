@@ -60,7 +60,8 @@ class UserSeeder extends Seeder
         $roles = array(
             'Super Admin',
             'Community Leader',
-            'Farmer'
+            'Farmer',
+            'Loan Provider'
         );
 
         foreach($roles as $role) {

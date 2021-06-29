@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 //Auth::routes();
 Auth::routes(['verify' => true]);
 
@@ -59,9 +60,21 @@ Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
 
 // ROUTES FOR LOAN
 Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
+
+    Route::get('register-loan-provider', 'PublicController@registerLoanProvider')->name('register-loan-provider');
+    Route::post('register-loan-provider-store', 'PublicController@registerLoanProviderStore')->name('register-loan-provider-store');
+    Route::get('loan-provider/profile/create', 'PublicController@loneProviderProfileCreate')->name('loan-provider-profile-create');
+
     Route::middleware(['auth', 'verified'])->group(function () {
 
+        Route::middleware(['provider_has_profile'])->group(function () {
+
+
+        });
+
+
     });
+
 });
 
 // ROUTES FOR TRACE
