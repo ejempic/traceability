@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Master Farmer')
+@section('title', 'Community Leader')
 
 @section('content')
 
@@ -26,7 +26,7 @@
     <div id="app" class="wrapper wrapper-content">
 
         <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-12">
                 <div class="ibox float-e-margins">
 {{--                    <div class="ibox-title">--}}
 {{--                        <h5>Blank <small>page</small></h5>--}}

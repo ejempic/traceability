@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Master Farmer Info')
+@section('title', 'Community Leader')
 
 @section('content')
 
