@@ -150,7 +150,7 @@ class InventoryController extends Controller
     {
         $details = $request->input('details');
         $inventory = new Inventory();
-        $inventory->leader_id = Auth::user()->leader->id;
+        $inventory->master_id = Auth::user()->leader->id;
         $inventory->farmer_id = $details[1];
         $inventory->product_id = $details[2];
         $inventory->quality = $details[3];
