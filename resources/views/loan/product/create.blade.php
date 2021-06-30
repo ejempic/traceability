@@ -1,6 +1,6 @@
 @extends(subdomain_name().'.master')
 
-@section('title', 'Farmer Create')
+@section('title', 'Loan Product Create')
 
 @section('content')
 
@@ -10,6 +10,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('home') }}">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('products.index') }}">Lists</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>@yield('title')</strong>
@@ -26,105 +29,43 @@
     <div id="app" class="wrapper wrapper-content">
 {{--        {{ Form::open(array('route'=>array('farmer.store'), array('id'=>'form'))) }}--}}
 {{--        {{ Form::open(array('route'=>array('farmer.store'), 'method'=>'post', 'id'=>'form')) }}--}}
-        <form action="{!! route('farmer.store') !!}" method="post" id="form">
+        {{ Form::open(['route'=>'products.store','id'=>'form']) }}
             <div class="row">
                 @csrf
-                <div class="col-sm-4">
+                <div class="col-sm-6">
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Primary Info
+                            Information
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <label>Account ID</label>
-                                {{ Form::text('account_id', $number, array('class'=>'form-control', 'readonly')) }}
+                                <label>Financial Production Name</label>
+                                {{ Form::text('name', null, array('class'=>'form-control','required')) }}
                             </div>
                             <div class="form-group">
-                                <label>First name</label>
-                                {{ Form::text('first_name', null, array('class'=>'form-control')) }}
+                                <label>Financial Product Type</label>
+                                {{ Form::select('type', $types, null, array('class'=>'form-control')) }}
                             </div>
                             <div class="form-group">
-                                <label>Middle name</label>
-                                {{ Form::text('middle_name', null, array('class'=>'form-control')) }}
+                                <label>Product Description</label>
+                                <textarea name="description" id="" cols="30" rows="5" class="form-control" style="resize: none"></textarea>
                             </div>
                             <div class="form-group">
-                                <label>Last name</label>
-                                {{ Form::text('last_name', null, array('class'=>'form-control')) }}
+                                <label>Loanable Amount</label>
+                                <input name="amount" type="text" class="form-control money">
+                            </div>
+                            <div class="form-group">
+                                <label>Loan Duration (Days)</label>
+                                <input name="duration" type="text" data-mask="0#" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Interest Rate (%)</label>
+                                <input name="interest_rate" type="text" data-mask="##0%"   class="form-control">
                             </div>
                         </div>
                     </div>
 
-                </div>
-
-                <div class="col-sm-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Secondary Info
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Mobile</label>
-                                        {{ Form::text('mobile', null, array('class'=>'form-control')) }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        {{ Form::textarea('address', null, array('class'=>'form-control no-resize')) }}
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Education</label>
-                                        {{ Form::textarea('education', null, array('class'=>'form-control no-resize')) }}
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-
-                                    <label>Membership / Group</label>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="i-checks">
-                                                    <label>{{ Form::checkbox('four_ps', 1) }}<i></i> 4P's</label>
-                                                </div>
-                                                <div class="i-checks">
-                                                    <label>{{ Form::checkbox('pwd', 1) }}<i></i> PWD</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="i-checks">
-                                                    <label>{{ Form::checkbox('indigenous', 1) }}<i></i> Indigenous</label>
-                                                </div>
-                                                <div class="i-checks">
-                                                    <label>{{ Form::checkbox('livelihood', 1) }}<i></i> Livelihood</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label>Organization</label>
-                                                {{ Form::text('organization', null, array('class'=>'form-control')) }}
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Farm lot</label>
-                                                {{ Form::text('farm_lot', null, array('class'=>'form-control')) }}
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Farming since</label>
-                                                {{ Form::text('farming_since', null, array('class'=>'form-control')) }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
         {{ Form::close() }}
 
@@ -160,6 +101,7 @@
 
 @section('scripts')
     {!! Html::script('/js/template/plugins/iCheck/icheck.min.js') !!}
+    {!! Html::script('/js/template/plugins/jqueryMask/jquery.mask.min.js') !!}
     {{--    {!! Html::script('') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
@@ -167,6 +109,8 @@
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
         $(document).ready(function(){
+
+            $('.money').mask("#,##0.00", {reverse: true});
 
             $(document).on('click', '.btn-action', function(){
                 switch ($(this).data('action')) {

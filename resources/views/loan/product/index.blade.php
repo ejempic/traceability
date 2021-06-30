@@ -1,6 +1,6 @@
 @extends(subdomain_name().'.master')
 
-@section('title', 'Farmer')
+@section('title', 'Loan Products')
 
 @section('content')
 
@@ -18,9 +18,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-{{--                @if(auth()->user()->hasRole('community-leader'))--}}
-                    <a href="{!! route('farmer.create') !!}" class="btn btn-primary">Create</a>
-{{--                @endif--}}
+                    <a href="{!! route('products.create') !!}" class="btn btn-primary">Create</a>
             </div>
         </div>
     </div>
@@ -54,7 +52,7 @@
                             <tbody>
                             @foreach($datas as $data)
                                 <tr>
-                                    <td>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</td>
+                                    <td>{{ $data->name }} </td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
                                             <a href="{!! route('farmer.show', array('farmer' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>

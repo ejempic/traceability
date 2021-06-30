@@ -67,7 +67,7 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
     Route::post('loan-provider/profile/store', 'LoanProviderController@profileStore')->name('loan-provider-profile-store');
 
     Route::middleware(['auth', 'verified', 'provider_has_profile'])->group(function () {
-        Route::resource('inventory', 'InventoryController');
+        Route::resource('products', 'LoanProductController');
     });
 
 
