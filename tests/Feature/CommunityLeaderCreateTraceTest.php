@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\CommunityLeader;
 use App\Farmer;
-use App\MasterFarmer;
 use App\Product;
 use App\Profile;
 use App\Trace;
@@ -36,7 +36,7 @@ class CommunityLeaderCreateTraceTest extends TestCase
         $user->assignRole(stringSlug('master-farmer'));
         $user->markEmailAsVerified();
 
-        $masterFarmer = new MasterFarmer();
+        $masterFarmer = new CommunityLeader();
         $masterFarmer->account_id = $masterFarmerAccountNumber = Str::random(6);
         $masterFarmer->user_id = $user->id;
         $masterFarmer->save();
