@@ -15,6 +15,10 @@ class CreateLoanPaymentsTable extends Migration
     {
         Schema::create('loan_payments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('loan_id');
+            $table->double('paid_amount')->nullable();
+            $table->dateTime('paid_date')->nullable();
+            $table->text('reference_number')->nullable();
             $table->timestamps();
         });
     }
