@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Farmer')
+@section('title', 'Farmers')
 
 @section('content')
 
@@ -28,7 +28,7 @@
     <div id="app" class="wrapper wrapper-content">
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <div class="ibox float-e-margins">
 {{--                    <div class="ibox-title">--}}
 {{--                        <h5>Blank <small>page</small></h5>--}}
@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
                             <thead>
                             <tr>
                                 <th>Name</th>
