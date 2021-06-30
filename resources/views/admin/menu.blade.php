@@ -1,3 +1,7 @@
+<li class="{{ (request()->is('home')) ? 'active' : '' }}">
+    <a href="{!! route('home') !!}"><i class="fa fa-tachometer"></i> <span class="nav-label">Dashboard</span></a>
+</li>
+
 <li class="{{ (request()->is('community-leader*')) ? 'active' : '' }}">
     <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Community Leader</span><span class="fa arrow"></span></a>
     <ul class="nav nav-second-level collapse">
