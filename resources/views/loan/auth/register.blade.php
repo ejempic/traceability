@@ -28,7 +28,15 @@
 {{--                    <small>Log on using your login and password or use social media login to enter</small>--}}
 
 
-                    {!! Form::open(array('route'=>array('register-loan-provider-store'))) !!}
+                    {!! Form::open(array('route'=>array('loan-user-registration-store'))) !!}
+                    <div class="form-group">
+                        <label>User type</label>
+                        <select name="type" class="form-control">
+                            <option value="">Select</option>
+                            <option value="farmer">Farmer</option>
+                            <option value="loan-provider">Loan Provider</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label>Please type your email address</label>
                         {{Form::email('email',null, array('class'=>'form-control', 'placeholder'=>'yourname@domain.com', 'autocomplete'=>'off', 'required', 'autofocus'))}}

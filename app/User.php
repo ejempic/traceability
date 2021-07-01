@@ -39,6 +39,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function farmer()
+    {
+        return $this->hasOne(Farmer::class, 'user_id', 'id');
+    }
+
     public function leader()
     {
         return $this->hasOne(CommunityLeader::class, 'user_id', 'id');

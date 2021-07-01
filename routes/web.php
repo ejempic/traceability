@@ -18,11 +18,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/registration', function () {
+    return view(subdomain_name().'.auth.register');
+});
 
 //Auth::routes();
 Auth::routes(['verify' => true]);
 
-Route::middleware(['auth', 'verified', 'provider_has_profile'])->group(function () {
+Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
@@ -61,12 +64,16 @@ Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
 // ROUTES FOR LOAN
 Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 
-    Route::get('register-loan-provider', 'PublicController@registerLoanProvider')->name('register-loan-provider');
-    Route::post('register-loan-provider-store', 'PublicController@registerLoanProviderStore')->name('register-loan-provider-store');
+//    Route::get('loan-registration', 'PublicController@loanRegistration')->name('loan-registration');
+    Route::post('loan-user-registration-store', 'PublicController@loanUserRegistrationStore')->name('loan-user-registration-store');
+
     Route::get('loan-provider/profile/create', 'PublicController@loneProviderProfileCreate')->name('loan-provider-profile-create');
     Route::post('loan-provider/profile/store', 'LoanProviderController@profileStore')->name('loan-provider-profile-store');
 
-    Route::middleware(['auth', 'verified', 'provider_has_profile'])->group(function () {
+    Route::get('farmer/profile/create', 'PublicController@farmerProfileCreate')->name('farmer-profile-create');
+    Route::post('farmer/profile/store', 'FarmerController@profileStore')->name('farmer-profile-store');
+
+    Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
         Route::resource('products', 'LoanProductController');
     });
 

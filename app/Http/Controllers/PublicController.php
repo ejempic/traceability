@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Farmer;
 use App\Inventory;
 use App\Trace;
 use App\ModelInfo;
@@ -101,10 +102,10 @@ class PublicController extends Controller
         return view('loan.auth.register');
     }
 
-    public function registerLoanProviderStore(Request $request)
+    public function loanUserRegistrationStore(Request $request)
     {
         $rules = array(
-//            'name' => 'required|max:255',
+            'type' => 'required',
             'email' => 'required|email|unique:users,email|max:255',
             'password' => 'required|max:255',
             'repeat-password' => 'required|same:password',
@@ -128,8 +129,25 @@ class PublicController extends Controller
         $data->password = bcrypt($request->input('password'));
         $data->passkey = $request->input('password');
         if($data->save()){
-            $data->assignRole(stringSlug('Loan Provider'));
-//            $data->markEmailAsVerified();
+            switch ($request->input('type')){
+                case 'farmer':
+                    $data->assignRole(stringSlug('Farmer'));
+                    $number = Farmer::count() + 1;
+                    $farmer = new Farmer();
+                    $farmer->account_id = $number;
+                    $farmer->user_id = $data->id;
+                    $farmer->save();
+                    break;
+                case 'loan-provider':
+                    $data->assignRole(stringSlug('Loan Provider'));
+                    $number = Farmer::count() + 1;
+                    $loanProvider = new Farmer();
+                    $loanProvider->account_id = $number;
+                    $loanProvider->user_id = $data->id;
+                    $loanProvider->save();
+                    break;
+            }
+            $data->sendEmailVerificationNotification();
             Auth::loginUsingId($data->id);
             return redirect()->route('home');
         }
@@ -139,5 +157,10 @@ class PublicController extends Controller
     public function loneProviderProfileCreate()
     {
         return view(subDomainPath('loan-provider.profile.create'));
+    }
+
+    public function farmerProfileCreate()
+    {
+        return view(subDomainPath('farmer.profile.create'));
     }
 }

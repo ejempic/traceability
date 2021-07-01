@@ -17,8 +17,14 @@ class EnsureProviderInfo
     public function handle($request, Closure $next)
     {
         if(auth()->user()->hasRole('loan-provider')){
-            if(is_null(Auth::user()->loan_provider)){
+            if(is_null(Auth::user()->loan_provider->profile)){
                 return redirect()->route('loan-provider-profile-create');
+            }
+        }
+        if(auth()->user()->hasRole('farmer')){
+            if(is_null(Auth::user()->farmer->profile)){
+
+                return redirect()->route('farmer-profile-create');
             }
         }
 

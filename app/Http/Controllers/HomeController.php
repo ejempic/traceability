@@ -18,6 +18,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+//        $this->middleware(['auth','verified']);
     }
 
     /**
@@ -51,7 +52,7 @@ class HomeController extends Controller
         }
 
         if(auth()->user()->hasRole('farmer')){
-            return view(subDomainPath('dashboard'));
+            return view(subDomainPath('farmer.dashboard'));
         }
 
     }

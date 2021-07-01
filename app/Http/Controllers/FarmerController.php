@@ -24,7 +24,7 @@ class FarmerController extends Controller
     public function index()
     {
         if(auth()->user()->hasRole('super-admin')){
-            $datas = Farmer::with('leader')->get();
+            $datas = Farmer::with('leader')->has('profile')->get();
         }else{
             $ids = Inventory::where('leader_id', Auth::user()->leader->id)->distinct('farmer_id')->pluck('farmer_id')->toArray();
             $datas = Farmer::with('leader')
@@ -218,5 +218,34 @@ class FarmerController extends Controller
     public function farmerInventory(Request $request)
     {
         return view(subDomainPath('mobile.farmer.inventory'));
+    }
+
+    public function profileStore(Request $request)
+    {
+        $farmer = Farmer::find(Auth::user()->farmer->id);
+        $farmer->url = route('farmer.show', array('farmer'=>$farmer));
+        $farmer->save();
+        QrCode::size(500)
+            ->format('png')
+            ->generate($farmer->url, public_path('images/farmer/'.$farmer->account_id.'.png'));
+        $profile = new Profile();
+        $profile->first_name = $request->input('first_name');
+        $profile->middle_name = $request->input('middle_name');
+        $profile->last_name = $request->input('last_name');
+        $profile->mobile = $request->input('mobile');
+        $profile->address = $request->input('address');
+        $profile->education = $request->input('education');
+        $profile->four_ps = $request->input('four_ps', 0);
+        $profile->pwd = $request->input('pwd', 0);
+        $profile->indigenous = $request->input('indigenous', 0);
+        $profile->livelihood = $request->input('livelihood', 0);
+        $profile->farm_lot = $request->input('farm_lot');
+        $profile->farming_since = $request->input('farming_since');
+        $profile->organization = $request->input('organization');
+        $profile->qr_image = $farmer->account_id.'.png';
+        $profile->qr_image_path = '/images/farmer/'.$farmer->account_id.'.png';
+        if($farmer->profile()->save($profile)){
+            return redirect()->route('home');
+        }
     }
 }
