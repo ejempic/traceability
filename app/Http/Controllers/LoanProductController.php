@@ -41,7 +41,17 @@ class LoanProductController extends Controller
     public function store(Request $request)
     {
         //
-        dd($request->all());
+        $loanProviderId = auth()->user()->loan_provider->id;
+        $array = $request->all();
+        $array['loan_provider_id'] = $loanProviderId;
+        $array['loan_type'] = $array['type'];
+        $array['amount'] = floatval(preg_replace('/,/','', $array['amount']));
+        unset($array['token']);
+        unset($array['type']);
+        Loan::create($array);
+
+
+        return redirect()->route('products.index');
     }
 
     /**
