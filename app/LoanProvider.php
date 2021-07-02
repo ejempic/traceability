@@ -10,4 +10,9 @@ class LoanProvider extends Model
     {
         return $this->morphOne(Profile::class, 'model');
     }
+
+    public function products()
+    {
+
+    }
 }

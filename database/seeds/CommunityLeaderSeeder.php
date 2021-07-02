@@ -15,7 +15,7 @@ class CommunityLeaderSeeder extends Seeder
      */
     public function run()
     {
-        $accounts = 20;
+        $accounts = 10;
         for($a = 0; $a < $accounts; $a++){
             $faker = Faker\Factory::create();
             $number = str_pad(CommunityLeader::count() + 1, 5, 0, STR_PAD_LEFT);

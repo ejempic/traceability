@@ -62,3 +62,7 @@
         }
     }
 }
+
+select.form-control:not([size]):not([multiple]) {
+    height: 37px !important;
+}

@@ -11354,3 +11354,7 @@ a.text-dark:focus {
   width: 200px;
 }
 
+select.form-control:not([size]):not([multiple]) {
+  height: 37px !important;
+}
+

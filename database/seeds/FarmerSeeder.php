@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Farmer;
 use App\Profile;
-use App\MasterFarmer;
+use App\User;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class FarmerSeeder extends Seeder
@@ -15,8 +15,10 @@ class FarmerSeeder extends Seeder
      */
     public function run()
     {
-        $accounts = 100;
+        $accounts = 10;
         for($a = 0; $a < $accounts; $a++){
+
+
 //            $masterFarmer = MasterFarmer::find(rand(1,20));
             $faker = Faker\Factory::create();
             $number = Farmer::count() + 1;
@@ -25,7 +27,6 @@ class FarmerSeeder extends Seeder
 
             $farmer = new Farmer();
             $farmer->account_id = $number;
-//            $farmer->master_id = $masterFarmer->id;
             if($farmer->save()){
                 $farmer->url = route('farmer.show', array('farmer'=>$farmer));
                 $farmer->save();
@@ -48,7 +49,21 @@ class FarmerSeeder extends Seeder
                 $profile->organization = $faker->word(2);
                 $profile->qr_image = $farmer->account_id.'.png';
                 $profile->qr_image_path = '/images/farmer/'.$farmer->account_id.'.png';
-                $farmer->profile()->save($profile);
+                if($farmer->profile()->save($profile)){
+                    $user = new User();
+                    $user->name = ucwords($profile->first_name).' '.ucwords($profile->last_name);
+                    $user->email = $faker->email;
+                    $user->password = bcrypt('agrabah');
+                    $user->passkey = 'agrabah';
+                    $user->active = 1;
+                    if($user->save()) {
+                        $user->assignRole(stringSlug('Farmer'));
+                        $user->markEmailAsVerified();
+                        $farmer->user_id = $user->id;
+                        $farmer->save();
+                    }
+                }
+
             }
         }
     }

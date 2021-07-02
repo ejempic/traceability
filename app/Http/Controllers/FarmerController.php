@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Farmer;
 use App\Inventory;
 use App\CommunityLeader;
+use App\LoanType;
 use App\Product;
 use App\Profile;
 use App\User;
@@ -247,5 +248,17 @@ class FarmerController extends Controller
         if($farmer->profile()->save($profile)){
             return redirect()->route('home');
         }
+    }
+
+    public function loanProductList()
+    {
+        $loanTypes = LoanType::get();
+        return view(subDomainPath('farmer.loan-product-list'), compact('loanTypes'));
+    }
+
+    public function loanProductListGet()
+    {
+        $loanTypes = LoanType::get();
+        return response()->json($loanTypes);
     }
 }

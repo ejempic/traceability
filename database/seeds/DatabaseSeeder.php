@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
          $this->call(ProductSeeder::class);
          $this->call(LoanTypeSeeder::class);
          $this->call(LoanProviderSeeder::class);
+         $this->call(LoanSeeder::class);
     }
 }

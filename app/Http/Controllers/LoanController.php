@@ -82,4 +82,9 @@ class LoanController extends Controller
     {
         //
     }
+
+//    public function loanList()
+//    {
+//
+//    }
 }

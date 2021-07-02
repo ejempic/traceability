@@ -75,6 +75,9 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 
     Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
         Route::resource('products', 'LoanProductController');
+
+        Route::get('loan/product/list', 'FarmerController@loanProductList')->name('loan-product-list');
+        Route::get('loan-product-list-get', 'FarmerController@loanProductListGet')->name('loan-product-list-get');
     });
 
 

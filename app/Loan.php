@@ -16,4 +16,9 @@ class Loan extends Model
         "duration",
         "interest_rate"
     ];
+
+    public function provider()
+    {
+        return $this->belongsTo(LoanProvider::class, 'loan_provider_id');
+    }
 }
