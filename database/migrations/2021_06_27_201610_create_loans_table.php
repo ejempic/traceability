@@ -17,7 +17,6 @@ class CreateLoansTable extends Migration
             $table->id();
             $table->integer('model_id')->nullable();
             $table->string('model_type')->nullable();
-            $table->
             $table->timestamps();
         });
     }
