@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Loan;
+use App\LoanProduct;
 use App\LoanType;
 use Illuminate\Http\Request;
 
@@ -15,7 +15,7 @@ class LoanProductController extends Controller
      */
     public function index()
     {
-        $datas = Loan::where('loan_provider_id', auth()->user()->loan_provider->id)->get();
+        $datas = LoanProduct::where('loan_provider_id', auth()->user()->loan_provider->id)->get();
 
         return view('Loan.product.index', compact('datas'));
     }
@@ -48,7 +48,7 @@ class LoanProductController extends Controller
         $array['amount'] = floatval(preg_replace('/,/','', $array['amount']));
         unset($array['token']);
         unset($array['type']);
-        Loan::create($array);
+        LoanProduct::create($array);
 
 
         return redirect()->route('products.index');
