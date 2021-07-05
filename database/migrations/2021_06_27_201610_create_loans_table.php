@@ -17,6 +17,11 @@ class CreateLoansTable extends Migration
             $table->id();
             $table->integer('model_id')->nullable();
             $table->string('model_type')->nullable();
+            $table->unsignedBigInteger('loan_provider_id');
+            $table->integer('loan_type_id');
+            $table->double('amount');
+            $table->integer('duration')->comment('days');
+            $table->double('interest_rate');
             $table->timestamps();
         });
     }
