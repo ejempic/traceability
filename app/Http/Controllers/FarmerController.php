@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Farmer;
 use App\Inventory;
 use App\CommunityLeader;
+use App\LoanProduct;
 use App\LoanType;
 use App\Product;
 use App\Profile;
@@ -256,9 +257,23 @@ class FarmerController extends Controller
         return view(subDomainPath('farmer.loan-product-list'), compact('loanTypes'));
     }
 
-    public function loanProductListGet()
+    public function loanProductListGet(Request $request)
     {
-        $loanTypes = LoanType::get();
-        return response()->json($loanTypes);
+        $type = $request->input('type');
+        $term = $request->input('term');
+        $amount = $request->input('amount');
+
+        $loanProducts = LoanProduct::with('provider', 'type')
+            ->when($type, function ($query, $type) {
+                return $query->where('loan_type_id', $type);
+            })
+            ->when($term, function ($query, $term) {
+                return $query->where('duration', '<=', $term);
+            })
+            ->when($amount, function ($query, $amount) {
+                return $query->where('amount', '<=', $amount);
+            })
+            ->get();
+        return response()->json($loanProducts);
     }
 }

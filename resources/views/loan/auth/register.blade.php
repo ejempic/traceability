@@ -36,6 +36,9 @@
                             <option value="farmer">Farmer</option>
                             <option value="loan-provider">Loan Provider</option>
                         </select>
+                        @if($errors->has('type'))
+                            <span class="text-danger">{{$errors->first('type')}}</span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label>Please type your email address</label>

@@ -16,7 +16,7 @@ class CreateLoanProductsTable extends Migration
         Schema::create('loan_products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('loan_provider_id');
-            $table->unsignedBigInteger('loan_type');
+            $table->unsignedBigInteger('loan_type_id');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->double('amount');

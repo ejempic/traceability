@@ -30,10 +30,10 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="col-form-label" for="status">Loan Type</label>
-                        <select name="status" id="status" class="form-control">
-                            <option value="1" selected>Select type</option>
+                        <select name="type" class="form-control loan_input">
+                            <option value="" selected>Select type</option>
                             @foreach($loanTypes as $type)
-                            <option value="0">{{ $type->display_name }}</option>
+                            <option value="{{ $type->id }}">{{ $type->display_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -41,13 +41,13 @@
                 <div class="col">
                     <div class="form-group">
                         <label class="col-form-label" for="product_name">Loan Term</label>
-                        <input type="number" id="product_name" name="product_name" value="" placeholder="How many months?" class="form-control">
+                        <input type="number" name="term" value="" placeholder="How many months?" class="form-control loan_input">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label class="col-form-label" for="price">Loanable Amount</label>
-                        <input type="text" id="price" name="price" value="" placeholder="Enter Amount" class="form-control money">
+                        <input type="text" name="amount" value="" placeholder="Enter Amount" class="form-control money loan_input">
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
 
-                        <div class="loan-product-list">
+                        <div class="loan-product-list project-list">
                             <table class="table table-hover">
                                 <tbody>
                                 <thead>
@@ -67,14 +67,21 @@
                                     <th>Lending Partner</th>
                                     <th>Term</th>
                                     <th>Max Loan Amount</th>
-                                    <th></th>
+                                    <th class="text-right">Action</th>
                                 </tr>
                                 </thead>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td class="project-title">
+                                        <a href="project_detail.html">Contract with Zender Company</a>
+                                        <br/>
+                                        <small>Created 14.08.2014</small>
+                                    </td>
+                                    <td>Terms</td>
+                                    <td>Amount</td>
+                                    <td class="project-actions">
+                                        <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
+                                        <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -117,6 +124,8 @@
 @section('scripts')
     {{--    {!! Html::script('') !!}--}}
     {!! Html::script('/js/template/plugins/jqueryMask/jquery.mask.min.js') !!}
+    {!! Html::script('/js/template/moment.js') !!}
+    {!! Html::script('/js/template/numeral.js') !!}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
     {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
@@ -149,13 +158,46 @@
 
             {{--table.ajax.reload();--}}
 
-            $('.money').mask("#,##0.00", {reverse: true});
 
-            function getList(){
+            // $('.money').mask("#,##0.00", {reverse: true});
+
+            getList(null, null, null);
+
+            $(document).on('change keyup', '.loan_input', function(){
+                getList($('select[name=type]').val(), $('input[name=term]').val(), $('input[name=amount]').val());
+            });
+
+            function getList(type, term, amount){
+                console.log('type: '+ type);
+                console.log('term: '+ term);
+                console.log('amount: '+ numeral(amount).format('0'));
                 var list = new Array();
-                $.get('', function(data){
-                    
+                jQuery.ajaxSetup({async:false});
+                $.get('{!! route('loan-product-list-get') !!}', {
+                    type: type,
+                    term: term,
+                    amount: amount
+                }, function(data){
+                    console.log(data);
+                    for(var a = 0; a < data.length; a++){
+                        list.push('' +
+                            '<tr>' +
+                                '<td class="project-title">' +
+                                    '<a href="project_detail.html">'+ data[a].provider.profile.bank_name +'</a>' +
+                                    '<br/>' +
+                                    '<small>'+ data[a].type.display_name +'</small>' +
+                                '</td>' +
+                                '<td>'+ data[a].duration +' day/s</td>' +
+                                '<td>'+ numeral(data[a].amount).format('0,0.00') +'</td>' +
+                                '<td class="project-actions">' +
+                                    '<a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>' +
+                                    '<a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>' +
+                                '</td>' +
+                            '</tr>' +
+                        '');
+                    }
                 });
+                $('.loan-product-list').find('tbody').empty().append(list.join(''));
             }
 
         });

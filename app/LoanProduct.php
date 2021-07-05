@@ -19,6 +19,11 @@ class LoanProduct extends Model
 
     public function provider()
     {
-        return $this->belongsTo(LoanProvider::class, 'loan_provider_id');
+        return $this->belongsTo(LoanProvider::class, 'loan_provider_id')->with('profile');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(LoanType::class, 'loan_type_id');
     }
 }

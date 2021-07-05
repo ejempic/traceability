@@ -51,6 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function loan_provider()
     {
-        return $this->hasOne(LoanProvider::class, 'user_id', 'id');
+        return $this->hasOne(LoanProvider::class, 'user_id', 'id')->with('profile');
     }
 }
