@@ -65,8 +65,9 @@
                                 <thead>
                                 <tr>
                                     <th>Lending Partner</th>
+                                    <th>Interest</th>
                                     <th>Term</th>
-                                    <th>Max Loan Amount</th>
+                                    <th class="text-right">Max Loan Amount</th>
                                     <th class="text-right">Action</th>
                                 </tr>
                                 </thead>
@@ -76,6 +77,7 @@
                                         <br/>
                                         <small>Created 14.08.2014</small>
                                     </td>
+                                    <td>Interest</td>
                                     <td>Terms</td>
                                     <td>Amount</td>
                                     <td class="project-actions">
@@ -183,15 +185,16 @@
                         list.push('' +
                             '<tr>' +
                                 '<td class="project-title">' +
-                                    '<a href="project_detail.html">'+ data[a].provider.profile.bank_name +'</a>' +
+                                    '<a href="#">'+ data[a].provider.profile.bank_name +'</a>' +
                                     '<br/>' +
                                     '<small>'+ data[a].type.display_name +'</small>' +
                                 '</td>' +
+                                '<td>'+ data[a].interest_rate +'%</td>' +
                                 '<td>'+ data[a].duration +' day/s</td>' +
-                                '<td>'+ numeral(data[a].amount).format('0,0.00') +'</td>' +
+                                '<td class="text-right">'+ numeral(data[a].amount).format('0,0.00') +'</td>' +
                                 '<td class="project-actions">' +
-                                    '<a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>' +
-                                    '<a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>' +
+                                    '<a href="#" class="btn btn-white btn-sm"><i class="fa fa-search"></i> View </a>' +
+                                    '<a href="#" class="btn btn-white btn-sm"><i class="fa fa-check"></i> Apply </a>' +
                                 '</td>' +
                             '</tr>' +
                         '');

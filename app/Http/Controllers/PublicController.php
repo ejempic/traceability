@@ -97,7 +97,7 @@ class PublicController extends Controller
         return view(subDomainPath('mobile.scan-qr-farmer'));
     }
 
-    public function registerLoanProvider()
+    public function loanRegistration()
     {
         return view('loan.auth.register');
     }

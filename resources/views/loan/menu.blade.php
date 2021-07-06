@@ -22,6 +22,10 @@
         <a href="{!! route('loan-product-list') !!}"><i class="fa fa-list"></i> <span class="nav-label">Loan Products</span></a>
     </li>
 
+    <li class="{{ (request()->is('loan')) ? 'active' : '' }}">
+        <a href="{!! route('loan-product-list') !!}"><i class="fa fa-money"></i> <span class="nav-label">Loans</span></a>
+    </li>
+
 {{--    <li class="{{ (request()->is('products*')) ? 'active' : '' }}">--}}
 {{--        <a href="#"><i class="fa fa-bank"></i> <span class="nav-label">Loan Selector</span><span class="fa arrow"></span></a>--}}
 {{--        <ul class="nav nav-second-level collapse">--}}

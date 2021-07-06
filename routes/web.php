@@ -64,7 +64,7 @@ Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
 // ROUTES FOR LOAN
 Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 
-//    Route::get('loan-registration', 'PublicController@loanRegistration')->name('loan-registration');
+    Route::get('loan-registration', 'PublicController@loanRegistration')->name('loan-registration');
     Route::post('loan-user-registration-store', 'PublicController@loanUserRegistrationStore')->name('loan-user-registration-store');
 
     Route::get('loan-provider/profile/create', 'PublicController@loneProviderProfileCreate')->name('loan-provider-profile-create');

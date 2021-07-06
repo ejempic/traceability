@@ -11358,3 +11358,9 @@ select.form-control:not([size]):not([multiple]) {
   height: 37px !important;
 }
 
+.project-title a {
+  font-size: 14px;
+  color: #676a6c;
+  font-weight: 600;
+}
+
