@@ -26,4 +26,9 @@ class Farmer extends Model
         return $this->hasMany(Inventory::class, 'farmer_id')->where('status', 'Accepted');
     }
 
+    public function loan()
+    {
+        return $this->morphOne(Loan::class, 'model');
+    }
+
 }

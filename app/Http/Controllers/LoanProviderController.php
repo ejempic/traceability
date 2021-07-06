@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Loan;
 use App\LoanProvider;
 use App\Profile;
 use App\User;
@@ -116,5 +117,17 @@ class LoanProviderController extends Controller
         }
 
 
+    }
+
+    public function loanApplicant()
+    {
+
+        $loans = Loan::with(['comments' => function ($query) {
+            $query->where('loan_provider_id', Auth::user()->loan_provider->id);
+        }])->get();
+
+        return $loans;
+
+        return view(subDomainPath('loan-provider.loans.index'), compact('loans'));
     }
 }

@@ -78,6 +78,9 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 
         Route::get('loan/product/list', 'FarmerController@loanProductList')->name('loan-product-list');
         Route::get('loan-product-list-get', 'FarmerController@loanProductListGet')->name('loan-product-list-get');
+        Route::get('loan-apply', 'FarmerController@loanApply')->name('loan-apply');
+
+        Route::get('loan/applicants', 'LoanProviderController@loanApplicant')->name('loan-applicant');
     });
 
 

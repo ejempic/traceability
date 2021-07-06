@@ -13,6 +13,10 @@
     </ul>
 </li>
 
+<li class="{{ (request()->is('loan')) ? 'active' : '' }}">
+    <a href="{!! route('loan-applicant') !!}"><i class="fa fa-money"></i> <span class="nav-label">Loan Applicant</span></a>
+</li>
+
 
 @endif
 

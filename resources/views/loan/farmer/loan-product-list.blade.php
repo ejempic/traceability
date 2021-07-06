@@ -215,6 +215,7 @@
     {{--{!! Html::style('') !!}--}}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
+    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}
 @endsection
 
 @section('scripts')
@@ -222,6 +223,7 @@
     {!! Html::script('/js/template/plugins/jqueryMask/jquery.mask.min.js') !!}
     {!! Html::script('/js/template/moment.js') !!}
     {!! Html::script('/js/template/numeral.js') !!}
+    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
     {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
@@ -332,6 +334,36 @@
                 modal.modal('show');
             });
 
+            $(document).on('click', '.btn-action', function(){
+                var loanProductID = $(this).data('id');
+                switch($(this).data('action')){
+                    case 'apply-loan':
+                        swal({
+                            title: "Are you sure?",
+                            text: "Your loan application will be submitted!",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes!",
+                            cancelButtonText: "No!",
+                            closeOnConfirm: true,
+                            closeOnCancel: true },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                $.get('{!! route('loan-apply') !!}', {
+                                    id: loanProductID
+                                }, function(data){
+                                    console.log('success');
+                                    console.log(data);
+                                });
+                            } else {
+                                swal("Cancelled", "Loan application cancelled", "error");
+                            }
+                        });
+                        break;
+                }
+            });
+
             function getList(type, term, amount){
                 console.log('type: '+ type);
                 console.log('term: '+ term);
@@ -357,7 +389,7 @@
                                 '<td class="text-right">'+ numeral(data[a].amount).format('0,0.00') +'</td>' +
                                 '<td class="project-actions">' +
                                     '<a href="#" class="btn btn-white btn-sm show_loan" data-name="'+data[a].name+'" data-provider="'+data[a].provider.profile.bank_name+'" data-amount="'+data[a].amount+'" data-type="'+data[a].type.display_name+'" data-duration="'+data[a].duration+'" data-interest_rate="'+data[a].interest_rate+'"><i class="fa fa-search"></i> View </a>' +
-                                    '<a href="#" class="btn btn-white btn-sm"><i class="fa fa-check"></i> Apply </a>' +
+                                    '<button type="button" class="btn btn-white btn-sm btn-action" data-action="apply-loan" data-id="'+ data[a].id +'"><i class="fa fa-check"></i> Apply </button>' +
                                 '</td>' +
                             '</tr>' +
                         '');
