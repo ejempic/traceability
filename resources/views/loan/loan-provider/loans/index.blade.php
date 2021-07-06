@@ -1,6 +1,6 @@
 @extends(subdomain_name().'.master')
 
-@section('title', 'Loan Applicants')
+@section('title', 'Loan Applications')
 
 @section('content')
 
@@ -33,43 +33,41 @@
                     </div>
                     <div class="ibox-content">
 
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
-                                </div>
+                        <div class="table-responsive">
+                            <div class="loan-product-list project-list">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Applicant</th>
+                                        <th class="text-right">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($loans as $loan)
+                                    <tr>
+                                        <td class="project-title">
+                                            <a href="project_detail.html">{{ $loan->product->name }}</a>
+                                            <br/>
+                                            <small>Loan Type: <strong>{{ $loan->product->type->display_name }}</strong></small><br/>
+                                            <small>Loan Amount: {{ $loan->product->amount }}</small><br/>
+                                            <small>Loan Term: {{ $loan->product->duration }}mos</small><br/>
+                                            <small>Loan Interest: {{ $loan->product->interest_rate }}%</small><br/>
+                                        </td>
+                                        <td class="project-title">
+                                            <a href="project_detail.html">{{ $loan->borrower->profile->first_name }}</a>
+                                            <br/>
+                                            <small>Created 14.08.2014</small>
+                                        </td>
+                                        <td class="project-actions">
+                                            <button type="button" class="btn btn-white btn-sm"><i class="fa fa-thumbs-up"></i> Approve </button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-
-                        <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-                            <thead>
-                            <tr>
-                                <th>Company</th>
-                                <th>Contact Person</th>
-                                <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($datas as $data)
-                                <tr>
-                                    <td>{{ $data->name }}</td>
-                                    <td>{{ $data->display_name }}</td>
-                                    <td class="text-right">
-                                        <div class="btn-group text-right">
-                                            <a href="" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="5">
-                                    <ul class="pagination pull-right"></ul>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
 
                     </div>
                 </div>

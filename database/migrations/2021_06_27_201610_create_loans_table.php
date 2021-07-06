@@ -15,8 +15,9 @@ class CreateLoansTable extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
-            $table->integer('model_id')->nullable();
-            $table->string('model_type')->nullable();
+            $table->integer('borrower_id')->nullable();
+            $table->string('borrower_type')->nullable();
+            $table->integer('loan_provider_id');
             $table->integer('loan_product_id');
             $table->enum('status', array('Pending', 'Active', 'Completed'));
             $table->date('start_date')->nullable();
