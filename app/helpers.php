@@ -176,3 +176,12 @@ if (!function_exists('authProfilePic')) {
         return $data;
     }
 }
+
+
+if (!function_exists('computeAmortization')) {
+    function computeAmortization($amount, $terms, $interest)
+    {
+        $amor = ($amount/$interest) * $terms;
+        return $amor;
+    }
+}
