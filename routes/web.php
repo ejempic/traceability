@@ -49,6 +49,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::post('role-update/{id}', 'RoleController@update')->name('role-update');
     Route::post('add-role', 'RoleController@addRole')->name('add-role');
 
+    Route::resource('settings', 'SettingController');
+
 });
 // GLOBAL ROUTES END
 

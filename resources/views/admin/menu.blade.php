@@ -43,4 +43,7 @@
     <ul class="nav nav-second-level collapse">
         <li class="{{ (request()->is('role*')) ? 'active' : '' }}"><a href="{!! route('role') !!}">Role</a></li>
     </ul>
+    <ul class="nav nav-second-level collapse">
+        <li class="{{ (request()->is('settings*')) ? 'active' : '' }}"><a href="{!! route('settings.index') !!}">Settings</a></li>
+    </ul>
 </li>
