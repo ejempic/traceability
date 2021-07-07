@@ -1,6 +1,7 @@
 <?php
 
 use App\Profile;
+use App\User;
 use App\Farmer;
 use App\Inventory;
 use Illuminate\Support\Facades\Auth;

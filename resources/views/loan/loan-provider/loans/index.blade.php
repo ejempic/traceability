@@ -17,9 +17,9 @@
             </ol>
         </div>
         <div class="col-sm-8">
-            <div class="title-action">
-                <a href="#" class="btn btn-primary">This is action area</a>
-            </div>
+{{--            <div class="title-action">--}}
+{{--                <a href="#" class="btn btn-primary">This is action area</a>--}}
+{{--            </div>--}}
         </div>
     </div>
 
@@ -28,9 +28,9 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Blank <small>page</small></h5>
-                    </div>
+{{--                    <div class="ibox-title">--}}
+{{--                        <h5>Blank <small>page</small></h5>--}}
+{{--                    </div>--}}
                     <div class="ibox-content">
 
                         <div class="table-responsive">
@@ -40,27 +40,30 @@
                                     <tr>
                                         <th>Product</th>
                                         <th>Applicant</th>
+                                        <th class="text-right">Status</th>
                                         <th class="text-right">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($loans as $loan)
-                                    <tr>
+                                    <tr data-id="{{ $loan->id }}">
                                         <td class="project-title">
                                             <a href="project_detail.html">{{ $loan->product->name }}</a>
                                             <br/>
-                                            <small>Loan Type: <strong>{{ $loan->product->type->display_name }}</strong></small><br/>
-                                            <small>Loan Amount: {{ $loan->product->amount }}</small><br/>
-                                            <small>Loan Term: {{ $loan->product->duration }}mos</small><br/>
-                                            <small>Loan Interest: {{ $loan->product->interest_rate }}%</small><br/>
+                                            <small>Type: <strong>{{ $loan->product->type->display_name }}</strong></small><br/>
+                                            <small>Amount: <span class="money">{{ number_format($loan->product->amount, 2) }}</span></small><br/>
+                                            <small>Term: {{ $loan->product->duration }}mos</small><br/>
+                                            <small>Interest: {{ $loan->product->interest_rate }}%</small><br/>
                                         </td>
                                         <td class="project-title">
-                                            <a href="project_detail.html">{{ $loan->borrower->profile->first_name }}</a>
+                                            <a href="project_detail.html">{{ $loan->borrower->profile->first_name }} {{ $loan->borrower->profile->last_name }}</a>
                                             <br/>
-                                            <small>Created 14.08.2014</small>
+                                            <small>{{ getRoleNameByID($loan->borrower->user_id, 'display_name') }}</small>
                                         </td>
+                                        <td class="text-right">{{ $loan->status }}</td>
                                         <td class="project-actions">
-                                            <button type="button" class="btn btn-white btn-sm"><i class="fa fa-thumbs-up"></i> Approve </button>
+                                            <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
+                                            <button type="button" class="btn btn-white btn-sm btn-action" data-action="approve"><i class="fa fa-thumbs-up text-success"></i> Approve </button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -105,6 +108,7 @@
 
 @section('scripts')
     {{--    {!! Html::script('') !!}--}}
+{{--    {!! Html::script('/js/template/plugins/jqueryMask/jquery.mask.min.js') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
     {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
@@ -136,6 +140,30 @@
             {{-- });--}}
 
             {{--table.ajax.reload();--}}
+            // $('.money').mask("#,##0.00", {reverse: true});
+
+            $(document).on('click', '.btn-action', function(){
+                var action = $(this).data('action');
+                var id = $(this).closest('tr').data('id');
+                switch(action){
+                    case 'decline':
+                        $.get('{!! route('loan-update-status') !!}', {
+                            id: id,
+                            status: 'Declined'
+                        }, function(data){
+                            location.reload();
+                        });
+                        break;
+                    case 'approve':
+                        $.get('{!! route('loan-update-status') !!}', {
+                            id: id,
+                            status: 'Active'
+                        }, function(data){
+                            location.reload();
+                        });
+                        break;
+                }
+            });
 
         });
     </script>

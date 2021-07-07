@@ -127,4 +127,11 @@ class LoanProviderController extends Controller
 
         return view(subDomainPath('loan-provider.loans.index'), compact('loans'));
     }
+
+    public function loanUpdateStatus(Request $request)
+    {
+        $data = Loan::find($request->input('id'));
+        $data->status = $request->input('status');
+        $data->save();
+    }
 }

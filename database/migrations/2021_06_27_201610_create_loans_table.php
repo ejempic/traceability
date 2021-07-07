@@ -19,7 +19,7 @@ class CreateLoansTable extends Migration
             $table->string('borrower_type')->nullable();
             $table->integer('loan_provider_id');
             $table->integer('loan_product_id');
-            $table->enum('status', array('Pending', 'Active', 'Completed'));
+            $table->enum('status', array('Pending', 'Active', 'Completed', 'Declined'));
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->double('penalty')->nullable();
