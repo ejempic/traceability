@@ -1,6 +1,6 @@
 @extends(subdomain_name().'.master')
 
-@section('title', 'Loan Products')
+@section('title', 'My Loans')
 
 @section('content')
 
