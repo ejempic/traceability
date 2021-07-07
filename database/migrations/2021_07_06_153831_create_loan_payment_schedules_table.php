@@ -17,9 +17,9 @@ class CreateLoanPaymentSchedulesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('loan_id');
             $table->date('due_date');
-            $table->date('paid_date');
-            $table->double('payable_amount');
-            $table->double('paid_amount');
+            $table->date('paid_date')->nullable();
+            $table->double('payable_amount', 2);
+            $table->double('paid_amount',2)->default(0);
             $table->enum('status', ['paid','unpaid']);
             $table->timestamps();
         });

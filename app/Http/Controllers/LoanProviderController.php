@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Loan;
+use App\LoanPaymentSchedule;
 use App\LoanProvider;
 use App\Profile;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -132,6 +134,27 @@ class LoanProviderController extends Controller
     {
         $data = Loan::find($request->input('id'));
         $data->status = $request->input('status');
+        $data->start_date = Carbon::now()->toDateString();
+        $endDate = null;
+        if($data->save()){
+
+            $products = $data->product;
+            $amortization = computeAmortization($products->amount, $products->duration, $products->interest_rate, 2);
+            $paymentDate = Carbon::now();
+            foreach(range(1, $products->duration) as $index){
+                $month = $paymentDate->addMonth();
+                $loanPaymentSchedules = new LoanPaymentSchedule();
+                $loanPaymentSchedules->loan_id = $data->id;
+                $loanPaymentSchedules->due_date = $month->toDateString();
+                $loanPaymentSchedules->payable_amount = $amortization;
+                $loanPaymentSchedules->status = 'unpaid';
+                $loanPaymentSchedules->save();
+                $endDate = $loanPaymentSchedules->due_date;
+            }
+        }
+
+        $data->end_date = $endDate;
         $data->save();
+
     }
 }
