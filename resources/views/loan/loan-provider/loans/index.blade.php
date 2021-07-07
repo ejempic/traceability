@@ -62,8 +62,10 @@
                                         </td>
                                         <td class="text-right">{{ $loan->status }}</td>
                                         <td class="project-actions">
-                                            <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
-                                            <button type="button" class="btn btn-white btn-sm btn-action" data-action="approve"><i class="fa fa-thumbs-up text-success"></i> Approve </button>
+                                            @if($loan->status == 'Pending')
+                                                <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
+                                                <button type="button" class="btn btn-white btn-sm btn-action" data-action="approve"><i class="fa fa-thumbs-up text-success"></i> Approve </button>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach

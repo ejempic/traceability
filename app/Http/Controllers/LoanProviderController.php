@@ -133,11 +133,13 @@ class LoanProviderController extends Controller
     public function loanUpdateStatus(Request $request)
     {
         $data = Loan::find($request->input('id'));
+        if($data->status == 'Active'){
+            return null;
+        }
         $data->status = $request->input('status');
         $data->start_date = Carbon::now()->toDateString();
         $endDate = null;
         if($data->save()){
-
             $products = $data->product;
             $amortization = computeAmortization($products->amount, $products->duration, $products->interest_rate, 2);
             $paymentDate = Carbon::now();
@@ -152,7 +154,6 @@ class LoanProviderController extends Controller
                 $endDate = $loanPaymentSchedules->due_date;
             }
         }
-
         $data->end_date = $endDate;
         $data->save();
 
