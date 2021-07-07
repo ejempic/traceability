@@ -16,11 +16,12 @@
 
     {!! Html::style('/css/app.css') !!}
     {!! Html::style('/css/styles.css') !!}
+{{--    {!! Html::style('/css/template/bootstrap.min.css') !!}--}}
     {!! Html::style('/font-awesome/css/font-awesome.css') !!}
+    @yield('styles')
     {!! Html::style('/css/template/animate.css') !!}
     {!! Html::style('/css/template/style.css') !!}
 
-    @yield('styles')
 
 </head>
 
@@ -114,24 +115,20 @@
 </div>
 
 <!-- Mainly scripts -->
-{{--<script src="/js/app.js"></script>--}}
-<script src="{{ URL::to('/js/app.js') }}"></script>
-{{--<script src="js/jquery-3.1.1.min.js"></script>--}}
-{{--<script src="/js/template/popper.min.js"></script>--}}
-<script src="{{ URL::to('/js/template/popper.min.js') }}"></script>
-{{--<script src="js/bootstrap.js"></script>--}}
-{{--<script src="/js/template/plugins/metisMenu/jquery.metisMenu.js"></script>--}}
-<script src="{{ URL::to('/js/template/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-{{--<script src="/js/template/plugins/slimscroll/jquery.slimscroll.min.js"></script>--}}
-<script src="{{ URL::to('/js/template/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+{!! Html::script('/js/template/plugins/fullcalendar/moment.min.js') !!}
 
-@yield('scripts')
+{!! Html::script('/js/app.js') !!}
+{{--{!! Html::script('/js/template/jquery-3.1.1.min.js') !!}--}}
+{!! Html::script('/js/template/popper.min.js') !!}
+{!! Html::script('/js/template/bootstrap.js') !!}
+{!! Html::script('/js/template/plugins/metisMenu/jquery.metisMenu.js') !!}
+{!! Html::script('/js/template/plugins/slimscroll/jquery.slimscroll.min.js') !!}
 
 <!-- Custom and plugin javascript -->
-{{--<script src="/js/template/inspinia.js"></script>--}}
-<script src="{{ URL::to('/js/template/inspinia.js') }}"></script>
-{{--<script src="/js/template/plugins/pace/pace.min.js"></script>--}}
-<script src="{{ URL::to('/js/template/plugins/pace/pace.min.js') }}"></script>
+{!! Html::script('/js/template/inspinia.js') !!}
+{!! Html::script('/js/template/plugins/pace/pace.min.js') !!}
+
+@yield('scripts')
 
 
 </body>
