@@ -36,6 +36,7 @@
                                     <thead>
                                     <tr>
                                         <th>Lending Partner</th>
+                                        <th>Loan Name</th>
                                         <th>Interest</th>
                                         <th>Term</th>
                                         <th class="text-right">Max Loan Amount</th>
@@ -43,20 +44,39 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td class="project-title">
-                                            <a href="project_detail.html">Contract with Zender Company</a>
-                                            <br/>
-                                            <small>Created 14.08.2014</small>
-                                        </td>
-                                        <td>Interest</td>
-                                        <td>Terms</td>
-                                        <td>Amount</td>
-                                        <td class="project-actions">
-                                            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                                            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                        </td>
-                                    </tr>
+                                    @forelse($loans as $loan)
+                                        <tr class="d-none">
+                                            <td colspan="99">
+                                                <pre>{{json_encode($loan,128)}}</pre>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                {{$loan->provider->profile->bank_name}}
+                                                <br/>
+                                                <small>Branch:
+                                                    <strong>{{ $loan->provider->profile->branch_name }}</strong></small><br/>
+                                                <small>Address: <span
+                                                            class="">{{ $loan->provider->profile->address_line }}</span></small><br/>
+                                            </td>
+                                            <td class="project-title">
+                                                {{$loan->product->name}}
+                                            </td>
+                                            <td>{{$loan->product->interest_rate}}%</td>
+                                            <td>{{$loan->product->duration}} Months</td>
+                                            <td class="text-right">{{currency_format($loan->product->amount)}}</td>
+                                            <td class="project-actions">
+                                                <a href="#" class="btn btn-white btn-sm sched_modal_trigger"
+                                                   data-schedule="{{$loan->payment_schedules}}"><i
+                                                            class="fa fa-calendar"></i> Schedules </a>
+                                                {{--                                                <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>--}}
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr class="empty_row">
+                                            <td colspan="99" class="text-center">No Loans Yet</td>
+                                        </tr>
+                                    @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -66,14 +86,15 @@
                 </div>
             </div>
         </div>
-
     </div>
 
-    <div class="modal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category="" data-variant="" data-bal="">
+    <div class="modal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category=""
+         data-variant="" data-bal="">
         <div id="modal-size">
             <div class="modal-content">
                 <div class="modal-header" style="padding: 15px;">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">
@@ -82,6 +103,38 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="modal-save-btn">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="sched_modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true"
+         data-category="" data-variant="" data-bal="">
+        <div id="modal-size" class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 15px;">
+                    <h3 class="modal-title">Payment Schedules</h3>
+                    <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Due Date</th>
+                            <th class="text-right">Amount</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="schedules_tbody">
+
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+{{--                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>--}}
+{{--                    <button type="button" class="btn btn-primary" id="modal-save-btn">Save changes</button>--}}
                 </div>
             </div>
         </div>
@@ -108,7 +161,35 @@
     {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
-        $(document).ready(function(){
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        $(document).on('click', '.sched_modal_trigger', function () {
+            var sched_modal = $('#sched_modal');
+            sched_modal.modal('show');
+
+            var data_schedules = $(this).data('schedule')
+
+            for (let i = 0; i < data_schedules.length; i++) {
+                const dataSchedule = data_schedules[i];
+
+                let setRows = '<tr>';
+                setRows += '<td>';
+                setRows += dataSchedule.due_date_display;
+                setRows += '</td>';
+                setRows += '<td class="text-right">';
+                setRows += numberWithCommas(dataSchedule.payable_amount);
+                setRows += '</td>';
+                setRows += '<td>';
+                setRows += dataSchedule.status_display;
+                setRows += '</td>';
+                setRows += '</tr>';
+                $('#schedules_tbody').append(setRows);
+            }
+        });
+        $(document).ready(function () {
             // var modal = $('#modal');
             {{--$(document).on('click', '', function(){--}}
             {{--    modal.modal({backdrop: 'static', keyboard: false});--}}

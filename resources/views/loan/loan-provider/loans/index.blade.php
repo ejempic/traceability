@@ -51,7 +51,7 @@
                                             <a href="project_detail.html">{{ $loan->product->name }}</a>
                                             <br/>
                                             <small>Type: <strong>{{ $loan->product->type->display_name }}</strong></small><br/>
-                                            <small>Amount: <span class="money">{{ number_format($loan->product->amount, 2) }}</span></small><br/>
+                                            <small>Amount: <span class="money">{{ currency_format($loan->product->amount) }}</span></small><br/>
                                             <small>Term: {{ $loan->product->duration }}mos</small><br/>
                                             <small>Interest: {{ $loan->product->interest_rate }}%</small><br/>
                                         </td>

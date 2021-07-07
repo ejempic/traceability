@@ -21,4 +21,9 @@ class Loan extends Model
     {
         return $this->belongsTo(LoanProvider::class, 'loan_provider_id')->with('profile');
     }
+
+    public function payment_schedules()
+    {
+        return $this->hasMany(LoanPaymentSchedule::class, 'loan_id');
+    }
 }

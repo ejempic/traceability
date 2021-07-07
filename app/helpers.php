@@ -188,3 +188,12 @@ if (!function_exists('computeAmortization')) {
         return $amor;
     }
 }
+
+if (!function_exists('currency_format')) {
+    function currency_format($amount, $decimal = 2)
+    {
+        return number_format($amount, $decimal);
+    }
+}
+
+
