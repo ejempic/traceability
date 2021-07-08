@@ -6,7 +6,7 @@
 @section('content')
 
 
-    <main class="page-forms page-register">
+    <main class="page-forms page-register page-loan-provider">
         <div class="row no-gutters sign-in">
             <div class="col-12 col-lg-6 left d-none d-lg-flex" style="background-image: url({{ asset('images/loan/bg-img.jpg') }})">
                 <div class="text">Setup Your Account</div>
