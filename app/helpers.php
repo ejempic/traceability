@@ -198,4 +198,14 @@ if (!function_exists('currency_format')) {
     }
 }
 
+if (!function_exists('settings')) {
+    function settings($setting)
+    {
+        $settingQuery =  \Illuminate\Support\Facades\DB::table('settings')->where('name', $setting)->first();
+        if($settingQuery){
+            return $settingQuery->value;
+        }
+    }
+}
+
 
