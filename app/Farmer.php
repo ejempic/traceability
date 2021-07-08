@@ -28,7 +28,7 @@ class Farmer extends Model
 
     public function loans()
     {
-        return $this->morphMany(Loan::class, 'borrower');
+        return $this->morphMany(Loan::class, 'borrower')->with('payment_schedules', 'product', 'provider');
     }
 
 }
