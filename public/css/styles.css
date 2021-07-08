@@ -442,7 +442,6 @@ body {
   border-bottom: 1px solid #9ed35a;
 }
 .page-register .sign-in .right .steps ul li a {
-  width: 50%;
   margin: auto;
   display: inline-block;
   background-color: #eee;
@@ -500,7 +499,7 @@ body {
   position: relative;
   margin-bottom: 2rem;
 }
-.page-register .sign-in .right .wizard-big.wizard > .content .form-group label {
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group label:not(.check-labels) {
   position: absolute;
   top: 50%;
   left: 10px;
@@ -510,10 +509,10 @@ body {
   transition: 0.3s;
   color: #948b96;
 }
-.page-register .sign-in .right .wizard-big.wizard > .content .form-group label.error {
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group label:not(.check-labels).error {
   color: #e3342f;
 }
-.page-register .sign-in .right .wizard-big.wizard > .content .form-group input {
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group input, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea {
   background-color: #eee;
   border: 1px solid #eee !important;
   border-bottom: 2px solid #e3342f !important;
@@ -522,10 +521,13 @@ body {
   padding: 1.5rem 1rem;
   font-weight: bold;
 }
-.page-register .sign-in .right .wizard-big.wizard > .content .form-group input:focus + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group input.error + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group input.valid + label {
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group input:focus + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group input.error + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group input.valid + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea:focus + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea.error + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea.valid + label {
   font-size: 13px;
   top: -10px;
   color: #e3342f;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea + label {
+  top: 20%;
 }
 .page-register .sign-in .right .wizard-big.wizard > .actions {
   width: 90%;
@@ -549,6 +551,21 @@ body {
   opacity: 0.7;
 }
 .page-register .sign-in .right .wizard-big.wizard > .actions ul li.disabled a {
+  background: #eee;
+}
+.page-register.page-loan-provider .sign-in .right .steps ul li:after {
+  width: 0%;
+  background-color: #3a8cdd;
+  border-top: 1px solid #3a8cdd;
+  border-bottom: 1px solid #3a8cdd;
+}
+.page-register.page-loan-provider .sign-in .right .steps ul li.current a, .page-register.page-loan-provider .sign-in .right .steps ul li.done a {
+  background-color: #3a8cdd;
+}
+.page-register.page-loan-provider .sign-in .right .wizard-big.wizard > .actions ul li a {
+  background: #3a8cdd;
+}
+.page-register.page-loan-provider .sign-in .right .wizard-big.wizard > .actions ul li.disabled a {
   background: #eee;
 }
 
