@@ -42,11 +42,17 @@
           align-items: center;
           justify-content: space-evenly;
           margin-bottom: 2rem;
+          flex-wrap: wrap;
 
           li {
             width: calc(100%/4);
             position: relative;
             text-align: center;
+
+            @media (max-width: 500px) {
+              width: calc(100%/2);
+              margin-bottom: 1rem;
+            }
 
             &:before, &:after {
               content: '';
@@ -77,6 +83,10 @@
               margin: auto;
               display: inline-block;
               background-color: $gray;
+
+              @media (max-width: 500px) {
+                width: 90%;
+              }
             }
 
             &:first-child, &:last-child {
