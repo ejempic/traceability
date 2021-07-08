@@ -486,6 +486,11 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
 }
+@media (max-width: 500px) {
+  .page-register .sign-in .right .wizard-big.wizard > .content {
+    min-height: 350px;
+  }
+}
 .page-register .sign-in .right .wizard-big.wizard > .content h2 {
   font-size: 1rem;
   font-weight: 400;
