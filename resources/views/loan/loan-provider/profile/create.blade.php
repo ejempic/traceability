@@ -13,6 +13,7 @@
             </div>
             <div class="col-12 col-lg-6 right d-flex align-items-center justify-content-center">
                 <div class="content w-100">
+                    <h1 class="d-block d-lg-none text-center">Setup Your Account</h1>
                     <small>Fill all form field to go next step</small>
 
                     <form id="form" action="{{ route('loan-provider-profile-store') }}" method="post" class="wizard-big">
