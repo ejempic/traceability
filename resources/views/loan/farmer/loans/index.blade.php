@@ -35,11 +35,14 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Lending Partner</th>
+                                        <th>Bank</th>
                                         <th>Loan Name</th>
+                                        <th class="text-right">Amount</th>
                                         <th>Interest</th>
                                         <th>Term</th>
-                                        <th class="text-right">Max Loan Amount</th>
+                                        <th class="text-right">Total Loan Amount</th>
+                                        <th class="text-right">Amortization</th>
+                                        <th class="text-center">Status</th>
                                         <th class="text-right">Action</th>
                                     </tr>
                                     </thead>
@@ -62,9 +65,19 @@
                                             <td class="project-title">
                                                 {{$loan->product->name}}
                                             </td>
+                                            <td class="text-right">{{currency_format($loan->product->amount)}}</td>
                                             <td>{{$loan->product->interest_rate}}%</td>
                                             <td>{{$loan->product->duration}} Months</td>
-                                            <td class="text-right">{{currency_format($loan->product->amount)}}</td>
+                                            <td class="text-right">{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2) * $loan->product->duration)}}</td>
+
+                                            <td class="text-right">{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2))}}</td>
+                                            @if($loan->status == 'Active')
+                                                <td class=" text-center text-green">{{$loan->status}}</td>
+                                            @elseif($loan->status == 'Pending')
+                                                <td class="text-center text-warning">{{$loan->status}}</td>
+                                            @else
+                                                <td class="text-center text-danger">{{$loan->status}}</td>
+                                            @endif
                                             <td class="project-actions">
                                                 <a href="#" class="btn btn-white btn-sm sched_modal_trigger"
                                                    data-schedule="{{$loan->payment_schedules}}"><i
@@ -169,9 +182,17 @@
         $(document).on('click', '.sched_modal_trigger', function () {
             var sched_modal = $('#sched_modal');
             sched_modal.modal('show');
-
+            $('#schedules_tbody').empty();
             var data_schedules = $(this).data('schedule')
 
+            if(data_schedules.length < 1){
+                let setRows = '<tr>';
+                setRows += '<td colspan="99" class="text-center">';
+                setRows += "Loan Not Approved yet";
+                setRows += '</td>';
+                setRows += '</tr>';
+                $('#schedules_tbody').append(setRows);
+            }
             for (let i = 0; i < data_schedules.length; i++) {
                 const dataSchedule = data_schedules[i];
 
