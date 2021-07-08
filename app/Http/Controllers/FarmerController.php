@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Farmer;
 use App\Inventory;
 use App\CommunityLeader;
+use App\Loan;
 use App\LoanProduct;
 use App\LoanType;
 use App\Product;
@@ -275,5 +276,18 @@ class FarmerController extends Controller
             })
             ->get();
         return response()->json($loanProducts);
+    }
+
+    public function loanApply(Request $request)
+    {
+        $loanProduct = LoanProduct::find($request->input('id'));
+        $farmer = Farmer::find(Auth::user()->farmer->id);
+        $loan = new Loan();
+        $loan->loan_provider_id = $loanProduct->loan_provider_id;
+        $loan->loan_product_id = $loanProduct->id;
+        $loan->status = 'Pending';
+        if($farmer->loans()->save($loan)){
+            return response()->json($loan);
+        }
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\LoanCollection;
 use App\Loan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoanController extends Controller
 {
@@ -14,7 +16,11 @@ class LoanController extends Controller
      */
     public function index()
     {
-        //
+        $loans = Loan::where('borrower_type', 'App\Farmer')
+            ->where('borrower_id', Auth::user()->farmer->id)
+            ->get();
+
+        return view(subDomainPath('farmer.loans.index'), compact('loans'));
     }
 
     /**
@@ -30,7 +36,7 @@ class LoanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +47,7 @@ class LoanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Loan  $loan
+     * @param \App\Loan $loan
      * @return \Illuminate\Http\Response
      */
     public function show(Loan $loan)
@@ -52,7 +58,7 @@ class LoanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Loan  $loan
+     * @param \App\Loan $loan
      * @return \Illuminate\Http\Response
      */
     public function edit(Loan $loan)
@@ -63,8 +69,8 @@ class LoanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Loan  $loan
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Loan $loan
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Loan $loan)
@@ -75,7 +81,7 @@ class LoanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Loan  $loan
+     * @param \App\Loan $loan
      * @return \Illuminate\Http\Response
      */
     public function destroy(Loan $loan)

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLoanPaymentsTable extends Migration
+class CreateLoanPaymentSchedulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateLoanPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('loan_payments', function (Blueprint $table) {
+        Schema::create('loan_payment_schedules', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('loan_id');
-            $table->double('paid_amount', 2)->nullable();
-            $table->dateTime('paid_date')->nullable();
-            $table->text('reference_number')->nullable();
+            $table->date('due_date');
+            $table->date('paid_date')->nullable();
+            $table->double('payable_amount', 2);
+            $table->double('paid_amount',2)->default(0);
+            $table->enum('status', ['paid','unpaid']);
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateLoanPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('loan_payments');
+        Schema::dropIfExists('loan_payment_schedules');
     }
 }

@@ -49,6 +49,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::post('role-update/{id}', 'RoleController@update')->name('role-update');
     Route::post('add-role', 'RoleController@addRole')->name('add-role');
 
+    Route::resource('settings', 'SettingController');
+
 });
 // GLOBAL ROUTES END
 
@@ -64,20 +66,28 @@ Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
 // ROUTES FOR LOAN
 Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 
-//    Route::get('loan-registration', 'PublicController@loanRegistration')->name('loan-registration');
+    Route::get('loan-registration', 'PublicController@loanRegistration')->name('loan-registration');
     Route::post('loan-user-registration-store', 'PublicController@loanUserRegistrationStore')->name('loan-user-registration-store');
 
-    Route::get('loan-provider/profile/create', 'PublicController@loneProviderProfileCreate')->name('loan-provider-profile-create');
-    Route::post('loan-provider/profile/store', 'LoanProviderController@profileStore')->name('loan-provider-profile-store');
-
-    Route::get('farmer/profile/create', 'PublicController@farmerProfileCreate')->name('farmer-profile-create');
-    Route::post('farmer/profile/store', 'FarmerController@profileStore')->name('farmer-profile-store');
-
     Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
+
+        Route::get('loan-provider/profile/create', 'PublicController@loneProviderProfileCreate')->name('loan-provider-profile-create');
+        Route::post('loan-provider/profile/store', 'LoanProviderController@profileStore')->name('loan-provider-profile-store');
+
+        Route::get('farmer/profile/create', 'PublicController@farmerProfileCreate')->name('farmer-profile-create');
+        Route::post('farmer/profile/store', 'FarmerController@profileStore')->name('farmer-profile-store');
+
         Route::resource('products', 'LoanProductController');
 
         Route::get('loan/product/list', 'FarmerController@loanProductList')->name('loan-product-list');
         Route::get('loan-product-list-get', 'FarmerController@loanProductListGet')->name('loan-product-list-get');
+        Route::get('loan-apply', 'FarmerController@loanApply')->name('loan-apply');
+
+        Route::get('my-loans/', 'LoanController@index')->name('my-loans');
+
+        Route::get('loan/applicants', 'LoanProviderController@loanApplicant')->name('loan-applicant');
+        Route::get('loan-update-status', 'LoanProviderController@loanUpdateStatus')->name('loan-update-status');
+
     });
 
 

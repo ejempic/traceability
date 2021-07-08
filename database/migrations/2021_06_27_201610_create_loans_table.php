@@ -15,13 +15,14 @@ class CreateLoansTable extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
-            $table->integer('model_id')->nullable();
-            $table->string('model_type')->nullable();
-            $table->unsignedBigInteger('loan_provider_id');
-            $table->integer('loan_type_id');
-            $table->double('amount');
-            $table->integer('duration')->comment('days');
-            $table->double('interest_rate');
+            $table->integer('borrower_id')->nullable();
+            $table->string('borrower_type')->nullable();
+            $table->integer('loan_provider_id');
+            $table->integer('loan_product_id');
+            $table->enum('status', array('Pending', 'Active', 'Completed', 'Declined'));
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->double('penalty')->nullable();
             $table->timestamps();
         });
     }

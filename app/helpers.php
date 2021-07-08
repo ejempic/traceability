@@ -1,6 +1,7 @@
 <?php
 
 use App\Profile;
+use App\User;
 use App\Farmer;
 use App\Inventory;
 use Illuminate\Support\Facades\Auth;
@@ -176,3 +177,25 @@ if (!function_exists('authProfilePic')) {
         return $data;
     }
 }
+
+
+if (!function_exists('computeAmortization')) {
+    function computeAmortization($amount, $terms, $interest, $decimal = 2)
+    {
+        $interest = $amount * ($interest/100);
+        $amount = $amount + $interest;
+        $amor = $amount / $terms;
+        $amor = preg_replace('/,/', '',number_format($amor, 2));
+        $amor = floatval($amor);
+        return $amor;
+    }
+}
+
+if (!function_exists('currency_format')) {
+    function currency_format($amount, $decimal = 2)
+    {
+        return number_format($amount, $decimal);
+    }
+}
+
+
