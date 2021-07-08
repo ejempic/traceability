@@ -156,7 +156,9 @@ class InventoryController extends Controller
         $inventory->quality = $details[3];
         $inventory->unit = $details[4];
         $inventory->quantity = $details[5];
-        $inventory->remark = $details[6];
+        $inventory->price = $details[6];
+        $inventory->total = $details[7];
+        $inventory->remark = $details[8];
         $inventory->status = 'Accepted';
         if($inventory->save()){
             $inventory = Inventory::with('product')->find($inventory->id);

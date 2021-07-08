@@ -51,6 +51,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
     Route::resource('settings', 'SettingController');
 
+    Route::get('trace-report', 'ReportController@traceReport')->name('trace-report');
+
 });
 // GLOBAL ROUTES END
 

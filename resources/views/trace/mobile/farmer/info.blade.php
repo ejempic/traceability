@@ -187,7 +187,7 @@
                             '</div>' +
                             '<div class="row">' +
                                 '<div class="col form-group">' +
-                                    '<label>Amount <small class="text-danger">*</small></label>' +
+                                    '<label>Total amount <small class="text-danger">*</small></label>' +
                                     '<input type="text" name="total" placeholder="0.00" class="form-control text-right" readonly>' +
                                 '</div>' +
                             '</div>' +
@@ -220,6 +220,8 @@
                         invDetails.push(modal.find('select[name=quality]').val());
                         invDetails.push(modal.find('select[name=unit]').val());
                         invDetails.push(modal.find('input[name=quantity]').val());
+                        invDetails.push(modal.find('input[name=price]').val());
+                        invDetails.push(modal.find('input[name=total]').val());
                         invDetails.push(modal.find('textarea[name=remark]').val());
 
                         console.log(invDetails);
@@ -282,7 +284,7 @@
                 // console.log('quantity: '+ modal.find('input[name=quantity]').val());
 
                 var amount = 0,
-                    price = parseInt(modal.find('input[name=price]').val()),
+                    price = parseFloat(modal.find('input[name=price]').val()),
                     quantity = parseInt(modal.find('input[name=quantity]').val()),
                     total = modal.find('input[name=total]');
                 amount = quantity * price;

@@ -69,6 +69,8 @@ class PublicController extends Controller
                 $update = $action;
                 $modelInfo->value_0 = $action;
                 $modelInfo->value_1 = 'Delivered to Client';
+                $trace->active = 0;
+                $trace->delivered = 1;
                 break;
             case 'Undeliverable':
                 $update = $action;
