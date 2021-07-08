@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Resources\LoanCollection;
 use App\Loan;
 use App\LoanPayment;
+use App\LoanPaymentSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class LoanController extends Controller
@@ -36,7 +38,7 @@ class LoanController extends Controller
 
         $filename = Storage::disk('payment_proof')->put($request->loan_id, $request->proof_of_payment);
         $url = Storage::disk('payment_proof')->url($filename);
-
+        DB::beginTransaction();
         $loan = new LoanPayment();
         $loan->loan_id = $request->loan_id;
         $loan->payment_method = $request->payment_method;
@@ -45,7 +47,50 @@ class LoanController extends Controller
         $loan->proof_of_payment = $url;
         $loan->reference_number = $request->reference_number;
         $loan->save();
-        dd($loan);
+
+        $paidAmounts = $loan->paid_amount;
+        $paymentAmounts = [];
+
+        $loanScheduleFirst = LoanPaymentSchedule::where('loan_id', $request->loan_id)
+            ->where('status', 'unpaid')
+            ->first();
+        $loanAmor = $loanScheduleFirst->payable_amount;
+        $loanRemainingLast = 0;
+        if($loanScheduleFirst->paid_amount > 0){
+            $loanRemainingLast = $loanScheduleFirst->payable_amount - $loanScheduleFirst->paid_amount;
+        }
+        do{
+            if($loanRemainingLast > 0){
+                if($paidAmounts > $loanRemainingLast){
+                    $paymentAmounts[] = $loanRemainingLast;
+                    $paidAmounts -= $loanRemainingLast;
+                }
+                $loanRemainingLast = 0;
+            }else{
+                if($paidAmounts < $loanAmor){
+                    $paymentAmounts[] = $paidAmounts;
+                }else{
+                    $paymentAmounts[] = $loanAmor;
+                }
+                $paidAmounts -= $loanAmor;
+            }
+        }while($paidAmounts > 0);
+
+        foreach($paymentAmounts as $paymentAmount){
+            $loanSchedule = LoanPaymentSchedule::where('loan_id', $request->loan_id)
+                ->whereRaw('paid_amount != payable_amount')
+                ->first();
+            $loanSchedule->paid_amount += $paymentAmount;
+            $loanSchedule->save();
+
+            if($loanSchedule->paid_amount == $loanSchedule->payable_amount){
+                $loanSchedule->status = 'paid';
+                $loanSchedule->save();
+            }
+        }
+        DB::commit();
+
+        return redirect()->back();
     }
 
     /**

@@ -250,6 +250,11 @@
                 setRows += '<td class="text-right">';
                 setRows += numberWithCommas(dataSchedule.payable_amount);
                 setRows += '</td>';
+                setRows += '<td class="text-right">';
+                if(dataSchedule.paid_amount > 0){
+                    setRows += numberWithCommas(dataSchedule.paid_amount);
+                }
+                setRows += '</td>';
                 setRows += '<td>';
                 setRows += dataSchedule.status_display;
                 setRows += '</td>';

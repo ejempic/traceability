@@ -14,6 +14,7 @@
                     <tr>
                         <th>Due Date</th>
                         <th class="text-right">Amount</th>
+                        <th class="text-right">Paid Amount</th>
                         <th>Status</th>
                     </tr>
                     </thead>
