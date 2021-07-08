@@ -79,7 +79,7 @@
             }
 
             a {
-              width: 50%;
+              //width: 50%;
               margin: auto;
               display: inline-block;
               background-color: $gray;
@@ -153,7 +153,7 @@
           position: relative;
           margin-bottom: 2rem;
 
-          label {
+          label:not(.check-labels) {
             position: absolute;
             top: 50%;
             left: 10px;
@@ -166,7 +166,7 @@
             }
           }
 
-          input {
+          input, textarea {
             background-color: $gray;
             border: 1px solid $gray !important;
             border-bottom: 2px solid $red !important;
@@ -174,7 +174,7 @@
             font-size: 1rem;
             padding: 1.5rem 1rem;
             font-weight: bold;
-            
+
             &:focus, &.error, &.valid {
               & + label {
                 font-size: 13px;
@@ -183,6 +183,13 @@
               }
             }
           }
+
+          textarea {
+            & + label {
+              top: 20%;
+            }
+          }
+
         }
       }
 
@@ -217,5 +224,61 @@
 
 
     }
+  }
+
+  &.page-loan-provider {
+
+
+    .sign-in {
+
+      .right {
+
+        .steps {
+          ul {
+
+            li {
+
+              &:after {
+                width: 0%;
+                background-color: $primary-3;
+                border-top: 1px solid $primary-3;
+                border-bottom: 1px solid $primary-3;
+              }
+
+
+              &.current, &.done {
+
+                a {
+                  background-color: $primary-3;
+                }
+
+              }
+            }
+          }
+        }
+
+
+        .wizard-big.wizard > .actions {
+
+          ul {
+            li {
+              a {
+                background: $primary-3;
+              }
+
+              &.disabled {
+                a {
+                  background: $gray;
+                }
+              }
+            }
+
+          }
+        }
+
+
+      }
+    }
+
   }
 }
