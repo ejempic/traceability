@@ -304,8 +304,22 @@ body {
           align-items: center;
   font-size: 1.2rem;
   padding: 7rem 8%;
+  background-size: cover;
+  background-position: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   background-color: #084d91;
   color: #fff;
+}
+.page-forms .sign-in .left:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
 }
 @media (max-width: 1650px) {
   .page-forms .sign-in .left {
@@ -321,7 +335,10 @@ body {
   background-color: #9ed35a;
 }
 .page-forms .sign-in .left .logo {
-  margin-bottom: 5rem;
+  max-width: 55%;
+  -webkit-filter: brightness(0) invert(1);
+          filter: brightness(0) invert(1);
+  position: relative;
 }
 .page-forms .sign-in .left ul {
   padding: 0;
@@ -388,11 +405,19 @@ body {
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
   margin-bottom: 2rem;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 .page-register .sign-in .right .steps ul li {
   width: calc(100%/4);
   position: relative;
   text-align: center;
+}
+@media (max-width: 500px) {
+  .page-register .sign-in .right .steps ul li {
+    width: calc(100%/2);
+    margin-bottom: 1rem;
+  }
 }
 .page-register .sign-in .right .steps ul li:before, .page-register .sign-in .right .steps ul li:after {
   content: "";
@@ -421,6 +446,11 @@ body {
   margin: auto;
   display: inline-block;
   background-color: #eee;
+}
+@media (max-width: 500px) {
+  .page-register .sign-in .right .steps ul li a {
+    width: 90%;
+  }
 }
 .page-register .sign-in .right .steps ul li:first-child:before, .page-register .sign-in .right .steps ul li:last-child:before {
   width: 60%;
