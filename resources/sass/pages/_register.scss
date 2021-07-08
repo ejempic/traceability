@@ -139,6 +139,10 @@
         display: flex;
         justify-content: center;
 
+        @media (max-width: 500px) {
+          min-height: 350px;
+        }
+
         h2 {
           font-size: 1rem;
           font-weight: 400;
