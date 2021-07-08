@@ -23,16 +23,16 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input name="first_name" type="text" class="form-control required">
-                                        <label>First name *</label>
+                                        <input name="first_name" type="text" class="form-control required" id="fname">
+                                        <label for="fname">First name *</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="middle_name" type="text" class="form-control required">
-                                        <label>Middle name *</label>
+                                        <input name="middle_name" type="text" class="form-control required" id="mname">
+                                        <label for="mname">Middle name *</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="last_name" type="text" class="form-control required">
-                                        <label>Last name *</label>
+                                        <input name="last_name" type="text" class="form-control required" id="lname">
+                                        <label for="lname">Last name *</label>
                                     </div>
                                 </div>
                             </div>
@@ -44,42 +44,42 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input name="bank_name" type="text" class="form-control required">
-                                        <label>Bank name *</label>
+                                        <input name="bank_name" type="text" class="form-control required" id="bank_name">
+                                        <label for="bank_name">Bank name *</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input name="branch_name" type="text" class="form-control required">
-                                        <label>Branch name *</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input name="address_line" type="text" class="form-control required">
-                                        <label>Address line *</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input name="account_name" type="text" class="form-control required">
-                                        <label>Account name *</label>
+                                        <input name="branch_name" type="text" class="form-control required" id="branch_name">
+                                        <label for="branch_name">Branch name *</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input name="account_number" type="text" class="form-control required">
-                                        <label>Account number *</label>
+                                        <input name="address_line" type="text" class="form-control required" id="address_line">
+                                        <label for="address_line">Address line *</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input name="tin" type="text" class="form-control required">
-                                        <label>TIN no. *</label>
+                                        <input name="account_name" type="text" class="form-control required" id="account_name">
+                                        <label for="account_name">Account name *</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input name="account_number" type="text" class="form-control required" id="account_number">
+                                        <label for="">Account number *</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input name="tin" type="text" class="form-control required" id="tin">
+                                        <label for="tin">TIN no. *</label>
                                     </div>
                                 </div>
                             </div>
@@ -91,16 +91,16 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input name="contact_person" type="text" class="form-control required">
-                                        <label>Contact person *</label>
+                                        <input name="contact_person" type="text" class="form-control required" id="contact_person">
+                                        <label for="contact_person">Contact person *</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="contact_number" type="text" class="form-control required">
-                                        <label>Contact number *</label>
+                                        <input name="contact_number" type="text" class="form-control required" id="contact_number">
+                                        <label for="contact_number">Contact number *</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="designation" type="text" class="form-control required">
-                                        <label>Designation *</label>
+                                        <input name="designation" type="text" class="form-control required" id="designation">
+                                        <label for="designation">Designation *</label>
                                     </div>
                                 </div>
                             </div>
