@@ -45,8 +45,8 @@
                             <input type="password" name="password" placeholder="*****" class=" @error('password') is-invalid @enderror" required autocomplete="current-password">
                             @error('password')
                             <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
 
@@ -78,7 +78,7 @@
 
                         {{--<a href="" class="link d-flex justify-content-center">Forgot password?</a>--}}
 
-                        <div class="register-text text-center">Not registered yet? <a href="{{ route('register-loan-provider') }}">Sign up</a> now!</div>
+{{--                        <div class="register-text text-center">Not registered yet? <a href="/registration">Sign up</a> now!</div>--}}
                     </form>
                 </div>
             </div>

@@ -52,7 +52,11 @@ class HomeController extends Controller
         }
 
         if(auth()->user()->hasRole('farmer')){
-            return view(subDomainPath('farmer.dashboard'));
+            $farmer = Farmer::find(Auth::user()->farmer->id);
+            $loans = $farmer->loans;
+
+//            return $loans;
+            return view(subDomainPath('farmer.dashboard'), compact('loans'));
         }
 
     }

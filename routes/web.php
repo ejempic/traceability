@@ -93,12 +93,12 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 
     });
 
-
-
 });
 
 // ROUTES FOR TRACE
 Route::domain('trace.'.config('dev.domain_ext'))->group(function () {
+    Route::get('trace-registration', 'PublicController@traceRegistration')->name('trace-registration');
+    Route::post('trace-user-registration-store', 'PublicController@traceUserRegistrationStore')->name('trace-user-registration-store');
 
     Route::get('farmer-qr', 'PublicController@farmerQr')->name('farmer-qr');
     Route::get('trace-shipped', 'PublicController@traceShipped')->name('trace-shipped');
