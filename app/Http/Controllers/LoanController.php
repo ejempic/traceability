@@ -102,7 +102,7 @@ class LoanController extends Controller
     public function proofPhoto(Request $request,$id, $proof)
     {
         $url = Storage::disk('payment_proof')
-            ->get('/'. $id.'/'.$proof);
+            ->get( $id.'/'.$proof);
         $type = $request->type;
         if($type == 'view'){
             return response()->file(storage_path('app/payment_proof/').$id.'/'.$proof);

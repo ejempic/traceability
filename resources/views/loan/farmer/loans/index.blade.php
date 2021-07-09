@@ -89,7 +89,9 @@
                                                    data-status="{{$loan->status}}"
                                                 ><i class="fa fa-money"></i> Pay </a>
                                                 <a href="#" class="btn btn-warning btn-sm payment_history_modal_trigger"
-                                                   data-payments="{{$loan->payments}}"><i
+                                                   data-payments="{{$loan->payments}}"
+                                                   data-status="{{$loan->status}}"
+                                                ><i
                                                             class="fa fa-list"></i> Payments </a>
                                             </td>
                                         </tr>
@@ -172,10 +174,11 @@
         $(document).on('click', '.payment_history_modal_trigger', function () {
             $('#payment_history_modal').modal('show');
             var data_payments = $(this).data('payments');
+            var data_status = $(this).data('status');
 
             $('#payment_history_tbody').empty();
 
-            if (data_payments.length < 1) {
+            if (data_status != 'Active') {
                 let setRows = '<tr>';
                 setRows += '<td colspan="99" class="text-center">';
                 setRows += "Loan Not Approved yet";
@@ -183,28 +186,31 @@
                 setRows += '</tr>';
                 $('#payment_history_tbody').append(setRows);
             }
-            for (let i = 0; i < data_payments.length; i++) {
-                const dataPayment = data_payments[i];
-                console.log(dataPayment)
-                let setRows = '<tr>';
-                setRows += '<td>';
-                setRows += dataPayment.paid_date_formatted;
-                setRows += '</td>';
-                setRows += '<td>';
-                setRows += dataPayment.payment_method;
-                setRows += '</td>';
-                setRows += '<td class="text-right">';
-                setRows += numberWithCommas(dataPayment.paid_amount);
-                setRows += '</td>';
-                setRows += '<td>';
-                setRows += dataPayment.reference_number;
-                setRows += '</td>';
-                setRows += '<td>';
-                setRows += '<a target="_blank" href="'+dataPayment.proof_of_payment+'?type=view">View</a> | ';
-                setRows += '<a href="'+dataPayment.proof_of_payment+'?type=download">Download</a>';
-                setRows += '</td>';
-                setRows += '</tr>';
-                $('#payment_history_tbody').append(setRows);
+
+            if (data_status == 'Active') {
+                for (let i = 0; i < data_payments.length; i++) {
+                    const dataPayment = data_payments[i];
+                    console.log(dataPayment)
+                    let setRows = '<tr>';
+                    setRows += '<td>';
+                    setRows += dataPayment.paid_date_formatted;
+                    setRows += '</td>';
+                    setRows += '<td>';
+                    setRows += dataPayment.payment_method;
+                    setRows += '</td>';
+                    setRows += '<td class="text-right">';
+                    setRows += numberWithCommas(dataPayment.paid_amount);
+                    setRows += '</td>';
+                    setRows += '<td>';
+                    setRows += dataPayment.reference_number;
+                    setRows += '</td>';
+                    setRows += '<td>';
+                    setRows += '<a target="_blank" href="'+dataPayment.proof_of_payment+'?type=view">View</a> | ';
+                    setRows += '<a href="'+dataPayment.proof_of_payment+'?type=download">Download</a>';
+                    setRows += '</td>';
+                    setRows += '</tr>';
+                    $('#payment_history_tbody').append(setRows);
+                }
             }
         });
         $(document).on('click', '.payment_modal_trigger', function () {
