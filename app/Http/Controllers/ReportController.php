@@ -123,4 +123,48 @@ class ReportController extends Controller
 
         return response()->json(array($lengthData, $totalData, $successData, $failedData));
     }
+
+    public function traceTableReport(Request $request) {
+
+        $now = Carbon::now();
+        $data = null;
+        $start = null;
+        $end = null;
+        switch ($request->input('length')){
+            case 'day':
+                $data = Trace::with('inventories')->whereBetween('created_at', [
+                        $now->copy()->startOfDay()->toDateTimeString(),
+                        $now->copy()->endOfDay()->toDateTimeString()
+                    ])->get();
+                $start = $now->copy()->startOfDay()->toDateTimeString();
+                $end = $now->copy()->endOfDay()->toDateTimeString();
+                break;
+            case 'week':
+                $data = Trace::with('inventories')->whereBetween('created_at', [
+                    $now->copy()->startOfWeek()->toDateTimeString(),
+                    $now->copy()->endOfWeek()->toDateTimeString()
+                ])->get();
+                $start = $now->copy()->startOfWeek()->toDateTimeString();
+                $end = $now->copy()->endOfWeek()->toDateTimeString();
+                break;
+            case 'month':
+                $data = Trace::with('inventories')->whereBetween('created_at', [
+                    $now->copy()->startOfMonth()->toDateTimeString(),
+                    $now->copy()->endOfMonth()->toDateTimeString()
+                ])->get();
+                $start = $now->copy()->startOfMonth()->toDateTimeString();
+                $end = $now->copy()->endOfMonth()->toDateTimeString();
+                break;
+            case 'range':
+                $data = Trace::with('inventories')->whereBetween('created_at', [
+                    Carbon::parse($request->input('start'))->toDateTimeString(),
+                    Carbon::parse($request->input('end'))->toDateTimeString()
+                ])->get();
+                $start = Carbon::parse($request->input('start'))->toDateTimeString();
+                $end = Carbon::parse($request->input('end'))->toDateTimeString();
+                break;
+        }
+
+        return response()->json(array($data, $start, $end));
+    }
 }

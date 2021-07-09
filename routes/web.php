@@ -52,6 +52,7 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::resource('settings', 'SettingController');
 
     Route::get('trace-report', 'ReportController@traceReport')->name('trace-report');
+    Route::get('trace-table-report', 'ReportController@traceTableReport')->name('trace-table-report');
 
     Route::get('loan/proof/{id}/{filename}', 'LoanController@proofPhoto')->name('loan-proof');
     Route::get('loan/applicants', 'LoanProviderController@loanApplicant')->name('loan-applicant');
