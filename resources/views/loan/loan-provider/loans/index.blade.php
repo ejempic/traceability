@@ -45,30 +45,34 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($loans as $loan)
-                                    <tr data-id="{{ $loan->id }}">
-                                        <td class="project-title">
-                                            <a href="project_detail.html">{{ $loan->product->name }}</a>
-                                            <br/>
-                                            <small>Type: <strong>{{ $loan->product->type->display_name }}</strong></small><br/>
-                                            <small>Amount: <span class="money">{{ currency_format($loan->product->amount) }}</span></small><br/>
-                                            <small>Term: {{ $loan->product->duration }}mos</small><br/>
-                                            <small>Interest: {{ $loan->product->interest_rate }}%</small><br/>
-                                        </td>
-                                        <td class="project-title">
-                                            <a href="project_detail.html">{{ $loan->borrower->profile->first_name }} {{ $loan->borrower->profile->last_name }}</a>
-                                            <br/>
-                                            <small>{{ getRoleNameByID($loan->borrower->user_id, 'display_name') }}</small>
-                                        </td>
-                                        <td class="text-right">{{ $loan->status }}</td>
-                                        <td class="project-actions">
-                                            @if($loan->status == 'Pending')
-                                                <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
-                                                <button type="button" class="btn btn-white btn-sm btn-action" data-action="approve"><i class="fa fa-thumbs-up text-success"></i> Approve </button>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                    @forelse($loans as $loan)
+                                        <tr data-id="{{ $loan->id }}">
+                                            <td class="project-title">
+                                                <a href="project_detail.html">{{ $loan->product->name }}</a>
+                                                <br/>
+                                                <small>Type: <strong>{{ $loan->product->type->display_name }}</strong></small><br/>
+                                                <small>Amount: <span class="money">{{ currency_format($loan->product->amount) }}</span></small><br/>
+                                                <small>Term: {{ $loan->product->duration }}mos</small><br/>
+                                                <small>Interest: {{ $loan->product->interest_rate }}%</small><br/>
+                                            </td>
+                                            <td class="project-title">
+                                                <a href="project_detail.html">{{ $loan->borrower->profile->first_name }} {{ $loan->borrower->profile->last_name }}</a>
+                                                <br/>
+                                                <small>{{ getRoleNameByID($loan->borrower->user_id, 'display_name') }}</small>
+                                            </td>
+                                            <td class="text-right">{{ $loan->status }}</td>
+                                            <td class="project-actions">
+                                                @if($loan->status == 'Pending')
+                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
+                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="approve"><i class="fa fa-thumbs-up text-success"></i> Approve </button>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="99" class="text-center">No Application yet</td>
+                                        </tr>
+                                    @endforelse
                                     </tbody>
                                 </table>
                             </div>
