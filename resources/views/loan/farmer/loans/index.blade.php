@@ -86,6 +86,7 @@
                                                    data-amount_monthly="{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2))}}"
                                                    data-amount_max="{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2) * $loan->product->duration)}}"
                                                    data-id="{{$loan->id}}"
+                                                   data-status="{{$loan->status}}"
                                                 ><i class="fa fa-money"></i> Pay </a>
                                                 <a href="#" class="btn btn-warning btn-sm payment_history_modal_trigger"
                                                    data-payments="{{$loan->payments}}"><i
@@ -212,7 +213,11 @@
             var data_monthly = $(this).data('amount_monthly');
             var data_max = $(this).data('amount_max');
             var data_id = $(this).data('id');
-
+            var data_status = $(this).data('status');
+            $('#verify_payment_show').hide();
+            if(data_status == 'Active'){
+                $('#verify_payment_show').show();
+            }
             $('.verify_amount_fast_monthly').attr('data-amount', data_monthly);
             $('.verify_amount_fast_max').attr('data-amount', data_max);
             $('#verify_loan_id').val(data_id);
