@@ -27,7 +27,7 @@
 
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label class="col-form-label" for="status">Loan Type</label>
                         <select name="type" class="form-control loan_input">
@@ -40,14 +40,18 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
+                        <span id="term_value" class="float-right mt-2"></span>
                         <label class="col-form-label" for="product_name">Loan Term</label>
-                        <input type="number" name="term" value="" placeholder="How many months?" class="form-control loan_input">
+                        <div  id="term_slider"></div>
+{{--                        <input type="range" name="term" min="4" max="60" value="4" placeholder="How many months?" class="form-control loan_input">--}}
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
+                        <span id="amount_value" class="float-right mt-2"></span>
                         <label class="col-form-label" for="price">Loanable Amount</label>
-                        <input type="text" name="amount" value="" placeholder="Enter Amount" class="form-control money loan_input">
+                        <div  id="amount_slider"></div>
+{{--                        <input type="range" name="amount"  value="" placeholder="Enter Amount" class="form-control money loan_input">--}}
                     </div>
                 </div>
             </div>
@@ -218,6 +222,8 @@
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
     {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}
+    {!! Html::style('/css/template/plugins/nouslider/jquery.nouislider.css') !!}
+
 @endsection
 
 @section('scripts')
@@ -226,6 +232,7 @@
     {!! Html::script('/js/template/moment.js') !!}
     {!! Html::script('/js/template/numeral.js') !!}
     {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}
+    {!! Html::script('/js/template/plugins/nouslider/jquery.nouislider.min.js') !!}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
     {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
@@ -233,6 +240,76 @@
     <script>
         $(document).ready(function(){
             var modal = $('#modal');
+
+            var term_slider = document.getElementById('term_slider');
+
+            noUiSlider.create(term_slider, {
+                start: 80,
+                behaviour: 'tap',
+                connect: 'lower',
+                step: 1,
+                range: {
+                    'min':  2,
+                    'max':  90
+                },
+                format:  {
+                    // 'to' the formatted value. Receives a number.
+                    to: function (value) {
+                        return parseInt(value);
+                    },
+                    // 'from' the formatted value.
+                    // Receives a string, should return a number.
+                    from: function (value) {
+                        return parseInt(value);
+                    }
+                }
+            });
+            $('#term_value').html(term_slider.noUiSlider.get());
+            term_slider.noUiSlider.on('slide', function () {
+                $('#term_value').html(term_slider.noUiSlider.get())
+                getList($('select[name=type]').val(), term_slider.noUiSlider.get(), range_slider.noUiSlider.get())
+            });
+
+            var range_slider = document.getElementById('amount_slider');
+
+            noUiSlider.create(range_slider, {
+                start: [ 500, 500000 ],
+                behaviour: 'drag',
+                connect: true,
+                range: {
+                    'min':  500,
+                    'max':  1000000
+                },
+                step: 1000,
+                format:  {
+                    // 'to' the formatted value. Receives a number.
+                    to: function (value) {
+                        return parseInt(value);
+                    },
+                    // 'from' the formatted value.
+                    // Receives a string, should return a number.
+                    from: function (value) {
+                        return parseInt(value);
+                    }
+                }
+            });
+
+            var range_value = range_slider.noUiSlider.get();
+            $('#amount_value').html(numberWithCommas(range_value[0]) +" - "+numberWithCommas(range_value[1]));
+            range_slider.noUiSlider.on('slide', function () {
+                var range_value = range_slider.noUiSlider.get();
+                $('#amount_value').html(numberWithCommas(range_value[0]) +" - "+numberWithCommas(range_value[1]));
+                getList($('select[name=type]').val(), term_slider.noUiSlider.get(), range_value)
+            });
+
+
+
+            // var term_slider = document.getElementById("term_slider");
+            // var term_value = document.getElementById("term_value");
+            // term_value.innerHTML = term_slider.value; // Display the default slider value
+            // term_slider.oninput = function() {
+            //     term_value.innerHTML = this.value;
+            // }
             {{--$(document).on('click', '', function(){--}}
             {{--    modal.modal({backdrop: 'static', keyboard: false});--}}
             {{--    modal.modal('toggle');--}}

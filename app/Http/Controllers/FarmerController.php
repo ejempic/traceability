@@ -272,7 +272,7 @@ class FarmerController extends Controller
                 return $query->where('duration', '<=', $term);
             })
             ->when($amount, function ($query, $amount) {
-                return $query->where('amount', '<=', $amount);
+                return $query->whereBetween('amount', $amount);
             })
             ->get();
         return response()->json($loanProducts);
