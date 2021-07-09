@@ -24,17 +24,8 @@ class ReportController extends Controller
                 $total = [];
                 $success = [];
                 $failed = [];
-//                $sample = [];
-                $length = $now->endOfWeek()->diffInDays($now->copy()->startOfWeek());
-
+                $length = $now->endOfWeek()->diffInDays($now->copy()->startOfWeek()) +1;
                 $date = $now->startOfWeek();
-
-//                $sample[] = $date->copy()->addDays(4)->startOfDay()->toDateTimeString();
-//                $sample[] = $date->copy()->addDays(4)->endOfDay()->toDateTimeString();
-//                $sample[] = Trace::whereBetween('created_at', [
-//                            $date->copy()->addDays(4)->startOfDay()->toDateTimeString(),
-//                            $date->copy()->addDays(4)->endOfDay()->toDateTimeString()
-//                        ])->count();
 
                 for ($i = 0; $i < $length; $i++) {
                     $dates[] = $date->copy()->addDays($i)->format('D jS');
@@ -66,33 +57,67 @@ class ReportController extends Controller
                 break;
             case 'monthly':
                 $dates = [];
-                $length = $now->endOfMonth()->diffInDays($now->copy()->startOfMonth());
-
+                $length = $now->endOfMonth()->diffInDays($now->copy()->startOfMonth()) +1;
                 $date = $now->startOfMonth();
+
                 for ($i = 0; $i < $length; $i++) {
-                    if($i == 0){
-                        $dates[] = $date->format('d');
-                    }else{
-                        $dates[] = $date->addDays()->format('d');
-                    }
+                    $dates[] = $date->copy()->addDays($i)->format('D jS');
+                    $total[] = Trace::whereBetween('created_at', [
+                        $date->copy()->addDays($i)->startOfDay()->toDateTimeString(),
+                        $date->copy()->addDays($i)->endOfDay()->toDateTimeString()
+                    ])
+                        ->count();
+                    $success[] = Trace::where('delivered', 1)
+                        ->where('active', 0)
+                        ->whereBetween('created_at', [
+                            $date->copy()->addDays($i)->startOfDay()->toDateTimeString(),
+                            $date->copy()->addDays($i)->endOfDay()->toDateTimeString()
+                        ])
+                        ->count();
+                    $failed[] = Trace::where('delivered', 0)
+                        ->where('active', 0)
+                        ->whereBetween('created_at', [
+                            $date->copy()->addDays($i)->startOfDay()->toDateTimeString(),
+                            $date->copy()->addDays($i)->endOfDay()->toDateTimeString()
+                        ])
+                        ->count();
                 }
                 $lengthData = $dates;
+                $totalData = $total;
+                $successData = $success;
+                $failedData = $failed;
                 break;
             case 'annual':
-                $lengthData = array(
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
-                    'July',
-                    'August',
-                    'September',
-                    'October',
-                    'November',
-                    'December'
-                );
+                $dates = [];
+                $length = $now->endOfYear()->diffInMonths($now->copy()->startOfYear()) +1;
+                $date = $now->startOfYear();
+
+                for ($i = 0; $i < $length; $i++) {
+                    $dates[] = $date->copy()->addMonths($i)->format('F');
+                    $total[] = Trace::whereBetween('created_at', [
+                        $date->copy()->addMonths($i)->startOfMonth()->toDateTimeString(),
+                        $date->copy()->addMonths($i)->endOfMonth()->toDateTimeString()
+                    ])
+                        ->count();
+                    $success[] = Trace::where('delivered', 1)
+                        ->where('active', 0)
+                        ->whereBetween('created_at', [
+                            $date->copy()->addMonths($i)->startOfMonth()->toDateTimeString(),
+                            $date->copy()->addMonths($i)->endOfMonth()->toDateTimeString()
+                        ])
+                        ->count();
+                    $failed[] = Trace::where('delivered', 0)
+                        ->where('active', 0)
+                        ->whereBetween('created_at', [
+                            $date->copy()->addMonths($i)->startOfMonth()->toDateTimeString(),
+                            $date->copy()->addMonths($i)->endOfMonth()->toDateTimeString()
+                        ])
+                        ->count();
+                }
+                $lengthData = $dates;
+                $totalData = $total;
+                $successData = $success;
+                $failedData = $failed;
                 break;
         }
 

@@ -184,9 +184,12 @@
                     //     data[3].reduce((a, b) => a + b, 0)
                     // )
 
-                    $('.stat-list').find('.total').text(data[1].reduce((a, b) => a + b, 0));
-                    $('.stat-list').find('.delivered').text(data[2].reduce((a, b) => a + b, 0));
-                    $('.stat-list').find('.failed').text(data[3].reduce((a, b) => a + b, 0));
+                    (data[1] === null) ? 0 : $('.stat-list').find('.total').text(data[1].reduce((a, b) => a + b, 0));
+                    (data[2] === null) ? 0 : $('.stat-list').find('.delivered').text(data[2].reduce((a, b) => a + b, 0));
+                    (data[3] === null) ? 0 : $('.stat-list').find('.failed').text(data[3].reduce((a, b) => a + b, 0));
+
+
+
 
                     dataLength = data[0];
                     dataTotal = data[1];
