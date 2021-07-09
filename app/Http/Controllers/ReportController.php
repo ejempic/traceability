@@ -15,11 +15,13 @@ class ReportController extends Controller
         $totalData = null;
         $successData = null;
         $failedData = null;
+        $date2Data = null;
 
         $now = Carbon::now();
         switch ($input) {
             case 'weekly':
                 $dates = [];
+                $date2 = [];
                 $total = [];
                 $success = [];
                 $failed = [];
@@ -29,6 +31,12 @@ class ReportController extends Controller
                 for ($i = 0; $i < $length; $i++) {
                     if($i == 0){
                         $dates[] = $date->copy()->format('D jS');
+
+//                        $date2[] = Trace::count()->groupBy(function($date) {
+//                            return Carbon::parse($date->create)->format('Y-m-d');
+//                        });
+
+//                        $date2[] = $date->copy()->toDateString();
                         $total[] = Trace::where('created_at', $date->copy()->toDateString())
                             ->count();
                         $success[] = Trace::where('created_at', $date->copy()->toDateString())
@@ -39,6 +47,11 @@ class ReportController extends Controller
                             ->count();
                     }else{
                         $dates[] = $date->copy()->addDay()->format('D jS');
+
+                        $date2[] = Trace::get()->groupBy(function($date) {
+                            return Carbon::parse($date->create)->format('Y-m-d');
+                        });
+
                         $total[] = Trace::where('created_at', $date->copy()->addDays()->toDateString())
                             ->count();
                         $success[] = Trace::where('created_at', $date->copy()->addDays()->toDateString())
@@ -61,6 +74,7 @@ class ReportController extends Controller
                 $totalData = $total;
                 $successData = $success;
                 $failedData = $failed;
+                $date2Data = $date2;
                 break;
             case 'monthly':
                 $dates = [];

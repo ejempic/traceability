@@ -43,7 +43,9 @@
                             {{--                            <span class="block m-t-xs font-bold">{!! Auth::user()->name !!}</span>--}}
                             {{--                            <span class="text-muted text-xs block">{{ getRoleName('display_name') }} <b class="caret"></b></span>--}}
                             {{--<span class="text-muted text-xs block"> {{ getRoleName('display_name') }} <b class="caret"></b></span>--}}
-                            <span class="text-muted text-xs block"> {!! Auth::user()->name !!} <b class="caret"></b></span>
+{{--                            <span class="text-muted text-xs block"> {!! Auth::user()->name !!} <b class="caret"></b></span>--}}
+                            <span class="block m-t-xs font-bold">{!! Auth::user()->name !!}</span>
+                            <small class="text-xs block">{{ getRoleName('display_name') }} <b class="caret"></b></small>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a class="dropdown-item" href="#">Profile</a></li>
