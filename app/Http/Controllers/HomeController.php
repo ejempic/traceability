@@ -36,6 +36,11 @@ class HomeController extends Controller
             $inventory = Inventory::count();
             $trace = Trace::count();
             $farmer = Inventory::distinct('farmer_id')->count('farmer_id');
+
+
+
+
+
             return view('admin.dashboard', compact( 'inventory', 'trace', 'farmer'));
         }
 
