@@ -144,24 +144,24 @@ class ReportController extends Controller
                     $now->copy()->startOfWeek()->toDateTimeString(),
                     $now->copy()->endOfWeek()->toDateTimeString()
                 ])->get();
-                $start = $now->copy()->startOfWeek()->toDateTimeString();
-                $end = $now->copy()->endOfWeek()->toDateTimeString();
+                $start = $now->copy()->startOfWeek()->toFormattedDateString();
+                $end = $now->copy()->endOfWeek()->toFormattedDateString();
                 break;
             case 'month':
                 $data = Trace::with('inventories')->whereBetween('created_at', [
                     $now->copy()->startOfMonth()->toDateTimeString(),
                     $now->copy()->endOfMonth()->toDateTimeString()
                 ])->get();
-                $start = $now->copy()->startOfMonth()->toDateTimeString();
-                $end = $now->copy()->endOfMonth()->toDateTimeString();
+                $start = $now->copy()->startOfMonth()->toFormattedDateString();
+                $end = $now->copy()->endOfMonth()->toFormattedDateString();
                 break;
             case 'range':
                 $data = Trace::with('inventories')->whereBetween('created_at', [
                     Carbon::parse($request->input('start'))->toDateTimeString(),
                     Carbon::parse($request->input('end'))->toDateTimeString()
                 ])->get();
-                $start = Carbon::parse($request->input('start'))->toDateTimeString();
-                $end = Carbon::parse($request->input('end'))->toDateTimeString();
+                $start = Carbon::parse($request->input('start'))->toFormattedDateString();
+                $end = Carbon::parse($request->input('end'))->toFormattedDateString();
                 break;
         }
 

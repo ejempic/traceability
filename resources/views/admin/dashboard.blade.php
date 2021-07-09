@@ -239,7 +239,7 @@
                     end: end
                 }, function(data){
                     console.log(data);
-                    $('#span-length').text(moment(data[1]).format('MMMM DD, YYYY') + ' to '+ moment(data[2]).format('MMMM DD, YYYY'));
+                    $('#span-length').text(data[1] + ' to '+ data[2]);
                     for(var a = 0; a < data[0].length; a++){
                         var cost = 0;
                         for(var b = 0; b < data[0][a].inventories.length; b++){
