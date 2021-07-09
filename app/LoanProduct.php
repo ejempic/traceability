@@ -10,7 +10,7 @@ class LoanProduct extends Model
     protected $fillable = [
         "loan_provider_id",
         "name",
-        "loan_type",
+        "loan_type_id",
         "description",
         "amount",
         "duration",

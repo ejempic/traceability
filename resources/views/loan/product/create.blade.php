@@ -56,7 +56,7 @@
                                 <input name="amount" type="text" class="form-control money">
                             </div>
                             <div class="form-group">
-                                <label>Loan Duration (Days)</label>
+                                <label>Loan Duration (Months)</label>
                                 <input name="duration" type="text" data-mask="0#" class="form-control">
                             </div>
                             <div class="form-group">

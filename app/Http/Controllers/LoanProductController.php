@@ -44,7 +44,7 @@ class LoanProductController extends Controller
         $loanProviderId = auth()->user()->loan_provider->id;
         $array = $request->all();
         $array['loan_provider_id'] = $loanProviderId;
-        $array['loan_type'] = $array['type'];
+        $array['loan_type_id'] = $array['type'];
         $array['amount'] = floatval(preg_replace('/,/','', $array['amount']));
         unset($array['token']);
         unset($array['type']);
