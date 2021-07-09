@@ -136,8 +136,8 @@ class ReportController extends Controller
                         $now->copy()->startOfDay()->toDateTimeString(),
                         $now->copy()->endOfDay()->toDateTimeString()
                     ])->get();
-                $start = $now->copy()->startOfDay()->toDateTimeString();
-                $end = $now->copy()->endOfDay()->toDateTimeString();
+                $start = $now->copy()->startOfDay()->toDayDateTimeString();
+                $end = $now->copy()->endOfDay()->toDayDateTimeString();
                 break;
             case 'week':
                 $data = Trace::with('inventories')->whereBetween('created_at', [
