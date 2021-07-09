@@ -191,12 +191,15 @@
                 var action = $(this).data('action');
                 switch(action) {
                     case 'day':
+                        $('#data_5').empty();
                         loadTable('day');
                         break;
                     case 'week':
+                        $('#data_5').empty();
                         loadTable('week');
                         break;
                     case 'month':
+                        $('#data_5').empty();
                         loadTable('month');
                         break;
                     case 'range':
