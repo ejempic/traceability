@@ -54,6 +54,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::get('trace-report', 'ReportController@traceReport')->name('trace-report');
 
     Route::get('loan/proof/{id}/{filename}', 'LoanController@proofPhoto')->name('loan-proof');
+    Route::get('loan/applicants', 'LoanProviderController@loanApplicant')->name('loan-applicant');
+
 
 });
 // GLOBAL ROUTES END

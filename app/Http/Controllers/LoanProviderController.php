@@ -124,10 +124,21 @@ class LoanProviderController extends Controller
     public function loanApplicant()
     {
 
-        $loans = Loan::with('product', 'provider')->where('loan_provider_id', Auth::user()->loan_provider->id)->get();
+        if(Auth::user()->loan_provider){
+            $loans = Loan::with('product', 'provider')
+            ->where('loan_provider_id', Auth::user()->loan_provider->id)
+                ->get();
 //        return $loans;
 
-        return view(subDomainPath('loan-provider.loans.index'), compact('loans'));
+            return view(subDomainPath('loan-provider.loans.index'), compact('loans'));
+        }
+
+        $loans = Loan::with('product', 'provider')
+//            ->where('loan_provider_id', Auth::user()->loan_provider->id)
+            ->get();
+//        return $loans;
+
+        return view(subDomainPath('loans.index'), compact('loans'));
     }
 
     public function loanUpdateStatus(Request $request)
