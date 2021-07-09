@@ -15,7 +15,7 @@ class ReportController extends Controller
         $totalData = null;
         $successData = null;
         $failedData = null;
-        $sampleData = null;
+//        $sampleData = null;
 
         $now = Carbon::now();
         switch ($input) {
@@ -24,24 +24,38 @@ class ReportController extends Controller
                 $total = [];
                 $success = [];
                 $failed = [];
+//                $sample = [];
                 $length = $now->endOfWeek()->diffInDays($now->copy()->startOfWeek());
 
                 $date = $now->startOfWeek();
 
-//                $sample = Trace::whereIn('created_at', array(
-//                    $date->copy()->addDays(5)->startOfDay(),
-//                    $date->copy()->addDays(5)->endOfDay()
-//                ))->count();
+//                $sample[] = $date->copy()->addDays(4)->startOfDay()->toDateTimeString();
+//                $sample[] = $date->copy()->addDays(4)->endOfDay()->toDateTimeString();
+//                $sample[] = Trace::whereBetween('created_at', [
+//                            $date->copy()->addDays(4)->startOfDay()->toDateTimeString(),
+//                            $date->copy()->addDays(4)->endOfDay()->toDateTimeString()
+//                        ])->count();
 
                 for ($i = 0; $i < $length; $i++) {
                     $dates[] = $date->copy()->addDays($i)->format('D jS');
-                    $total[] = Trace::where('created_at', $date->copy()->addDays($i)->toDateString())
+                    $total[] = Trace::whereBetween('created_at', [
+                            $date->copy()->addDays($i)->startOfDay()->toDateTimeString(),
+                            $date->copy()->addDays($i)->endOfDay()->toDateTimeString()
+                        ])
                         ->count();
-                    $success[] = Trace::where('created_at', $date->copy()->addDays($i)->toDateString())
-                        ->where('delivered', 1)
+                    $success[] = Trace::where('delivered', 1)
+                        ->where('active', 0)
+                        ->whereBetween('created_at', [
+                            $date->copy()->addDays($i)->startOfDay()->toDateTimeString(),
+                            $date->copy()->addDays($i)->endOfDay()->toDateTimeString()
+                        ])
                         ->count();
-                    $failed[] = Trace::where('created_at', $date->copy()->addDays($i)->toDateString())
-                        ->where('delivered', 0)
+                    $failed[] = Trace::where('delivered', 0)
+                        ->where('active', 0)
+                        ->whereBetween('created_at', [
+                            $date->copy()->addDays($i)->startOfDay()->toDateTimeString(),
+                            $date->copy()->addDays($i)->endOfDay()->toDateTimeString()
+                        ])
                         ->count();
                 }
 
@@ -49,7 +63,6 @@ class ReportController extends Controller
                 $totalData = $total;
                 $successData = $success;
                 $failedData = $failed;
-                $sampleData = $sample;
                 break;
             case 'monthly':
                 $dates = [];
@@ -83,6 +96,6 @@ class ReportController extends Controller
                 break;
         }
 
-        return response()->json(array($lengthData, $totalData, $successData, $failedData, $sampleData));
+        return response()->json(array($lengthData, $totalData, $successData, $failedData));
     }
 }

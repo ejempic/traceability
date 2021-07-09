@@ -89,18 +89,25 @@
                                 <div class="col-md-3">
                                     <ul class="stat-list m-t-lg">
                                         <li>
-                                            <h2 class="no-margins">2,346</h2>
+                                            <h2 class="no-margins total">2,346</h2>
                                             <small>Total deliveries</small>
-                                            <div class="progress progress-mini">
-                                                <div class="progress-bar" style="width: 48%;"></div>
-                                            </div>
+{{--                                            <div class="progress progress-mini">--}}
+{{--                                                <div class="progress-bar" style="width: 48%;"></div>--}}
+{{--                                            </div>--}}
                                         </li>
                                         <li>
-                                            <h2 class="no-margins ">4,422</h2>
+                                            <h2 class="no-margins delivered">4,422</h2>
                                             <small>Delivered</small>
-                                            <div class="progress progress-mini">
-                                                <div class="progress-bar" style="width: 60%;"></div>
-                                            </div>
+{{--                                            <div class="progress progress-mini">--}}
+{{--                                                <div class="progress-bar" style="width: 60%;"></div>--}}
+{{--                                            </div>--}}
+                                        </li>
+                                        <li>
+                                            <h2 class="no-margins failed">4,422</h2>
+                                            <small>Failed</small>
+{{--                                            <div class="progress progress-mini">--}}
+{{--                                                <div class="progress-bar" style="width: 60%;"></div>--}}
+{{--                                            </div>--}}
                                         </li>
                                     </ul>
                                 </div>
@@ -166,6 +173,21 @@
                     length: action
                 }, function(data){
                     console.log(data);
+
+                    // console.log(
+                    //     data[1].reduce((a, b) => a + b, 0)
+                    // )
+                    // console.log(
+                    //     data[2].reduce((a, b) => a + b, 0)
+                    // )
+                    // console.log(
+                    //     data[3].reduce((a, b) => a + b, 0)
+                    // )
+
+                    $('.stat-list').find('.total').text(data[1].reduce((a, b) => a + b, 0));
+                    $('.stat-list').find('.delivered').text(data[2].reduce((a, b) => a + b, 0));
+                    $('.stat-list').find('.failed').text(data[3].reduce((a, b) => a + b, 0));
+
                     dataLength = data[0];
                     dataTotal = data[1];
                     dataSuccess = data[2];
@@ -178,17 +200,17 @@
                     datasets: [
                         {
                             label: "Total Deliveries",
-                            backgroundColor: "rgba(26,179,148,0.5)",
-                            borderColor: "rgba(26,179,148,0.7)",
-                            pointBackgroundColor: "rgba(26,179,148,1)",
+                            backgroundColor: "rgba(220,220,220,0.5)",
+                            borderColor: "rgba(220,220,220,1)",
+                            pointBackgroundColor: "rgba(220,220,220,1)",
                             pointBorderColor: "#fff",
                             data: dataTotal
                         },
                         {
                             label: "Delivery Success",
-                            backgroundColor: "rgba(220,220,220,0.5)",
-                            borderColor: "rgba(220,220,220,1)",
-                            pointBackgroundColor: "rgba(220,220,220,1)",
+                            backgroundColor: "rgba(26,179,148,0.5)",
+                            borderColor: "rgba(26,179,148,0.7)",
+                            pointBackgroundColor: "rgba(26,179,148,1)",
                             pointBorderColor: "#fff",
                             data: dataSuccess
                         },
