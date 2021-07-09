@@ -273,23 +273,23 @@
             var range_slider = document.getElementById('amount_slider');
 
             noUiSlider.create(range_slider, {
-                start: [ 500, 500000 ],
+                start: [ 10000, 500000 ],
                 behaviour: 'drag',
                 connect: true,
                 range: {
-                    'min':  500,
+                    'min':  10000,
                     'max':  1000000
                 },
-                step: 1000,
+                step: 10000,
                 format:  {
                     // 'to' the formatted value. Receives a number.
                     to: function (value) {
-                        return parseInt(value);
+                        return parseInt(Math.round(value));
                     },
                     // 'from' the formatted value.
                     // Receives a string, should return a number.
                     from: function (value) {
-                        return parseInt(value);
+                        return parseInt(Math.round(value));
                     }
                 }
             });
