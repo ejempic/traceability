@@ -145,6 +145,10 @@
                     case 'store':
                         var product = new Array();
                         var unit = new Array();
+                        console.log(validateForms());
+                        if(validateForms() > 0){
+                            return false;
+                        }
                         $('#product-info').find('.form-control').each(function(){
                             product.push($(this).val());
                         });
@@ -167,6 +171,18 @@
                     case 'remove-unit':
                         $(this).closest('.row').remove();
                         break;
+                }
+
+                function validateForms(){
+                    var error = 0;
+                    $('.form-group').removeClass('has-error');
+                    $('.form-control').each(function(){
+                        if($(this).val().length < 1){
+                            error += 1;
+                            $(this).closest('.form-group').addClass('has-error');
+                        }
+                    });
+                    return error;
                 }
             });
         });

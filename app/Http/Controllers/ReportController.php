@@ -167,4 +167,11 @@ class ReportController extends Controller
 
         return response()->json(array($data, $start, $end));
     }
+
+    public function printReport(Request $request)
+    {
+        $datas = $request->input('datas');
+        return $datas;
+        return view('layouts.print');
+    }
 }

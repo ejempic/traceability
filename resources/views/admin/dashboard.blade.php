@@ -104,15 +104,18 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <div class="ibox-tools">
-                            <div class="btn-group">
+                            <div class="btn-group table-report-btn">
                                 <button type="button" data-action="day" class="btn btn-xs btn-white btn-action active">Day</button>
                                 <button type="button" data-action="week" class="btn btn-xs btn-white btn-action">Week</button>
                                 <button type="button" data-action="month" class="btn btn-xs btn-white btn-action">Month</button>
                                 <button type="button" data-action="range" class="btn btn-xs btn-white btn-action">Range</button>
                             </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-xs btn-info btn-print text-white"> <i class="fa fa-print text-white"></i> Print</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="ibox-content">
+                    <div class="ibox-content" id="trace-table">
                         <div class="row">
                             <div class="col">
                                 <h3><strong>TRACE REPORT: </strong> <span id="span-length" class="text-success"></span></h3>
@@ -150,6 +153,12 @@
         </div>
 
 
+        {{ Form::open(array('route' => 'print-report', 'class' => 'sr-only', 'id' => 'form-print', 'target' => '_blank')) }}
+            @csrf
+            {{ Form::hidden('datas', null) }}
+        {{ Form::close() }}
+
+
     </div>
 
 @endsection
@@ -182,8 +191,6 @@
 
     <script>
         $(document).ready(function() {
-
-
 
             $(document).on('click', '.btn-action', function(){
                 $('.btn-action').removeClass('active');
@@ -224,13 +231,30 @@
 
             });
 
+            $(document).on('click', '.btn-print', function(){
+                var action = $('.table-report-btn').find('.btn-action.active').data('action'),
+                    datas = new Array(),
+                    form = $('#form-print');
+
+                datas.push(action);
+                if(action === 'range'){
+                    var datepicker = $('#datepicker');
+                    datas.push(datepicker.find('input[name=start]').val());
+                    datas.push(datepicker.find('input[name=end]').val());
+                }
+                console.log(datas);
+
+                // form.find('input[name=datas]').val(datas);
+                // form.submit();
+            });
+
             $(document).on('change', '.range-input', function(){
                 loadTable('range', $('input[name=start]').val(), $('input[name=end]').val());
             });
 
             loadTable('day');
             function loadTable(action, start, end){
-                console.log('action: '+ action);
+                // console.log('action: '+ action);
                 var list = new Array(), total = 0;
                 jQuery.ajaxSetup({async:false});
                 $.get('{!! route('trace-table-report') !!}', {
@@ -238,7 +262,7 @@
                     start: start,
                     end: end
                 }, function(data){
-                    console.log(data);
+                    // console.log(data);
                     $('#span-length').text(data[1] + ' to '+ data[2]);
                     for(var a = 0; a < data[0].length; a++){
                         var cost = 0;
@@ -322,8 +346,6 @@
                 new Chart(ctx, {type: 'line', data: lineData, options:lineOptions});
 
             }
-
-
 
         });
     </script>

@@ -54,6 +54,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::get('trace-report', 'ReportController@traceReport')->name('trace-report');
     Route::get('trace-table-report', 'ReportController@traceTableReport')->name('trace-table-report');
 
+    Route::post('print-report', 'ReportController@printReport')->name('print-report');
+
     Route::get('loan/proof/{id}/{filename}', 'LoanController@proofPhoto')->name('loan-proof');
     Route::get('loan/applicants', 'LoanProviderController@loanApplicant')->name('loan-applicant');
 
@@ -94,7 +96,7 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
         Route::get('my-loans/', 'LoanController@index')->name('my-loans');
         Route::post('verify-loan', 'LoanController@verify')->name('verify-loan');
 
-        Route::get('loan/applicants', 'LoanProviderController@loanApplicant')->name('loan-applicant');
+//        Route::get('loan/applicants', 'LoanProviderController@loanApplicant')->name('loan-applicant');
         Route::get('loan-update-status', 'LoanProviderController@loanUpdateStatus')->name('loan-update-status');
 
     });
