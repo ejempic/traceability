@@ -70,7 +70,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+//        return $product->units;
+        return view(subDomainPath('product.edit'), compact('product'));
     }
 
     /**
