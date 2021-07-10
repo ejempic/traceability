@@ -179,6 +179,16 @@ class ReportController extends Controller
     public function printReportData(Request $request)
     {
         $datas = $request->input('datas');
+        switch ($datas[0]){
+            case 'day':
+                break;
+            case 'week':
+                break;
+            case 'month':
+                break;
+            case 'range':
+                break;
+        }
         return response()->json($datas);
     }
 }

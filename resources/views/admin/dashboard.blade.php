@@ -241,6 +241,9 @@
                     var datepicker = $('#datepicker');
                     datas.push(datepicker.find('input[name=start]').val());
                     datas.push(datepicker.find('input[name=end]').val());
+                }else{
+                    datas.push(null);
+                    datas.push(null);
                 }
                 console.log(datas);
 
@@ -254,7 +257,7 @@
 
             loadTable('day');
             function loadTable(action, start, end){
-                // console.log('action: '+ action);
+                console.log('action: '+ action);
                 var list = new Array(), total = 0;
                 jQuery.ajaxSetup({async:false});
                 $.get('{!! route('trace-table-report') !!}', {
@@ -262,7 +265,7 @@
                     start: start,
                     end: end
                 }, function(data){
-                    // console.log(data);
+                    console.log(data);
                     $('#span-length').text(data[1] + ' to '+ data[2]);
                     for(var a = 0; a < data[0].length; a++){
                         var cost = 0;

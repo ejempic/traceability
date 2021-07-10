@@ -21,96 +21,35 @@
 
 <body class="white-bg">
 <div class="wrapper wrapper-content p-xl" data-type="{{ $datas[0] }}" data-start="{{ $datas[1] }}" data-end="{{ $datas[2] }}">
-    <div class="ibox-content p-xl">
+    <div class="ibox-content p-xl" id="trace-table">
         <div class="row">
             <div class="col-sm-6">
-                <h5>From:</h5>
-                <address>
-                    <strong>Inspinia, Inc.</strong><br>
-                    106 Jorg Avenu, 600/10<br>
-                    Chicago, VT 32456<br>
-                    <abbr title="Phone">P:</abbr> (123) 601-4590
-                </address>
+                <h3><strong>TRACE REPORT: </strong> <span id="span-length" class="text-success"></span></h3>
             </div>
+            <div class="col-sm-6">
+                <div class="form-group float-right" id="data_5">
 
-            <div class="col-sm-6 text-right">
-                <h4>Invoice No.</h4>
-                <h4 class="text-navy">INV-000567F7-00</h4>
-                <span>To:</span>
-                <address>
-                    <strong>Corporate, Inc.</strong><br>
-                    112 Street Avenu, 1080<br>
-                    Miami, CT 445611<br>
-                    <abbr title="Phone">P:</abbr> (120) 9000-4321
-                </address>
-                <p>
-                    <span><strong>Invoice Date:</strong> Marh 18, 2014</span><br/>
-                    <span><strong>Due Date:</strong> March 24, 2014</span>
-                </p>
+                </div>
             </div>
         </div>
-
-        <div class="table-responsive m-t">
-            <table class="table invoice-table">
+        <div class="table-responsive">
+            <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Item List</th>
-                    <th>Quantity</th>
-                    <th>Unit Price</th>
-                    <th>Tax</th>
-                    <th>Total Price</th>
+                    <th>Date</th>
+                    <th>Reference </th>
+                    <th>Client </th>
+                    <th>Status </th>
+                    <th class="text-right">Inventory Cost </th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody"></tbody>
+                <tfoot>
                 <tr>
-                    <td><div><strong>Admin Theme with psd project layouts</strong></div>
-                        <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
-                    <td>1</td>
-                    <td>$26.00</td>
-                    <td>$5.98</td>
-                    <td>$31,98</td>
+                    <td colspan="5" align="right" id="total-cost">Total: 00.00</td>
                 </tr>
-                <tr>
-                    <td><div><strong>Wodpress Them customization</strong></div>
-                        <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            Eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </small></td>
-                    <td>2</td>
-                    <td>$80.00</td>
-                    <td>$36.80</td>
-                    <td>$196.80</td>
-                </tr>
-                <tr>
-                    <td><div><strong>Angular JS & Node JS Application</strong></div>
-                        <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
-                    <td>3</td>
-                    <td>$420.00</td>
-                    <td>$193.20</td>
-                    <td>$1033.20</td>
-                </tr>
-
-                </tbody>
+                </tfoot>
             </table>
-        </div><!-- /table-responsive -->
-
-        <table class="table invoice-total">
-            <tbody>
-            <tr>
-                <td><strong>Sub Total :</strong></td>
-                <td>$1026.00</td>
-            </tr>
-            <tr>
-                <td><strong>TAX :</strong></td>
-                <td>$235.98</td>
-            </tr>
-            <tr>
-                <td><strong>TOTAL :</strong></td>
-                <td>$1261.98</td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="well m-t"><strong>Comments</strong>
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less
         </div>
     </div>
 
@@ -126,6 +65,8 @@
 
 <!-- Custom and plugin javascript -->
 {!! Html::script('/js/template/inspinia.js') !!}
+{!! Html::script('/js/template/moment.js') !!}
+{!! Html::script('/js/template/numeral.js') !!}
 
 <script>
 
@@ -156,18 +97,84 @@
 
         {{--table.ajax.reload();--}}
 
-        console.log('{!! $datas !!}');
-        var datas = new Array();
-        datas.push($('.wrapper').data('type'));
-        datas.push($('.wrapper').data('start'));
-        datas.push($('.wrapper').data('end'));
+        {{--var datas = new Array(), wrap = $('.wrapper');--}}
+        {{--datas.push(wrap.data('type'));--}}
+        {{--datas.push(wrap.data('start'));--}}
+        {{--datas.push(wrap.data('end'));--}}
+        {{--$.post('{!! route('print-report-data') !!}', {--}}
+        {{--    _token: '{!! csrf_token() !!}',--}}
+        {{--    datas: datas--}}
+        {{--}, function(data){--}}
+        {{--    console.log(data);--}}
+        {{--    // window.print();--}}
+        {{--});--}}
 
-        $.get('{!! route('print-report-data') !!}', {
-            datas: datas
-        }, function(data){
-            console.log(data);
-            // window.print();
-        });
+        loadTable();
+
+        function loadTable(){
+            // console.log('action: '+ action);
+            var list = new Array(), total = 0, wrap = $('.wrapper'), start = null, end = null;
+
+            jQuery.ajaxSetup({async:false});
+            $.get('{!! route('trace-table-report') !!}', {
+                length: wrap.data('type'),
+                start: wrap.data('start'),
+                end: wrap.data('end')
+            }, function(data){
+                start = data[1];
+                end = data[2];
+                for(var a = 0; a < data[0].length; a++){
+                    var cost = 0;
+                    for(var b = 0; b < data[0][a].inventories.length; b++){
+                        cost += parseFloat(data[0][a].inventories[b].total);
+                    }
+                    list.push('' +
+                        '<tr>' +
+                        '<td>'+ moment(data[0][a].created_at).format('M/DD/YYYY') +'</td>' +
+                        '<td>'+ data[0][a].reference +'</td>' +
+                        '<td>'+ data[0][a].receiver.value_0 +'</td>' +
+                        '<td>'+ data[0][a].status +'</td>' +
+                        '<td class="text-right">'+ numeral(cost).format('0,0.00') +'</td>' +
+                        '</tr>' +
+                        '');
+                    total += cost;
+                }
+            });
+
+            $('#trace-table').empty().append('' +
+                '<div class="row">' +
+                    '<div class="col-sm-6">' +
+                        '<h3><strong>TRACE REPORT: </strong> <span id="span-length" class="text-success">'+ start +' to '+ end +'</span></h3>' +
+                    '</div>' +
+                    '<div class="col-sm-6">' +
+                        '<div class="form-group float-right" id="data_5">' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="table-responsive">' +
+                    '<table class="table table-striped">' +
+                        '<thead>' +
+                            '<tr>' +
+                                '<th>Date</th>' +
+                                '<th>Reference </th>' +
+                                '<th>Client </th>' +
+                                '<th>Status </th>' +
+                                '<th class="text-right">Inventory Cost </th>' +
+                            '</tr>' +
+                        '</thead>' +
+                        '<tbody>'+ list.join('') +'</tbody>' +
+                        '<tfoot>' +
+                            '<tr>' +
+                                '<td colspan="5" align="right" id="total-cost">Total: '+ numeral(total).format('0,0.00') +'</td>' +
+                            '</tr>' +
+                        '</tfoot>' +
+                    '</table>' +
+                '</div>' +
+            '');
+
+
+            window.print();
+        }
 
     });
 
