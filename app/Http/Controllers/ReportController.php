@@ -171,7 +171,14 @@ class ReportController extends Controller
     public function printReport(Request $request)
     {
         $datas = $request->input('datas');
-        return $datas;
-        return view('layouts.print');
+        $datas = explode (',', $datas);
+//        return $datas;
+        return view('layouts.print', compact('datas'));
+    }
+
+    public function printReportData(Request $request)
+    {
+        $datas = $request->input('datas');
+        return response()->json($datas);
     }
 }

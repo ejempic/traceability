@@ -244,8 +244,8 @@
                 }
                 console.log(datas);
 
-                // form.find('input[name=datas]').val(datas);
-                // form.submit();
+                form.find('input[name=datas]').val(datas);
+                form.submit();
             });
 
             $(document).on('change', '.range-input', function(){

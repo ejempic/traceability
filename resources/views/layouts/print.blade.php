@@ -20,7 +20,7 @@
 </head>
 
 <body class="white-bg">
-<div class="wrapper wrapper-content p-xl">
+<div class="wrapper wrapper-content p-xl" data-type="{{ $datas[0] }}" data-start="{{ $datas[1] }}" data-end="{{ $datas[2] }}">
     <div class="ibox-content p-xl">
         <div class="row">
             <div class="col-sm-6">
@@ -122,12 +122,55 @@
 {!! Html::script('/js/template/popper.min.js') !!}
 {!! Html::script('/js/template/bootstrap.js') !!}
 {!! Html::script('/js/template/plugins/metisMenu/jquery.metisMenu.js') !!}
+{!! Html::script('/js/template/plugins/slimscroll/jquery.slimscroll.min.js') !!}
 
 <!-- Custom and plugin javascript -->
 {!! Html::script('/js/template/inspinia.js') !!}
 
-<script type="text/javascript">
-    window.print();
+<script>
+
+    $(document).ready(function(){
+        {{--var modal = $('#modal');--}}
+        {{--$(document).on('click', '', function(){--}}
+        {{--    modal.modal({backdrop: 'static', keyboard: false});--}}
+        {{--    modal.modal('toggle');--}}
+        {{--});--}}
+
+        {{-- var table = $('#table').DataTable({--}}
+        {{--     processing: true,--}}
+        {{--     serverSide: true,--}}
+        {{--     ajax: {--}}
+        {{--         url: '{!! route('') !!}',--}}
+        {{--         data: function (d) {--}}
+        {{--             d.branch_id = '';--}}
+        {{--         }--}}
+        {{--     },--}}
+        {{--     columnDefs: [--}}
+        {{--         { className: "text-right", "targets": [ 0 ] }--}}
+        {{--     ],--}}
+        {{--     columns: [--}}
+        {{--         { data: 'name', name: 'name' },--}}
+        {{--         { data: 'action', name: 'action' }--}}
+        {{--     ]--}}
+        {{-- });--}}
+
+        {{--table.ajax.reload();--}}
+
+        console.log('{!! $datas !!}');
+        var datas = new Array();
+        datas.push($('.wrapper').data('type'));
+        datas.push($('.wrapper').data('start'));
+        datas.push($('.wrapper').data('end'));
+
+        $.get('{!! route('print-report-data') !!}', {
+            datas: datas
+        }, function(data){
+            console.log(data);
+            // window.print();
+        });
+
+    });
+
 </script>
 
 </body>
