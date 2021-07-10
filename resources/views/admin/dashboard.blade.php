@@ -55,7 +55,7 @@
 
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 d-none d-sm-block">
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h5><strong>TRACE</strong> Reports</h5>
@@ -117,10 +117,10 @@
                     </div>
                     <div class="ibox-content" id="trace-table">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-sm-6">
                                 <h3><strong>TRACE REPORT: </strong> <span id="span-length" class="text-success"></span></h3>
                             </div>
-                            <div class="col">
+                            <div class="col-sm-6">
                                 <div class="form-group float-right" id="data_5">
 
                                 </div>
