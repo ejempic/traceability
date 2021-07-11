@@ -89,7 +89,19 @@ class FarmerController extends Controller
             $profile->qr_image = $farmer->account_id.'.png';
             $profile->qr_image_path = '/images/farmer/'.$farmer->account_id.'.png';
             if($farmer->profile()->save($profile)){
-                return redirect()->route('farmer.index');
+                $user = new User();
+                $user->name = ucwords($profile->first_name).' '.ucwords($profile->last_name);
+                $user->email = $request->input('email');
+                $user->password = bcrypt($request->input('password'));
+                $user->passkey = $request->input('password');
+                $user->active = 1;
+                if($user->save()) {
+                    $user->assignRole(stringSlug('Farmer'));
+                    $user->markEmailAsVerified();
+                    $farmer->user_id = $user->id;
+                    $farmer->save();
+                    return redirect()->route('farmer.index');
+                }
             }
         }
         return redirect()->back();
