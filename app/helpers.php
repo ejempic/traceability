@@ -191,6 +191,17 @@ if (!function_exists('computeAmortization')) {
     }
 }
 
+if (!function_exists('computeTotalLoan')) {
+    function computeTotalLoan($amount, $terms, $interest, $decimal = 2)
+    {
+        $interest = $amount * ($interest/100);
+        $amount = $amount + $interest;
+        $amount = preg_replace('/,/', '',number_format($amount, 2));
+        $amount = floatval($amount);
+        return $amount;
+    }
+}
+
 if (!function_exists('currency_format')) {
     function currency_format($amount, $decimal = 2)
     {

@@ -6,6 +6,7 @@ use App\Http\Resources\LoanCollection;
 use App\Loan;
 use App\LoanPayment;
 use App\LoanPaymentSchedule;
+use App\Services\LoanService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,6 +16,16 @@ use Illuminate\Support\Facades\Storage;
 
 class LoanController extends Controller
 {
+    /**
+     * @var LoanService
+     */
+    private $loanService;
+
+    public function __construct(LoanService $loanService)
+    {
+        $this->loanService = $loanService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +45,7 @@ class LoanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function verify(Request  $request)
+    public function verify(Request $request)
     {
 
         $filename = Storage::disk('payment_proof')->put($request->loan_id, $request->proof_of_payment);
@@ -43,7 +54,7 @@ class LoanController extends Controller
         $loan = new LoanPayment();
         $loan->loan_id = $request->loan_id;
         $loan->payment_method = $request->payment_method;
-        $loan->paid_amount = preg_replace('/,/','',$request->paid_amount);
+        $loan->paid_amount = preg_replace('/,/', '', $request->paid_amount);
         $loan->paid_date = $request->paid_date;
         $loan->proof_of_payment = $url;
         $loan->reference_number = $request->reference_number;
@@ -57,34 +68,34 @@ class LoanController extends Controller
             ->first();
         $loanAmor = $loanScheduleFirst->payable_amount;
         $loanRemainingLast = 0;
-        if($loanScheduleFirst->paid_amount > 0){
+        if ($loanScheduleFirst->paid_amount > 0) {
             $loanRemainingLast = $loanScheduleFirst->payable_amount - $loanScheduleFirst->paid_amount;
         }
-        do{
-            if($loanRemainingLast > 0){
-                if($paidAmounts > $loanRemainingLast){
+        do {
+            if ($loanRemainingLast > 0) {
+                if ($paidAmounts > $loanRemainingLast) {
                     $paymentAmounts[] = $loanRemainingLast;
                     $paidAmounts -= $loanRemainingLast;
                 }
                 $loanRemainingLast = 0;
-            }else{
-                if($paidAmounts < $loanAmor){
+            } else {
+                if ($paidAmounts < $loanAmor) {
                     $paymentAmounts[] = $paidAmounts;
-                }else{
+                } else {
                     $paymentAmounts[] = $loanAmor;
                 }
                 $paidAmounts -= $loanAmor;
             }
-        }while($paidAmounts > 0);
+        } while ($paidAmounts > 0);
 
-        foreach($paymentAmounts as $paymentAmount){
+        foreach ($paymentAmounts as $paymentAmount) {
             $loanSchedule = LoanPaymentSchedule::where('loan_id', $request->loan_id)
                 ->whereRaw('paid_amount != payable_amount')
                 ->first();
             $loanSchedule->paid_amount += $paymentAmount;
             $loanSchedule->save();
 
-            if($loanSchedule->paid_amount == $loanSchedule->payable_amount){
+            if ($loanSchedule->paid_amount == $loanSchedule->payable_amount) {
                 $loanSchedule->status = 'paid';
                 $loanSchedule->save();
             }
@@ -99,19 +110,25 @@ class LoanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function proofPhoto(Request $request,$id, $proof)
+    public function proofPhoto(Request $request, $id, $proof)
     {
         $url = Storage::disk('payment_proof')
-            ->get( $id.'/'.$proof);
+            ->get($id . '/' . $proof);
         $type = $request->type;
-        if($type == 'view'){
-            return response()->file(storage_path('app/payment_proof/').$id.'/'.$proof);
+        if ($type == 'view') {
+            return response()->file(storage_path('app/payment_proof/') . $id . '/' . $proof);
         }
-        if($type == 'download'){
-            return response()->download(storage_path('app/payment_proof/').$id.'/'.$proof);
+        if ($type == 'download') {
+            return response()->download(storage_path('app/payment_proof/') . $id . '/' . $proof);
         }
         return $url;
     }
+
+    public function getPaymentSchedule(Request  $request)
+    {
+        return $this->loanService->generateSchedule($request);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
