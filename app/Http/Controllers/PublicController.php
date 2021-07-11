@@ -30,6 +30,9 @@ class PublicController extends Controller
             $modelInfo->value_0 = 'Delivered';
             $modelInfo->value_1 = 'Delivered to Client';
             $trace->info()->save($modelInfo);
+            $trace->active = 0;
+            $trace->delivered = 1;
+            $trace->save();
             Trace::find($trace->id)->inventories()->update(array(
                 'status'=>'Delivered'
             ));
@@ -76,8 +79,10 @@ class PublicController extends Controller
                 $update = $action;
                 $modelInfo->value_0 = $action;
                 $modelInfo->value_1 = 'Unable to Deliver';
+                $trace->active = 0;
                 break;
         }
+        $trace->save();
         $trace->info()->save($modelInfo);
 
         Trace::find($trace->id)->inventories()->update(array(
