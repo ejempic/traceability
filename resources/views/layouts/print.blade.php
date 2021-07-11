@@ -27,8 +27,8 @@
                 <h3><strong>TRACE REPORT: </strong> <span id="span-length" class="text-success"></span></h3>
             </div>
             <div class="col-sm-6">
-                <div class="form-group float-right" id="data_5">
-
+                <div class="form-group float-right">
+                    <img src="{{ URL::to('/images/logo-colored.png') }}" alt="agrabah-logo" width="250">
                 </div>
             </div>
         </div>
@@ -148,6 +148,7 @@
                     '</div>' +
                     '<div class="col-sm-6">' +
                         '<div class="form-group float-right" id="data_5">' +
+                            '<img src="{!! URL::to('/images/logo-colored.png') !!}" alt="agrabah-logo" width="250">' +
                         '</div>' +
                     '</div>' +
                 '</div>' +
