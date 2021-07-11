@@ -68,6 +68,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
+                                        <th>Loan Product Name</th>
                                         <th>Lending Partner</th>
                                         <th>Interest</th>
                                         <th>Term</th>
@@ -458,13 +459,14 @@
                     for(var a = 0; a < data.length; a++){
                         list.push('' +
                             '<tr>' +
+                                '<td>'+ data[a].name +'</td>' +
                                 '<td class="project-title">' +
                                     '<a href="#">'+ data[a].provider.profile.bank_name +'</a>' +
                                     '<br/>' +
                                     '<small>'+ data[a].type.display_name +'</small>' +
                                 '</td>' +
                                 '<td>'+ data[a].interest_rate +'%</td>' +
-                                '<td>'+ data[a].duration +' day/s</td>' +
+                                '<td>'+ data[a].duration +' '+ data[a].timing_name+'</td>' +
                                 '<td class="text-right">'+ numeral(data[a].amount).format('0,0.00') +'</td>' +
                                 '<td class="project-actions">' +
                                     '<a href="#" class="btn btn-white btn-sm show_loan" data-name="'+data[a].name+'" data-provider="'+data[a].provider.profile.bank_name+'" data-amount="'+data[a].amount+'" data-type="'+data[a].type.display_name+'" data-duration="'+data[a].duration+'" data-interest_rate="'+data[a].interest_rate+'"><i class="fa fa-search"></i> View </a>' +

@@ -43,7 +43,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Financial Product Type</label>
-                                {{ Form::select('type', $types, null, array('class'=>'form-control')) }}
+                                {{ Form::select('type', $types, $loanProduct->loan_type_id, array('class'=>'form-control')) }}
                             </div>
                             <div class="form-group">
                                 <label>Product Description</label>
@@ -51,19 +51,77 @@
                             </div>
                             <div class="form-group">
                                 <label>Loanable Amount</label>
-                                <input name="amount" type="text" class="form-control money" value="{{$loanProduct->amount}}">
+                                <input name="amount" id="amount" type="text" class="form-control money changeSchedule" value="{{currency_format($loanProduct->amount)}}">
                             </div>
                             <div class="form-group">
                                 <label>Loan Duration (Months)</label>
-                                <input name="duration" type="text" data-mask="0#" class="form-control" value="{{$loanProduct->duration}}">
+                                <input name="duration" id="duration" type="text" data-mask="0#" class="form-control changeSchedule" value="{{$loanProduct->duration}}">
                             </div>
                             <div class="form-group">
                                 <label>Interest Rate (%)</label>
-                                <input name="interest_rate" type="text" data-mask="##0%"   class="form-control"  value="{{$loanProduct->interest_rate}}">
+                                <input name="interest_rate" id="interest_rate" type="text" data-mask="##0%"   class="form-control changeSchedule"  value="{{$loanProduct->interest_rate}}">
                             </div>
                         </div>
                     </div>
 
+                </div>
+                <div class="col-sm-6">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Payment Schedules
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>Timing</label>
+                                {{ Form::select('timing', ['day' => 'Day', 'monthly' => 'Monthly'], $loanProduct->timing, array('class'=>'form-control', 'id'=>'timing')) }}
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Allowance</label>
+                                        <input name="allowance" id="allowance" type="text" data-mask="0#" value="{{$loanProduct->allowance}}" class="form-control changeSchedule">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>1st Payment Allowance</label>
+                                        <input name="first_allowance" id="first_allowance" type="text" data-mask="0#" value="{{$loanProduct->first_allowance}}" class="form-control changeSchedule">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="schedule_inputs">
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <td>Assuming Approved Date</td>
+                                            <td class="text-right">{{now()->toFormattedDateString()}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Loan Amount</td>
+                                            <td id="total_loan_amount" class="text-right">0</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Due Date</th>
+                                    <th class="text-right">Amount</th>
+                                    {{--                                <th class="text-right">Action</th>--}}
+                                </tr>
+                                </thead>
+                                <tbody id="payment_schedule_review">
+                                <tr>
+                                    <td colspan="99">--</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
         {{ Form::close() }}
 
@@ -106,8 +164,55 @@
     {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function populateSchedule() {
+            var duration = $('#duration').val()
+            var amount = $('#amount').val()
+            var interest_rate = $('#interest_rate').val()
+            var timing = $('#timing').val()
+            var allowance = $('#allowance').val()
+            var first_allowance = $('#first_allowance').val()
+
+            $.get('{!! route('generate-schedule') !!}', {
+                duration:duration,
+                amount:amount,
+                interest_rate:interest_rate,
+                timing:timing,
+                allowance:allowance,
+                first_allowance:first_allowance,
+            }, function(data){
+
+                var table = '';
+                var total = 0;
+                for (let i = 0; i < data.length; i++) {
+                    const datum = data[i];
+                    table +='<tr>';
+                    table +='<td>';
+                    table += datum.date;
+                    table +='</td>'
+                    table +='<td class="text-right">';
+                    table += numberWithCommas(datum.amount);
+                    table +='</td>';
+                    table +='</tr>';
+                    total += datum.amount;
+                }
+                $('#total_loan_amount').html(numberWithCommas(total));
+                $('#payment_schedule_review').empty().append(table);
+                $('#payment_schedule_input').val(JSON.stringify(data))
+            });
+        }
+
+        $(document).on('change, input', '.changeSchedule', function () {
+            populateSchedule();
+        });
+
         $(document).ready(function(){
 
+            populateSchedule();
             $('.money').mask("#,##0.00", {reverse: true});
 
             $(document).on('click', '.btn-action', function(){

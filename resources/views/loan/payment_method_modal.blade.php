@@ -11,11 +11,11 @@
             </tr>
             <tr>
                 <td>BPI</td>
-                <td>{{settings('loan_bank_bpi')}}</td>
+                <td>{{settings('loan_payment_bank_bpi')}}</td>
             </tr>
             <tr>
                 <td>Palawan</td>
-                <td>{{settings('palawan')}}</td>
+                <td>{{settings('loan_payment_palawan')}}</td>
             </tr>
             </tbody>
         </table>

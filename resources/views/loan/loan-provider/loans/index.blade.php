@@ -62,15 +62,15 @@
                                             </td>
                                             <td class="text-right">{{ $loan->status }}</td>
                                             <td class="project-actions">
-{{--                                                @if($loan->status == 'Pending')--}}
-{{--                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>--}}
-{{--                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="approve"><i class="fa fa-thumbs-up text-success"></i> Approve </button>--}}
-{{--                                                @endif--}}
-{{--                                                @if($loan->status == 'Active')--}}
+                                                @if($loan->status == 'Pending')
+                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
+                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="approve"><i class="fa fa-thumbs-up text-success"></i> Approve </button>
+                                                @endif
+                                                @if($loan->status == 'Active')
                                                     <button type="button" class="btn btn-white btn-sm payment_history_modal_trigger"
                                                             data-payments="{{$loan->payments}}"
                                                     ><i class="fa fa-list"></i> Payments </button>
-{{--                                                @endif--}}
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty
@@ -214,7 +214,7 @@
                             id: id,
                             status: 'Active'
                         }, function(data){
-                            location.reload();
+                            // location.reload();
                         });
                         break;
                 }
