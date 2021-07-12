@@ -268,14 +268,10 @@ class FarmerController extends Controller
         $is_farmer = Auth::user()->farmer;
         $removeProductWithActiveLoan = [];
         if($is_farmer){
-            $removeProductWithActiveLoan = $is_farmer->loans->where(function($q){
-                $q->where('status','Active')->orWhere('status','Pending');
-            })->pluck('loan_product_id')->toArray();
+            $removeProductWithActiveLoan = $is_farmer->activeLoans->pluck('loan_product_id')->toArray();
         }else{
             $is_leader = Auth::user()->leader;
-            $removeProductWithActiveLoan = $is_leader->loans->where(function($q){
-                $q->where('status','Active')->orWhere('status','Pending');
-            })->pluck('loan_product_id')->toArray();
+            $removeProductWithActiveLoan = $is_leader->activeLoans->pluck('loan_product_id')->toArray();
 //            $removeProductWithActiveLoan = $is_leader->activeLoans->pluck('loan_product_id')->toArray();
         }
 

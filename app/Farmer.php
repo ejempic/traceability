@@ -33,7 +33,11 @@ class Farmer extends Model
 
     public function activeLoans()
     {
-        return $this->morphMany(Loan::class, 'borrower')->where('status', 'Active')->with('payment_schedules', 'product', 'provider');
+        return $this->morphMany(Loan::class, 'borrower')
+            ->where(function($q){
+                $q->where('status', 'Active')->orWhere('status', 'Pending');
+            })
+            ->with('payment_schedules', 'product', 'provider');
     }
 
 }
