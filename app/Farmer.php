@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Farmer extends Model
 {
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function leader()
     {
         return $this->belongsTo(CommunityLeader::class, 'leader_id');

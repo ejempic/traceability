@@ -48,6 +48,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Email</th>
                                 <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                             </tr>
                             </thead>
@@ -55,6 +56,7 @@
                             @foreach($datas as $data)
                                 <tr>
                                     <td>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</td>
+                                    <td>{{ $data->user->email }}</td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
                                             <a href="{!! route('farmer.show', array('farmer' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>

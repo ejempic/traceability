@@ -152,6 +152,7 @@
                         $('#product-info').find('.form-control').each(function(){
                             product.push($(this).val());
                         });
+                        product.push('store');
                         $('#unit-info').find('.row').each(function(){
                             var unitList = new Array();
                             unitList.push($(this).find('input[name=unit-name]').val());

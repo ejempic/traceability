@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <button type="button" class="btn btn-primary btn-action" data-action="store">Store</button>
+                <button type="button" class="btn btn-primary btn-action" data-action="store">Update</button>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
                     <div class="ibox-title">
                         <h5>Product Info</h5>
                     </div>
-                    <div class="ibox-content" id="product-info">
+                    <div class="ibox-content" id="product-info" data-id="{!! $product->id !!}">
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" value="{!! $product->display_name !!}" class="form-control" name="name">
@@ -172,6 +172,8 @@
                         $('#product-info').find('.form-control').each(function(){
                             product.push($(this).val());
                         });
+                        product.push('update');
+                        product.push($('#product-info').data('id'));
                         $('#unit-info').find('.row').each(function(){
                             var unitList = new Array();
                             unitList.push($(this).find('input[name=unit-name]').val());
