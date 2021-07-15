@@ -72,3 +72,24 @@ select.form-control:not([size]):not([multiple]) {
     color: #676a6c;
     font-weight: 600;
 }
+
+.page-register {
+    .sign-in {
+        .right {
+            .wizard-big.wizard > .content {
+                .form-group {
+                    select {
+                        background-color: #eee;
+                        border: 1px solid #eee !important;
+                        border-bottom: 2px solid #e3342f !important;
+                        border-radius: 0;
+                        font-size: 1rem;
+                        //padding: 1.5rem 1rem;
+                        font-weight: bold;
+                        height: 51px !important;
+                    }
+                }
+            }
+        }
+    }
+}

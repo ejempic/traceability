@@ -11364,3 +11364,13 @@ select.form-control:not([size]):not([multiple]) {
   font-weight: 600;
 }
 
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group select {
+  background-color: #eee;
+  border: 1px solid #eee !important;
+  border-bottom: 2px solid #e3342f !important;
+  border-radius: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  height: 51px !important;
+}
+

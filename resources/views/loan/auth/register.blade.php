@@ -6,7 +6,7 @@
         <div class="row no-gutters sign-in">
             <div class="col-12 col-lg-4 left d-none d-lg-block">
                 <div>
-                    <img src="{{ asset('images/logo-2.png') }}" alt="logo" class="img-fluid d-block mx-auto logo">
+                    <img src="{{ asset('/images/logo-2.png') }}" alt="logo" class="img-fluid d-block mx-auto logo">
                     <div class="content">
                         <h2>{{ config('app.name', 'Laravel') }}</h2>
 

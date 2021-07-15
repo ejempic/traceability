@@ -24,6 +24,7 @@ Route::get('/registration', function () {
 
 //Auth::routes();
 Auth::routes(['verify' => true]);
+Route::get('logout', 'UserController@logout')->name('logout');
 
 Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 

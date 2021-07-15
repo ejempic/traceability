@@ -22,17 +22,6 @@ class CreateProfilesTable extends Migration
             $table->string('first_name')->nullable();
             $table->string('middle_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->date('date_of_birth')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('civil_status')->nullable();
-//            $table->string('')->nullable();
-//            $table->string('')->nullable();
-//            $table->string('')->nullable();
-//            $table->string('')->nullable();
-//            $table->string('')->nullable();
-//            $table->string('')->nullable();
-//            $table->string('')->nullable();
-
 
             $table->string('mobile')->nullable();
             $table->text('address')->nullable();
@@ -47,7 +36,6 @@ class CreateProfilesTable extends Migration
             $table->string('qr_image')->nullable();
             $table->string('qr_image_path')->nullable();
             $table->string('status')->nullable();
-
 
             // loan provider profile
             $table->string('bank_name')->nullable();
