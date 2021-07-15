@@ -7,10 +7,10 @@
 
     <main class="page-forms page-register page-farmers">
         <div class="row no-gutters sign-in">
-            <div class="col-12 col-lg-6 left d-none d-lg-flex" style="background-image: url({{ asset('images/loan/bg-img.jpg') }})">
+            <div class="col-12 col-lg-4 left d-none d-lg-flex" style="background-image: url({{ asset('images/loan/bg-img.jpg') }})">
                 <div class="text">Setup Your Account</div>
             </div>
-            <div class="col-12 col-lg-6 right d-flex align-items-center justify-content-center">
+            <div class="col-12 col-lg-8 right d-flex align-items-center justify-content-center">
                 <div class="content w-100">
                     <h1 class="d-block d-lg-none text-center">Setup Your Account</h1>
                     <small>Fill all form field to go next step</small>
@@ -21,7 +21,7 @@
                         <fieldset>
                             <h2>Personal Information</h2>
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <input name="first_name" type="text" class="form-control required" id="first_name">
                                         <label for="first_name">First name *</label>
@@ -35,7 +35,49 @@
                                         <label for="last_name">Last name *</label>
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="form-group">
+                                                <input name="date-of-birth" type="text" class="form-control required" id="">
+                                                <label for="date-of-birth">Date of Birth *</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input name="age" type="text" class="form-control required" id="" readonly>
+                                                <label for="age">Age</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <select name="gender" class="form-control required">
+                                                    <option value="">select</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                </select>
+                                                <label for="gender">Gender *</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <select name="civil-status" class="form-control required">
+                                                    <option value="">select</option>
+                                                    <option value="Single">Single</option>
+                                                    <option value="Married">Married</option>
+                                                    <option value="Widow/er">Widow/er</option>
+                                                    <option value="Separated">Separated</option>
+                                                </select>
+                                                <label for="civil-status">Civil Status *</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+
 
                         </fieldset>
                         <h1>Background</h1>
@@ -117,6 +159,8 @@
     {!! Html::style('/css/template/style.css') !!}
     {!! Html::style('/css/template/plugins/iCheck/custom.css') !!}
     {!! Html::style('/css/template/plugins/steps/jquery.steps.css') !!}
+    {!! Html::style('/css/template/plugins/datapicker/datepicker3.css') !!}
+    {!! Html::style('/css/template/plugins/daterangepicker/daterangepicker-bs3.css') !!}
     {{--{!! Html::style('/js/template/plugins/') !!}--}}
 @endsection
 
@@ -130,6 +174,10 @@
     {!! Html::script('/js/template/plugins/steps/jquery.steps.min.js') !!}
     {!! Html::script('/js/template/plugins/validate/jquery.validate.min.js') !!}
     {!! Html::script('/js/template/plugins/slimscroll/jquery.slimscroll.min.js') !!}
+    {!! Html::script('/js/template/plugins/datapicker/bootstrap-datepicker.js') !!}
+    {!! Html::script('/js/template/plugins/daterangepicker/daterangepicker.js') !!}
+    {!! Html::script('/js/template/moment.js') !!}
+    {!! Html::script('/js/template/numeral.js') !!}
 
     <script>
         $(document).ready(function(){
@@ -185,6 +233,23 @@
 
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green'
+            });
+
+            $(document).on('change', $('input[name=date-of-birth]'), function(){
+                // console.log(moment($(this).val()).format('MMM/DD/YYYY'));
+                // $('input[name=age]').val(moment().diff('09-Feb-1983', 'years'));
+
+                $('input[name=age]').val(moment().diff($(this).val(), 'years'));
+                // $('input[name=age]').val(moment().diff(moment($(this).val(),"DD-MMM-YYYY"), 'years'));
+            });
+
+            $('input[name=date-of-birth]').datepicker({
+                startView: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "dd-m-yyyy"
             });
 
         });

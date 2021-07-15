@@ -79,13 +79,17 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
     Route::get('loan-registration', 'PublicController@loanRegistration')->name('loan-registration');
     Route::post('loan-user-registration-store', 'PublicController@loanUserRegistrationStore')->name('loan-user-registration-store');
 
-    Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('loan-provider/profile/create', 'PublicController@loneProviderProfileCreate')->name('loan-provider-profile-create');
         Route::post('loan-provider/profile/store', 'LoanProviderController@profileStore')->name('loan-provider-profile-store');
 
         Route::get('farmer/profile/create', 'PublicController@farmerProfileCreate')->name('farmer-profile-create');
         Route::post('farmer/profile/store', 'FarmerController@profileStore')->name('farmer-profile-store');
+
+    });
+
+    Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
         Route::resource('products', 'LoanProductController');
 
@@ -101,6 +105,8 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 
 //        Route::get('loan/applicants', 'LoanProviderController@loanApplicant')->name('loan-applicant');
         Route::get('loan-update-status', 'LoanProviderController@loanUpdateStatus')->name('loan-update-status');
+
+        Route::get('custom-forms', 'LoanProviderController@customForms')->name('custom-forms');
 
     });
 

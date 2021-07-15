@@ -183,4 +183,16 @@ class LoanProviderController extends Controller
         DB::commit();
 
     }
+
+    public function customForms()
+    {
+
+        return view(subDomainPath('settings.forms.application-form'));
+    }
+
+    public function customFormStore(Request $request)
+    {
+        $loanProvider = LoanProvider::find(Auth::user()->loan_provider->user_id);
+        return '';
+    }
 }
