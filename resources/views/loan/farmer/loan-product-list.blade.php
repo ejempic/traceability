@@ -115,7 +115,9 @@
                                 aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
 
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
@@ -124,6 +126,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="application_modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true"
          data-category="" data-variant="" data-bal="">
         <div class="modal-dialog modal-lg">
@@ -253,6 +256,7 @@
             </div>
         </div>
     </div>
+
     <div class="view-modal-layout d-none ">
         <div class="ibox">
             {{--            <div class="ibox-content">--}}
