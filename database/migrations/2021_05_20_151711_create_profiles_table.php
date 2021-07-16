@@ -22,10 +22,27 @@ class CreateProfilesTable extends Migration
             $table->string('first_name')->nullable();
             $table->string('middle_name')->nullable();
             $table->string('last_name')->nullable();
-
+            $table->date('dob')->nullable();
+            $table->string('civil_status')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('landline')->nullable();
             $table->string('mobile')->nullable();
-            $table->text('address')->nullable();
+            $table->string('tin')->nullable();
+            $table->string('sss_gsis')->nullable();
             $table->string('education')->nullable();
+            $table->text('address_current')->nullable();
+            $table->string('address_year_stay')->nullable();
+            $table->string('address_status')->nullable();
+            $table->text('address_landlord_info')->nullable();
+            $table->text('dependent')->nullable();
+
+
+
+            $table->string('pob')->nullable();
+            $table->string('citizenship')->nullable();
+            $table->string('gross_monthly_income')->nullable();
+            $table->string('monthly_expenses')->nullable();
+
             $table->boolean('four_ps')->default(0);
             $table->boolean('pwd')->default(0);
             $table->boolean('indigenous')->default(0);

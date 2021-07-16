@@ -24,27 +24,27 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input name="first_name" type="text" class="form-control required" id="first_name">
+                                        <input name="first_name" type="text" data-title="First name" class="profile-form form-control required" id="first_name">
                                         <label for="first_name">First name *</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="middle_name" type="text" class="form-control required" id="middle_name">
+                                        <input name="middle_name" type="text" data-title="Middle name" class="profile-form form-control required" id="middle_name">
                                         <label for="middle_name">Middle name *</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="last_name" type="text" class="form-control required" id="last_name">
+                                        <input name="last_name" type="text" data-title="Last name" class="profile-form form-control required" id="last_name">
                                         <label for="last_name">Last name *</label>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="form-group">
-                                                <input name="date-of-birth" type="text" class="form-control required" id="date-of-birth">
-                                                <label for="date-of-birth">Date of Birth *</label>
+                                                <input name="dob" type="text" data-title="Date of Birth" class="profile-form form-control required" id="dob">
+                                                <label for="dob">Date of Birth *</label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <input name="age" type="text" class="form-control required" id="age" readonly>
+                                                <input name="age" type="text" class="form-control" id="age" readonly>
                                                 <label for="age">Age</label>
                                             </div>
                                         </div>
@@ -54,7 +54,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <select name="civil-status" class="form-control required" id="civil_status">
+                                                <select name="civil_status" data-title="Civil Status" class="profile-form form-control required" id="civil_status">
                                                     <option value="" readonly></option>
                                                     <option value="Single">Single</option>
                                                     <option value="Married">Married</option>
@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <select name="gender" class="form-control required" id="gender">
+                                                <select name="gender" data-title="Gender" class="profile-form form-control required" id="gender">
                                                     <option value="" readonly></option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
@@ -78,13 +78,13 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input name="land-line" type="text" class="form-control" id="land-line">
+                                                <input name="land-line" type="text" data-title="Land Line" class="profile-form form-control" id="land-line">
                                                 <label for="land-line">Land Line</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input name="mobile" type="text" class="form-control required" id="mobile">
+                                                <input name="mobile" type="text" data-title="Mobile" class="profile-form form-control required" id="mobile">
                                                 <label for="mobile">Mobile *</label>
                                             </div>
                                         </div>
@@ -92,20 +92,20 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input name="tin" type="text" class="form-control" id="tin">
+                                                <input name="tin" type="text" data-title="Tin No." class="profile-form form-control" id="tin">
                                                 <label for="tin">Tin No.</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input name="sss-gsis" type="text" class="form-control required" id="sss-gsis">
-                                                <label for="sss-gsis">SSS / GSIS No. *</label>
+                                                <input name="sss_gsis" type="text" data-title="SSS / GSIS No." class="profile-form form-control required" id="sss-gsis">
+                                                <label for="sss_gsis">SSS / GSIS No. *</label>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <select name="education" class="form-control required" id="education">
+                                        <select name="education" data-title="Education" class="profile-form form-control required" id="education">
                                             <option value="" readonly></option>
                                             <option value="High School">High School</option>
                                             <option value="College">College</option>
@@ -123,26 +123,26 @@
                             <div class="row">
                                 <div class="col-lg-6 div-box">
                                     <div class="form-group">
-                                        <textarea name="address-current" class="form-control no-resize" required id="address-current"></textarea>
-                                        <label id="address-current">Current Address *</label>
+                                        <textarea name="address_current" data-title="Current Address" class="profile-form form-control no-resize" required id="address_current"></textarea>
+                                        <label id="address_current">Current Address *</label>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-5">
                                             <div class="form-group">
-                                                <input name="farm_lot" type="text" class="form-control required" id="farm_lot">
-                                                <label for="farm_lot">Years at Residence *</label>
+                                                <input name="address_year_stay" data-title="Years of Stay" type="number" class="profile-form form-control required" id="address_year_stay">
+                                                <label for="address_year_stay">Years of Stay *</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-7">
                                             <div class="form-group">
-                                                <select name="resident-status" id="resident-status" class="form-control required">
+                                                <select name="address_status" data-title="Address Status" id="address_status" class="profile-form form-control required">
                                                     <option value="" readonly></option>
                                                     <option value="Rented">Rented</option>
                                                     <option value="Owned (Mortgaged)">Owned (Mortgaged)</option>
                                                     <option value="Owned (Not Mortgaged)">Owned (Not Mortgaged)</option>
                                                     <option value="Living with parents / free use">Living with parents / free use</option>
                                                 </select>
-                                                <label for="resident-status">Residence Status *</label>
+                                                <label for="address_status">Address Status *</label>
                                             </div>
                                         </div>
                                     </div>
@@ -151,65 +151,19 @@
                                 <div class="col-lg-6">
                                     <h3 class="">Dependents</h3>
 
-                                    {{--<div id="dependent-box">--}}
-                                        {{--<div class="row">--}}
-                                            {{--<div class="col-lg-8">--}}
-                                                {{--<div class="form-group">--}}
-                                                    {{--<input name="dependent-name[]" type="text" class="form-control required" placeholder="Name">--}}
-                                                    {{--<label>Name</label>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="col-lg-4">--}}
-                                                {{--<div class="form-group">--}}
-                                                    {{--<input name="dependent-age[]" type="text" class="form-control required" placeholder="Age">--}}
-                                                    {{--<label>Age</label>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-
-                                    {{--<div class="form-group text-right">--}}
-                                        {{--<button type="button" class="btn btn-sm btn-success">Add</button>--}}
-                                    {{--</div>--}}
-                                    {{----}}
-
-                                    <div class="repeater-container" id="dependent-box">
+                                    <div class="repeater-container">
                                         <div class="row header d-none d-lg-flex">
                                             <div class="col-8"><div class="box">Name</div></div>
                                             <div class="col-4"><div class="box">Age</div></div>
                                         </div>
-                                        <div class="repeater-lists">
-                                            <div class="repeater-item">
-                                                <div class="row">
-                                                    <div class="col-12 col-lg-8">
-                                                        <input type="text" name="dependent-name[]" class="form-control" placeholder="Name">
-                                                    </div>
-                                                    <div class="col-12 col-lg-4">
-                                                        <input type="text" name="dependent-age[]" class="form-control" placeholder="Age">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="repeater-item">
-                                                <div class="row">
-                                                    <div class="col-12 col-lg-8">
-                                                        <input type="text" name="dependent-name[]" class="form-control" placeholder="Name">
-                                                    </div>
-                                                    <div class="col-12 col-lg-4">
-                                                        <input type="text" name="dependent-age[]" class="form-control" placeholder="Age">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="actions">
-                                                <a href="javascript:;" class="btn-add">
-                                                    <img src="https://img.icons8.com/ios/30/38c172/plus-math.png"/>
-                                                </a>
-                                                {{--<a href="javascript:;" class="btn-delete">--}}
-                                                {{--<img src="https://img.icons8.com/ios/30/e3342f/minus-math.png"/>--}}
-                                                {{--</a>--}}
-                                            </div>
-
+                                        <div class="profile-form repeater-lists" name="dependents" data-title="Dependents" id="dependent-box"></div>
+                                        <div class="actions text-right">
+                                            <a href="javascript:;" class="btn-add btn-action" data-action="add-dependent">
+                                                <img src="https://img.icons8.com/ios-glyphs/30/38c172/plus-math.png"/>
+                                            </a> &nbsp;
+                                            <a href="javascript:;" class="btn-add btn-action" data-action="remove-dependent">
+                                                <img src="https://img.icons8.com/ios-glyphs/30/38c172/minus-math.png"/>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -219,34 +173,33 @@
 
                         </fieldset>
 
-
                         <h1>More Information</h1>
                         <fieldset>
                             <h2>Spouse/Co-maker</h2>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input name="spouse_first_name" type="text" class="form-control" id="spouse_first_name">
+                                        <input name="spouse_first_name" data-title="First name" type="text" class="profile-form form-control" id="spouse_first_name">
                                         <label for="spouse_first_name">First name</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="spouse_middle_name" type="text" class="form-control" id="spouse_middle_name">
+                                        <input name="spouse_middle_name" data-title="Middle name" type="text" class="profile-form form-control" id="spouse_middle_name">
                                         <label for="spouse_middle_name">Middle name</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="spouse_last_name" type="text" class="form-control" id="spouse_last_name">
+                                        <input name="spouse_last_name" data-title="Last name" type="text" class="profile-form form-control" id="spouse_last_name">
                                         <label for="spouse_last_name">Last name</label>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="form-group">
-                                                <input name="spouse_date-of-birth" type="text" class="form-control" id="spouse_date-of-birth">
-                                                <label for="spouse_date-of-birth">Date of Birth</label>
+                                                <input name="spouse_date_of_birth" data-title="Date of Birth" type="text" class="profile-form form-control" id="spouse_date-of-birth">
+                                                <label for="spouse_date_of_birth">Date of Birth</label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <input name="spouse_age" type="text" class="form-control" id="spouse_age" readonly>
+                                                <input name="spouse_age" data-title="Age" type="text" class="profile-form form-control" id="spouse_age" readonly>
                                                 <label for="spouse_age">Age</label>
                                             </div>
                                         </div>
@@ -256,7 +209,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <select name="spouse_civil-status" class="form-control" id="spouse_civil_status">
+                                                <select name="spouse_civil-status" data-title="Civil Status" class="profile-form form-control" id="spouse_civil_status">
                                                     <option value="" readonly></option>
                                                     <option value="Single">Single</option>
                                                     <option value="Married">Married</option>
@@ -268,7 +221,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <select name="spouse_gender" class="form-control" id="spouse_gender">
+                                                <select name="spouse_gender" data-title="Gender" class="profile-form form-control" id="spouse_gender">
                                                     <option value="" readonly></option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
@@ -280,13 +233,13 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input name="spouse_land-line" type="text" class="form-control" id="spouse_land-line">
-                                                <label for="spouse_land-line">Land Line</label>
+                                                <input name="spouse_land_line" data-title="Land Line" type="text" class="profile-form form-control" id="spouse_land-line">
+                                                <label for="spouse_land_line">Land Line</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input name="spouse_mobile" type="text" class="form-control" id="spouse_mobile">
+                                                <input name="spouse_mobile" data-title="Mobile" type="text" class="profile-form form-control" id="spouse_mobile">
                                                 <label for="spouse_mobile">Mobile</label>
                                             </div>
                                         </div>
@@ -294,20 +247,20 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input name="spouse_tin" type="text" class="form-control" id="spouse_tin">
+                                                <input name="spouse_tin" data-title="Tin No." type="text" class="profile-form form-control" id="spouse_tin">
                                                 <label for="spouse_tin">Tin No.</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input name="spouse_sss-gsis" type="text" class="form-control" id="spouse_sss-gsis">
-                                                <label for="spouse_sss-gsis">SSS / GSIS No.</label>
+                                                <input name="spouse_sss_gsis" data-title="SSS / GSIS No." type="text" class="profile-form form-control" id="spouse_sss-gsis">
+                                                <label for="spouse_sss_gsis">SSS / GSIS No.</label>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <select name="spouse_education" class="form-control" id="spouse_education">
+                                        <select name="spouse_education" data-title="Education" class="profile-form form-control" id="spouse_education">
                                             <option value="" readonly></option>
                                             <option value="High School">High School</option>
                                             <option value="College">College</option>
@@ -324,29 +277,35 @@
                             <div class="row">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <input name="farm_lot" type="text" class="form-control required" id="farm_lot">
+                                        <input name="farm_lot" type="text" data-title="Farm Lot" class="profile-form form-control required" id="farm_lot">
                                         <label for="farm_lot">Farm Lot *</label>
                                     </div>
                                     <div class="form-group">
-                                        <input name="farming_since" type="text" class="form-control required" id="farming_since">
+                                        <input name="farming_since" type="text" data-title="Farming since" class="profile-form form-control required" id="farming_since">
                                         <label for="farming_since">Farming since *</label>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <div class="form-group">
-                                        <div class="i-checks">
-                                            <label class="check-labels">{{ Form::checkbox('four_ps', 1) }}<i></i> 4P's</label>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div class="i-checks">
+                                                    <label class="check-labels">{{ Form::checkbox('four_ps', 1, array('class'=>'')) }}<i></i> 4P's</label>
+                                                </div>
+                                                <div class="i-checks">
+                                                    <label class="check-labels">{{ Form::checkbox('pwd', 1) }}<i></i> PWD</label>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="i-checks">
-                                            <label class="check-labels">{{ Form::checkbox('pwd', 1) }}<i></i> PWD</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="i-checks">
-                                            <label class="check-labels">{{ Form::checkbox('indigenous', 1) }}<i></i> Indigenous</label>
-                                        </div>
-                                        <div class="i-checks">
-                                            <label class="check-labels">{{ Form::checkbox('livelihood', 1) }}<i></i> Livelihood</label>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div class="i-checks">
+                                                    <label class="check-labels">{{ Form::checkbox('indigenous', 1) }}<i></i> Indigenous</label>
+                                                </div>
+                                                <div class="i-checks">
+                                                    <label class="check-labels">{{ Form::checkbox('livelihood', 1) }}<i></i> Livelihood</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -668,6 +627,8 @@
                         $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
                     }
 
+                    submitForm();
+
                     // Disable validation on fields that are disabled or hidden.
                     form.validate().settings.ignore = ":disabled,:hidden";
 
@@ -703,17 +664,20 @@
                 checkboxClass: 'icheckbox_square-green'
             });
 
-            $(document).on('change', '#resident-status', function(){
+            $(document).on('change', '#address_status', function(){
                 if($(this).val() === 'Rented'){
+                    if($('#landlord-box').length){
+                        $('#landlord-box').remove();
+                    }
                     $(this).closest('.div-box').append('' +
                         '<div id="landlord-box">' +
                             '<div class="form-group">' +
-                                '<textarea name="landlord-address" class="form-control no-resize" required id="landlord-address"></textarea>' +
-                                '<label for="landlord-address">Landlords address if rented *</label>' +
+                                '<textarea name="landlord_address" class="form-control no-resize" required id="landlord_address"></textarea>' +
+                                '<label for="landlord_address">Landlords address if rented *</label>' +
                             '</div>' +
                             '<div class="form-group">' +
-                                '<input name="landlord-number" type="text" class="form-control required" id="landlord-number">' +
-                                '<label for="landlord-number">Landlords contact number *</label>' +
+                                '<input name="landlord_number" type="text" class="form-control required" id="landlord_number">' +
+                                '<label for="landlord_number">Landlords contact number *</label>' +
                             '</div>' +
                         '</div>' +
                     '');
@@ -723,12 +687,36 @@
 
             });
 
-            $(document).on('change', '#date-of-birth', function(){
+            $(document).on('change', '#dob', function(){
                 var dob = moment($(this).val());
                 $('input[name=age]').val(moment().diff(dob, 'years')).trigger('focus');
                 $(this).trigger('focus');
             });
-            $('input[name=date-of-birth]').datepicker({
+
+            $(document).on('click', '.btn-action', function(){
+                var action = $(this).data('action'), dependentBox = $('#dependent-box');
+                switch(action){
+                    case 'add-dependent':
+                        dependentBox.append('' +
+                            '<div class="repeater-item">' +
+                                '<div class="row">' +
+                                    '<div class="col-12 col-lg-8">' +
+                                        '<input type="text" name="dependent-name" class="form-control" placeholder="Name" required>' +
+                                    '</div>' +
+                                    '<div class="col-12 col-lg-4">' +
+                                        '<input type="text" name="dependent-age" class="form-control" placeholder="Age" required>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '');
+                        break;
+                    case 'remove-dependent':
+                        dependentBox.find('.repeater-item').last().remove();
+                        break;
+                }
+            });
+
+            $('input[name=dob]').datepicker({
                 startView: 1,
                 todayBtn: "linked",
                 keyboardNavigation: false,
@@ -742,6 +730,7 @@
                 $('input[name=spouse_age]').val(moment().diff(dob, 'years')).trigger('focus');
                 $(this).trigger('focus');
             });
+
             $('input[name=spouse_date-of-birth]').datepicker({
                 startView: 1,
                 todayBtn: "linked",
@@ -751,16 +740,41 @@
                 format: "mm/dd/yyyy"
             });
 
-
             function submitForm(){
                 var forms = new Array();
 
-                $('.form-control').each(function(){
+                // console.log($('input[name=first_name]').data('text'));
+
+                $('.profile-form').each(function(){
                     var name = $(this).attr('name');
+                    var title = $(this).data('title');
                     var value = $(this).val();
                     var values = new Array();
+                    if(title === 'Dependents'){
+                        console.log('Dependents: ' + $(this).children().length);
+                        if($(this).children().length < 1){
+                            return false;
+                        }
+                        var dependent = new Array();
+                        $(this).find('.repeater-item').each(function(){
+                            var item = new Array();
+                            item.push($(this).find('input[name=dependent-name]').val());
+                            item.push($(this).find('input[name=dependent-age]').val());
+                            dependent.push(item);
+                        });
+                        value = dependent;
+                    }
                     values.push(name);
+                    values.push(title);
                     values.push(value);
+
+                    if( (title === 'Address Status') && (value === 'Rented')){
+                        var landlord = new Array();
+                        landlord.push($('#landlord-box').find('#landlord_address').val());
+                        landlord.push($('#landlord-box').find('#landlord_number').val());
+                        values.push(landlord);
+                    }
+
                     forms.push(values);
                 });
 
