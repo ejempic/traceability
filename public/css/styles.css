@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Nunito");
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap");
@@ -388,6 +389,11 @@ body {
 .page-register .sign-in .right {
   padding: 2rem;
 }
+@media (max-width: 500px) {
+  .page-register .sign-in .right {
+    padding: 2rem 1rem;
+  }
+}
 .page-register .sign-in .right small {
   display: block;
   text-align: center;
@@ -494,6 +500,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   color: #948b96;
+  margin-top: 0;
 }
 .page-register .sign-in .right .wizard-big.wizard > .content .form-group {
   position: relative;
@@ -512,7 +519,10 @@ body {
 .page-register .sign-in .right .wizard-big.wizard > .content .form-group label:not(.check-labels).error {
   color: #e3342f;
 }
-.page-register .sign-in .right .wizard-big.wizard > .content .form-group input, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea {
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group label.error {
+  font-size: 0.9rem;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group input, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea, .page-register .sign-in .right .wizard-big.wizard > .content .form-group select {
   background-color: #eee;
   border: 1px solid #eee !important;
   border-bottom: 2px solid #e3342f !important;
@@ -520,14 +530,202 @@ body {
   font-size: 1rem;
   padding: 1.5rem 1rem;
   font-weight: bold;
+  color: #000;
 }
-.page-register .sign-in .right .wizard-big.wizard > .content .form-group input:focus + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group input.error + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group input.valid + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea:focus + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea.error + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea.valid + label {
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group input:focus + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group input.error + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group input.valid + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea:focus + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea.error + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea.valid + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group select:focus + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group select.error + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group select.valid + label {
   font-size: 13px;
   top: -10px;
   color: #e3342f;
 }
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group input::-webkit-input-placeholder, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea::-webkit-input-placeholder, .page-register .sign-in .right .wizard-big.wizard > .content .form-group select::-webkit-input-placeholder {
+  color: #948b96;
+  font-weight: 400;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group input::-moz-placeholder, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea::-moz-placeholder, .page-register .sign-in .right .wizard-big.wizard > .content .form-group select::-moz-placeholder {
+  color: #948b96;
+  font-weight: 400;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group input:-ms-input-placeholder, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea:-ms-input-placeholder, .page-register .sign-in .right .wizard-big.wizard > .content .form-group select:-ms-input-placeholder {
+  color: #948b96;
+  font-weight: 400;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group input::-ms-input-placeholder, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea::-ms-input-placeholder, .page-register .sign-in .right .wizard-big.wizard > .content .form-group select::-ms-input-placeholder {
+  color: #948b96;
+  font-weight: 400;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group input::placeholder, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea::placeholder, .page-register .sign-in .right .wizard-big.wizard > .content .form-group select::placeholder {
+  color: #948b96;
+  font-weight: 400;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group select {
+  padding: 0;
+  height: 50px !important;
+}
 .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea + label {
-  top: 20%;
+  top: 20% !important;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea:focus + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea.valid + label, .page-register .sign-in .right .wizard-big.wizard > .content .form-group textarea.error + label {
+  top: -10px !important;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content table {
+  width: 100%;
+  margin-bottom: 4rem;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content table th {
+  text-align: center;
+  min-width: 10rem;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content table td {
+  width: 100px;
+  border-right: 1px solid #dadada;
+  white-space: nowrap;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content table td small {
+  font-size: 0.9rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-indent: 20px;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content table .form-group {
+  margin-bottom: 0;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content table .form-group.display_peso:before {
+  content: "₱";
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.page-register .sign-in .right .wizard-big.wizard > .content table .form-group input {
+  background-color: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid #dadada !important;
+  width: 80%;
+  text-align: right;
+  margin: auto;
+}
+@media (max-width: 500px) {
+  .page-register .sign-in .right .wizard-big.wizard > .content table .form-group input {
+    width: 90%;
+  }
+}
+.page-register .sign-in .right .wizard-big.wizard > .content table .form-group input::-webkit-outer-spin-button, .page-register .sign-in .right .wizard-big.wizard > .content table .form-group input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content table .grand-total {
+  font-size: 1.3rem;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content table .grand-total td:first-child {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content table .grand-total input {
+  padding: 0 !important;
+  border: 0 !important;
+  font-size: 1.3rem;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container {
+  padding-bottom: 1rem;
+}
+@media (max-width: 500px) {
+  .page-register .sign-in .right .wizard-big.wizard > .content .repeater-container {
+    margin-top: 2rem;
+  }
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .header {
+  margin-bottom: 1rem;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .header .box {
+  text-align: center;
+  background-color: #dadada;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 1rem 2rem;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists {
+  position: relative;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .actions {
+  position: absolute;
+  right: -30px;
+  top: 0%;
+}
+@media (max-width: 500px) {
+  .page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .actions {
+    position: relative;
+    background-color: #38c172;
+    right: auto;
+    left: 0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 2rem;
+  }
+  .page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .actions img {
+    -webkit-filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1);
+    display: block;
+    margin: auto;
+  }
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item {
+  position: relative;
+  margin-bottom: 10px;
+}
+@media (max-width: 500px) {
+  .page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item {
+    margin-bottom: 2rem;
+  }
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item input {
+  border: 0;
+  border-bottom: 1px solid #dadada;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item input::-webkit-input-placeholder {
+  color: #fff;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item input::-moz-placeholder {
+  color: #fff;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item input:-ms-input-placeholder {
+  color: #fff;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item input::-ms-input-placeholder {
+  color: #fff;
+}
+.page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item input::placeholder {
+  color: #fff;
+}
+@media (max-width: 500px) {
+  .page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item input::-webkit-input-placeholder {
+    color: #948b96;
+  }
+  .page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item input::-moz-placeholder {
+    color: #948b96;
+  }
+  .page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item input:-ms-input-placeholder {
+    color: #948b96;
+  }
+  .page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item input::-ms-input-placeholder {
+    color: #948b96;
+  }
+  .page-register .sign-in .right .wizard-big.wizard > .content .repeater-container .repeater-lists .repeater-item input::placeholder {
+    color: #948b96;
+  }
 }
 .page-register .sign-in .right .wizard-big.wizard > .actions {
   width: 90%;
@@ -552,6 +750,38 @@ body {
 }
 .page-register .sign-in .right .wizard-big.wizard > .actions ul li.disabled a {
   background: #eee;
+}
+.page-register.page-farmers .sign-in .right .wizard-big.wizard > .content {
+  min-height: 70vh;
+  overflow-y: auto;
+  /* width */
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+.page-register.page-farmers .sign-in .right .wizard-big.wizard > .content::-webkit-scrollbar {
+  width: 5px;
+  opacity: 0.5;
+}
+.page-register.page-farmers .sign-in .right .wizard-big.wizard > .content::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px #dadada;
+          box-shadow: inset 0 0 5px #dadada;
+  border-radius: 0px;
+}
+.page-register.page-farmers .sign-in .right .wizard-big.wizard > .content::-webkit-scrollbar-thumb {
+  background: #9ed35a;
+  border-radius: 10px;
+}
+.page-register.page-farmers .sign-in .right .wizard-big.wizard > .content::-webkit-scrollbar-thumb:hover {
+  background: #eee;
+}
+.page-register.page-farmers .sign-in .right .steps ul li {
+  width: calc(100%/5);
+}
+@media (max-width: 992px) {
+  .page-register.page-farmers .sign-in .right .steps ul li {
+    width: 100%;
+  }
 }
 .page-register.page-loan-provider .sign-in .right .steps ul li:after {
   width: 0%;
