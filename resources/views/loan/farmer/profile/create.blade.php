@@ -149,14 +149,30 @@
                                             <option value="Vocational">Vocational</option>
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <input name="farm_lot" type="text" class="form-control required" id="farm_lot">
-                                        <label for="farm_lot">Farm Lot *</label>
+
+                                    <h3 class="">Dependents</h3>
+
+                                    <div id="dependent-box">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <div class="form-group">
+                                                    <input name="dependent-name[]" type="text" class="form-control required">
+                                                    <label>Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <input name="dependent-age[]" type="text" class="form-control required">
+                                                    <label>Age</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input name="farming_since" type="text" class="form-control required" id="farming_since">
-                                        <label for="farming_since">Farming since *</label>
+
+                                    <div class="form-group text-right">
+                                        <button type="button" class="btn btn-sm btn-success">Add</button>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -167,6 +183,14 @@
                             <h2>Membership / Group</h2>
                             <div class="row">
                                 <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input name="farm_lot" type="text" class="form-control required" id="farm_lot">
+                                        <label for="farm_lot">Farm Lot *</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="farming_since" type="text" class="form-control required" id="farming_since">
+                                        <label for="farming_since">Farming since *</label>
+                                    </div>
                                     <div class="form-group">
                                         <div class="i-checks">
                                             <label class="check-labels">{{ Form::checkbox('four_ps', 1) }}<i></i> 4P's</label>
@@ -319,6 +343,11 @@
                 autoclose: true,
                 format: "mm/dd/yyyy"
             });
+
+            function submitForm(){
+                var forms = new Array();
+
+            }
 
         });
     </script>
