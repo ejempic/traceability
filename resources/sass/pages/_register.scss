@@ -29,6 +29,10 @@
     .right {
       padding: 2rem;
 
+      @media (max-width: 500px) {
+       padding: 2rem 1rem;
+      }
+
       small {
         display: block;
         text-align: center;
@@ -147,6 +151,7 @@
           font-size: 1rem;
           font-weight: 400;
           color: $default;
+          margin-top: 0;
         }
 
         .form-group {
@@ -166,6 +171,12 @@
             }
           }
 
+          label {
+            &.error {
+              font-size: .9rem;
+            }
+          }
+
           input, textarea, select {
             background-color: $gray;
             border: 1px solid $gray !important;
@@ -174,6 +185,7 @@
             font-size: 1rem;
             padding: 1.5rem 1rem;
             font-weight: bold;
+            color: $black;
 
             &:focus, &.error, &.valid {
               & + label {
@@ -182,15 +194,181 @@
                 color: $red;
               }
             }
+
+            &::placeholder {
+              color: $default;
+              font-weight: 400;
+            }
+          }
+
+          select {
+            padding: 0;
+            height: 50px !important;
           }
 
           textarea {
             & + label {
-              top: 20%;
+              top: 20% !important;
+            }
+
+            &:focus, &.valid, &.error {
+              & + label {
+                top: -10px !important;
+              }
+            }
+          }
+        }
+
+
+        table {
+          width: 100%;
+          margin-bottom: 4rem;
+
+          th {
+            text-align: center;
+            min-width: 10rem;
+          }
+
+          td {
+            width: 100px;
+            border-right: 1px solid $gray-2;
+            white-space: nowrap;
+
+            small {
+              font-size: .9rem;
+              display: flex;
+              text-indent: 20px;
+            }
+          }
+
+          .form-group {
+            margin-bottom: 0;
+
+            &.display_peso {
+              &:before {
+                content: '₱';
+                position: absolute;
+                top: 50%;
+                left: 10px;
+                transform: translateY(-50%);
+              }
+            }
+
+
+            input {
+              background-color: transparent !important;
+              border: 0 !important;
+              border-bottom: 1px solid $gray-2 !important;
+              width: 80%;
+              text-align: right;
+              margin: auto;
+
+              @media (max-width: 500px) {
+                width: 90%;
+              }
+
+              &::-webkit-outer-spin-button,
+              &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+              }
+            }
+          }
+
+          .grand-total {
+            font-size: 1.3rem;
+
+            td {
+              &:first-child {
+                text-transform: uppercase;
+                font-weight: bold;
+              }
+            }
+
+            input {
+              padding: 0 !important;
+              border: 0 !important;
+              font-size: 1.3rem;
             }
           }
 
         }
+
+        .repeater-container {
+          padding-bottom: 1rem;
+
+          @media (max-width: 500px) {
+            margin-top: 2rem;
+          }
+
+
+          .header {
+            margin-bottom: 1rem;
+
+            .box {
+              text-align: center;
+              background-color: $gray-2;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              padding: 1rem 2rem;
+            }
+          }
+          .repeater-lists {
+            position: relative;
+
+            .actions {
+              position: absolute;
+              right: -30px;
+              top: 0%;
+
+              @media (max-width: 500px) {
+                position: relative;
+                background-color: $green;
+                right: auto;
+                left: 0;
+                padding: 10px;
+                border-radius: 5px;
+                margin-top: 2rem;
+
+                img {
+                  filter: brightness(0) invert(1);
+                  display: block;
+                  margin: auto;
+                }
+              }
+
+            }
+
+            .repeater-item {
+              position: relative;
+              margin-bottom: 10px;
+
+
+              @media (max-width: 500px) {
+                margin-bottom: 2rem;
+              }
+
+              input {
+                border: 0;
+                border-bottom: 1px solid $gray-2;
+
+                &::placeholder {
+                  color: $white;
+
+                  @media (max-width: 500px) {
+                    color: $default;
+                  }
+                }
+              }
+
+            }
+          }
+
+        }
+
       }
 
       .wizard-big.wizard > .actions {
@@ -224,6 +402,56 @@
 
 
     }
+  }
+
+  &.page-farmers {
+    .sign-in {
+      .right {
+        .wizard-big.wizard > .content {
+          min-height: 70vh;
+          overflow-y: auto;
+
+          /* width */
+          &::-webkit-scrollbar {
+            width: 5px;
+            opacity: .5;
+          }
+
+          /* Track */
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px $gray-2;
+            border-radius: 0px;
+          }
+
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+            background: $primary-1;
+            border-radius: 10px;
+          }
+
+          /* Handle on hover */
+          &::-webkit-scrollbar-thumb:hover {
+            background: $gray;
+          }
+
+
+        }
+
+
+        .steps {
+          ul {
+            li {
+              width: calc(100%/5);
+
+              @media (max-width: 992px) {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+
   }
 
   &.page-loan-provider {
