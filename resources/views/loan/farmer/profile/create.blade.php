@@ -295,9 +295,10 @@
                 },
                 onFinished: function (event, currentIndex)
                 {
-                    var form = $(this);
                     // Submit form input
-                    form.submit();
+                    // var form = $(this);
+                    // form.submit();
+                    submitForm();
                 }
             }).validate({
                 errorPlacement: function (error, element)
@@ -347,6 +348,16 @@
             function submitForm(){
                 var forms = new Array();
 
+                $('.form-control').each(function(){
+                    var name = $(this).attr('name');
+                    var value = $(this).val();
+                    var values = new Array();
+                    values.push(name);
+                    values.push(value);
+                    forms.push(values);
+                });
+
+                console.log(forms);
             }
 
         });
