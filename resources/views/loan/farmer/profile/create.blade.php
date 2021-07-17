@@ -316,98 +316,28 @@
                         <h1>Employment</h1>
                         <fieldset>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
 
                                     <div class="form-group">
                                         <div class="i-checks">
-                                            <label class="check-labels">{{ Form::radio('employment', 'employed', true, array('class'=>'profile-form', 'data-title'=>'Employment')) }}<i></i> Employed</label>
+                                            <label class="check-labels">{{ Form::radio('employment', 'employed', false, array('class'=>'profile-form', 'data-title'=>'Employment', 'required')) }}<i></i> Employed</label>
                                         </div>
                                         <div class="i-checks">
-                                            <label class="check-labels">{{ Form::radio('employment', 'self-employed', false, array('class'=>'profile-form', 'data-title'=>'Employment')) }}<i></i> Self Employed</label>
+                                            <label class="check-labels">{{ Form::radio('employment', 'self-employed', false, array('class'=>'profile-form', 'data-title'=>'Employment', 'required')) }}<i></i> Self Employed</label>
                                         </div>
                                     </div>
 
                                 </div>
-                                <div class="col-lg-6">
-
-                                    <div class="form-group">
-                                        <select name="self_employment_employed" id="self_employment_employed" class="form-control required">
-                                            <option value="" readonly></option>
-                                            <option value="Service">Service</option>
-                                            <option value="Agricultural">Agricultural</option>
-                                            <option value="Transporation">Transporation</option>
-                                            <option value="Manufacturing/Processing">Manufacturing/Processing</option>
-                                            <option value="Trading/Merchandising">Trading/Merchandising</option>
-                                            <option value="Others">Others</option>
-                                        </select>
-                                        <label for="self_employment_employed">Self-Employed *</label>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <select name="employment_employed" id="employment_employed" class="form-control required">
-                                            <option value="" readonly></option>
-                                            <option value="Private">Private</option>
-                                            <option value="Government">Government</option>
-                                        </select>
-                                        <label for="employment_employed">Employed *</label>
-                                    </div>
-
+                                <div class="col-lg-8">
+                                    <div id="employment-select-box"></div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-7">
-                                    <div class="form-group">
-                                        <input name="employer_business" type="text" class="form-control" id="employer_business">
-                                        <label for="employer_business">Employer Business Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="form-group">
-                                        <input name="employer_contact_number" type="text" class="form-control" id="employer_contact_number">
-                                        <label for="employer_contact_number">Tel No.</label>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <h3 class="">If Employed:</h3><br>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <select name="employed_position" id="employed_position" class="form-control required">
-                                            <option value="" readonly></option>
-                                            <option value="Staff">Staff</option>
-                                            <option value="Professional">Professional</option>
-                                            <option value="Office/Manager">Office/Manager</option>
-                                            <option value="OFW">OFW</option>
-                                            <option value="Trading/Merchandising">Trading/Merchandising</option>
-                                            <option value="Others">Others</option>
-                                        </select>
-                                        <label for="employed_position">Position *</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-7">
-                                    <div class="form-group">
-                                        <input name="employed_employer_address" type="text" class="form-control" id="employed_employer_address">
-                                        <label for="employed_employer_address">Employer/Business Address</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="form-group">
-                                        <input name="employed_employer_contact_number" type="text" class="form-control" id="employed_employer_contact_number">
-                                        <label for="employed_employer_contact_number">Tel No.</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </fieldset>
+                           </fieldset>
 
                         <h1>Monthly Income</h1>
                         <fieldset>
                             <div class="table-responsive">
-                                <table>
+                                <table id="monthly-income">
                                     <tr>
                                         <th></th>
                                         <th>Business</th>
@@ -418,17 +348,17 @@
                                         <td>Applicant Monthly Income</td>
                                         <td>
                                             <div class="form-group">
-                                                <input name="" type="number" class="form-control" id="">
+                                                <input type="number" name="rowa-a-income" class="form-control row-input required" id="rowa-a-income" required>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input name="" type="number" class="form-control" id="">
+                                                <input type="number" name="rowa-b-income" class="form-control row-input required" id="rowa-b-income" required>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group display_peso">
-                                                <input name="" type="number" class="form-control" id="">
+                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowa-total" readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -436,17 +366,17 @@
                                         <td>Spouse's Monthly Income</td>
                                         <td>
                                             <div class="form-group">
-                                                <input name="" type="number" class="form-control" id="">
+                                                <input type="number" name="rowb-a-income" class="form-control row-input required" id="rowb-a-income" required>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input name="" type="number" class="form-control" id="">
+                                                <input type="number" name="rowb-b-income" class="form-control row-input required" id="rowb-b-income" required>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group display_peso">
-                                                <input name="" type="number" class="form-control" id="">
+                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowb-total" readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -462,7 +392,7 @@
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input name="" type="number" class="form-control" id="">
+                                                <input type="number" name="rowc-income" class="form-control row-input required" id="rowc-income" required>
                                             </div>
                                         </td>
                                     </tr>
@@ -472,7 +402,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group display_peso">
-                                                <input name="" type="number" class="form-control" id="">
+                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowabc-total" readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -483,7 +413,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group">
-                                                <input name="" type="number" class="form-control" id="">
+                                                <input type="number" name="rowd-expense" class="form-control row-input required" id="rowd-expense" required>
                                             </div>
                                         </td>
                                     </tr>
@@ -494,7 +424,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group">
-                                                <input name="" type="number" class="form-control" id="">
+                                                <input type="number" name="rowe-expense" class="form-control row-input required" id="rowe-expense" required>
                                             </div>
                                         </td>
                                     </tr>
@@ -504,7 +434,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group">
-                                                <input name="" type="number" class="form-control" id="">
+                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowde-total" readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -515,7 +445,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group display_peso">
-                                                <input name="" type="number" class="form-control" id="" value="0.00" readonly>
+                                                <input name="" type="number" class="form-control text-success" id="total-income" value="0.00" readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -530,42 +460,37 @@
                                     <div class="col-4"><div class="box">Location/Description</div></div>
                                     <div class="col-4"><div class="box">Size(sq.m.) Estimated Value</div></div>
                                 </div>
-                                <div class="repeater-lists">
-                                    <div class="repeater-item">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-4">
-                                                <input type="text" name="payment_assets" class="form-control" placeholder="Other assets aside from collateral">
-                                            </div>
-                                            <div class="col-12 col-lg-4">
-                                                <input type="text" name="payment_location" class="form-control" placeholder="Location/Description">
-                                            </div>
-                                            <div class="col-12 col-lg-4">
-                                                <input type="text" name="payment_size" class="form-control" placeholder="Size(sq.m.) Estimated Value">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="repeater-item">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-4">
-                                                <input type="text" name="payment_assets" class="form-control" placeholder="Other assets aside from collateral">
-                                            </div>
-                                            <div class="col-12 col-lg-4">
-                                                <input type="text" name="payment_location" class="form-control" placeholder="Location/Description">
-                                            </div>
-                                            <div class="col-12 col-lg-4">
-                                                <input type="text" name="payment_size" class="form-control" placeholder="Size(sq.m.) Estimated Value">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="actions">
-                                        <a href="javascript:;" class="btn-add">
-                                            <img src="https://img.icons8.com/ios/30/38c172/plus-math.png"/>
-                                        </a>
-                                        {{--<a href="javascript:;" class="btn-delete">--}}
-                                        {{--<img src="https://img.icons8.com/ios/30/e3342f/minus-math.png"/>--}}
-                                        {{--</a>--}}
-                                    </div>
-
+                                <div class="profile-form repeater-lists" name="assets" data-title="Assets" id="assets-box"></div>
+{{--                                <div class="profile-form repeater-lists">--}}
+{{--                                    <div class="repeater-item">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-12 col-lg-4">--}}
+{{--                                                <input type="text" name="payment_assets" class="form-control" placeholder="Other assets aside from collateral">--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-12 col-lg-4">--}}
+{{--                                                <input type="text" name="payment_location" class="form-control" placeholder="Location/Description">--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-12 col-lg-4">--}}
+{{--                                                <input type="text" name="payment_size" class="form-control" placeholder="Size(sq.m.) Estimated Value">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="actions">--}}
+{{--                                        <a href="javascript:;" class="btn-add">--}}
+{{--                                            <img src="https://img.icons8.com/ios/30/38c172/plus-math.png"/>--}}
+{{--                                        </a>--}}
+{{--                                        <a href="javascript:;" class="btn-delete">--}}
+{{--                                        <img src="https://img.icons8.com/ios/30/e3342f/minus-math.png"/>--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+                                <div class="actions text-right">
+                                    <a href="javascript:;" class="btn-add btn-action" data-action="add-asset">
+                                        <img src="https://img.icons8.com/ios-glyphs/30/38c172/plus-math.png"/>
+                                    </a> &nbsp;
+                                    <a href="javascript:;" class="btn-delete btn-action" data-action="remove-asset">
+                                        <img src="https://img.icons8.com/ios-glyphs/30/38c172/minus-math.png"/>
+                                    </a>
                                 </div>
 
                             </div>
@@ -577,6 +502,7 @@
                             <h2>Terms and Conditions</h2>
                             <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required i-checks"> <label for="acceptTerms">I agree with the Terms and Conditions.</label>
                         </fieldset>
+
                     </form>
                 </div>
             </div>
@@ -636,7 +562,7 @@
                         $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
                     }
 
-                    submitForm();
+                    // submitForm();
 
                     // Disable validation on fields that are disabled or hidden.
                     form.validate().settings.ignore = ":disabled,:hidden";
@@ -660,7 +586,7 @@
                     // Submit form input
                     // var form = $(this);
                     // form.submit();
-                    submitForm();
+                    // submitForm();
                 }
             }).validate({
                 errorPlacement: function (error, element)
@@ -674,8 +600,85 @@
                 radioClass: 'iradio_square-green',
             });
 
+            $('.row-input').keyup(function(){
+                computeMonthlyTable();
+            });
+
             $('input[name=employment]').on('ifClicked', function () {
-                console.log("You clicked " + this.value);
+                console.log("You clicked " + $(this).val());
+                var box = $('#employment-select-box');
+                if($(this).val() === 'employed'){
+                    box.empty().append('' +
+                        '<div class="form-group">' +
+                            '<select name="employment_employed" id="employment_employed" class="form-control required">' +
+                            '<option value="" readonly></option>' +
+                            '<option value="Private">Private</option>' +
+                            '<option value="Government">Government</option>' +
+                            '</select>' +
+                            '<label for="employment_employed">Type *</label>' +
+                        '</div>' +
+                        '<div class="row">' +
+                            '<div class="col-lg-7">' +
+                                '<div class="form-group">' +
+                                    '<select name="employed_position" id="employed_position" class="form-control required">' +
+                                        '<option value="" readonly></option>' +
+                                        '<option value="Staff">Staff</option>' +
+                                        '<option value="Professional">Professional</option>' +
+                                        '<option value="Office/Manager">Office/Manager</option>' +
+                                        '<option value="OFW">OFW</option>' +
+                                        '<option value="Trading/Merchandising">Trading/Merchandising</option>' +
+                                        '<option value="Others">Others</option>' +
+                                    '</select>' +
+                                    '<label for="employee_position">Position *</label>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="col-lg-5">' +
+                                '<div class="form-group">' +
+                                    '<input name="employer_contact_number" type="text" class="form-control" id="employed_employer_contact_number">' +
+                                    '<label for="employer_contact_number">Tel No.</label>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                            '<textarea name="employer_business_address" data-title="Employer/Business Address" class="profile-form form-control no-resize" required id="employer_business_address"></textarea>' +
+                            '<label for="employer_business_address">Employer/Business Address *</label>' +
+                        '</div>' +
+                    '');
+                }
+                if($(this).val() === 'self-employed'){
+                    box.empty().append('' +
+                        '<div class="form-group">' +
+                            '<select name="self_employment_employed" id="self_employment_employed" class="form-control required">' +
+                                '<option value="" readonly></option>' +
+                                '<option value="Service">Service</option>' +
+                                '<option value="Agricultural">Agricultural</option>' +
+                                '<option value="Transportation">Transportation</option>' +
+                                '<option value="Manufacturing/Processing">Manufacturing/Processing</option>' +
+                                '<option value="Trading/Merchandising">Trading/Merchandising</option>' +
+                                '<option value="Others">Others</option>' +
+                            '</select>' +
+                            '<label for="self_employment_employed">Type *</label>' +
+                        '</div>' +
+                        '<div class="row">' +
+                            '<div class="col-lg-7">' +
+                                '<div class="form-group">' +
+                                    '<input name="employer_business_name" type="text" class="form-control required" id="employer_business">' +
+                                    '<label for="employer_business_name">Employer Business Name</label>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="col-lg-5">' +
+                                '<div class="form-group">' +
+                                    '<input name="employer_contact_number" type="text" class="form-control" id="employer_contact_number">' +
+                                    '<label for="employer_contact_number">Tel No.</label>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                            '<textarea name="employer_business_address" data-title="Employer/Business Address" class="profile-form form-control no-resize" required id="employer_business_address"></textarea>' +
+                            '<label for="employer_business_address">Employer/Business Address *</label>' +
+                        '</div>' +
+                    '');
+                }
             });
 
             $(document).on('change', '#address_status', function(){
@@ -708,7 +711,7 @@
             });
 
             $(document).on('click', '.btn-action', function(){
-                var action = $(this).data('action'), dependentBox = $('#dependent-box');
+                var action = $(this).data('action'), dependentBox = $('#dependent-box'), assetsBox = $('#assets-box');
                 switch(action){
                     case 'add-dependent':
                         dependentBox.append('' +
@@ -726,6 +729,26 @@
                         break;
                     case 'remove-dependent':
                         dependentBox.find('.repeater-item').last().remove();
+                        break;
+                    case 'add-asset':
+                        assetsBox.append('' +
+                            '<div class="repeater-item">' +
+                                '<div class="row">' +
+                                    '<div class="col-12 col-lg-4">' +
+                                        '<input type="text" name="payment_assets" class="form-control" placeholder="Other assets aside from collateral">' +
+                                    '</div>' +
+                                    '<div class="col-12 col-lg-4">' +
+                                        '<input type="text" name="payment_location" class="form-control" placeholder="Location/Description">' +
+                                    '</div>' +
+                                    '<div class="col-12 col-lg-4">' +
+                                        '<input type="text" name="payment_size" class="form-control" placeholder="Size(sq.m.) Estimated Value">' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '');
+                        break;
+                    case 'remove-asset':
+                        assetsBox.find('.repeater-item').last().remove();
                         break;
                 }
             });
@@ -753,6 +776,50 @@
                 autoclose: true,
                 format: "mm/dd/yyyy"
             });
+
+            function computeMonthlyTable() {
+                var rowAAIncome = $('#rowa-a-income').val() || 0;
+                var rowABIncome = $('#rowa-b-income').val() || 0;
+                var rowATotal = $('#rowa-total');
+
+                var rowBAIncome = $('#rowb-a-income').val() || 0;
+                var rowBBIncome = $('#rowb-b-income').val() || 0;
+                var rowBTotal = $('#rowb-total');
+
+                var rowCIncome = $('#rowc-income').val() || 0;
+
+                var rowABCTotal = $('#rowabc-total');
+
+                var rowDExpense = $('#rowd-expense').val() || 0;
+                var rowEExpense = $('#rowe-expense').val() || 0;
+                var rowDETotal = $('#rowde-total');
+
+                var totalIncome = $('#total-income');
+                var rowABCSum = 0;
+                var rowDESum = 0;
+                var totalIncomeSum = 0;
+
+                rowATotal.val(numeral(parseFloat(rowAAIncome) + parseFloat(rowABIncome)).format('0,0.00'));
+                rowBTotal.val(numeral(parseFloat(rowBAIncome) + parseFloat(rowBBIncome)).format('0,0.00'));
+
+                rowABCSum += parseFloat(rowAAIncome);
+                rowABCSum += parseFloat(rowABIncome);
+                rowABCSum += parseFloat(rowBAIncome);
+                rowABCSum += parseFloat(rowBBIncome);
+                rowABCSum += parseFloat(rowCIncome);
+
+                rowABCTotal.val(numeral(rowABCSum).format('0,0.00'));
+
+                rowDESum += parseFloat(rowDExpense);
+                rowDESum += parseFloat(rowEExpense);
+
+                rowDETotal.val(numeral(parseFloat(rowDExpense) + parseFloat(rowEExpense)).format('0,0.00'));
+
+                totalIncomeSum += rowABCSum;
+                totalIncomeSum -= rowDESum;
+
+                totalIncome.val(numeral(totalIncomeSum).format('0,0.00'));
+            }
 
             function submitForm(){
                 var forms = new Array();
