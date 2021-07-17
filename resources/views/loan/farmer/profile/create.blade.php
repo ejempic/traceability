@@ -290,20 +290,20 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <div class="i-checks">
-                                                    <label class="check-labels">{{ Form::checkbox('four_ps', 1, array('class'=>'')) }}<i></i> 4P's</label>
+                                                    <label class="check-labels">{{ Form::checkbox('four_ps', 1, false, array('class'=>'profile-form', 'data-title'=>'4P\'s')) }}<i></i> 4P's</label>
                                                 </div>
                                                 <div class="i-checks">
-                                                    <label class="check-labels">{{ Form::checkbox('pwd', 1) }}<i></i> PWD</label>
+                                                    <label class="check-labels">{{ Form::checkbox('pwd', 1, false, array('class'=>'profile-form', 'data-title'=>'PWD')) }}<i></i> PWD</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <div class="i-checks">
-                                                    <label class="check-labels">{{ Form::checkbox('indigenous', 1) }}<i></i> Indigenous</label>
+                                                    <label class="check-labels">{{ Form::checkbox('indigenous', 1, false, array('class'=>'profile-form', 'data-title'=>'Indigenous')) }}<i></i> Indigenous</label>
                                                 </div>
                                                 <div class="i-checks">
-                                                    <label class="check-labels">{{ Form::checkbox('livelihood', 1) }}<i></i> Livelihood</label>
+                                                    <label class="check-labels">{{ Form::checkbox('livelihood', 1, false, array('class'=>'profile-form', 'data-title'=>'Livelihood')) }}<i></i> Livelihood</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -313,21 +313,23 @@
 
                         </fieldset>
 
-
                         <h1>Employment</h1>
                         <fieldset>
                             <div class="row">
                                 <div class="col-lg-6">
+
                                     <div class="form-group">
-                                        <select name="employment_employed" id="employment_employed" class="form-control required">
-                                            <option value="" readonly></option>
-                                            <option value="Private">Private</option>
-                                            <option value="Government">Government</option>
-                                        </select>
-                                        <label for="employment_employed">Employed *</label>
+                                        <div class="i-checks">
+                                            <label class="check-labels">{{ Form::radio('employment', 'employed', true, array('class'=>'profile-form', 'data-title'=>'Employment')) }}<i></i> Employed</label>
+                                        </div>
+                                        <div class="i-checks">
+                                            <label class="check-labels">{{ Form::radio('employment', 'self-employed', false, array('class'=>'profile-form', 'data-title'=>'Employment')) }}<i></i> Self Employed</label>
+                                        </div>
                                     </div>
+
                                 </div>
                                 <div class="col-lg-6">
+
                                     <div class="form-group">
                                         <select name="self_employment_employed" id="self_employment_employed" class="form-control required">
                                             <option value="" readonly></option>
@@ -340,6 +342,16 @@
                                         </select>
                                         <label for="self_employment_employed">Self-Employed *</label>
                                     </div>
+
+                                    <div class="form-group">
+                                        <select name="employment_employed" id="employment_employed" class="form-control required">
+                                            <option value="" readonly></option>
+                                            <option value="Private">Private</option>
+                                            <option value="Government">Government</option>
+                                        </select>
+                                        <label for="employment_employed">Employed *</label>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="row">
@@ -391,8 +403,6 @@
                             </div>
 
                         </fieldset>
-
-
 
                         <h1>Monthly Income</h1>
                         <fieldset>
@@ -562,7 +572,6 @@
 
                         </fieldset>
 
-
                         <h1>Finish</h1>
                         <fieldset>
                             <h2>Terms and Conditions</h2>
@@ -661,7 +670,12 @@
             });
 
             $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green'
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $('input[name=employment]').on('ifClicked', function () {
+                console.log("You clicked " + this.value);
             });
 
             $(document).on('change', '#address_status', function(){
@@ -743,38 +757,42 @@
             function submitForm(){
                 var forms = new Array();
 
-                // console.log($('input[name=first_name]').data('text'));
+                console.log('profile form: '+ $('.profile-form').length);
 
                 $('.profile-form').each(function(){
                     var name = $(this).attr('name');
                     var title = $(this).data('title');
                     var value = $(this).val();
                     var values = new Array();
+
                     if(title === 'Dependents'){
-                        console.log('Dependents: ' + $(this).children().length);
-                        if($(this).children().length < 1){
-                            return false;
+                        if($(this).children().length > 0){
+                            var dependent = new Array();
+                            $(this).find('.repeater-item').each(function(){
+                                var item = new Array();
+                                item.push($(this).find('input[name=dependent-name]').val());
+                                item.push($(this).find('input[name=dependent-age]').val());
+                                dependent.push(item);
+                            });
+                            value = dependent;
                         }
-                        var dependent = new Array();
-                        $(this).find('.repeater-item').each(function(){
-                            var item = new Array();
-                            item.push($(this).find('input[name=dependent-name]').val());
-                            item.push($(this).find('input[name=dependent-age]').val());
-                            dependent.push(item);
-                        });
-                        value = dependent;
                     }
+
+                    if($(this).is('input[type=checkbox]')){
+                        value = ($(this).is(':checked')) ? 1 : 0;
+                        console.log('yes it is checkbox: '+ title + ' | value: '+ value);
+                    }
+
                     values.push(name);
                     values.push(title);
                     values.push(value);
 
-                    if( (title === 'Address Status') && (value === 'Rented')){
+                    if( (title === 'Address Status') && (value === 'Rented') ){
                         var landlord = new Array();
                         landlord.push($('#landlord-box').find('#landlord_address').val());
                         landlord.push($('#landlord-box').find('#landlord_number').val());
                         values.push(landlord);
                     }
-
                     forms.push(values);
                 });
 
