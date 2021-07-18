@@ -90,7 +90,7 @@ class ProfileController extends Controller
 
     public function profileStore(Request $request)
     {
-        $inputs = $request->input('profile');
+        $inputs = $request->input('forms');
         $type = getRoleName('name');
         if($type === 'farmer'){
             $userType = Farmer::find(Auth::user()->farmer->id);
@@ -102,33 +102,48 @@ class ProfileController extends Controller
         $userType->save();
         QrCode::size(500)
             ->format('png')
-            ->generate($userType->url, public_path('images/farmer/'.$userType->account_id.'.png'));
+            ->generate($userType->url, public_path('images/'.$type.'/'.$userType->account_id.'.png'));
+
+
         $profile = new Profile();
-        $profile->first_name = $inputs[0][2];
-        $profile->middle_name = $inputs[1][2];
-        $profile->last_name = $inputs[2][2];
-        $profile->dob = Carbon::parse($inputs[3][2]);
-        $profile->civil_status = $inputs[4][2];
-        $profile->gender = $inputs[5][2];
-        $profile->landline = $inputs[6][2];
-        $profile->mobile = $inputs[7][2];
-        $profile->tin = $inputs[8][2];
-        $profile->sss_gsis = $inputs[9][2];
-        $profile->education = $inputs[10][2];
-//        $profile->secondary_info = serialize($request->input('secondary_info'));
-        $profile->secondary_info = serialize($inputs);
-//        $profile->spouse_comaker_info = serialize($request->input('spouse_comaker_info'));
-//        $profile->farming_info = serialize($request->input('farming_info'));
-//        $profile->employment_info = serialize($request->input('employment_info'));
-//        $profile->income_asset_info = serialize($request->input('income_asset_info'));
+        $profile->first_name = $inputs[0][0][2];
+        $profile->middle_name = $inputs[0][1][2];
+        $profile->last_name = $inputs[0][2][2];
+        $profile->dob = Carbon::parse($inputs[0][3][2]);
+        $profile->civil_status = $inputs[0][4][2];
+        $profile->gender = $inputs[0][5][2];
+        $profile->landline = $inputs[0][6][2];
+        $profile->mobile = $inputs[0][7][2];
+        $profile->tin = $inputs[0][8][2];
+        $profile->sss_gsis = $inputs[0][9][2];
+        $profile->education = $inputs[0][10][2];
+        $profile->secondary_info = serialize($inputs[1]);
+        $profile->spouse_comaker_info = serialize($inputs[2]);
+        $profile->farming_info = serialize($inputs[3]);
+        $profile->employment_info = serialize($inputs[4]);
+        $profile->income_asset_info = serialize($inputs[5]);
 
 
 
         $profile->qr_image = $userType->account_id.'.png';
-        $profile->qr_image_path = '/images/farmer/'.$userType->account_id.'.png';
+        $profile->qr_image_path = '/images/'.$type.'/'.$userType->account_id.'.png';
         if($userType->profile()->save($profile)){
             $url = route('home');
             return response()->json($url);
         }
+    }
+
+    public function myProfile()
+    {
+        $type = getRoleName('name');
+        if($type === 'farmer'){
+            $profile = Auth::user()->farmer->profile;
+        }
+        if($type === 'community-leader'){
+            $profile = Auth::user()->leader->profile;
+        }
+
+//        return $profile;
+        return view('layouts.show-profile', compact('profile'));
     }
 }

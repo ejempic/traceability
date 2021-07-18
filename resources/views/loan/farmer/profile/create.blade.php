@@ -940,11 +940,9 @@
                             value = assets;
                         }
                     }
-
                     values.push(name);
                     values.push(title);
                     values.push(value);
-
                     income_asset_info.push(values);
                 });
                 forms.push(income_asset_info);
@@ -953,15 +951,10 @@
 
                 $.post('{!! route('user-profile-store') !!}', {
                     _token: '{!! csrf_token() !!}',
-                    profile: forms[0],
-                    secondary_info: forms[1],
-                    spouse_comaker_info:  forms[2],
-                    farming_info:  forms[3],
-                    employment_info:  forms[4],
-                    income_asset_info:  forms[5],
+                    forms: forms
                 }, function(data){
-                    // console.log(data);
-                    // window.location.replace(data);
+                    console.log(data);
+                    window.location.replace(data);
                 });
             }
 

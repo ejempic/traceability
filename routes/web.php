@@ -34,6 +34,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
     Route::resource('community-leader', 'CommunityLeaderController');
 
+    Route::resource('profile', 'ProfileController');
+    Route::get('my-profile', 'ProfileController@myProfile')->name('my-profile');
 
     Route::resource('product', 'ProductController');
     Route::get('product-list', 'ProductController@productList')->name('product-list');
