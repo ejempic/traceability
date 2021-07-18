@@ -30,26 +30,26 @@ class CreateProfilesTable extends Migration
             $table->string('tin')->nullable();
             $table->string('sss_gsis')->nullable();
             $table->string('education')->nullable();
-            $table->text('address_current')->nullable();
-            $table->string('address_year_stay')->nullable();
-            $table->string('address_status')->nullable();
-            $table->text('address_landlord_info')->nullable();
-            $table->text('dependent')->nullable();
-
-
-
-            $table->string('pob')->nullable();
-            $table->string('citizenship')->nullable();
-            $table->string('gross_monthly_income')->nullable();
-            $table->string('monthly_expenses')->nullable();
-
-            $table->boolean('four_ps')->default(0);
-            $table->boolean('pwd')->default(0);
-            $table->boolean('indigenous')->default(0);
-            $table->boolean('livelihood')->default(0);
-            $table->string('farm_lot')->nullable();
-            $table->string('farming_since')->nullable();
-            $table->string('organization')->nullable();
+            $table->text('secondary_info')->nullable();
+            $table->text('spouse_comaker_info')->nullable();
+            $table->text('farming_info')->nullable();
+            $table->text('employment_info')->nullable();
+            $table->text('income_asset_info')->nullable();
+//            $table->string('address_year_stay')->nullable();
+//            $table->string('address_status')->nullable();
+//            $table->text('address_landlord_info')->nullable();
+//            $table->text('dependent')->nullable();
+//            $table->string('pob')->nullable();
+//            $table->string('citizenship')->nullable();
+//            $table->string('gross_monthly_income')->nullable();
+//            $table->string('monthly_expenses')->nullable();
+//            $table->boolean('four_ps')->default(0);
+//            $table->boolean('pwd')->default(0);
+//            $table->boolean('indigenous')->default(0);
+//            $table->boolean('livelihood')->default(0);
+//            $table->string('farm_lot')->nullable();
+//            $table->string('farming_since')->nullable();
+//            $table->string('organization')->nullable();
             $table->string('qr_image')->nullable();
             $table->string('qr_image_path')->nullable();
             $table->string('status')->nullable();
@@ -64,8 +64,6 @@ class CreateProfilesTable extends Migration
             $table->string('contact_number')->nullable();
             $table->string('designation')->nullable();
 
-            //common profile
-            $table->string('tin')->nullable();
 
             $table->timestamps();
         });

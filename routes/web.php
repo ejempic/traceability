@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
     Route::resource('community-leader', 'CommunityLeaderController');
 
+
     Route::resource('product', 'ProductController');
     Route::get('product-list', 'ProductController@productList')->name('product-list');
     Route::get('product-unit-list', 'ProductController@productUnitList')->name('product-unit-list');
@@ -87,6 +88,9 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 
         Route::get('farmer/profile/create', 'PublicController@farmerProfileCreate')->name('farmer-profile-create');
         Route::post('farmer/profile/store', 'FarmerController@profileStore')->name('farmer-profile-store');
+
+
+        Route::post('user-profile-store', 'ProfileController@profileStore')->name('user-profile-store');
 
     });
 

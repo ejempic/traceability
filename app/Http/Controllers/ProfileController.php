@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\CommunityLeader;
+use App\Farmer;
 use App\Profile;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ProfileController extends Controller
 {
@@ -81,5 +86,49 @@ class ProfileController extends Controller
     public function destroy(Profile $profile)
     {
         //
+    }
+
+    public function profileStore(Request $request)
+    {
+        $inputs = $request->input('profile');
+        $type = getRoleName('name');
+        if($type === 'farmer'){
+            $userType = Farmer::find(Auth::user()->farmer->id);
+        }
+        if($type === 'community-leader'){
+            $userType = CommunityLeader::find(Auth::user()->leader->id);
+        }
+        $userType->url = route($type.'.show', array($type=>$userType));
+        $userType->save();
+        QrCode::size(500)
+            ->format('png')
+            ->generate($userType->url, public_path('images/farmer/'.$userType->account_id.'.png'));
+        $profile = new Profile();
+        $profile->first_name = $inputs[0][2];
+        $profile->middle_name = $inputs[1][2];
+        $profile->last_name = $inputs[2][2];
+        $profile->dob = Carbon::parse($inputs[3][2]);
+        $profile->civil_status = $inputs[4][2];
+        $profile->gender = $inputs[5][2];
+        $profile->landline = $inputs[6][2];
+        $profile->mobile = $inputs[7][2];
+        $profile->tin = $inputs[8][2];
+        $profile->sss_gsis = $inputs[9][2];
+        $profile->education = $inputs[10][2];
+//        $profile->secondary_info = serialize($request->input('secondary_info'));
+        $profile->secondary_info = serialize($inputs);
+//        $profile->spouse_comaker_info = serialize($request->input('spouse_comaker_info'));
+//        $profile->farming_info = serialize($request->input('farming_info'));
+//        $profile->employment_info = serialize($request->input('employment_info'));
+//        $profile->income_asset_info = serialize($request->input('income_asset_info'));
+
+
+
+        $profile->qr_image = $userType->account_id.'.png';
+        $profile->qr_image_path = '/images/farmer/'.$userType->account_id.'.png';
+        if($userType->profile()->save($profile)){
+            $url = route('home');
+            return response()->json($url);
+        }
     }
 }
