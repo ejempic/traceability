@@ -24,7 +24,7 @@
 
 </head>
 
-<body class="pace-done">
+<body class="pace-done template-trace">
 
 <div id="wrapper">
 
