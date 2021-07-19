@@ -105,19 +105,67 @@
 
     </div>
 
-    <div class="modal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category=""
-         data-variant="" data-bal="">
+    <div class="modal inmodal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category="" data-variant="" data-bal="">
         <div id="modal-size">
             <div class="modal-content">
                 <div class="modal-header" style="padding: 15px;">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title"></h4>
-                    <button type="button" class="close" data-dismiss="modal"><span
-                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
 
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <strong><h2>CREDIT / FINANCIAL INFORMATION</h2></strong>
+                            <div class="row">
+                                <div class="col">
+                                    <h3>Bank Accounts</h3>
+                                    <div class="form-repeat-box">
+                                        <div class="form-inline mb-1">
+                                            <div class="form-group">
+                                                <select name="" class="form-control">
+                                                    <option value="">Account type</option>
+                                                    <option value="Savings">Savings</option>
+                                                    <option value="Checking">Checking</option>
+                                                    <option value="Time Deposit">Time Deposit</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" name="" class="form-control" placeholder="Account No.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group-xs">
+                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="account-add"><i class="text-success fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="account-remove"><i class="text-danger fa fa-minus"></i></button>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h3>Credit References</h3>
+                                    <div class="form-repeat-box">
+                                        <div class="form-inline mb-1">
+                                            <div class="form-group">
+                                                <select name="" class="form-control">
+                                                    <option value="">Account type</option>
+                                                    <option value="Savings">Savings</option>
+                                                    <option value="Checking">Checking</option>
+                                                    <option value="Time Deposit">Time Deposit</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" name="" class="form-control" placeholder="Account No.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group-xs">
+                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="account-add"><i class="text-success fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="account-remove"><i class="text-danger fa fa-minus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
@@ -126,6 +174,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="modal fade" id="application_modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true"
          data-category="" data-variant="" data-bal="">
@@ -362,6 +411,7 @@
     {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}
     {!! Html::style('/css/template/plugins/nouslider/jquery.nouislider.css') !!}
     {!! Html::style('/css/template/plugins/datapicker/datepicker3.css') !!}
+    {!! Html::style('/css/template/plugins/iCheck/custom.css') !!}
 
 @endsection
 
@@ -373,23 +423,83 @@
     {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}
     {!! Html::script('/js/template/plugins/nouslider/jquery.nouislider.min.js') !!}
     {!! Html::script('/js/template/plugins/datapicker/bootstrap-datepicker.js') !!}
+    {!! Html::script('/js/template/plugins/iCheck/icheck.min.js') !!}
 
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
     {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
-        $(document).on('click', '.show_application', function () {
-            $('#application_modal').modal('show');
-            $('#loan_submit_id').val($(this).data('id'))
-        });
+        // $(document).on('click', '.show_application', function () {
+        //     $('#application_modal').modal('show');
+        //     $('#loan_submit_id').val($(this).data('id'));
+        // });
         $(document).on('change', '#terms_agree', function () {
 
             $('#submit_app_loan').prop('disabled', !this.checked);
         });
 
         $(document).ready(function () {
+            var modal = $('#modal');
+            function checkBxInit(){
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+            }
 
+            $('input[name=collateral]').on('ifClicked', function () {
+                var type = $(this).data('type');
+                console.log("You clicked " + type);
+                var boxs = $('#collateral-box');
+                switch (type) {
+                    case 'land-title':
+                        console.log('land-title');
+                        boxs.empty().append('' +
+                            '<div class="form-group">' +
+                                '<div class="i-checkss">' +
+                                    '<label class="check-labels"><input type="radio" value="Residential"><i></i> Residential</label>' +
+                                '</div>' +
+                                '<div class="i-checkss">' +
+                                    '<label class="check-labels"><input type="radio" value="Agracultural"><i></i> Agracultural</label>' +
+                                '</div>' +
+                            '</div>' +
+                        '');
+                        break;
+                    case 'vehicle':
+                        console.log('vehicle');
+                        boxs.empty().append('' +
+                            '<div class="form-group">' +
+                                '<label>Vehicle Model</label>' +
+                                '<input type="text" name="" class="form-control">' +
+                            '</div>' +
+                            '<div class="form-group row">' +
+                                '<div class="col i-checkss">' +
+                                    '<label class="check-labels"><input type="radio" name="vehicle-status" value="Brand new"><i></i> Brand new</label>' +
+                                '</div>' +
+                                '<div class="col i-checkss">' +
+                                    '<label class="check-labels"><input type="radio" name="vehicle-status" value="2nd Hand"><i></i> 2nd Hand</label>' +
+                                '</div>' +
+                            '</div>' +
+                        '');
+                        break;
+                }
+                $('.i-checkss').iCheck({
+                    radioClass: 'iradio_square-green'
+                });
+            });
+
+            $(document).on('click', '#modal-save-btn', function(){
+                var type = modal.data('type');
+                console.log(type);
+                switch(type){
+                    case 'loan-application-detail':
+                        var inputs = new Array();
+                        break;
+                    case '':
+                        break;
+                }
+            });
 
             var mem = $('.datepicker').datepicker({
                 todayBtn: "linked",
@@ -402,7 +512,6 @@
                 startView: 2
             });
 
-            var modal = $('#modal');
 
             var term_slider = document.getElementById('term_slider');
 
@@ -579,29 +688,172 @@
                 var loanProductID = $(this).data('id');
                 switch ($(this).data('action')) {
                     case 'apply-loan':
-                        swal({
-                                title: "Are you sure?",
-                                text: "Your loan application will be submitted!",
-                                type: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: "#DD6B55",
-                                confirmButtonText: "Yes!",
-                                cancelButtonText: "No!",
-                                closeOnConfirm: true,
-                                closeOnCancel: true
-                            },
-                            function (isConfirm) {
-                                if (isConfirm) {
-                                    $.get('{!! route('loan-apply') !!}', {
-                                        id: loanProductID
-                                    }, function (data) {
-                                        console.log('success');
-                                        console.log(data);
-                                    });
-                                } else {
-                                    swal("Cancelled", "Loan application cancelled", "error");
-                                }
-                            });
+                        modal.data('type', 'loan-application-detail');
+
+                        // modal.find('.modal-body').empty().append('' +
+                        //     '<div class="panel panel-default">' +
+                        //         '<div class="panel-body">' +
+                        //
+                        //             '<h2 class="text-center"><strong>LOAN DETAILS</strong></h2>' +
+                        //             '<h3>Purpose of Loan</h3>' +
+                        //             '<div class="row">' +
+                        //                 '<div class="col">' +
+                        //                     '<div class="form-group row">' +
+                        //                         '<div class="col">' +
+                        //                             '<div class="i-checks">' +
+                        //                                 '<label class="check-labels"><input type="checkbox" value="Auto Financing"><i></i> Auto Financing</label>' +
+                        //                             '</div>' +
+                        //                         '</div>' +
+                        //                         '<div class="col">' +
+                        //                             '<div class="i-checks">' +
+                        //                                 '<label class="check-labels"><input type="checkbox" value="Housing"><i></i> Housing</label>' +
+                        //                             '</div>' +
+                        //                         '</div>' +
+                        //                         '<div class="col">' +
+                        //                             '<div class="i-checks">' +
+                        //                                 '<label class="check-labels"><input type="checkbox" value="Working Capital"><i></i> Working Capital</label>' +
+                        //                             '</div>' +
+                        //                         '</div>' +
+                        //                         '<div class="col">' +
+                        //                             '<div class="i-checks">' +
+                        //                                 '<label class="check-labels"><input type="checkbox" value="Other"><i></i> Other</label>' +
+                        //                             '</div>' +
+                        //                         '</div>' +
+                        //                     '</div>' +
+                        //                 '</div>' +
+                        //             '</div>' +
+                        //             '<div class="row">' +
+                        //                 '<div class="col-lg-6">' +
+                        //                     '<div class="form-group">' +
+                        //                         '<label for="primary-user">Primary User</label>' +
+                        //                         '<input type="text" name="primary-user" class="form-control">' +
+                        //                     '</div>' +
+                        //                 '</div>' +
+                        //                 '<div class="col-lg-6">' +
+                        //                     '<div class="form-group">' +
+                        //                         '<label for="Relationship">Relationship to Applicant</label>' +
+                        //                         '<input type="text" name="Relationship" class="form-control">' +
+                        //                     '</div>' +
+                        //                 '</div>' +
+                        //             '</div>' +
+                        //             '<h3>Place of use</h3>' +
+                        //             '<div class="row">' +
+                        //                 '<div class="col">' +
+                        //                     '<div class="form-group">' +
+                        //                         '<div class="i-checks">' +
+                        //                             '<label class="check-labels"><input type="checkbox" value="Residential"><i></i> Residential</label>' +
+                        //                         '</div>' +
+                        //                     '</div>' +
+                        //                     '<div class="form-group">' +
+                        //                         '<div class="i-checks">' +
+                        //                             '<label class="check-labels"><input type="checkbox" value="Agricultural"><i></i> Agricultural</label>' +
+                        //                         '</div>' +
+                        //                     '</div>' +
+                        //                 '</div>' +
+                        //                 '<div class="col">' +
+                        //                     '<div class="form-group">' +
+                        //                         '<div class="i-checks">' +
+                        //                             '<label class="check-labels"><input type="checkbox" value="Residential / Commercial"><i></i> Residential / Commercial</label>' +
+                        //                         '</div>' +
+                        //                     '</div>' +
+                        //                     '<div class="form-group">' +
+                        //                         '<div class="i-checks">' +
+                        //                             '<label class="check-labels"><input type="checkbox" value="Clean Loan / No Collateral"><i></i> Clean Loan / No Collateral</label>' +
+                        //                         '</div>' +
+                        //                     '</div>' +
+                        //                 '</div>' +
+                        //                 '<div class="col">' +
+                        //                     '<div class="form-group">' +
+                        //                         '<div class="i-checks">' +
+                        //                             '<label class="check-labels"><input type="checkbox" value="Commercial"><i></i> Commercial</label>' +
+                        //                         '</div>' +
+                        //                     '</div>' +
+                        //                 '</div>' +
+                        //             '</div>' +
+                        //             '<h3>Collateral</h3>' +
+                        //             '<div class="row">' +
+                        //                 '<div class="col">' +
+                        //                     '<div class="form-group">' +
+                        //                         '<div class="i-checks">' +
+                        //                             '<label class="check-labels"><input type="radio" name="collateral" data-type="land-title" value="Land Title: TCT No."><i></i> Land Title: TCT No.</label>' +
+                        //                         '</div>' +
+                        //                         '<div class="i-checks">' +
+                        //                             '<label class="check-labels"><input type="radio" name="collateral" data-type="vehicle" value="Motor Vehicle"><i></i> Motor Vehicle</label>' +
+                        //                         '</div>' +
+                        //                     '</div>' +
+                        //                 '</div>' +
+                        //                 '<div class="col" id="collateral-box"></div>' +
+                        //             '</div>' +
+                        //
+                        //         '</div>' +
+                        //     '</div>' +
+                        //
+                        //     '<div class="panel panel-default">' +
+                        //         '<div class="panel-body">' +
+                        //
+                        //             '<h2 class="text-center"><strong>LOAN DETAILS</strong></h2>' +
+                        //             '<div class="hr-line-dashed"></div>' +
+                        //
+                        //         '</div>' +
+                        //     '</div>' +
+                        // '');
+
+
+                        checkBxInit();
+
+
+                        modal.find('.modal-title').text('Loan Application Details');
+                        modal.find('#modal-size').removeClass().addClass('modal-dialog modal-lg');
+                        modal.modal({backdrop: 'static', keyboard: false});
+
+                        {{--swal({--}}
+                        {{--    title: "Are you sure?",--}}
+                        {{--    text: "Your loan application will be submitted!",--}}
+                        {{--    type: "warning",--}}
+                        {{--    showCancelButton: true,--}}
+                        {{--    confirmButtonColor: "#DD6B55",--}}
+                        {{--    confirmButtonText: "Yes!",--}}
+                        {{--    cancelButtonText: "No!",--}}
+                        {{--    closeOnConfirm: true,--}}
+                        {{--    closeOnCancel: true--}}
+                        {{--},--}}
+                        {{--function (isConfirm) {--}}
+                        {{--    if (isConfirm) {--}}
+                        {{--        $.get('{!! route('loan-apply') !!}', {--}}
+                        {{--            id: loanProductID--}}
+                        {{--        }, function (data) {--}}
+                        {{--            console.log('success');--}}
+                        {{--            console.log(data);--}}
+                        {{--        });--}}
+                        {{--    } else {--}}
+                        {{--        swal("Cancelled", "Loan application cancelled", "error");--}}
+                        {{--    }--}}
+                        {{--});--}}
+
+                        break;
+                    case 'account-add':
+                        var box = $('.form-repeat-box');
+                        box.append('' +
+                            '<div class="form-inline mb-1">' +
+                                '<div class="form-group">' +
+                                    '<select name="" class="form-control">' +
+                                    '<option value="">Account type</option>' +
+                                    '<option value="Savings">Savings</option>' +
+                                    '<option value="Checking">Checking</option>' +
+                                    '<option value="Time Deposit">Time Deposit</option>' +
+                                    '</select>' +
+                                '</div>' +
+                                '<div class="form-group">' +
+                                    '<input type="text" name="" class="form-control" placeholder="Account No.">' +
+                                '</div>' +
+                            '</div>' +
+                        '');
+                        break;
+                    case 'account-remove':
+                        var repeater = $('.form-repeat-box').find('.form-inline');
+                        if(repeater.length > 1){
+                            repeater.last().remove();
+                        }
                         break;
                 }
             });
@@ -632,7 +884,7 @@
                             '<td class="text-right">' + numeral(data[a].amount).format('0,0.00') + '</td>' +
                             '<td class="project-actions">' +
                             '<a href="#" class="btn btn-white btn-sm show_loan" data-name="' + data[a].name + '" data-provider="' + data[a].provider.profile.bank_name + '" data-amount="' + data[a].amount + '" data-type="' + data[a].type.display_name + '" data-duration="' + data[a].duration + '" data-interest_rate="' + data[a].interest_rate + '"><i class="fa fa-search"></i> View </a>' +
-                            '<button type="button" class="btn btn-white btn-sm show_application" data-action="apply-loan" data-id="' + data[a].id + '"><i class="fa fa-check"></i> Apply </button>' +
+                            '<button type="button" class="btn btn-white btn-sm show_application btn-action" data-action="apply-loan" data-id="' + data[a].id + '"><i class="fa fa-check"></i> Apply </button>' +
                             '</td>' +
                             '</tr>' +
                             '');
