@@ -25,7 +25,7 @@
 
 </head>
 
-<body class="pace-done">
+<body class="pace-done template-loan">
 
 <div id="wrapper">
 
