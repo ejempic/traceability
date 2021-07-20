@@ -21,6 +21,11 @@ class Farmer extends Model
         return $this->morphOne(Profile::class, 'model');
     }
 
+    public function disbursement()
+    {
+        return $this->morphOne(LoanDisbursement::class, 'model');
+    }
+
     public function inventory()
     {
         return $this->hasMany(Inventory::class, 'farmer_id');

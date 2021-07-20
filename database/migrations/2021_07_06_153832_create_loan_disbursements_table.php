@@ -15,6 +15,9 @@ class CreateLoanDisbursementsTable extends Migration
     {
         Schema::create('loan_disbursements', function (Blueprint $table) {
             $table->id();
+            $table->integer('model_id')->nullable();
+            $table->string('model_type')->nullable();
+
             $table->string('account_type');
             $table->string('account_name');
             $table->string('account_number');
