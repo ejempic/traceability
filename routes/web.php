@@ -115,6 +115,9 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 
         Route::get('custom-forms', 'LoanProviderController@customForms')->name('custom-forms');
 
+        Route::get('check-disbursement', 'LoanDisbursementController@getList')->name('check-disbursement');
+        Route::post('store-disbursement', 'LoanDisbursementController@storeDisbursement')->name('store-disbursement');
+
     });
 
 });

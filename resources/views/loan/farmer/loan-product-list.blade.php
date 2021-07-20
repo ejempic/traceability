@@ -116,85 +116,27 @@
 
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <strong><h2>CREDIT / FINANCIAL INFORMATION</h2></strong>
                             <div class="row">
-                                <div class="col-lg-6 form-repeat-box-parent">
-                                    <h3>Bank Accounts</h3>
-                                    <div class="form-repeat-box">
-                                        <div class="row form-repeater">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <select name="" class="form-control">
-                                                        <option value="">Account type</option>
-                                                        <option value="Savings">Savings</option>
-                                                        <option value="Checking">Checking</option>
-                                                        <option value="Time Deposit">Time Deposit</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <input type="text" name="" class="form-control" placeholder="Account No.">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group-xs text-right">
-                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="account-add"><i class="text-success fa fa-plus"></i></button>
-                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="repeater-remove"><i class="text-danger fa fa-minus"></i></button>
-                                    </div>
+                                <div class="col form-group">
+                                    <label class="i-checks"> <input type="radio" name="account_type" value="GCash" checked> GCash </label>
                                 </div>
-                                <div class="col-lg-6 form-repeat-box-parent">
-                                    <h3>Credit References</h3>
-                                    <div class="form-repeat-box">
-                                        <div class="row form-repeater">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <input type="email" name="asdf" class="form-control" placeholder="Bank / Financing">
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <input type="password" name="sdfg" class="form-control" placeholder="Monthly Amortization">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group-xs text-right">
-                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="reference-add"><i class="text-success fa fa-plus"></i></button>
-                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="repeater-remove"><i class="text-danger fa fa-minus"></i></button>
-                                    </div>
+                                <div class="col form-group">
+                                    <label class="i-checks"> <input type="radio" name="account_type" value="Konect2"> Konect2 </label>
+                                </div>
+                                <div class="col form-group">
+                                    <label class="i-checks"> <input type="radio" name="account_type" value="Sulit Padala"> Sulit Padala </label>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <strong><h2>TRADE AND OTHER REFERENCES</h2></strong>
-                            <div class="form-repeat-box-parent">
-                                <div class="form-repeat-box">
-                                    <div class="row form-repeater">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <input type="text" name="" class="form-control" placeholder="Customer name / Co-maker">
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <input type="text" name="" class="form-control" placeholder="Address">
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <input type="text" name="" class="form-control" placeholder="Contact No.">
-                                            </div>
-                                        </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Account Name</label>
+                                        <input type="text" name="account_name" class="form-control">
                                     </div>
-                                </div>
-                                <div class="btn-group-xs text-right">
-                                    <button type="button" class="btn btn-xs btn-white btn-action" data-action="trade-add"><i class="text-success fa fa-plus"></i></button>
-                                    <button type="button" class="btn btn-xs btn-white btn-action" data-action="repeater-remove"><i class="text-danger fa fa-minus"></i></button>
+                                    <div class="form-group">
+                                        <label>Account Number</label>
+                                        <input type="text" name="account_number" class="form-control">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -706,6 +648,39 @@
                 });
             });
 
+            $(document).on('ifClicked', '.disbursement_type', function () {
+                var type = $(this).val();
+                console.log("You clicked " + type);
+                var boxs = modal.find('#disbursement_info_box');
+                switch (type) {
+                    case 'Konect2':
+                        boxs.empty().append('' +
+                            '<h2 class="text-center text-danger">Not Available</h2>' +
+                        '');
+                        break;
+                    case 'Sulit Padala':
+                        boxs.empty().append('' +
+                            '<h2 class="text-center text-danger">Not Available</h2>' +
+                            '');
+                        break;
+                    default:
+                        boxs.empty().append('' +
+                            '<div class="form-group">' +
+                            '<label>Account Name</label>' +
+                            '<input type="text" name="account_name" class="form-control">' +
+                            '</div>' +
+                            '<div class="form-group">' +
+                            '<label>Account Number</label>' +
+                            '<input type="text" name="account_number" class="form-control">' +
+                            '</div>' +
+                        '');
+                        break;
+                }
+                $('.i-checkss').iCheck({
+                    radioClass: 'iradio_square-green'
+                });
+            });
+
             $(document).on('click', '#modal-save-btn', function(){
                 var type = modal.data('type');
                 console.log(type);
@@ -812,7 +787,36 @@
                             window.location.replace(data);
                         });
                         break;
-                    case '':
+                    case 'create-disbursement':
+                        var datas = new Array(), error = 0;
+                        datas.push(modal.find('input[name=account_type]:checked').val());
+                        datas.push(modal.find('input[name=account_name]').val());
+                        datas.push(modal.find('input[name=account_number]').val());
+                        modal.find('.form-group').removeClass('has-error');
+                        modal.find('.form-control').each(function(){
+                            if($(this).val().length < 1){
+                                $(this).closest('.form-group').addClass('has-error');
+                                error += 1;
+                            }
+                        });
+
+                        if( modal.find('#disbursement_info_box').children().length < 2 ) {
+                            error += 1;
+                        }
+                        console.log(error);
+                        if(error > 0){
+                            return false;
+                        }
+
+                        console.log(datas);
+
+                        $.post('{!! route('store-disbursement') !!}', {
+                            _token: '{!! csrf_token() !!}',
+                            datas: datas
+                        }, function(data){
+                            modal.modal('toggle');
+                            swal("Success!", "You may proceed to Loan Application.", "success");
+                        });
                         break;
                 }
             });
@@ -821,6 +825,13 @@
                 var loanProductID = $(this).data('id');
                 switch ($(this).data('action')) {
                     case 'apply-loan':
+                        if(checkDisbursement() > 0){
+                            console.log('apply-loan cancelled');
+                            return false;
+                        }
+                        console.log('apply-loan success');
+                        break;
+                    case '':
                         modal.data('type', 'loan-application-detail');
                         modal.data('id', loanProductID);
 
@@ -1163,6 +1174,74 @@
                     }
                 });
                 $('.loan-product-list').find('tbody').empty().append(list.join(''));
+            }
+
+            function checkDisbursement() {
+                var status = 0;
+                // jQuery.ajaxSetup({async:false});
+                $.get('{!! route('check-disbursement') !!}', function(data){
+                    console.log(data);
+                    if(data){
+                        console.log('exist');
+                    }else{
+                        status += 1;
+                        swal({
+                            title: "Disbursement info not found!",
+                            text: "Create disbursement info to proceed in loan!",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#6a73dd",
+                            cancelButtonColor: "#DD6B55",
+                            confirmButtonText: "Create!",
+                            cancelButtonText: "No thanks!",
+                            closeOnConfirm: true,
+                            closeOnCancel: true },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                modal.data('type', 'create-disbursement');
+                                modal.find('.modal-title').text('Disbursement Information');
+                                modal.find('#modal-size').removeClass().addClass('modal-dialog modal-md');
+                                modal.find('.modal-body').empty().append('' +
+                                    '<div class="panel panel-default">' +
+                                        '<div class="panel-body">' +
+                                            '<div class="row">' +
+                                                '<div class="col form-group">' +
+                                                    '<label class="i-checks"> <input type="radio" name="account_type" class="disbursement_type" value="GCash" checked> GCash </label>' +
+                                                '</div>' +
+                                                '<div class="col form-group">' +
+                                                    '<label class="i-checks"> <input type="radio" name="account_type" class="disbursement_type" value="Konect2" readonly> Konect2 </label>' +
+                                                '</div>' +
+                                                '<div class="col form-group">' +
+                                                    '<label class="i-checks"> <input type="radio" name="account_type" class="disbursement_type" value="Sulit Padala" readonly> Sulit Padala </label>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="row">' +
+                                                '<div class="col" id="disbursement_info_box">' +
+                                                    '<div class="form-group">' +
+                                                        '<label>Account Name</label>' +
+                                                        '<input type="text" name="account_name" class="form-control">' +
+                                                    '</div>' +
+                                                    '<div class="form-group">' +
+                                                        '<label>Account Number</label>' +
+                                                        '<input type="text" name="account_number" class="form-control">' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '');
+                                $('.i-checks').iCheck({
+                                    checkboxClass: 'icheckbox_square-green',
+                                    radioClass: 'iradio_square-green',
+                                });
+                                modal.modal({backdrop: 'static', keyboard: false});
+                            } else {
+                                swal("Cancelled", "Process cancelled", "error");
+                            }
+                        });
+                    }
+                });
+                return status;
             }
 
         });
