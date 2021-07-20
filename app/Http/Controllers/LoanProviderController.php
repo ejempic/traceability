@@ -140,7 +140,8 @@ class LoanProviderController extends Controller
 
         if(Auth::user()->loan_provider){
             $loans = Loan::with('product', 'provider')
-            ->where('loan_provider_id', Auth::user()->loan_provider->id)
+                ->where('accept', 1)
+                ->where('loan_provider_id', Auth::user()->loan_provider->id)
                 ->get();
 //        return $loans;
 

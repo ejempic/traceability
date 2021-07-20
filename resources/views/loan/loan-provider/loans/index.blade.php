@@ -48,11 +48,24 @@
                                     @forelse($loans as $loan)
                                         <tr data-id="{{ $loan->id }}">
                                             <td class="project-title">
-                                                <a href="project_detail.html">{{ $loan->product->name }}</a>
+                                                <a href="#">{{ $loan->product->name }}</a>
                                                 <br/>
-                                                <small>Type: <strong>{{ $loan->product->type->display_name }}</strong></small><br/>
-                                                <small>Amount: <span class="money">{{ currency_format($loan->product->amount) }}</span></small><br/>
-                                                <small>Term: {{ $loan->product->duration }}mos</small><br/>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <small>Provider: <strong>{{ $loan->provider->profile->bank_name }}</strong></small>
+                                                    </div>
+                                                    <div class="col">
+                                                        <small>Type: <strong>{{ $loan->product->type->display_name }}</strong></small>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <small>Amount: <span class="money">{{ currency_format($loan->product->amount) }}</span></small>
+                                                    </div>
+                                                    <div class="col">
+                                                        <small>Term: {{ $loan->product->duration }}mos</small>
+                                                    </div>
+                                                </div>
                                                 <small>Interest: {{ $loan->product->interest_rate }}%</small><br/>
                                             </td>
                                             <td class="project-title">

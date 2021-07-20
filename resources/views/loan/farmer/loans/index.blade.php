@@ -79,6 +79,7 @@
                                                 <td class="text-center text-danger">{{$loan->status}}</td>
                                             @endif
                                             <td class="project-actions">
+                                                <div class="btn-group">
                                                 <a href="#" class="btn btn-success btn-sm sched_modal_trigger"
                                                    data-schedule="{{$loan->payment_schedules}}"><i
                                                             class="fa fa-calendar"></i> Schedules </a>
@@ -93,6 +94,8 @@
                                                    data-status="{{$loan->status}}"
                                                 ><i
                                                             class="fa fa-list"></i> Payments </a>
+                                                    <button type="button" class="btn btn-sm btn-danger">Cancel</button>
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty

@@ -118,49 +118,83 @@
                         <div class="panel-body">
                             <strong><h2>CREDIT / FINANCIAL INFORMATION</h2></strong>
                             <div class="row">
-                                <div class="col">
+                                <div class="col-lg-6 form-repeat-box-parent">
                                     <h3>Bank Accounts</h3>
                                     <div class="form-repeat-box">
-                                        <div class="form-inline mb-1">
-                                            <div class="form-group">
-                                                <select name="" class="form-control">
-                                                    <option value="">Account type</option>
-                                                    <option value="Savings">Savings</option>
-                                                    <option value="Checking">Checking</option>
-                                                    <option value="Time Deposit">Time Deposit</option>
-                                                </select>
+                                        <div class="row form-repeater">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <select name="" class="form-control">
+                                                        <option value="">Account type</option>
+                                                        <option value="Savings">Savings</option>
+                                                        <option value="Checking">Checking</option>
+                                                        <option value="Time Deposit">Time Deposit</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <input type="text" name="" class="form-control" placeholder="Account No.">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <input type="text" name="" class="form-control" placeholder="Account No.">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="btn-group-xs">
+                                    <div class="btn-group-xs text-right">
                                         <button type="button" class="btn btn-xs btn-white btn-action" data-action="account-add"><i class="text-success fa fa-plus"></i></button>
-                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="account-remove"><i class="text-danger fa fa-minus"></i></button>
+                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="repeater-remove"><i class="text-danger fa fa-minus"></i></button>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-lg-6 form-repeat-box-parent">
                                     <h3>Credit References</h3>
                                     <div class="form-repeat-box">
-                                        <div class="form-inline mb-1">
-                                            <div class="form-group">
-                                                <select name="" class="form-control">
-                                                    <option value="">Account type</option>
-                                                    <option value="Savings">Savings</option>
-                                                    <option value="Checking">Checking</option>
-                                                    <option value="Time Deposit">Time Deposit</option>
-                                                </select>
+                                        <div class="row form-repeater">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <input type="email" name="asdf" class="form-control" placeholder="Bank / Financing">
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <input type="text" name="" class="form-control" placeholder="Account No.">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <input type="password" name="sdfg" class="form-control" placeholder="Monthly Amortization">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="btn-group-xs">
-                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="account-add"><i class="text-success fa fa-plus"></i></button>
-                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="account-remove"><i class="text-danger fa fa-minus"></i></button>
+                                    <div class="btn-group-xs text-right">
+                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="reference-add"><i class="text-success fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-xs btn-white btn-action" data-action="repeater-remove"><i class="text-danger fa fa-minus"></i></button>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <strong><h2>TRADE AND OTHER REFERENCES</h2></strong>
+                            <div class="form-repeat-box-parent">
+                                <div class="form-repeat-box">
+                                    <div class="row form-repeater">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" name="" class="form-control" placeholder="Customer name / Co-maker">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" name="" class="form-control" placeholder="Address">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" name="" class="form-control" placeholder="Contact No.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-group-xs text-right">
+                                    <button type="button" class="btn btn-xs btn-white btn-action" data-action="trade-add"><i class="text-success fa fa-plus"></i></button>
+                                    <button type="button" class="btn btn-xs btn-white btn-action" data-action="repeater-remove"><i class="text-danger fa fa-minus"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -448,59 +482,6 @@
                 });
             }
 
-            $('input[name=collateral]').on('ifClicked', function () {
-                var type = $(this).data('type');
-                console.log("You clicked " + type);
-                var boxs = $('#collateral-box');
-                switch (type) {
-                    case 'land-title':
-                        console.log('land-title');
-                        boxs.empty().append('' +
-                            '<div class="form-group">' +
-                                '<div class="i-checkss">' +
-                                    '<label class="check-labels"><input type="radio" value="Residential"><i></i> Residential</label>' +
-                                '</div>' +
-                                '<div class="i-checkss">' +
-                                    '<label class="check-labels"><input type="radio" value="Agracultural"><i></i> Agracultural</label>' +
-                                '</div>' +
-                            '</div>' +
-                        '');
-                        break;
-                    case 'vehicle':
-                        console.log('vehicle');
-                        boxs.empty().append('' +
-                            '<div class="form-group">' +
-                                '<label>Vehicle Model</label>' +
-                                '<input type="text" name="" class="form-control">' +
-                            '</div>' +
-                            '<div class="form-group row">' +
-                                '<div class="col i-checkss">' +
-                                    '<label class="check-labels"><input type="radio" name="vehicle-status" value="Brand new"><i></i> Brand new</label>' +
-                                '</div>' +
-                                '<div class="col i-checkss">' +
-                                    '<label class="check-labels"><input type="radio" name="vehicle-status" value="2nd Hand"><i></i> 2nd Hand</label>' +
-                                '</div>' +
-                            '</div>' +
-                        '');
-                        break;
-                }
-                $('.i-checkss').iCheck({
-                    radioClass: 'iradio_square-green'
-                });
-            });
-
-            $(document).on('click', '#modal-save-btn', function(){
-                var type = modal.data('type');
-                console.log(type);
-                switch(type){
-                    case 'loan-application-detail':
-                        var inputs = new Array();
-                        break;
-                    case '':
-                        break;
-                }
-            });
-
             var mem = $('.datepicker').datepicker({
                 todayBtn: "linked",
                 keyboardNavigation: false,
@@ -684,119 +665,367 @@
                 modal.modal('show');
             });
 
+            $(document).on('ifClicked', '.collateral', function () {
+                var type = $(this).data('type');
+                // console.log("You clicked " + type);
+                var boxs = $('#collateral-box');
+                switch (type) {
+                    case 'land-title':
+                        console.log('land-title');
+                        boxs.empty().append('' +
+                            '<div class="form-group">' +
+                            '<div class="i-checkss">' +
+                            '<label class="check-labels"><input type="radio" value="Residential"><i></i> Residential</label>' +
+                            '</div>' +
+                            '<div class="i-checkss">' +
+                            '<label class="check-labels"><input type="radio" value="Agracultural"><i></i> Agracultural</label>' +
+                            '</div>' +
+                            '</div>' +
+                            '');
+                        break;
+                    case 'vehicle':
+                        console.log('vehicle');
+                        boxs.empty().append('' +
+                            '<div class="form-group">' +
+                            '<label>Vehicle Model</label>' +
+                            '<input type="text" name="" class="form-control">' +
+                            '</div>' +
+                            '<div class="form-group row">' +
+                            '<div class="col i-checkss">' +
+                            '<label class="check-labels"><input type="radio" name="vehicle-status" value="Brand new"><i></i> Brand new</label>' +
+                            '</div>' +
+                            '<div class="col i-checkss">' +
+                            '<label class="check-labels"><input type="radio" name="vehicle-status" value="2nd Hand"><i></i> 2nd Hand</label>' +
+                            '</div>' +
+                            '</div>' +
+                            '');
+                        break;
+                }
+                $('.i-checkss').iCheck({
+                    radioClass: 'iradio_square-green'
+                });
+            });
+
+            $(document).on('click', '#modal-save-btn', function(){
+                var type = modal.data('type');
+                console.log(type);
+                switch(type){
+                    case 'loan-application-detail':
+                        var inputs = new Array();
+                        inputs.push(modal.data('id'));
+                        var info_loan_detail = new Array();
+                        $('.info-loan-detail').each(function(){
+                            var forms = new Array();
+                            var title = $(this).data('title');
+                            var value = new Array();
+
+                            switch (title) {
+                                case 'Purpose of Loan':
+                                    $(this).find('input[type=checkbox]:checked').each(function(){
+                                        value.push($(this).val());
+                                    });
+                                    break;
+                                case 'Primary User':
+                                    value.push($(this).val());
+                                    break;
+                                case 'Relationship to Applicant':
+                                    value.push($(this).val());
+                                    break;
+                                case 'Place of use':
+                                    $(this).find('input[type=checkbox]:checked').each(function(){
+                                        value.push($(this).val());
+                                    });
+                                    break;
+                                case 'Collateral':
+                                    var innerValue = new Array();
+                                    var box = $('#collateral-box');
+                                    if($(this).find('input[type=radio]:checked').val() === 'Land Title: TCT No.'){
+                                        innerValue.push(box.find('input[type=radio]:checked').val());
+                                    }
+                                    if($(this).find('input[type=radio]:checked').val() === 'Motor Vehicle'){
+                                        innerValue.push(box.find('input[type=radio]:checked').val());
+                                        innerValue.push(box.find('input[type=text]').val());
+                                    }
+                                    value.push($(this).find('input[type=radio]:checked').val());
+                                    value.push(innerValue);
+                                    break;
+                            }
+
+                            forms.push(title);
+                            forms.push(value);
+                            info_loan_detail.push(forms);
+                        });
+                        inputs.push(info_loan_detail);
+
+                        var credit_financial_info = new Array();
+                        $('.credit-financial-info').each(function(){
+                            var forms = new Array();
+                            var title = $(this).data('title');
+                            var value = new Array();
+
+                            $(this).find('.form-repeater').each(function(){
+                                var innerValue = new Array();
+                                $(this).find('.form-control').each(function(){
+                                    var innestValue = new Array();
+                                    innestValue.push($(this).data('title'), $(this).val());
+                                    innerValue.push(innestValue);
+                                });
+
+
+                                value.push(innerValue);
+                            });
+
+                            forms.push(title);
+                            forms.push(value);
+                            credit_financial_info.push(forms);
+                        });
+                        inputs.push(credit_financial_info);
+
+                        var trade_reference_info = new Array();
+                        $('.trade-reference-info').each(function(){
+                            var forms = new Array();
+                            var title = $(this).data('title');
+                            var value = new Array();
+
+                            $(this).find('.form-repeater').each(function(){
+                                var innerValue = new Array();
+                                $(this).find('.form-control').each(function(){
+                                    var innestValue = new Array();
+                                    innestValue.push($(this).data('title'), $(this).val());
+                                    innerValue.push(innestValue);
+                                });
+                                value.push(innerValue);
+                            });
+                            forms.push(title);
+                            forms.push(value);
+                            trade_reference_info.push(forms);
+                        });
+                        inputs.push(trade_reference_info);
+
+                        console.log(inputs);
+
+                        $.post('{!! route('loan-submit-form') !!}', {
+                            _token: '{!! csrf_token() !!}',
+                            inputs: inputs
+                        }, function(data){
+                            console.log(data);
+                            window.location.replace(data);
+                        });
+                        break;
+                    case '':
+                        break;
+                }
+            });
+
             $(document).on('click', '.btn-action', function () {
                 var loanProductID = $(this).data('id');
                 switch ($(this).data('action')) {
                     case 'apply-loan':
                         modal.data('type', 'loan-application-detail');
+                        modal.data('id', loanProductID);
 
-                        // modal.find('.modal-body').empty().append('' +
-                        //     '<div class="panel panel-default">' +
-                        //         '<div class="panel-body">' +
-                        //
-                        //             '<h2 class="text-center"><strong>LOAN DETAILS</strong></h2>' +
-                        //             '<h3>Purpose of Loan</h3>' +
-                        //             '<div class="row">' +
-                        //                 '<div class="col">' +
-                        //                     '<div class="form-group row">' +
-                        //                         '<div class="col">' +
-                        //                             '<div class="i-checks">' +
-                        //                                 '<label class="check-labels"><input type="checkbox" value="Auto Financing"><i></i> Auto Financing</label>' +
-                        //                             '</div>' +
-                        //                         '</div>' +
-                        //                         '<div class="col">' +
-                        //                             '<div class="i-checks">' +
-                        //                                 '<label class="check-labels"><input type="checkbox" value="Housing"><i></i> Housing</label>' +
-                        //                             '</div>' +
-                        //                         '</div>' +
-                        //                         '<div class="col">' +
-                        //                             '<div class="i-checks">' +
-                        //                                 '<label class="check-labels"><input type="checkbox" value="Working Capital"><i></i> Working Capital</label>' +
-                        //                             '</div>' +
-                        //                         '</div>' +
-                        //                         '<div class="col">' +
-                        //                             '<div class="i-checks">' +
-                        //                                 '<label class="check-labels"><input type="checkbox" value="Other"><i></i> Other</label>' +
-                        //                             '</div>' +
-                        //                         '</div>' +
-                        //                     '</div>' +
-                        //                 '</div>' +
-                        //             '</div>' +
-                        //             '<div class="row">' +
-                        //                 '<div class="col-lg-6">' +
-                        //                     '<div class="form-group">' +
-                        //                         '<label for="primary-user">Primary User</label>' +
-                        //                         '<input type="text" name="primary-user" class="form-control">' +
-                        //                     '</div>' +
-                        //                 '</div>' +
-                        //                 '<div class="col-lg-6">' +
-                        //                     '<div class="form-group">' +
-                        //                         '<label for="Relationship">Relationship to Applicant</label>' +
-                        //                         '<input type="text" name="Relationship" class="form-control">' +
-                        //                     '</div>' +
-                        //                 '</div>' +
-                        //             '</div>' +
-                        //             '<h3>Place of use</h3>' +
-                        //             '<div class="row">' +
-                        //                 '<div class="col">' +
-                        //                     '<div class="form-group">' +
-                        //                         '<div class="i-checks">' +
-                        //                             '<label class="check-labels"><input type="checkbox" value="Residential"><i></i> Residential</label>' +
-                        //                         '</div>' +
-                        //                     '</div>' +
-                        //                     '<div class="form-group">' +
-                        //                         '<div class="i-checks">' +
-                        //                             '<label class="check-labels"><input type="checkbox" value="Agricultural"><i></i> Agricultural</label>' +
-                        //                         '</div>' +
-                        //                     '</div>' +
-                        //                 '</div>' +
-                        //                 '<div class="col">' +
-                        //                     '<div class="form-group">' +
-                        //                         '<div class="i-checks">' +
-                        //                             '<label class="check-labels"><input type="checkbox" value="Residential / Commercial"><i></i> Residential / Commercial</label>' +
-                        //                         '</div>' +
-                        //                     '</div>' +
-                        //                     '<div class="form-group">' +
-                        //                         '<div class="i-checks">' +
-                        //                             '<label class="check-labels"><input type="checkbox" value="Clean Loan / No Collateral"><i></i> Clean Loan / No Collateral</label>' +
-                        //                         '</div>' +
-                        //                     '</div>' +
-                        //                 '</div>' +
-                        //                 '<div class="col">' +
-                        //                     '<div class="form-group">' +
-                        //                         '<div class="i-checks">' +
-                        //                             '<label class="check-labels"><input type="checkbox" value="Commercial"><i></i> Commercial</label>' +
-                        //                         '</div>' +
-                        //                     '</div>' +
-                        //                 '</div>' +
-                        //             '</div>' +
-                        //             '<h3>Collateral</h3>' +
-                        //             '<div class="row">' +
-                        //                 '<div class="col">' +
-                        //                     '<div class="form-group">' +
-                        //                         '<div class="i-checks">' +
-                        //                             '<label class="check-labels"><input type="radio" name="collateral" data-type="land-title" value="Land Title: TCT No."><i></i> Land Title: TCT No.</label>' +
-                        //                         '</div>' +
-                        //                         '<div class="i-checks">' +
-                        //                             '<label class="check-labels"><input type="radio" name="collateral" data-type="vehicle" value="Motor Vehicle"><i></i> Motor Vehicle</label>' +
-                        //                         '</div>' +
-                        //                     '</div>' +
-                        //                 '</div>' +
-                        //                 '<div class="col" id="collateral-box"></div>' +
-                        //             '</div>' +
-                        //
-                        //         '</div>' +
-                        //     '</div>' +
-                        //
-                        //     '<div class="panel panel-default">' +
-                        //         '<div class="panel-body">' +
-                        //
-                        //             '<h2 class="text-center"><strong>LOAN DETAILS</strong></h2>' +
-                        //             '<div class="hr-line-dashed"></div>' +
-                        //
-                        //         '</div>' +
-                        //     '</div>' +
-                        // '');
+                        modal.find('.modal-body').empty().append('' +
+                            '<div class="panel panel-default" id="loan-details">' +
+                                '<div class="panel-body">' +
+                                    '<strong><h2 class="text-success">LOAN DETAILS</h2></strong>' +
+                                    '<h3>Purpose of Loan</h3>' +
+                                    '<div class="row">' +
+                                        '<div class="col">' +
+                                            '<div class="form-group row info-loan-detail" data-title="Purpose of Loan">' +
+                                                '<div class="col">' +
+                                                    '<div class="i-checks">' +
+                                                        '<label class="check-labels"><input type="checkbox" value="Auto Financing"><i></i> Auto Financing</label>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                '<div class="col">' +
+                                                    '<div class="i-checks">' +
+                                                        '<label class="check-labels"><input type="checkbox" value="Housing"><i></i> Housing</label>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                '<div class="col">' +
+                                                    '<div class="i-checks">' +
+                                                        '<label class="check-labels"><input type="checkbox" value="Working Capital"><i></i> Working Capital</label>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                '<div class="col">' +
+                                                    '<div class="i-checks">' +
+                                                        '<label class="check-labels"><input type="checkbox" value="Other"><i></i> Other</label>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="row">' +
+                                        '<div class="col-lg-6">' +
+                                            '<div class="form-group">' +
+                                                '<h3>Primary User</h3>' +
+                                                '<input type="text" name="primary-user" class="form-control info-loan-detail" data-title="Primary User">' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="col-lg-6">' +
+                                            '<div class="form-group">' +
+                                                '<h3>Relationship to Applicant</h3>' +
+                                                '<input type="text" name="relationship" class="form-control info-loan-detail" data-title="Relationship to Applicant">' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<h3>Place of use</h3>' +
+                                    '<div class="row info-loan-detail" data-title="Place of use">' +
+                                        '<div class="col">' +
+                                            '<div class="form-group">' +
+                                                '<div class="i-checks">' +
+                                                    '<label class="check-labels"><input type="checkbox" value="Residential"><i></i> Residential</label>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="form-group">' +
+                                                '<div class="i-checks">' +
+                                                    '<label class="check-labels"><input type="checkbox" value="Agricultural"><i></i> Agricultural</label>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="col">' +
+                                            '<div class="form-group">' +
+                                                '<div class="i-checks">' +
+                                                    '<label class="check-labels"><input type="checkbox" value="Residential / Commercial"><i></i> Residential / Commercial</label>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="form-group">' +
+                                                '<div class="i-checks">' +
+                                                    '<label class="check-labels"><input type="checkbox" value="Clean Loan / No Collateral"><i></i> Clean Loan / No Collateral</label>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="col">' +
+                                            '<div class="form-group">' +
+                                                '<div class="i-checks">' +
+                                                    '<label class="check-labels"><input type="checkbox" value="Commercial"><i></i> Commercial</label>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<h3>Collateral</h3>' +
+                                    '<div class="row">' +
+                                        '<div class="col-lg-4">' +
+                                            '<div class="form-group info-loan-detail" data-title="Collateral">' +
+                                                '<div class="i-checks">' +
+                                                    '<label class="check-labels"><input type="radio" name="collateral" class="collateral" data-type="land-title" value="Land Title: TCT No."><i></i> Land Title: TCT No.</label>' +
+                                                '</div>' +
+                                                '<div class="i-checks">' +
+                                                    '<label class="check-labels"><input type="radio" name="collateral" class="collateral" data-type="vehicle" value="Motor Vehicle"><i></i> Motor Vehicle</label>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="col-lg-8" id="collateral-box"></div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+
+                            '<div class="panel panel-default" id="credit">' +
+                                '<div class="panel-body">' +
+                                    '<strong><h2 class="text-success">CREDIT / FINANCIAL INFORMATION</h2></strong>' +
+                                    '<div class="row">' +
+                                        '<div class="col-lg-6 form-repeat-box-parent">' +
+                                            '<h3>Bank Accounts</h3>' +
+                                            '<div class="form-repeat-box credit-financial-info" data-title="Bank Accounts">' +
+                                                '<div class="row form-repeater">' +
+                                                    '<div class="col">' +
+                                                        '<div class="form-group">' +
+                                                            '<select name="" class="form-control" data-title="Account type">' +
+                                                                '<option value="">Account type</option>' +
+                                                                '<option value="Savings">Savings</option>' +
+                                                                '<option value="Checking">Checking</option>' +
+                                                                '<option value="Time Deposit">Time Deposit</option>' +
+                                                            '</select>' +
+                                                        '</div>' +
+                                                    '</div>' +
+                                                    '<div class="col">' +
+                                                        '<div class="form-group">' +
+                                                            '<input type="text" name="" class="form-control" data-title="Account No." placeholder="Account No.">' +
+                                                        '</div>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="btn-group-xs text-right">' +
+                                                '<button type="button" class="btn btn-xs btn-white btn-action" data-action="account-add"><i class="text-success fa fa-plus"></i></button>' +
+                                                '<button type="button" class="btn btn-xs btn-white btn-action" data-action="repeater-remove"><i class="text-danger fa fa-minus"></i></button>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="col-lg-6 form-repeat-box-parent">' +
+                                            '<h3>Credit References</h3>' +
+                                            '<div class="form-repeat-box credit-financial-info" data-title="Credit References">' +
+                                                '<div class="row form-repeater">' +
+                                                    '<div class="col">' +
+                                                        '<div class="form-group">' +
+                                                            '<input type="text" name="asdf" class="form-control" placeholder="Bank / Financing" data-title="Bank / Financing">' +
+                                                        '</div>' +
+                                                    '</div>' +
+                                                    '<div class="col">' +
+                                                        '<div class="form-group">' +
+                                                            '<input type="text" name="sdfg" class="form-control" placeholder="Monthly Amortization" data-title="Monthly Amortization">' +
+                                                        '</div>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="btn-group-xs text-right">' +
+                                                '<button type="button" class="btn btn-xs btn-white btn-action" data-action="reference-add"><i class="text-success fa fa-plus"></i></button>' +
+                                                '<button type="button" class="btn btn-xs btn-white btn-action" data-action="repeater-remove"><i class="text-danger fa fa-minus"></i></button>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+
+                            '<div class="panel panel-default">' +
+                                '<div class="panel-body">' +
+                                    '<strong><h2 class="text-success">TRADE AND OTHER REFERENCES</h2></strong>' +
+                                    '<div class="form-repeat-box-parent">' +
+                                        '<div class="form-repeat-box trade-reference-info" data-title="Trade and other reference">' +
+                                            '<div class="row form-repeater">' +
+                                                '<div class="col">' +
+                                                    '<div class="form-group">' +
+                                                        '<input type="text" name="" class="form-control" placeholder="Customer name / Co-maker" data-title="Customer name / Co-maker">' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                '<div class="col">' +
+                                                    '<div class="form-group">' +
+                                                        '<input type="text" name="" class="form-control" placeholder="Address" data-title="Address">' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                '<div class="col">' +
+                                                    '<div class="form-group">' +
+                                                        '<input type="text" name="" class="form-control" placeholder="Contact No." data-title="Contact No.">' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="btn-group-xs text-right">' +
+                                            '<button type="button" class="btn btn-xs btn-white btn-action" data-action="trade-add"><i class="text-success fa fa-plus"></i></button>' +
+                                            '<button type="button" class="btn btn-xs btn-white btn-action" data-action="repeater-remove"><i class="text-danger fa fa-minus"></i></button>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+
+                            '<div class="panel panel-default">' +
+                                '<div class="panel-body">' +
+                                    '<strong><h2 class="text-success">TERMS</h2></strong>' +
+                                    '<div class="row">' +
+                                        '<div class="col">' +
+                                            '<div class="bg-muted p-4">' +
+                                                '<strong>Naiintindihan ng humihiram na eto ay market testing sa pakikipag ugnayan ng Agrabah at CARD BDSFI na kung saan:</strong>' +
+                                                '<br>' +
+                                                '<br>' +
+                                                '<p>1. Eto ay pilot testing/market testing na kung saan maaring one time lang ang pag hiram at ang mga susunod na pag hiram ay sa CARD BANK or ibang insitutition na ng CARD MRI pwedeng gawin</p>' +
+                                                '<p>2. Ang hinihiram ay babayaran sa loob ng tatlong (3) buwan na may voluntary contribution na 2.5% ng prinsipal kada buwan, Kaugnay nito kung may pambayad na ang humihiram bago sumapit ang ikatlong buwan, maari nila itong bayaran ng buo or "partial"</p>' +
+                                                '<p>3. Pumapayag at naiintindihan ng humihiram na ang disbursement at collection ay via Konect2 CARD, CARD Sulit Padala or GCASH. Ang ACCOUNT Number ng CARD BDSFI na kung saan maari itong bayaran ay ibibigay sa humhiram matapos "madisburse" and pera."</p>' +
+                                                '<div class="text-center i-checks"><label><input type="checkbox" class="" id="terms_agree">&nbsp; Naiintindihan</label></div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+
+                        '');
 
 
                         checkBxInit();
@@ -832,25 +1061,68 @@
 
                         break;
                     case 'account-add':
-                        var box = $('.form-repeat-box');
+                        var box = $(this).closest('.form-repeat-box-parent').find('.form-repeat-box');
                         box.append('' +
-                            '<div class="form-inline mb-1">' +
-                                '<div class="form-group">' +
-                                    '<select name="" class="form-control">' +
-                                    '<option value="">Account type</option>' +
-                                    '<option value="Savings">Savings</option>' +
-                                    '<option value="Checking">Checking</option>' +
-                                    '<option value="Time Deposit">Time Deposit</option>' +
-                                    '</select>' +
+                            '<div class="row form-repeater">' +
+                                '<div class="col">' +
+                                    '<div class="form-group">' +
+                                        '<select name="" class="form-control" data-title="Account type">' +
+                                            '<option value="">Account type</option>' +
+                                            '<option value="Savings">Savings</option>' +
+                                            '<option value="Checking">Checking</option>' +
+                                            '<option value="Time Deposit">Time Deposit</option>' +
+                                        '</select>' +
+                                    '</div>' +
                                 '</div>' +
-                                '<div class="form-group">' +
-                                    '<input type="text" name="" class="form-control" placeholder="Account No.">' +
+                                '<div class="col">' +
+                                    '<div class="form-group">' +
+                                        '<input type="text" name="" class="form-control" placeholder="Account No." data-title="Account No.">' +
+                                    '</div>' +
                                 '</div>' +
                             '</div>' +
                         '');
                         break;
-                    case 'account-remove':
-                        var repeater = $('.form-repeat-box').find('.form-inline');
+                    case 'reference-add':
+                        var box = $(this).closest('.form-repeat-box-parent').find('.form-repeat-box');
+                        box.append('' +
+                            '<div class="row form-repeater mb-1">' +
+                                '<div class="col">' +
+                                    '<div class="form-group">' +
+                                        '<input type="text" name="asdf" class="form-control" placeholder="Bank / Financing" data-title="Bank / Financing">' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="col">' +
+                                    '<div class="form-group">' +
+                                        '<input type="text" name="sdfg" class="form-control" placeholder="Monthly Amortization" data-title="Monthly Amortization">' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '');
+                        break;
+                    case 'trade-add':
+                        var box = $(this).closest('.form-repeat-box-parent').find('.form-repeat-box');
+                        box.append('' +
+                            '<div class="row form-repeater">' +
+                                '<div class="col">' +
+                                    '<div class="form-group">' +
+                                        '<input type="text" name="" class="form-control" placeholder="Customer/Co-maker name" data-title="Customer name / Co-maker">' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="col">' +
+                                    '<div class="form-group">' +
+                                        '<input type="text" name="" class="form-control" placeholder="Address" data-title="Address">' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="col">' +
+                                    '<div class="form-group">' +
+                                        '<input type="text" name="" class="form-control" placeholder="Contact No." data-title="Contact No.">' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '');
+                        break;
+                    case 'repeater-remove':
+                        var repeater = $(this).closest('.form-repeat-box-parent').find('.form-repeat-box').find('.form-repeater');
                         if(repeater.length > 1){
                             repeater.last().remove();
                         }
