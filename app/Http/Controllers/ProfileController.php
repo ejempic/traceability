@@ -136,6 +136,7 @@ class ProfileController extends Controller
     public function myProfile()
     {
         $type = getRoleName('name');
+        $profile = null;
         if($type === 'farmer'){
             $profile = Auth::user()->farmer->profile;
         }
