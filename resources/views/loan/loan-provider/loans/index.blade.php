@@ -149,33 +149,8 @@
                             Payment Schedules
                         </div>
                         <div class="panel-body">
-                            <div class="form-group">
-                                <label>Timing</label>
-                                <select name="timing" id="timing" class="form-control">
-                                    <option value="day">Day</option>
-                                    <option value="monthly">Monthly</option>
-                                    <option value="custom">Custom</option>
-                                </select>
-{{--                                {{ Form::select('timing', ['day' => 'Day', 'monthly' => 'Monthly'], $loanProduct->timing, array('class'=>'form-control', 'id'=>'timing')) }}--}}
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>Allowance</label>
-{{--                                        <input name="allowance" id="allowance" type="text" data-mask="0#" value="{{$loanProduct->allowance}}" class="form-control changeSchedule">--}}
-                                        <input name="allowance" id="allowance" type="text" data-mask="0#" value="" class="form-control changeSchedule">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>1st Payment Allowance</label>
-{{--                                        <input name="first_allowance" id="first_allowance" type="text" data-mask="0#" value="{{$loanProduct->first_allowance}}" class="form-control changeSchedule">--}}
-                                        <input name="first_allowance" id="first_allowance" type="text" data-mask="0#" value="" class="form-control changeSchedule">
-                                    </div>
-                                </div>
-                            </div>
                             <div class="schedule_inputs">
-                                <div class="col">
+                                <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <tbody>
                                         <tr>
@@ -190,12 +165,33 @@
                                     </table>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label>Timing</label>
+                                <select name="timing" id="timing" class="form-control changeSchedule">
+                                    <option value="day">Day</option>
+                                    <option value="monthly">Monthly</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Allowance</label>
+                                        <input name="allowance" id="allowance" type="text" data-mask="0#" value="1" class="form-control changeSchedule">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>1st Payment Allowance</label>
+                                        <input name="first_allowance" id="first_allowance" type="text" data-mask="0#" value="0" class="form-control changeSchedule">
+                                    </div>
+                                </div>
+                            </div>
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
                                     <th>Due Date</th>
                                     <th class="text-right">Amount</th>
-                                    {{--                                <th class="text-right">Action</th>--}}
                                 </tr>
                                 </thead>
                                 <tbody id="payment_schedule_review">
@@ -277,12 +273,12 @@
         });
 
         function populateSchedule() {
-            var duration = $('#duration').val()
-            var amount = $('#amount').val()
-            var interest_rate = $('#interest_rate').val()
-            var timing = $('#timing').val()
-            var allowance = $('#allowance').val()
-            var first_allowance = $('#first_allowance').val()
+            var duration = $('#duration').val();
+            var amount = $('#amount').val();
+            var interest_rate = $('#interest_rate').val();
+            var timing = $('#timing').val();
+            var allowance = $('#allowance').val();
+            var first_allowance = $('#first_allowance').val();
 
             $.get('{!! route('generate-schedule') !!}', {
                 duration:duration,
@@ -345,6 +341,22 @@
             {{--table.ajax.reload();--}}
             // $('.money').mask("#,##0.00", {reverse: true});
 
+            $(document).on('click', '#modal-save-btn', function(){
+                var id = modal.data('id');
+                $.get('{!! route('loan-update-status') !!}', {
+                    id: id,
+                    action: 'approve',
+                    amount: modal.find('#amount').val(),
+                    duration: modal.find('#duration').val(),
+                    interest_rate: modal.find('#interest_rate').val(),
+                    timing: modal.find('#timing').val(),
+                    allowance: modal.find('#allowance').val(),
+                    first_allowance: modal.find('#first_allowance').val(),
+                }, function(data){
+                    location.reload();
+                });
+            });
+
             $(document).on('click', '.btn-action', function(){
                 var action = $(this).data('action');
                 var id = $(this).closest('tr').data('id');
@@ -367,8 +379,11 @@
                         break;
                     case 'pre-approve':
                         var title = 'Create Payment Scheme', body = null;
+                        modal.data('id', id);
+                        modal.data('type', 'approve-loan');
                         modal.find('#modal-size').removeClass().addClass('modal-dialog modal-lg');
                         modal.find('.modal-title').text(title);
+                        modal.find('#modal-save-btn').text('Approve Loan');
 
                         $.get('{!! route('loan-update-status') !!}', {
                             id: id,
@@ -378,10 +393,15 @@
                         });
 
                         // modal.find('.modal-body').empty().append(body);
+                        populateSchedule();
                         modal.modal({backdrop: 'static', keyboard: false});
 
                         break;
                 }
+            });
+
+            $(document).on('change, input', '.changeSchedule', function () {
+                populateSchedule();
             });
 
         });
