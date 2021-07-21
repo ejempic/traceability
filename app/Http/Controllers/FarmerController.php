@@ -354,6 +354,14 @@ class FarmerController extends Controller
         $loan->loan_provider_id = $loanProduct->loan_provider_id;
         $loan->loan_product_id = $loanProduct->id;
         $loan->status = 'Pending';
+
+        $loan->amount = $loanProduct->amount;
+        $loan->duration = $loanProduct->duration;
+        $loan->interest_rate = $loanProduct->interest_rate;
+        $loan->timing = $loanProduct->timing;
+        $loan->allowance = $loanProduct->allowance;
+        $loan->first_allowance = $loanProduct->first_allowance;
+
         if($farmer->loans()->save($loan)){
             $details = new LoanApplicationDetail();
             $details->loan_id = $loan->id;

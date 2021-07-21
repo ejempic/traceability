@@ -195,15 +195,30 @@ class LoanProviderController extends Controller
                 $endDate = null;
                 if($data->save()){
 //                    $products = $data->product;
-                    $paymentSchedules =  $this->loanService->generateSchedule($data);
-                    foreach($paymentSchedules as $paymentSchedule){
-                        $loanPaymentSchedules = new LoanPaymentSchedule();
-                        $loanPaymentSchedules->loan_id = $data->id;
-                        $loanPaymentSchedules->due_date = Carbon::createFromFormat('M j, Y', $paymentSchedule['date'])->toDateString();
-                        $loanPaymentSchedules->payable_amount = $paymentSchedule['amount'];
-                        $loanPaymentSchedules->status = 'unpaid';
-                        $loanPaymentSchedules->save();
-                        $endDate = $loanPaymentSchedules->due_date;
+                    if($data->timing == 'custom'){
+                        $paymentSchedules = $request->input('schedules');
+                        $amortization = computeAmortization($data->amount, $data->duration, $data->interest_rate);
+                        foreach($paymentSchedules as $paymentSchedule){
+                            $loanPaymentSchedules = new LoanPaymentSchedule();
+                            $loanPaymentSchedules->loan_id = $data->id;
+                            $loanPaymentSchedules->due_date = Carbon::createFromFormat('M j, Y', $paymentSchedule)->toDateString();
+                            $loanPaymentSchedules->payable_amount = $amortization;
+                            $loanPaymentSchedules->status = 'unpaid';
+                            $loanPaymentSchedules->save();
+                            $endDate = $loanPaymentSchedules->due_date;
+                        }
+                    }else{
+                        $paymentSchedules =  $this->loanService->generateSchedule($data);
+                        foreach($paymentSchedules as $paymentSchedule){
+                            $loanPaymentSchedules = new LoanPaymentSchedule();
+                            $loanPaymentSchedules->loan_id = $data->id;
+                            $loanPaymentSchedules->due_date = Carbon::createFromFormat('M j, Y', $paymentSchedule['date'])->toDateString();
+                            $loanPaymentSchedules->payable_amount = $paymentSchedule['amount'];
+                            $loanPaymentSchedules->status = 'unpaid';
+                            $loanPaymentSchedules->save();
+                            $endDate = $loanPaymentSchedules->due_date;
+                        }
+
                     }
                 }
                 $data->end_date = $endDate;
