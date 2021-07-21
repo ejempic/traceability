@@ -121,24 +121,21 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Financial Production Name</label>
-                                        <input type="text" name="name" class="form-control" readonly="">
-                                        {{ Form::text('name', $loanProduct->name, array('class'=>'form-control','required')) }}
+                                        <input type="text" name="name" value="Loan Product 1" class="form-control" readonly="">
                                     </div>
                                     <div class="form-group">
                                         <label>Loanable Amount</label>
-                                        <input name="amount" id="amount" type="text" class="form-control money changeSchedule" value="{{currency_format(70000)}}">
+                                        <input name="amount" id="amount" type="text" class="form-control money changeSchedule" value="{{currency_format(70000)}}" readonly="">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Loan Duration (Months)</label>
-                                        <input type="text" name="" class="form-control" readonly="">
-                                        <input name="duration" id="duration" type="text" data-mask="0#" class="form-control changeSchedule" value="{{$loanProduct->duration}}">
+                                        <input name="duration" id="duration" type="text" data-mask="0#" class="form-control changeSchedule" value="7" readonly="">
                                     </div>
                                     <div class="form-group">
                                         <label>Interest Rate (%)</label>
-                                        <input type="text" name="" class="form-control" readonly="">
-                                        <input name="interest_rate" id="interest_rate" type="text" data-mask="##0%"   class="form-control changeSchedule"  value="{{$loanProduct->interest_rate}}">
+                                        <input name="interest_rate" id="interest_rate" type="text" data-mask="##0%"   class="form-control changeSchedule"  value="91" readonly="">
                                     </div>
                                 </div>
                             </div>
