@@ -80,21 +80,23 @@
                                             @endif
                                             <td class="project-actions">
                                                 <div class="btn-group">
-                                                <a href="#" class="btn btn-success btn-sm sched_modal_trigger"
-                                                   data-schedule="{{$loan->payment_schedules}}"><i
-                                                            class="fa fa-calendar"></i> Schedules </a>
-                                                <a href="#" class="btn btn-primary btn-sm payment_modal_trigger"
-                                                   data-amount_monthly="{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2))}}"
-                                                   data-amount_max="{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2) * $loan->product->duration)}}"
-                                                   data-id="{{$loan->id}}"
-                                                   data-status="{{$loan->status}}"
-                                                ><i class="fa fa-money"></i> Pay </a>
-                                                <a href="#" class="btn btn-warning btn-sm payment_history_modal_trigger"
-                                                   data-payments="{{$loan->payments}}"
-                                                   data-status="{{$loan->status}}"
-                                                ><i
-                                                            class="fa fa-list"></i> Payments </a>
-                                                    <button type="button" class="btn btn-sm btn-danger">Cancel</button>
+                                                    @if($loan->status != 'Declined')
+                                                    <a href="#" class="btn btn-success btn-sm sched_modal_trigger"
+                                                       data-schedule="{{$loan->payment_schedules}}"><i
+                                                                class="fa fa-calendar"></i> Schedules </a>
+                                                    <a href="#" class="btn btn-primary btn-sm payment_modal_trigger"
+                                                       data-amount_monthly="{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2))}}"
+                                                       data-amount_max="{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2) * $loan->product->duration)}}"
+                                                       data-id="{{$loan->id}}"
+                                                       data-status="{{$loan->status}}"
+                                                    ><i class="fa fa-money"></i> Pay </a>
+                                                    <a href="#" class="btn btn-warning btn-sm payment_history_modal_trigger"
+                                                       data-payments="{{$loan->payments}}"
+                                                       data-status="{{$loan->status}}"
+                                                    ><i
+                                                                class="fa fa-list"></i> Payments </a>
+                                                        <button type="button" class="btn btn-sm btn-danger">Cancel</button>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

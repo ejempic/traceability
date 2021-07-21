@@ -779,13 +779,20 @@
 
                         console.log(inputs);
 
-                        $.post('{!! route('loan-submit-form') !!}', {
-                            _token: '{!! csrf_token() !!}',
-                            inputs: inputs
-                        }, function(data){
-                            console.log(data);
-                            window.location.replace(data);
-                        });
+                        if($('#terms_agree').prop('checked')){
+                            // modal.modal('toggle');
+                            $.post('{!! route('loan-submit-form') !!}', {
+                                _token: '{!! csrf_token() !!}',
+                                inputs: inputs
+                            }, function(data){
+                                console.log(data);
+                                window.location.replace(data);
+                            });
+                        }else{
+                            $('#terms_agree').closest('.form-group').addClass('has-error');
+                        }
+
+
                         break;
                     case 'create-disbursement':
                         var datas = new Array(), error = 0;
@@ -826,12 +833,8 @@
                 switch ($(this).data('action')) {
                     case 'apply-loan':
                         if(checkDisbursement() > 0){
-                            console.log('apply-loan cancelled');
                             return false;
                         }
-                        console.log('apply-loan success');
-                        break;
-                    case '':
                         modal.data('type', 'loan-application-detail');
                         modal.data('id', loanProductID);
 
@@ -1029,7 +1032,9 @@
                                                 '<p>1. Eto ay pilot testing/market testing na kung saan maaring one time lang ang pag hiram at ang mga susunod na pag hiram ay sa CARD BANK or ibang insitutition na ng CARD MRI pwedeng gawin</p>' +
                                                 '<p>2. Ang hinihiram ay babayaran sa loob ng tatlong (3) buwan na may voluntary contribution na 2.5% ng prinsipal kada buwan, Kaugnay nito kung may pambayad na ang humihiram bago sumapit ang ikatlong buwan, maari nila itong bayaran ng buo or "partial"</p>' +
                                                 '<p>3. Pumapayag at naiintindihan ng humihiram na ang disbursement at collection ay via Konect2 CARD, CARD Sulit Padala or GCASH. Ang ACCOUNT Number ng CARD BDSFI na kung saan maari itong bayaran ay ibibigay sa humhiram matapos "madisburse" and pera."</p>' +
-                                                '<div class="text-center i-checks"><label><input type="checkbox" class="" id="terms_agree">&nbsp; Naiintindihan</label></div>' +
+                                                '<div class="form-group">' +
+                                                    '<div class="text-center i-checks"><label><input type="checkbox" class="form-control" id="terms_agree">&nbsp; Naiintindihan</label></div>' +
+                                                '</div>' +
                                             '</div>' +
                                         '</div>' +
                                     '</div>' +
@@ -1186,8 +1191,8 @@
                     }else{
                         status += 1;
                         swal({
-                            title: "Disbursement info not found!",
-                            text: "Create disbursement info to proceed in loan!",
+                            title: "Disbursement account not exist!",
+                            text: "Create disbursement account to proceed in loan!",
                             type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: "#6a73dd",
@@ -1199,7 +1204,7 @@
                         function (isConfirm) {
                             if (isConfirm) {
                                 modal.data('type', 'create-disbursement');
-                                modal.find('.modal-title').text('Disbursement Information');
+                                modal.find('.modal-title').text('Disbursement Account Information');
                                 modal.find('#modal-size').removeClass().addClass('modal-dialog modal-md');
                                 modal.find('.modal-body').empty().append('' +
                                     '<div class="panel panel-default">' +

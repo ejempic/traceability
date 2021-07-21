@@ -75,15 +75,19 @@
                                             </td>
                                             <td class="text-right">{{ $loan->status }}</td>
                                             <td class="project-actions">
-                                                @if($loan->status == 'Pending')
-                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
-                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="approve"><i class="fa fa-thumbs-up text-success"></i> Approve </button>
-                                                @endif
-                                                @if($loan->status == 'Active')
-                                                    <button type="button" class="btn btn-white btn-sm payment_history_modal_trigger"
-                                                            data-payments="{{$loan->payments}}"
-                                                    ><i class="fa fa-list"></i> Payments </button>
-                                                @endif
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="show"><i class="fa fa-search text-info"></i> View </button>
+                                                    @if($loan->status == 'Pending')
+                                                        <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
+                                                        <button type="button" class="btn btn-white btn-sm btn-action" data-action="pre-approve"><i class="fa fa-thumbs-up text-success"></i> Approve </button>
+                                                    @endif
+                                                    @if($loan->status == 'Active')
+                                                        <button type="button" class="btn btn-white btn-sm payment_history_modal_trigger"
+                                                                data-payments="{{$loan->payments}}"
+                                                        ><i class="fa fa-list"></i> Payments </button>
+                                                    @endif
+                                                </div>
+
                                             </td>
                                         </tr>
                                     @empty
@@ -111,7 +115,100 @@
                     <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Financial Production Name</label>
+                                        <input type="text" name="name" class="form-control" readonly="">
+                                        {{ Form::text('name', $loanProduct->name, array('class'=>'form-control','required')) }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Loanable Amount</label>
+                                        <input name="amount" id="amount" type="text" class="form-control money changeSchedule" value="{{currency_format(70000)}}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Loan Duration (Months)</label>
+                                        <input type="text" name="" class="form-control" readonly="">
+                                        <input name="duration" id="duration" type="text" data-mask="0#" class="form-control changeSchedule" value="{{$loanProduct->duration}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Interest Rate (%)</label>
+                                        <input type="text" name="" class="form-control" readonly="">
+                                        <input name="interest_rate" id="interest_rate" type="text" data-mask="##0%"   class="form-control changeSchedule"  value="{{$loanProduct->interest_rate}}">
+                                    </div>
+                                </div>
+                            </div>
 
+
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Payment Schedules
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>Timing</label>
+                                <select name="timing" id="timing" class="form-control">
+                                    <option value="day">Day</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+{{--                                {{ Form::select('timing', ['day' => 'Day', 'monthly' => 'Monthly'], $loanProduct->timing, array('class'=>'form-control', 'id'=>'timing')) }}--}}
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Allowance</label>
+{{--                                        <input name="allowance" id="allowance" type="text" data-mask="0#" value="{{$loanProduct->allowance}}" class="form-control changeSchedule">--}}
+                                        <input name="allowance" id="allowance" type="text" data-mask="0#" value="" class="form-control changeSchedule">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>1st Payment Allowance</label>
+{{--                                        <input name="first_allowance" id="first_allowance" type="text" data-mask="0#" value="{{$loanProduct->first_allowance}}" class="form-control changeSchedule">--}}
+                                        <input name="first_allowance" id="first_allowance" type="text" data-mask="0#" value="" class="form-control changeSchedule">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="schedule_inputs">
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <td>Assuming Approved Date</td>
+                                            <td class="text-right">{{now()->toFormattedDateString()}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Loan Amount</td>
+                                            <td id="total_loan_amount" class="text-right">0</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Due Date</th>
+                                    <th class="text-right">Amount</th>
+                                    {{--                                <th class="text-right">Action</th>--}}
+                                </tr>
+                                </thead>
+                                <tbody id="payment_schedule_review">
+                                <tr>
+                                    <td colspan="99">--</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
@@ -182,8 +279,49 @@
             }
         });
 
+        function populateSchedule() {
+            var duration = $('#duration').val()
+            var amount = $('#amount').val()
+            var interest_rate = $('#interest_rate').val()
+            var timing = $('#timing').val()
+            var allowance = $('#allowance').val()
+            var first_allowance = $('#first_allowance').val()
+
+            $.get('{!! route('generate-schedule') !!}', {
+                duration:duration,
+                amount:amount,
+                interest_rate:interest_rate,
+                timing:timing,
+                allowance:allowance,
+                first_allowance:first_allowance,
+            }, function(data){
+
+                var table = '';
+                var total = 0;
+                for (let i = 0; i < data.length; i++) {
+                    const datum = data[i];
+                    table +='<tr>';
+                    table +='<td>';
+                    table += datum.date;
+                    table +='</td>'
+                    table +='<td class="text-right">';
+                    table += numberWithCommas(datum.amount);
+                    table +='</td>';
+                    table +='</tr>';
+                    total += datum.amount;
+                }
+                $('#total_loan_amount').html(numberWithCommas(total));
+                $('#payment_schedule_review').empty().append(table);
+                $('#payment_schedule_input').val(JSON.stringify(data))
+            });
+        }
+
+        $(document).on('change, input', '.changeSchedule', function () {
+            populateSchedule();
+        });
+
         $(document).ready(function(){
-            {{--var modal = $('#modal');--}}
+            var modal = $('#modal');
             {{--$(document).on('click', '', function(){--}}
             {{--    modal.modal({backdrop: 'static', keyboard: false});--}}
             {{--    modal.modal('toggle');--}}
@@ -217,18 +355,34 @@
                     case 'decline':
                         $.get('{!! route('loan-update-status') !!}', {
                             id: id,
-                            status: 'Declined'
+                            action: action
                         }, function(data){
                             location.reload();
                         });
                         break;
-                    case 'approve':
+                    case 'show':
                         $.get('{!! route('loan-update-status') !!}', {
                             id: id,
-                            status: 'Active'
+                            action: action
                         }, function(data){
-                            // location.reload();
+                            console.log(data);
                         });
+                        break;
+                    case 'pre-approve':
+                        var title = 'Create Payment Scheme', body = null;
+                        modal.find('#modal-size').removeClass().addClass('modal-dialog modal-lg');
+                        modal.find('.modal-title').text(title);
+
+                        $.get('{!! route('loan-update-status') !!}', {
+                            id: id,
+                            action: action
+                        }, function(data){
+                            console.log(data);
+                        });
+
+                        // modal.find('.modal-body').empty().append(body);
+                        modal.modal({backdrop: 'static', keyboard: false});
+
                         break;
                 }
             });

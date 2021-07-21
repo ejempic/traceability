@@ -75,10 +75,10 @@
                                             </td>
                                             <td class="text-right">{{ $loan->status }}</td>
                                             <td class="project-actions">
-                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-search text-info"></i> View </button>
+                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="show"><i class="fa fa-search text-info"></i> View </button>
                                                 @if($loan->accept == 0)
                                                     <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
-                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="approve"><i class="fa fa-thumbs-up text-success"></i> Approve </button>
+                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="accept"><i class="fa fa-thumbs-up text-success"></i> Accept </button>
                                                 @endif
                                                 @if($loan->status == 'Active')
                                                     <button type="button" class="btn btn-white btn-sm payment_history_modal_trigger"
@@ -218,15 +218,23 @@
                     case 'decline':
                         $.get('{!! route('loan-update-status') !!}', {
                             id: id,
-                            status: 'Declined'
+                            action: action
                         }, function(data){
                             location.reload();
                         });
                         break;
-                    case 'approve':
+                    case 'accept':
                         $.get('{!! route('loan-update-status') !!}', {
                             id: id,
-                            status: 'Active'
+                            action: action
+                        }, function(data){
+                            location.reload();
+                        });
+                        break;
+                    case 'show':
+                        $.get('{!! route('loan-update-status') !!}', {
+                            id: id,
+                            action: action
                         }, function(data){
                             location.reload();
                         });

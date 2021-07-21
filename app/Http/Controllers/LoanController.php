@@ -36,6 +36,7 @@ class LoanController extends Controller
         $loans = Loan::where('borrower_type', 'App\Farmer')
             ->where('borrower_id', Auth::user()->farmer->id)
             ->get();
+//        return $loans;
 
         return view(subDomainPath('farmer.loans.index'), compact('loans'));
     }

@@ -158,30 +158,59 @@ class LoanProviderController extends Controller
 
     public function loanUpdateStatus(Request $request)
     {
-        DB::beginTransaction();
-        $data = Loan::find($request->input('id'));
-        if($data->status == 'Active'){
-            return null;
+        $action = $request->input('action');
+        switch ($action){
+            case 'decline':
+                $data = Loan::find($request->input('id'));
+                $data->status = 'Declined';
+                $data->save();
+                break;
+            case 'accept':
+                $data = Loan::find($request->input('id'));
+                $data->accept = 1;
+                $data->save();
+                break;
+            case 'show':
+                $data = Loan::find($request->input('id'));
+                return response()->json($data);
+                break;
+            case 'pre-approve':
+                $data = Loan::with('product')->find($request->input('id'));
+                return response()->json($data);
+                break;
+            case 'approve':
+//                $data = Loan::find($request->input('id'));
+//                $data->accept = 1;
+//                $data->save();
+                break;
         }
-        $data->status = $request->input('status');
-        $data->start_date = Carbon::now()->toDateString();
-        $endDate = null;
-        if($data->save()){
-            $products = $data->product;
-            $paymentSchedules =  $this->loanService->generateSchedule($products);
-            foreach($paymentSchedules as $paymentSchedule){
-                $loanPaymentSchedules = new LoanPaymentSchedule();
-                $loanPaymentSchedules->loan_id = $data->id;
-                $loanPaymentSchedules->due_date = Carbon::createFromFormat('M j, Y', $paymentSchedule['date'])->toDateString();
-                $loanPaymentSchedules->payable_amount = $paymentSchedule['amount'];
-                $loanPaymentSchedules->status = 'unpaid';
-                $loanPaymentSchedules->save();
-                $endDate = $loanPaymentSchedules->due_date;
-            }
-        }
-        $data->end_date = $endDate;
-        $data->save();
-        DB::commit();
+
+
+
+//        DB::beginTransaction();
+//        $data = Loan::find($request->input('id'));
+//        if($data->status == 'Active'){
+//            return null;
+//        }
+//        $data->status = $request->input('status');
+//        $data->start_date = Carbon::now()->toDateString();
+//        $endDate = null;
+//        if($data->save()){
+//            $products = $data->product;
+//            $paymentSchedules =  $this->loanService->generateSchedule($products);
+//            foreach($paymentSchedules as $paymentSchedule){
+//                $loanPaymentSchedules = new LoanPaymentSchedule();
+//                $loanPaymentSchedules->loan_id = $data->id;
+//                $loanPaymentSchedules->due_date = Carbon::createFromFormat('M j, Y', $paymentSchedule['date'])->toDateString();
+//                $loanPaymentSchedules->payable_amount = $paymentSchedule['amount'];
+//                $loanPaymentSchedules->status = 'unpaid';
+//                $loanPaymentSchedules->save();
+//                $endDate = $loanPaymentSchedules->due_date;
+//            }
+//        }
+//        $data->end_date = $endDate;
+//        $data->save();
+//        DB::commit();
 
     }
 
