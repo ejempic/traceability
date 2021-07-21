@@ -143,7 +143,6 @@
 
                         </div>
                     </div>
-
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Payment Schedules
@@ -227,7 +226,7 @@
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
     {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
-    {{--    {!! Html::script('/js/template/moment.js') !!}--}}
+        {!! Html::script('/js/template/moment.js') !!}
     <script>
 
         function numberWithCommas(x) {
@@ -384,12 +383,95 @@
                         modal.find('#modal-size').removeClass().addClass('modal-dialog modal-lg');
                         modal.find('.modal-title').text(title);
                         modal.find('#modal-save-btn').text('Approve Loan');
-
+                        jQuery.ajaxSetup({async:false});
                         $.get('{!! route('loan-update-status') !!}', {
                             id: id,
                             action: action
                         }, function(data){
                             console.log(data);
+                            body = '' +
+                                '<div class="panel panel-default">' +
+                                    '<div class="panel-body">' +
+                                        '<div class="row">' +
+                                            '<div class="col-lg-6">' +
+                                                '<div class="form-group">' +
+                                                    '<label>Financial Production Name</label>' +
+                                                    '<input type="text" name="name" value="'+ data.product.name +'" class="form-control" readonly="">' +
+                                                '</div>' +
+                                                '<div class="form-group">' +
+                                                    '<label>Loanable Amount</label>' +
+                                                    '<input name="amount" id="amount" type="text" class="form-control money changeSchedule" value="'+ data.amount +'" readonly="">' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="col-lg-6">' +
+                                                '<div class="form-group">' +
+                                                    '<label>Loan Duration (Months)</label>' +
+                                                    '<input name="duration" id="duration" type="text" data-mask="0#" class="form-control changeSchedule" value="'+ data.duration +'" readonly="">' +
+                                                '</div>' +
+                                                '<div class="form-group">' +
+                                                    '<label>Interest Rate (%)</label>' +
+                                                    '<input name="interest_rate" id="interest_rate" type="text" data-mask="##0%" class="form-control changeSchedule"  value="'+ data.interest_rate +'" readonly="">' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="panel panel-default">' +
+                                    '<div class="panel-heading">Payment Schedules</div>' +
+                                    '<div class="panel-body">' +
+                                        '<div class="schedule_inputs">' +
+                                            '<div class="table-responsive">' +
+                                                '<table class="table table-bordered">' +
+                                                    '<tbody>' +
+                                                        '<tr>' +
+                                                            '<td>Assuming Approved Date</td>' +
+                                                            '<td class="text-right">'+ moment() +'</td>' +
+                                                        '</tr>' +
+                                                        '<tr>' +
+                                                            '<td>Total Loan Amount</td>' +
+                                                            '<td id="total_loan_amount" class="text-right">0</td>' +
+                                                        '</tr>' +
+                                                    '</tbody>' +
+                                                '</table>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="form-group">' +
+                                            '<label>Timing</label>' +
+                                            '<select name="timing" id="timing" class="form-control changeSchedule">' +
+                                                '<option value="day">Day</option>' +
+                                                '<option value="monthly" selected>Monthly</option>' +
+                                            '</select>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                            '<div class="col-6">' +
+                                                '<div class="form-group">' +
+                                                    '<label>Allowance</label>' +
+                                                    '<input name="allowance" id="allowance" type="text" data-mask="0#" value="'+ data.allowance +'" class="form-control changeSchedule">' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="col-6">' +
+                                                '<div class="form-group">' +
+                                                    '<label>1st Payment Allowance</label>' +
+                                                    '<input name="first_allowance" id="first_allowance" type="text" data-mask="0#" value="'+ data.first_allowance +'" class="form-control changeSchedule">' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<table class="table table-bordered">' +
+                                            '<thead>' +
+                                                '<tr>' +
+                                                    '<th>Due Date</th>' +
+                                                    '<th class="text-right">Amount</th>' +
+                                                '</tr>' +
+                                            '</thead>' +
+                                            '<tbody id="payment_schedule_review">' +
+                                                '<tr>' +
+                                                    '<td colspan="99">--</td>' +
+                                                '</tr>' +
+                                            '</tbody>' +
+                                        '</table>' +
+                                    '</div>' +
+                                '</div>' +
+                            '';
                         });
 
                         // modal.find('.modal-body').empty().append(body);
