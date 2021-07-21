@@ -76,7 +76,7 @@
                                             <td class="text-right">{{ $loan->status }}</td>
                                             <td class="project-actions">
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="show"><i class="fa fa-search text-info"></i> View </button>
+{{--                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="show"><i class="fa fa-search text-info"></i> View </button>--}}
                                                     @if($loan->status == 'Pending')
                                                         <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
                                                         <button type="button" class="btn btn-white btn-sm btn-action" data-action="pre-approve"><i class="fa fa-thumbs-up text-success"></i> Approve </button>
