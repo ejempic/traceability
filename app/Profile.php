@@ -41,4 +41,29 @@ class Profile extends Model
     {
         return $this->morphTo();
     }
+
+    public function getSecondaryInfoAttribute($value)
+    {
+        return unserialize($value);
+    }
+
+    public function getSpouseComakerInfoAttribute($value)
+    {
+        return unserialize($value);
+    }
+
+    public function getFarmingInfoAttribute($value)
+    {
+        return unserialize($value);
+    }
+
+    public function getEmploymentInfoAttribute($value)
+    {
+        return unserialize($value);
+    }
+
+    public function getIncomeAssetInfoAttribute($value)
+    {
+        return unserialize($value);
+    }
 }

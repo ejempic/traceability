@@ -171,7 +171,8 @@ class LoanProviderController extends Controller
                 $data->save();
                 break;
             case 'show':
-                $data = Loan::find($request->input('id'));
+                $data = Loan::with('borrower', 'details')
+                    ->find($request->input('id'));
                 return response()->json($data);
                 break;
             case 'pre-approve':
@@ -226,11 +227,6 @@ class LoanProviderController extends Controller
                 DB::commit();
                 break;
         }
-
-
-
-
-
     }
 
     public function customForms()

@@ -38,3 +38,7 @@ $(document).on('keydown','.numonly',function(event) {
         }
     }
 });
+
+function displayLoanApplicationDetails(profile, loan){
+    
+}
