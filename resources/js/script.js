@@ -39,10 +39,261 @@ $(document).on('keydown','.numonly',function(event) {
     }
 });
 
+function getAge(dob){
+    dob = new Date(dob);
+    var today = new Date();
+    var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+    return age;
+}
+
+function numFormat(yourNumber) {
+    //Seperates the components of the number
+    var n= yourNumber.toString().split(".");
+    //Comma-fies the first part
+    n[0] = n[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //Combines the two sections
+    return n.join(".");
+}
+
+
 $(document).ready(function(){
     window.displayLoanApplicationDetails = function (profile, loanDetail){
         console.log(profile);
         console.log(loanDetail);
+        var dependents = new Array();
+        if(profile.secondary_info[3][2] !== null){
+            for(var a = 0; a < profile.secondary_info[3][2].length; a++){
+                dependents.push('' +
+                    '<tr>' +
+                        '<td>'+ profile.secondary_info[3][2][a][0] +'</td>' +
+                        '<td>'+ profile.secondary_info[3][2][a][1] +'</td>' +
+                    '</tr>' +
+                '');
+            }
+        }
+        var groups = new Array();
+        for(var a = 2; a < profile.farming_info.length; a++){
+            if(profile.farming_info[a][2] === "1"){
+                groups.push('' +
+                    '<li>'+ profile.farming_info[a][1] +'</li>' +
+                '');
+            }
+        }
+        var landlord = (profile.secondary_info[2][2] === 'Rented') ? '<dl><dt>Landlords Address</dt><dd>'+ profile.secondary_info[2][3][0] +'</dd></dl><dl><dt>Landlords Contact No.</dt><dd>'+ profile.secondary_info[2][3][1] +'</dd></dl>' : '';
+        dependents = (profile.secondary_info[3][2] !== null) ? dependents.join('') : '' +
+            '<tr>' +
+            '<td colspan="2" class="text-center">None</td>' +
+            '</tr>' +
+        '';
+
+        var rowAAIncome = parseInt(profile.income_asset_info[0][2]);
+        var rowABIncome = parseInt(profile.income_asset_info[1][2]);
+
+        var rowBAIncome = parseInt(profile.income_asset_info[2][2]);
+        var rowBBIncome = parseInt(profile.income_asset_info[3][2]);
+
+        var rowCIncome = parseInt(profile.income_asset_info[4][2]);
+
+        var rowDExpense = parseInt(profile.income_asset_info[5][2]);
+        var rowEExpense = parseInt(profile.income_asset_info[6][2]);
+
+        var rowASum = 0;
+        var rowBSum = 0;
+        var rowABCSum = 0;
+        var rowDESum = 0;
+        var totalIncomeSum = 0;
+
+        rowASum += rowAAIncome;
+        rowASum += rowABIncome;
+
+        rowBSum += rowBAIncome;
+        rowBSum += rowBBIncome;
+
+        rowABCSum += rowAAIncome;
+        rowABCSum += rowABIncome;
+        rowABCSum += rowBAIncome;
+        rowABCSum += rowBBIncome;
+        rowABCSum += rowCIncome;
+
+        rowDESum += rowDExpense;
+        rowDESum += rowEExpense;
+
+        totalIncomeSum += rowABCSum;
+        totalIncomeSum -= rowDESum;
+
+        var loanDetailMenu = '';
+        var loanDetailContent = '';
+        if(loanDetail !== null){
+            loanDetailMenu = '' +
+                '<li><a class="nav-link" data-toggle="tab" href="#tab-5">Loan Details</a></li>' +
+            '';
+
+            var loanPurpose = new Array();
+            for(var a = 0; a < loanDetail.info_loan_detail[0][1].length; a++){
+                loanPurpose.push('' +
+                    '<li>'+ loanDetail.info_loan_detail[0][1][a] +'</li>' +
+                '');
+            }
+            loanPurpose = loanPurpose.join('');
+
+            var placeUse = new Array();
+            for(var a = 0; a < loanDetail.info_loan_detail[3][1].length; a++){
+                placeUse.push('' +
+                    '<li>'+ loanDetail.info_loan_detail[3][1][a] +'</li>' +
+                '');
+            }
+            placeUse = placeUse.join('');
+
+            var bankAccount = '';
+            if(loanDetail.credit_financial_info[0][1].length > 0){
+                bankAccount = new Array();
+                for(var a = 0; a < loanDetail.credit_financial_info[0][1].length; a++){
+                    bankAccount.push('' +
+                        '<tr>' +
+                        '<td>'+ loanDetail.credit_financial_info[0][1][a][0][1] +'</td>' +
+                        '<td>'+ loanDetail.credit_financial_info[0][1][a][1][1] +'</td>' +
+                        '</tr>' +
+                    '');
+                }
+                bankAccount = bankAccount.join('');
+            }
+
+            var creditRef = '';
+            if(loanDetail.credit_financial_info[1][1].length > 0){
+                creditRef = new Array();
+                for(var a = 0; a < loanDetail.credit_financial_info[1][1].length; a++){
+                    creditRef.push('' +
+                        '<tr>' +
+                        '<td>'+ loanDetail.credit_financial_info[1][1][a][0][1] +'</td>' +
+                        '<td>'+ loanDetail.credit_financial_info[1][1][a][1][1] +'</td>' +
+                        '</tr>' +
+                    '');
+                }
+                creditRef = creditRef.join('');
+            }
+
+            var tradeRef = '';
+            if(loanDetail.trade_reference_info[0][1].length > 0){
+                tradeRef = new Array();
+                for(var a = 0; a < loanDetail.trade_reference_info[0][1].length; a++){
+                    tradeRef.push('' +
+                        '<tr>' +
+                        '<td>'+ loanDetail.trade_reference_info[0][1][a][0][1] +'</td>' +
+                        '<td>'+ loanDetail.trade_reference_info[0][1][a][1][1] +'</td>' +
+                        '<td>'+ loanDetail.trade_reference_info[0][1][a][2][1] +'</td>' +
+                        '</tr>' +
+                    '');
+                }
+                tradeRef = tradeRef.join('');
+            }
+
+
+
+            var collateral = (loanDetail.info_loan_detail[4][1][0] === 'Motor Vehicle') ? '' +
+                '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][1] +' <small>['+ loanDetail.info_loan_detail[4][1][1][0] +']</small></dd>' +
+                '' : '' +
+
+                '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][0] +'</dd>' +
+                '';
+
+
+            loanDetailContent = '' +
+                '<div role="tabpanel" id="tab-5" class="tab-pane">' +
+                    '<div class="panel-body">' +
+                        '<h2 class="text-success"><strong>Loan Details</strong></h2>' +
+                        '<div class="row">' +
+                            '<div class="col">' +
+                                '<dl>' +
+                                    '<dt>Purpose of Loan</dt>' +
+                                    '<dd>' +
+                                        '<ul class="list-inline-item">'+ loanPurpose +'</ul>' +
+                                    '</dd>' +
+                                '</dl>' +
+                            '</div>' +
+                            '<div class="col">' +
+                                '<dl>' +
+                                    '<dt>Primary User</dt>' +
+                                    '<dd>'+ loanDetail.info_loan_detail[1][1] +'</dd>' +
+                                '</dl>' +
+                                '<dl>' +
+                                    '<dt>Relationship to Applicant</dt>' +
+                                    '<dd>'+ loanDetail.info_loan_detail[2][1] +'</dd>' +
+                                '</dl>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="row">' +
+                            '<div class="col">' +
+                                '<dl>' +
+                                    '<dt>Place of use</dt>' +
+                                    '<dd>' +
+                                        '<ul class="list-inline-item">'+ placeUse +'</ul>' +
+                                    '</dd>' +
+                                '</dl>' +
+                            '</div>' +
+                            '<div class="col">' +
+                                '<dl>' +
+                                    '<dt>Collateral</dt>' +
+                                    '<dd>'+ collateral +'</dd>' +
+                                '</dl>' +
+                            '</div>' +
+                        '</div>' +
+
+                        '<h2 class="text-success"><strong>Credit / Financial Information</strong></h2>' +
+                        '<div class="row">' +
+                            '<div class="col">' +
+                                '<dl>' +
+                                    '<dt>Bank Accounts</dt>' +
+                                    '<dd>' +
+                                        '<table class="table table-borderless">' +
+                                            '<thead>' +
+                                                '<tr>' +
+                                                    '<th><small>Account Type</small></th>' +
+                                                    '<th><small>Account No.</small></th>' +
+                                                '</tr>' +
+                                            '</thead>' +
+                                            '<tbody>'+ bankAccount +'</tbody>' +
+                                        '</table>' +
+                                    '</dd>' +
+                                '</dl>' +
+                            '</div>' +
+                            '<div class="col">' +
+                                '<dl>' +
+                                    '<dt>Credit References</dt>' +
+                                    '<dd>' +
+                                        '<table class="table table-borderless">' +
+                                        '<thead>' +
+                                            '<tr>' +
+                                                '<th><small>Bank / Financing</small></th>' +
+                                                '<th><small>Monthly Amortization</small></th>' +
+                                            '</tr>' +
+                                        '</thead>' +
+                                        '<tbody>'+ creditRef +'</tbody>' +
+                                        '</table>' +
+                                    '</dd>' +
+                                '</dl>' +
+                            '</div>' +
+                        '</div>' +
+
+                        '<h2 class="text-success"><strong>Trade and other Reference</strong></h2>' +
+                        '<div class="row">' +
+                            '<div class="col">' +
+                                '<table class="table table-borderless">' +
+                                    '<thead>' +
+                                        '<tr>' +
+                                            '<th><small>Customer name / Co maker</small></th>' +
+                                            '<th><small>Address</small></th>' +
+                                            '<th><small>Contact No.</small></th>' +
+                                        '</tr>' +
+                                    '</thead>' +
+                                    '<tbody>'+ tradeRef +'</tbody>' +
+                                '</table>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '';
+        }
+
         var content = '' +
             '<div class="tabs-container" id="loan-app-detail">' +
                 '<ul class="nav nav-tabs" role="tablist">' +
@@ -50,7 +301,8 @@ $(document).ready(function(){
                     '<li><a class="nav-link" data-toggle="tab" href="#tab-2">More Information</a></li>' +
                     '<li><a class="nav-link" data-toggle="tab" href="#tab-3">Employment</a></li>' +
                     '<li><a class="nav-link" data-toggle="tab" href="#tab-4">Monthly Income</a></li>' +
-                    '<li><a class="nav-link" data-toggle="tab" href="#tab-5">Loan Details</a></li>' +
+                    loanDetailMenu +
+
                 '</ul>' +
                 '<div class="tab-content">' +
                     '<div role="tabpanel" id="tab-1" class="tab-pane active">' +
@@ -77,11 +329,11 @@ $(document).ready(function(){
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Date of Birth</dt>' +
-                                                '<dd>'+ profile.dob +'</dd>' +
+                                                '<dd>'+ profile.bday +'</dd>' +
                                             '</dl>' +
                                             '<dl>' +
                                                 '<dt>Age</dt>' +
-                                                '<dd>'+ profile.age +'</dd>' +
+                                                '<dd>'+ getAge(profile.dob) +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -92,13 +344,13 @@ $(document).ready(function(){
                                         '<div class="col ">' +
                                             '<dl>' +
                                                 '<dt>Civil Status</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.civil_status +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Gender</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.gender +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -106,13 +358,13 @@ $(document).ready(function(){
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Land Line</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.landline +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Mobile</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.mobile +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -120,13 +372,13 @@ $(document).ready(function(){
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Tin No.</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.tin +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>SSS / GSIS No.</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.sss_gsis +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -134,7 +386,7 @@ $(document).ready(function(){
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Education</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.education +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -147,30 +399,23 @@ $(document).ready(function(){
                                 '<div class="col">' +
                                     '<dl>' +
                                         '<dt>Current Address</dt>' +
-                                        '<dd>Jasper Garcera</dd>' +
+                                        '<dd>'+ profile.secondary_info[0][2] +'</dd>' +
                                     '</dl>' +
                                     '<div class="row">' +
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Years of Stay</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.secondary_info[1][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Address Status</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.secondary_info[2][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
-                                    '<dl>' +
-                                        '<dt>Landlords Address</dt>' +
-                                        '<dd>Jasper Garcera</dd>' +
-                                    '</dl>' +
-                                    '<dl>' +
-                                        '<dt>Landlords Contact No.</dt>' +
-                                        '<dd>Jasper Garcera</dd>' +
-                                    '</dl>' +
+                                    landlord +
                                 '</div>' +
                                 '<div class="col">' +
                                     '<dl>' +
@@ -183,20 +428,7 @@ $(document).ready(function(){
                                             '<th>Age</th>' +
                                             '</tr>' +
                                             '</thead>' +
-                                            '<tbody>' +
-                                            '<tr>' +
-                                            '<td>Joni Cornelius Garcera</td>' +
-                                            '<td>9</td>' +
-                                            '</tr>' +
-                                            '<tr>' +
-                                            '<td>Joni Cornelius Garcera</td>' +
-                                            '<td>9</td>' +
-                                            '</tr>' +
-                                            '<tr>' +
-                                            '<td>Joni Cornelius Garcera</td>' +
-                                            '<td>9</td>' +
-                                            '</tr>' +
-                                            '</tbody>' +
+                                            '<tbody>'+ dependents +'</tbody>' +
                                             '</table>' +
                                         '</dd>' +
                                     '</dl>' +
@@ -214,25 +446,25 @@ $(document).ready(function(){
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>First name</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.spouse_comaker_info[0][2] +'</dd>' +
                                             '</dl>' +
                                             '<dl>' +
                                                 '<dt>Middle name</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.spouse_comaker_info[1][2] +'</dd>' +
                                             '</dl>' +
                                             '<dl>' +
                                                 '<dt>Last name</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.spouse_comaker_info[2][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Date of Birth</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.spouse_comaker_info[3][2] +'</dd>' +
                                             '</dl>' +
                                             '<dl>' +
                                                 '<dt>Age</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ getAge(profile.spouse_comaker_info[3][2]) +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -243,13 +475,13 @@ $(document).ready(function(){
                                         '<div class="col ">' +
                                             '<dl>' +
                                                 '<dt>Civil Status</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.spouse_comaker_info[4][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Gender</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.spouse_comaker_info[5][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -257,13 +489,13 @@ $(document).ready(function(){
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Land Line</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.spouse_comaker_info[6][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Mobile</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.spouse_comaker_info[7][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -271,13 +503,13 @@ $(document).ready(function(){
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Tin No.</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.spouse_comaker_info[8][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>SSS / GSIS No.</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.spouse_comaker_info[9][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -285,7 +517,7 @@ $(document).ready(function(){
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Education</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.spouse_comaker_info[10][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -297,11 +529,11 @@ $(document).ready(function(){
                                     '<div class="row">' +
                                         '<dl class="col">' +
                                             '<dt>Farm Lot</dt>' +
-                                            '<dd>Jasper Garcera</dd>' +
+                                            '<dd>'+ profile.farming_info[0][2] +'</dd>' +
                                         '</dl>' +
                                         '<dl class="col">' +
                                             '<dt>Farming Since</dt>' +
-                                            '<dd>Jasper Garcera</dd>' +
+                                            '<dd>'+ profile.farming_info[1][2] +'</dd>' +
                                         '</dl>' +
                                     '</div>' +
                                 '</div>' +
@@ -311,7 +543,7 @@ $(document).ready(function(){
                                         '<div class="col">' +
                                             '<dl>' +
                                                 '<dt>Organization</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dd>'+ profile.farming_info[2][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -320,12 +552,7 @@ $(document).ready(function(){
                                             '<dl>' +
                                                 '<dt>Others</dt>' +
                                                 '<dd>' +
-                                                    '<ul class="list-inline-item">' +
-                                                        '<li>4P\'s</li>' +
-                                                        '<li>PWD</li>' +
-                                                        '<li>Indigenous</li>' +
-                                                        '<li>Livelihood</li>' +
-                                                    '</ul>' +
+                                                    '<ul class="list-inline-item">'+ groups.join('') +'</ul>' +
                                                 '</dd>' +
                                             '</dl>' +
                                         '</div>' +
@@ -341,51 +568,29 @@ $(document).ready(function(){
                                 '<div class="col-lg-4">' +
                                     '<dl>' +
                                         '<dt>Status</dt>' +
-                                        '<dd>Jasper Garcera</dd>' +
+                                        '<dd>'+ profile.employment_info[0][2][0] +'</dd>' +
                                     '</dl>' +
                                 '</div>' +
                                 '<div class="col">' +
                                     '<div class="row">' +
                                         '<div class="col">' +
                                             '<dl>' +
-                                                '<dt>Category</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dt>'+ profile.employment_info[0][2][1][1] +'</dt>' +
+                                                '<dd>'+ profile.employment_info[0][2][1][2] +'</dd>' +
                                             '</dl>' +
                                             '<dl>' +
-                                                '<dt>Position</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
-                                            '</dl>' +
-                                        '</div>' +
-                                        '<div class="col">' +
-                                            '<dl>' +
-                                                '<dt>Phone No.</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
-                                            '</dl>' +
-                                            '<dl>' +
-                                                '<dt>Employer Address</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
-                                            '</dl>' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<div class="row">' +
-                                        '<div class="col">' +
-                                            '<dl>' +
-                                                '<dt>Category</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
-                                            '</dl>' +
-                                            '<dl>' +
-                                                '<dt>Phone No.</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dt>'+ profile.employment_info[0][2][2][1] +'</dt>' +
+                                                '<dd>'+ profile.employment_info[0][2][2][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                         '<div class="col">' +
                                             '<dl>' +
-                                                '<dt>Business Name</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dt>'+ profile.employment_info[0][2][3][1] +'</dt>' +
+                                                '<dd>'+ profile.employment_info[0][2][3][2] +'</dd>' +
                                             '</dl>' +
                                             '<dl>' +
-                                                '<dt>Business Address</dt>' +
-                                                '<dd>Jasper Garcera</dd>' +
+                                                '<dt>'+ profile.employment_info[0][2][4][1] +'</dt>' +
+                                                '<dd>'+ profile.employment_info[0][2][4][2] +'</dd>' +
                                             '</dl>' +
                                         '</div>' +
                                     '</div>' +
@@ -408,45 +613,45 @@ $(document).ready(function(){
                                 '<tbody>' +
                                     '<tr>' +
                                         '<td>Applicant Monthly Income</td>' +
-                                        '<td class="text-right">0.00</td>' +
-                                        '<td class="text-right">0.00</td>' +
-                                        '<td class="text-right">0.00</td>' +
+                                        '<td class="text-right">'+ numFormat(rowAAIncome) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowABIncome) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowASum) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Spouse\'s Monthly Income</td>' +
-                                        '<td class="text-right">0.00</td>' +
-                                        '<td class="text-right">0.00</td>' +
-                                        '<td class="text-right">0.00</td>' +
+                                        '<td class="text-right">'+ numFormat(rowBAIncome) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowBBIncome) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowBSum) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Other Monthly Income</td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">0.00</td>' +
+                                        '<td class="text-right">'+ numFormat(rowCIncome) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Total Monthly Income</td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">0.00</td>' +
+                                        '<td class="text-right">'+ numFormat(rowABCSum) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Less Monthly Expenses <small><br>(Living, Utilitites, rental, transpo..)</small></td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">0.00</td>' +
+                                        '<td class="text-right">'+ numFormat(rowDExpense) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Loan Amortization <small><br>(Mortgage/loan)</small></td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">0.00</td>' +
+                                        '<td class="text-right">'+ numFormat(rowEExpense) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Total Expenses</td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">0.00</td>' +
+                                        '<td class="text-right">'+ numFormat(rowDESum) +'</td>' +
                                     '</tr>' +
                                 '</tbody>' +
                                 '<tfoot>' +
@@ -454,148 +659,13 @@ $(document).ready(function(){
                                         '<td><h2><strong>NET MONTHLY INCOME</strong></h2></td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right"><h2>0.00</h2></td>' +
+                                        '<td class="text-right"><h2><strong>'+ numFormat(totalIncomeSum) +'</strong></h2></td>' +
                                     '</tr>' +
                                 '</tfoot>' +
                             '</table>' +
                         '</div>' +
                     '</div>' +
-
-                    '<div role="tabpanel" id="tab-5" class="tab-pane">' +
-                        '<div class="panel-body">' +
-                            '<h2 class="text-success"><strong>Loan Details</strong></h2>' +
-                            '<div class="row">' +
-                                '<div class="col">' +
-                                    '<dl>' +
-                                        '<dt>Purpose of Loan</dt>' +
-                                        '<dd>' +
-                                            '<ul class="list-inline-item">' +
-                                                '<li>Auto Financing</li>' +
-                                                '<li>Housing</li>' +
-                                                '<li>Working Capital</li>' +
-                                                '<li>Other</li>' +
-                                            '</ul>' +
-                                        '</dd>' +
-                                    '</dl>' +
-                                '</div>' +
-                                '<div class="col">' +
-                                    '<dl>' +
-                                        '<dt>Primary User</dt>' +
-                                        '<dd>Jasper Garcera</dd>' +
-                                    '</dl>' +
-                                    '<dl>' +
-                                        '<dt>Relationship to Applicant</dt>' +
-                                        '<dd>Jasper Garcera</dd>' +
-                                    '</dl>' +
-                                '</div>' +
-                            '</div>' +
-                            '<div class="row">' +
-                                '<div class="col">' +
-                                    '<dl>' +
-                                        '<dt>Place of use</dt>' +
-                                        '<dd>' +
-                                            '<ul class="list-inline-item">' +
-                                                '<li>Residential</li>' +
-                                                '<li>Agricultural</li>' +
-                                                '<li>Residential / Commercial</li>' +
-                                                '<li>Clean Loan / No Collateral</li>' +
-                                                '<li>Commercial</li>' +
-                                            '</ul>' +
-                                        '</dd>' +
-                                    '</dl>' +
-                                '</div>' +
-                                '<div class="col">' +
-                                    '<dl>' +
-                                        '<dt>Collateral</dt>' +
-                                        '<dd>' +
-                                            '<table class="table table-borderless">' +
-                                            '<tbody>' +
-                                                '<tr>' +
-                                                    '<td>Land Title: TCT No.</td>' +
-                                                    '<td>Residential</td>' +
-                                                    '<td></td>' +
-                                                '</tr>' +
-                                                '<tr>' +
-                                                    '<td>Motor Vehicle</td>' +
-                                                    '<td>Vehicle Model</td>' +
-                                                    '<td>Brand new / 2nd Hand</td>' +
-                                                '</tr>' +
-                                            '</tbody>' +
-                                            '</table>' +
-                                        '</dd>' +
-                                    '</dl>' +
-                                '</div>' +
-                            '</div>' +
-
-                            '<h2 class="text-success"><strong>Credit / Financial Information</strong></h2>' +
-                            '<div class="row">' +
-                                '<div class="col">' +
-                                    '<dl>' +
-                                        '<dt>Bank Accounts</dt>' +
-                                        '<dd>' +
-                                            '<table class="table table-borderless">' +
-                                                '<thead>' +
-                                                    '<tr>' +
-                                                        '<th><small>Account Type</small></th>' +
-                                                        '<th><small>Account No.</small></th>' +
-                                                    '</tr>' +
-                                                '</thead>' +
-                                                '<tbody>' +
-                                                    '<tr>' +
-                                                        '<td></td>' +
-                                                        '<td></td>' +
-                                                    '</tr>' +
-                                                '</tbody>' +
-                                            '</table>' +
-                                        '</dd>' +
-                                    '</dl>' +
-                                '</div>' +
-                                '<div class="col">' +
-                                    '<dl>' +
-                                        '<dt>Credit References</dt>' +
-                                        '<dd>' +
-                                            '<table class="table table-borderless">' +
-                                            '<thead>' +
-                                            '<tr>' +
-                                            '<th><small>Bank / Financing</small></th>' +
-                                            '<th><small>Monthly Amortization</small></th>' +
-                                            '</tr>' +
-                                            '</thead>' +
-                                            '<tbody>' +
-                                            '<tr>' +
-                                            '<td></td>' +
-                                            '<td></td>' +
-                                            '</tr>' +
-                                            '</tbody>' +
-                                            '</table>' +
-                                        '</dd>' +
-                                    '</dl>' +
-                                '</div>' +
-                            '</div>' +
-
-                            '<h2 class="text-success"><strong>Trade and other Reference</strong></h2>' +
-                            '<div class="row">' +
-                                '<div class="col">' +
-                                    '<table class="table table-borderless">' +
-                                        '<thead>' +
-                                            '<tr>' +
-                                                '<th><small>Customer name / Co maker</small></th>' +
-                                                '<th><small>Address</small></th>' +
-                                                '<th><small>Contact No.</small></th>' +
-                                            '</tr>' +
-                                        '</thead>' +
-                                        '<tbody>' +
-                                            '<tr>' +
-                                                '<td></td>' +
-                                                '<td></td>' +
-                                                '<td></td>' +
-                                            '</tr>' +
-                                        '</tbody>' +
-                                    '</table>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>' +
+                    loanDetailContent +
                 '</div>' +
             '</div>' +
         '';

@@ -39,7 +39,7 @@ class Profile extends Model
     ];
 
     protected $appends = [
-        'age'
+        'bday'
     ];
 
     public function info()
@@ -47,14 +47,9 @@ class Profile extends Model
         return $this->morphTo();
     }
 
-    public function getAgeAttribute($value)
+    public function getBdayAttribute()
     {
-        return Carbon::parse($value)->diff(Carbon::now())->format('%y years, %m months and %d days');
-    }
-
-    public function getDobAttribute($value)
-    {
-        return Carbon::parse($value)->toFormattedDateString();
+        return Carbon::parse($this->attributes['dob'])->toFormattedDateString();
     }
 
     public function getSecondaryInfoAttribute($value)
