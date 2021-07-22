@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
@@ -37,9 +38,23 @@ class Profile extends Model
         'monthly_expenses',
     ];
 
+    protected $appends = [
+        'age'
+    ];
+
     public function info()
     {
         return $this->morphTo();
+    }
+
+    public function getAgeAttribute($value)
+    {
+        return Carbon::parse($value)->diff(Carbon::now())->format('%y years, %m months and %d days');
+    }
+
+    public function getDobAttribute($value)
+    {
+        return Carbon::parse($value)->toFormattedDateString();
     }
 
     public function getSecondaryInfoAttribute($value)

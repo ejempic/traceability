@@ -11364,3 +11364,16 @@ select.form-control:not([size]):not([multiple]) {
   font-weight: 600;
 }
 
+#loan-app-detail .nav-tabs li a.active {
+  color: #FFFFFF;
+  background: #072e5c !important;
+}
+
+#loan-app-detail .nav-tabs li a:hover {
+  color: #FFFFFF;
+}
+
+#loan-app-detail .nav-tabs li a:active {
+  color: #FFFFFF;
+}
+
