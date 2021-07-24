@@ -158,14 +158,15 @@
 <script>
 
     $(document).on('click', '.print_trigger',function (){
-       var printable = $(this).data("print_target");
+        $("#printable").empty();
+        var printable = $(this).data("print_target");
         printElem($(printable).clone())
     });
     // print_trigger
     // print_target
     // paymentSchedules
     function printElem(data){
-        $('#printable').empty().html(data);
+        $('#printable').html(data);
         window.print();
     }
 </script>
