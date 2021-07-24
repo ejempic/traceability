@@ -450,6 +450,7 @@
                         modal.data('type', 'approve-loan');
                         modal.find('#modal-size').removeClass().addClass('modal-dialog modal-lg');
                         modal.find('.modal-title').text(title);
+                        modal.find('#modal-save-btn').show();
                         modal.find('#modal-save-btn').text('Approve Loan');
                         jQuery.ajaxSetup({async: false});
                         $.get('{!! route('loan-update-status') !!}', {
