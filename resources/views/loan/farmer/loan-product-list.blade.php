@@ -1206,6 +1206,7 @@
                                 modal.data('type', 'create-disbursement');
                                 modal.find('.modal-title').text('Disbursement Account Information');
                                 modal.find('#modal-size').removeClass().addClass('modal-dialog modal-md');
+                                modal.find('#modal-save-btn').removeClass('d-none');
                                 modal.find('.modal-body').empty().append('' +
                                     '<div class="panel panel-default">' +
                                         '<div class="panel-body">' +

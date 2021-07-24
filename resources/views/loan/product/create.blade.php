@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="schedule_inputs">
+                        <div class="row schedule_inputs">
                             <div class="col">
                                 <table class="table table-bordered">
                                     <tbody>

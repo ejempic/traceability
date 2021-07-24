@@ -31,7 +31,7 @@
                     {!! Form::open(array('route'=>array('loan-user-registration-store'))) !!}
                     <div class="form-group">
                         <label>User type</label>
-                        <select name="type" class="form-control">
+                        <select name="type" class="form-control" style="height: 48px !important;">
                             <option value="">Select</option>
                             <option value="farmer">Farmer</option>
                             <option value="loan-provider">Loan Provider</option>
