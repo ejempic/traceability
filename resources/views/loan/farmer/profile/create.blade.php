@@ -326,10 +326,10 @@
 
                                     <div class="form-group">
                                         <div class="i-checks">
-                                            <label class="check-labels">{{ Form::radio('employment', 'employed', false, array('class'=>'employment_info', 'data-title'=>'Employment', 'required')) }}<i></i> Employed</label>
+                                            <label class="check-labels">{{ Form::radio('employment', 'Employed', false, array('class'=>'employment_info', 'data-title'=>'Employment', 'required')) }}<i></i> Employed</label>
                                         </div>
                                         <div class="i-checks">
-                                            <label class="check-labels">{{ Form::radio('employment', 'self-employed', false, array('class'=>'employment_info', 'data-title'=>'Employment', 'required')) }}<i></i> Self Employed</label>
+                                            <label class="check-labels">{{ Form::radio('employment', 'Self Employed', false, array('class'=>'employment_info', 'data-title'=>'Employment', 'required')) }}<i></i> Self Employed</label>
                                         </div>
                                     </div>
 
@@ -588,7 +588,7 @@
             $('input[name=employment]').on('ifClicked', function () {
                 console.log("You clicked " + $(this).val());
                 var box = $('#employment-select-box');
-                if($(this).val() === 'employed'){
+                if($(this).val() === 'Employed'){
                     box.empty().append('' +
                         '<div class="form-group">' +
                             '<select name="employment_employed" data-title="Type" id="employment_employed" class="form-control required">' +
@@ -626,7 +626,7 @@
                         '</div>' +
                     '');
                 }
-                if($(this).val() === 'self-employed'){
+                if($(this).val() === 'Self Employed'){
                     box.empty().append('' +
                         '<div class="form-group">' +
                             '<select name="self_employed_type" data-title="Type" id="self_employed_type" class="form-control required">' +

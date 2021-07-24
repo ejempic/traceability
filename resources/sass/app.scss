@@ -26,6 +26,15 @@
 
 }
 
+.page-forms form .form-group select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #dadada !important;
+    outline: none;
+    font-size: 1.3rem
+}
+
 .farmer-login {
 
     //border: 2px solid #808080;
@@ -73,23 +82,21 @@ select.form-control:not([size]):not([multiple]) {
     font-weight: 600;
 }
 
-//.page-register {
-//    .sign-in {
-//        .right {
-//            .wizard-big.wizard > .content {
-//                .form-group {
-//                    select {
-//                        background-color: #eee;
-//                        border: 1px solid #eee !important;
-//                        border-bottom: 2px solid #e3342f !important;
-//                        border-radius: 0;
-//                        font-size: 1rem;
-//                        //padding: 1.5rem 1rem;
-//                        font-weight: bold;
-//                        height: 51px !important;
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
+#loan-app-detail {
+    .nav-tabs {
+        li {
+            a {
+                &.active {
+                    color: #FFFFFF;
+                    background: #072e5c !important;
+                }
+                &:hover {
+                    color: #FFFFFF;
+                }
+                &:active {
+                    color: #FFFFFF;
+                }
+            }
+        }
+    }
+}

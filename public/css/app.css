@@ -11317,6 +11317,15 @@ a.text-dark:focus {
   height: 106px !important;
 }
 
+.page-forms form .form-group select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #dadada !important;
+  outline: none;
+  font-size: 1.3rem;
+}
+
 .farmer-login {
   max-width: 500px;
   width: 90%;
@@ -11362,5 +11371,18 @@ select.form-control:not([size]):not([multiple]) {
   font-size: 14px;
   color: #676a6c;
   font-weight: 600;
+}
+
+#loan-app-detail .nav-tabs li a.active {
+  color: #FFFFFF;
+  background: #072e5c !important;
+}
+
+#loan-app-detail .nav-tabs li a:hover {
+  color: #FFFFFF;
+}
+
+#loan-app-detail .nav-tabs li a:active {
+  color: #FFFFFF;
 }
 

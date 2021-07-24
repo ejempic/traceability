@@ -63,14 +63,14 @@
                                                             class="">{{ $loan->provider->profile->address_line }}</span></small><br/>
                                             </td>
                                             <td class="project-title">
-                                                {{$loan->product->name}}
+                                                {{$loan->name}}
                                             </td>
-                                            <td class="text-right">{{currency_format($loan->product->amount)}}</td>
-                                            <td>{{$loan->product->interest_rate}}%</td>
-                                            <td>{{$loan->product->duration}} Months</td>
-                                            <td class="text-right">{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2) * $loan->product->duration)}}</td>
+                                            <td class="text-right">{{currency_format($loan->amount)}}</td>
+                                            <td>{{$loan->interest_rate}}%</td>
+                                            <td>{{$loan->duration}} Months</td>
+                                            <td class="text-right">{{currency_format(computeAmortization($loan->amount, $loan->duration, $loan->interest_rate, 2) * $loan->duration)}}</td>
 
-                                            <td class="text-right">{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2))}}</td>
+                                            <td class="text-right">{{currency_format(computeAmortization($loan->amount, $loan->duration, $loan->interest_rate, 2))}}</td>
                                             @if($loan->status == 'Active')
                                                 <td class=" text-center text-green">{{$loan->status}}</td>
                                             @elseif($loan->status == 'Pending')
@@ -85,8 +85,8 @@
                                                        data-schedule="{{$loan->payment_schedules}}"><i
                                                                 class="fa fa-calendar"></i> Schedules </a>
                                                     <a href="#" class="btn btn-primary btn-sm payment_modal_trigger"
-                                                       data-amount_monthly="{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2))}}"
-                                                       data-amount_max="{{currency_format(computeAmortization($loan->product->amount, $loan->product->duration, $loan->product->interest_rate, 2) * $loan->product->duration)}}"
+                                                       data-amount_monthly="{{currency_format(computeAmortization($loan->amount, $loan->duration, $loan->interest_rate, 2))}}"
+                                                       data-amount_max="{{currency_format(computeAmortization($loan->amount, $loan->duration, $loan->interest_rate, 2) * $loan->duration)}}"
                                                        data-id="{{$loan->id}}"
                                                        data-status="{{$loan->status}}"
                                                     ><i class="fa fa-money"></i> Pay </a>
@@ -95,6 +95,8 @@
                                                        data-status="{{$loan->status}}"
                                                     ><i
                                                                 class="fa fa-list"></i> Payments </a>
+                                                    @endif
+                                                    @if($loan->status == 'Pending')
                                                         <button type="button" class="btn btn-sm btn-danger">Cancel</button>
                                                     @endif
                                                 </div>

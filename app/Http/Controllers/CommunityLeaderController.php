@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CommunityLeader;
+use App\Farmer;
 use App\Profile;
 use App\User;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ class CommunityLeaderController extends Controller
      */
     public function create()
     {
+        $farmers = Farmer::get();
         return response()->view(subDomainPath('community-leader.create'));
     }
 
