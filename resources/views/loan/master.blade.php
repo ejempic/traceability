@@ -21,7 +21,25 @@
     @yield('styles')
     {!! Html::style('/css/template/animate.css') !!}
     {!! Html::style('/css/template/style.css') !!}
+    <style>
+        @media screen {
+            #printable {
+                display: none;
+            }
+            #wrapper {
+                display: flex;
+            }
+        }
+        @media print {
+            #printable {
+                display: block;
+            }
+            #wrapper {
+                display: none;
+            }
+        }
 
+    </style>
 
 </head>
 
@@ -116,6 +134,11 @@
     {{ Form::close() }}
 </div>
 
+
+<div id="printable">
+
+</div>
+
 <!-- Mainly scripts -->
 {!! Html::script('/js/template/plugins/fullcalendar/moment.min.js') !!}
 
@@ -131,6 +154,21 @@
 {!! Html::script('/js/template/plugins/pace/pace.min.js') !!}
 
 @yield('scripts')
+
+<script>
+
+    $(document).on('click', '.print_trigger',function (){
+       var printable = $(this).data("print_target");
+        printElem($(printable).clone())
+    });
+    // print_trigger
+    // print_target
+    // paymentSchedules
+    function printElem(data){
+        $('#printable').empty().html(data);
+        window.print();
+    }
+</script>
 
 
 </body>
