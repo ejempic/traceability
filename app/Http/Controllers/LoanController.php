@@ -90,7 +90,6 @@ class LoanController extends Controller
         } while ($paidAmounts > 0);
 
         // fully paid
-        $fullyPaid = true;
 
         foreach ($paymentAmounts as $paymentAmount) {
             $loanSchedule = LoanPaymentSchedule::where('loan_id', $request->loan_id)
@@ -103,17 +102,14 @@ class LoanController extends Controller
                 if ($loanSchedule->paid_amount == $loanSchedule->payable_amount) {
                     $loanSchedule->status = 'paid';
                     $loanSchedule->save();
-                }else{
-                    $fullyPaid = false;
                 }
-
-
             }
-
-
         }
+        $fullyPaid  = LoanPaymentSchedule::where('loan_id', $request->loan_id)
+                ->whereRaw('paid_amount != payable_amount')
+                ->first();
 
-        if($fullyPaid){
+        if(!$fullyPaid){
             $loan = Loan::find($loan->loan_id);
             $loan->status = 'Completed';
             $loan->save();

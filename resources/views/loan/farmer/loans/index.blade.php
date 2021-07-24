@@ -185,7 +185,7 @@
 
             $('#payment_history_tbody').empty();
 
-            if (data_status != 'Active') {
+            if (data_status != 'Active' || data_status != 'Completed') {
                 let setRows = '<tr>';
                 setRows += '<td colspan="99" class="text-center">';
                 setRows += "Loan Not Approved yet";
