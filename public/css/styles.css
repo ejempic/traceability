@@ -808,26 +808,6 @@ body {
 .page-register.page-farmers .sign-in .right .wizard-big.wizard > .content {
   min-height: 70vh;
   overflow-y: auto;
-  /* width */
-  /* Track */
-  /* Handle */
-  /* Handle on hover */
-}
-.page-register.page-farmers .sign-in .right .wizard-big.wizard > .content::-webkit-scrollbar {
-  width: 5px;
-  opacity: 0.5;
-}
-.page-register.page-farmers .sign-in .right .wizard-big.wizard > .content::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 5px #dadada;
-          box-shadow: inset 0 0 5px #dadada;
-  border-radius: 0px;
-}
-.page-register.page-farmers .sign-in .right .wizard-big.wizard > .content::-webkit-scrollbar-thumb {
-  background: #9ed35a;
-  border-radius: 10px;
-}
-.page-register.page-farmers .sign-in .right .wizard-big.wizard > .content::-webkit-scrollbar-thumb:hover {
-  background: #eee;
 }
 .page-register.page-farmers .sign-in .right .steps ul li {
   width: calc(100%/5);
