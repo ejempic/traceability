@@ -18,60 +18,49 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <button type="button" class="btn btn-primary btn-action" data-action="store">Save</button>
+                <button type="button" class="btn btn-primary btn-action" data-action="store">Create Community Leader</button>
             </div>
         </div>
     </div>
 
     <div id="app" class="wrapper wrapper-content">
-        <form action="{!! route('community-leader.store') !!}" method="post" id="form">@csrf
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Account Info
+        <div class="panel panel-default">
+{{--            <div class="panel-heading">--}}
+{{--                Basic Info--}}
+{{--            </div>--}}
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <form action="{!! route('community-leader.store') !!}" method="post" id="form">@csrf
+                        <div class="form-group">
+                            <label>Select Farmer</label>
+                            <select name="" class="form-control select2">
+                                @foreach($farmers as $farmer)
+                                    <option value="{{ $farmer->id }}">{{ $farmer->id }}</option>
+{{--                                    <option value="{{ $farmer->id }}">{{ $farmer->profile->first_name }} {{ $farmer->profile->last_name }}</option>--}}
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" name="password" class="form-control" required>
-                            </div>
-{{--                            <div class="form-group">--}}
-{{--                                <label>Retype Password</label>--}}
-{{--                                <input type="password" name="confirm-password" class="form-control">--}}
-{{--                            </div>--}}
+                        </form>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>First name</label>
+                            <input type="text" name="first-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Middle name</label>
+                            <input type="text" name="middle-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last name</label>
+                            <input type="text" name="last-name" class="form-control" required>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-8">
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Basic Info
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label>First name</label>
-                                <input type="text" name="first-name" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Middle name</label>
-                                <input type="text" name="middle-name" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Last name</label>
-                                <input type="text" name="last-name" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-        </form>
+        </div>
+
     </div>
 
     <div class="modal inmodal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category="" data-variant="" data-bal="">
@@ -99,6 +88,8 @@
     {{--{!! Html::style('') !!}--}}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
+    {!! Html::style('css/template/plugins/select2/select2.min.css') !!}
+    {!! Html::style('css/template/plugins/select2/select2-bootstrap4.min.css') !!}
 @endsection
 
 @section('scripts')
@@ -107,6 +98,7 @@
     {{--    {!! $dataTable->scripts() !!}--}}
     {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
+    {!! Html::script('js/template/plugins/select2/select2.full.min.js') !!}
     <script>
         $(document).ready(function(){
             $(document).on('click', '.btn-action', function(){
@@ -132,6 +124,13 @@
                 });
                 return error;
             }
+
+            // $(".select2").select2({
+            //     theme: 'bootstrap4',
+            //     tags: true,
+            //     dropdownParent: $("#modal"),
+            //     placeholder: "Select product"
+            // });
 
             {{--var modal = $('#modal');--}}
             {{--$(document).on('click', '', function(){--}}
