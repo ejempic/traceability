@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">and your password</label>
-                            <input type="password" name="password" placeholder="*****" class=" @error('password') is-invalid @enderror" required autocomplete="current-password">
+                            <input type="password" name="password" placeholder="*****" class=" @error('password') is-invalid @enderror password-field" required autocomplete="current-password">
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

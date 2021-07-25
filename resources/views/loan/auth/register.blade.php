@@ -49,14 +49,14 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        {{Form::password('password', array('class'=>'form-control', 'placeholder'=>'*****'))}}
+                        {{Form::password('password', array('class'=>'form-control password-field', 'placeholder'=>'*****'))}}
                         @if($errors->has('password'))
                             <span class="text-danger">{{$errors->first('password')}}</span>
                         @endif
                     </div>
                     <div class="form-group">
                         <label>Repeat Password</label>
-                        {{Form::password('repeat-password', array('class'=>'form-control', 'placeholder'=>'*****'))}}
+                        {{Form::password('repeat-password', array('class'=>'form-control password-field', 'placeholder'=>'*****'))}}
                         @if($errors->has('repeat-password'))
                             <span class="text-danger">{{$errors->first('repeat-password')}}</span>
                         @endif

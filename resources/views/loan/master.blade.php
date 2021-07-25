@@ -140,7 +140,7 @@
 </div>
 
 <!-- Mainly scripts -->
-{!! Html::script('/js/template/plugins/fullcalendar/moment.min.js') !!}
+{{--{!! Html::script('/js/template/plugins/fullcalendar/moment.min.js') !!}--}}
 
 {!! Html::script('/js/app.js') !!}
 {{--{!! Html::script('/js/template/jquery-3.1.1.min.js') !!}--}}
