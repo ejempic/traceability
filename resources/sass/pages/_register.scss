@@ -411,28 +411,28 @@
           min-height: 70vh;
           overflow-y: auto;
 
-          /* width */
-          &::-webkit-scrollbar {
-            width: 5px;
-            opacity: .5;
-          }
-
-          /* Track */
-          &::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px $gray-2;
-            border-radius: 0px;
-          }
-
-          /* Handle */
-          &::-webkit-scrollbar-thumb {
-            background: $primary-1;
-            border-radius: 10px;
-          }
-
-          /* Handle on hover */
-          &::-webkit-scrollbar-thumb:hover {
-            background: $gray;
-          }
+          ///* width */
+          //&::-webkit-scrollbar {
+          //  width: 5px;
+          //  opacity: .5;
+          //}
+          //
+          ///* Track */
+          //&::-webkit-scrollbar-track {
+          //  box-shadow: inset 0 0 5px $gray-2;
+          //  border-radius: 0px;
+          //}
+          //
+          ///* Handle */
+          //&::-webkit-scrollbar-thumb {
+          //  background: $primary-1;
+          //  border-radius: 10px;
+          //}
+          //
+          ///* Handle on hover */
+          //&::-webkit-scrollbar-thumb:hover {
+          //  background: $gray;
+          //}
 
 
         }
