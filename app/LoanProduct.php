@@ -44,4 +44,9 @@ class LoanProduct extends Model
         $array['timing_name'] = $timingName;
         return $array;
     }
+
+    public function loan()
+    {
+        return $this->hasMany(Loan::class, 'loan_product_id');
+    }
 }
