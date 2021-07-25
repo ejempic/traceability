@@ -198,6 +198,26 @@ body {
   -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
 }
+.page-forms form .form-group .group {
+  position: relative;
+}
+.page-forms form .form-group .eye {
+  position: absolute;
+  right: 20px;
+  top: 55%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  opacity: 0.7;
+  color: #000;
+  font-size: 1.1rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+  z-index: 5;
+}
+.page-forms form .form-group .eye:hover {
+  opacity: 1;
+}
 .page-forms form .form-group .check-group .checkmark {
   display: none;
 }
