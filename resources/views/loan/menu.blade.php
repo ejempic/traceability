@@ -17,12 +17,12 @@
     <a href="{!! route('loan-applicant') !!}"><i class="fa fa-money"></i> <span class="nav-label">Loan Application</span></a>
 </li>
 
-{{--<li class="{{ (request()->is('custom-forms')) ? 'active' : '' }}">--}}
-{{--    <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>--}}
-{{--    <ul class="nav nav-second-level collapse">--}}
-{{--        <li class="{{ (request()->is('custom-forms')) ? 'active' : '' }}"><a href="{!! route('custom-forms') !!}">Custom Forms</a></li>--}}
-{{--    </ul>--}}
-{{--</li>--}}
+<li class="{{ (request()->is('loan-report')) ? 'active' : '' }}">
+    <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Reports</span><span class="fa arrow"></span></a>
+    <ul class="nav nav-second-level collapse">
+        <li class="{{ (request()->is('custom-forms')) ? 'active' : '' }}"><a href="{!! route('custom-forms') !!}">Custom Forms</a></li>
+    </ul>
+</li>
 
 
 @endif

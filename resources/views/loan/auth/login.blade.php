@@ -35,14 +35,21 @@
                             <label for="">Please type your email address</label>
                             <input id="email" type="email" name="email" placeholder="yourname@domain.com" class="@error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus>
                             @error('email')
-                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="">and your password</label>
-                            <input type="password" name="password" placeholder="*****" class=" @error('password') is-invalid @enderror password-field" required autocomplete="current-password">
+                            <div class="group">
+                                <input id="password" type="password" name="password" placeholder="*****" class=" @error('password') is-invalid @enderror" required autocomplete="current-password">
+                                <i class="far fa-eye-slash eye"></i>
+                            </div>
                             @error('password')
-                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                             @enderror
                         </div>
 
