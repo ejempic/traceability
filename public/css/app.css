@@ -11373,6 +11373,16 @@ select.form-control:not([size]):not([multiple]) {
   font-weight: 600;
 }
 
+.field-icon {
+  float: right;
+  position: relative;
+  z-index: 2;
+  margin-right: 2px;
+  top: -56px;
+  font-size: 20px !important;
+  padding: 18px 36px 18px 20px;
+}
+
 #loan-app-detail .nav-tabs li a.active {
   color: #FFFFFF;
   background: #072e5c !important;

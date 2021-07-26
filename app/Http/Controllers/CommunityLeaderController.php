@@ -29,8 +29,11 @@ class CommunityLeaderController extends Controller
      */
     public function create()
     {
+        $farmers = Farmer::whereHas('profile')->get();
         $farmers = Farmer::get();
-        return response()->view(subDomainPath('community-leader.create'));
+//        return $farmers;
+
+        return response()->view(subDomainPath('community-leader.create'), compact('farmers'));
     }
 
     /**

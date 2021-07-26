@@ -24,6 +24,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+
+    {!! Html::style('/font-awesome/css/font-awesome.css') !!}
+
 </head>
 <body>
     {{--<div id="app">--}}
@@ -82,6 +85,12 @@
             @yield('content')
         {{--</main>--}}
     {{--</div>--}}
+
+    <!-- Mainly scripts -->
+    {{--{!! Html::script('/js/template/plugins/fullcalendar/moment.min.js') !!}--}}
+
+
+
 </body>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
