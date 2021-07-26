@@ -4,7 +4,7 @@
 
     <main class="page-forms">
         <div class="row no-gutters sign-in">
-            <div class="col-12 col-lg-4 left d-none d-lg-block">
+            <div class="col-12 col-lg-4 left d-none d-lg-block no-overlay">
                 <div class="position-relative">
                     <img src="{{ asset('images/agrabah-logo.png') }}" alt="logo" class="img-fluid d-block mx-auto logo mb-5">
                     <div class="content">
