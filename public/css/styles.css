@@ -376,6 +376,9 @@ body {
   left: 0;
   background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
 }
+.page-forms .sign-in .left.no-overlay:before {
+  display: none;
+}
 @media (max-width: 1650px) {
   .page-forms .sign-in .left {
     padding: 3rem 5%;
