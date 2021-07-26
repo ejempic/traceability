@@ -41,22 +41,22 @@
 {{--                        @endif--}}
 {{--                    </div>--}}
                     <div class="form-group">
-                        <label>Please type your email address</label>
-                        {{Form::email('email',null, array('class'=>'form-control', 'placeholder'=>'yourname@domain.com', 'autocomplete'=>'off', 'required', 'autofocus'))}}
+                        <label>Please type your email address asdfas</label>
+                        {{Form::email('email',null, array('class'=>'form-control', 'placeholder'=>'yourname@domain.com', 'autocomplete'=>'off', 'autofocus'))}}
                         @if($errors->has('email'))
                             <span class="text-danger">{{$errors->first('email')}}</span>
                         @endif
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        {{Form::password('password', array('class'=>'form-control', 'placeholder'=>'*****'))}}
+                        {{Form::password('password', array('class'=>'form-control password-field', 'placeholder'=>'*****'))}}
                         @if($errors->has('password'))
                             <span class="text-danger">{{$errors->first('password')}}</span>
                         @endif
                     </div>
                     <div class="form-group">
                         <label>Repeat Password</label>
-                        {{Form::password('repeat-password', array('class'=>'form-control', 'placeholder'=>'*****'))}}
+                        {{Form::password('repeat-password', array('class'=>'form-control password-field', 'placeholder'=>'*****'))}}
                         @if($errors->has('repeat-password'))
                             <span class="text-danger">{{$errors->first('repeat-password')}}</span>
                         @endif
