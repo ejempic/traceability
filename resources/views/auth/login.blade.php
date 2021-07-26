@@ -43,8 +43,8 @@
                         <div class="form-group">
                             <label for="">and your password</label>
                             <div class="group">
-                                <input id="password" type="password" name="password" placeholder="*****" class=" @error('password') is-invalid @enderror" required autocomplete="current-password">
-                                <i class="far fa-eye-slash eye"></i>
+                                <input id="password" type="password" name="password" placeholder="*****" class=" @error('password') is-invalid @enderror password-field" required autocomplete="current-password">
+{{--                                <i class="far fa-eye-slash eye"></i>--}}
                             </div>
 
                             @error('password')
