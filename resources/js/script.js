@@ -14,7 +14,7 @@ $(document).on('click', '.btn-logout', function(event){
     // });
 });
 
-$(document).on('select2:open', () => {
+$(document).on('select2_modal:open', () => {
     document.querySelector('.select2-search__field').focus();
 });
 

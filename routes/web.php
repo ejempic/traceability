@@ -18,9 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/registration', function () {
-//    return view(subdomain_name().'.auth.register');
-//});
+Route::get('/registration', function () {
+    return view(subdomain_name().'.auth.register');
+});
 
 //Auth::routes();
 Auth::routes(['verify' => true]);
@@ -36,6 +36,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
     Route::resource('profile', 'ProfileController');
     Route::get('my-profile', 'ProfileController@myProfile')->name('my-profile');
+    Route::get('select-profile', 'ProfileController@selectProfile')->name('select-profile');
+    Route::get('get-my-profile', 'ProfileController@getMyProfile')->name('get-my-profile');
 
     Route::resource('product', 'ProductController');
     Route::get('product-list', 'ProductController@productList')->name('product-list');
@@ -126,6 +128,9 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 
 // ROUTES FOR TRACE
 Route::domain('trace.'.config('dev.domain_ext'))->group(function () {
+
+    Route::get('farmer-check', 'FarmerController@farmerCheck')->name('farmer-check');
+
     Route::get('trace-registration', 'PublicController@traceRegistration')->name('trace-registration');
     Route::post('trace-user-registration-store', 'PublicController@traceUserRegistrationStore')->name('trace-user-registration-store');
 

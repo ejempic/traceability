@@ -13,7 +13,7 @@ class Farmer extends Model
 
     public function leader()
     {
-        return $this->belongsTo(CommunityLeader::class, 'leader_id');
+        return $this->belongsTo(Farmer::class, 'leader_id');
     }
 
     public function profile()

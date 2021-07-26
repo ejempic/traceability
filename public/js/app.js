@@ -79290,7 +79290,7 @@ $(document).on('click', '.btn-logout', function (event) {
   //     window.location.replace(url);
   // });
 });
-$(document).on('select2:open', function () {
+$(document).on('select2_modal:open', function () {
   document.querySelector('.select2-search__field').focus();
 });
 $(document).on('keydown', '.numonly', function (event) {

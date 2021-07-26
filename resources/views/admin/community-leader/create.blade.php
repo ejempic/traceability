@@ -34,29 +34,16 @@
                         <form action="{!! route('community-leader.store') !!}" method="post" id="form">@csrf
                         <div class="form-group">
                             <label>Select Farmer</label>
-                            <select name="" class="form-control select2">
+                            <select name="farmer-select" class="form-control select2">
+                                <option value=""></option>
                                 @foreach($farmers as $farmer)
-                                    <option value="{{ $farmer->id }}">{{ $farmer->id }}</option>
-{{--                                    <option value="{{ $farmer->id }}">{{ $farmer->profile->first_name }} {{ $farmer->profile->last_name }}</option>--}}
+                                    <option value="{{ $farmer->id }}">[ID# {{ $farmer->id }}] {{ $farmer->profile->first_name }} {{ $farmer->profile->last_name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         </form>
                     </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label>First name</label>
-                            <input type="text" name="first-name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Middle name</label>
-                            <input type="text" name="middle-name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Last name</label>
-                            <input type="text" name="last-name" class="form-control" required>
-                        </div>
-                    </div>
+                    <div class="col" id="profile-info-box"></div>
                 </div>
             </div>
         </div>
@@ -101,6 +88,16 @@
     {!! Html::script('js/template/plugins/select2/select2.full.min.js') !!}
     <script>
         $(document).ready(function(){
+            $(document).on('change', 'select[name=farmer-select]', function(){
+                $.get('{!! route('select-profile') !!}', {
+                    id: $(this).val()
+                }, function(data){
+                    // console.log(data);
+                    $('#profile-info-box').empty().append(displayLoanApplicationDetails(data.profile, null));
+
+                });
+            });
+
             $(document).on('click', '.btn-action', function(){
                 switch ($(this).data('action')) {
                     case 'store':
@@ -125,12 +122,10 @@
                 return error;
             }
 
-            // $(".select2").select2({
-            //     theme: 'bootstrap4',
-            //     tags: true,
-            //     dropdownParent: $("#modal"),
-            //     placeholder: "Select product"
-            // });
+            $(".select2").select2({
+                theme: 'bootstrap4',
+                placeholder: "Select a Farmer"
+            });
 
             {{--var modal = $('#modal');--}}
             {{--$(document).on('click', '', function(){--}}
