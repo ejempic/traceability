@@ -250,6 +250,12 @@
         left: 0;
         background: radial-gradient(rgba($black, 30%), rgba($black, 50%));
       };
+      
+      &.no-overlay {
+        &:before {
+          display: none;
+        }
+      }
 
       @media (max-width: 1650px) {
         padding: 3rem 5%;
