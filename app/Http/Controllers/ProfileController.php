@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\CommunityLeader;
 use App\Farmer;
 use App\Profile;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,7 +97,7 @@ class ProfileController extends Controller
             $userType = Farmer::find(Auth::user()->farmer->id);
         }
         if($type === 'community-leader'){
-            $userType = CommunityLeader::find(Auth::user()->leader->id);
+            $userType = Farmer::find(Auth::user()->leader->id);
         }
         $userType->url = route($type.'.show', array($type=>$userType));
         $userType->save();
@@ -128,6 +129,10 @@ class ProfileController extends Controller
         $profile->qr_image = $userType->account_id.'.png';
         $profile->qr_image_path = '/images/'.$type.'/'.$userType->account_id.'.png';
         if($userType->profile()->save($profile)){
+            $user = User::find($userType->user_id);
+            $user->name = $profile->first_name.' '.$profile->last_name;
+            $user->save();
+
             $url = route('home');
             return response()->json($url);
         }
@@ -146,5 +151,27 @@ class ProfileController extends Controller
 
 //        return $profile;
         return view('layouts.show-profile', compact('profile'));
+    }
+
+    public function selectProfile(Request $request)
+    {
+        $id = $request->input('id');
+        $data = Farmer::with('profile')->find($id);
+
+        return response()->json($data);
+    }
+
+    public function getMyProfile(Request $request)
+    {
+        $type = getRoleName('name');
+        $data = null;
+        if($type === 'farmer'){
+            $data = Farmer::with('profile')->find(Auth::user()->farmer->id);
+        }
+        if($type === 'community-leader'){
+            $data = Farmer::with('profile')->find(Auth::user()->leader->id);
+        }
+
+        return response()->json($data);
     }
 }

@@ -210,20 +210,35 @@ class FarmerController extends Controller
 
     public function farmerLoginForm(Request $request)
     {
-        $rules = array(
-            'farmer' => 'required|exists:farmers,account_id'
-        );
-        $messages = [
-            'farmer'    => 'Farmer does not exists.',
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
+//        $id = $request->input('farmer');
+//        $farmer = Farmer::where('community_leader', 0)->find($id);
+//
+//        $rules = array(
+//            'farmer' => 'required|exists:farmers,account_id'
+//        );
+//        $messages = [
+//            'farmer'    => 'Farmer does not exists.',
+//        ];
+//        $validator = Validator::make($request->all(), $rules, $messages);
+//        if ($validator->fails()) {
+//            return redirect()
+//                ->back()
+//                ->withErrors($validator)
+//                ->withInput();
+//        }
+
         return redirect()->route('farmers-info', array('account'=>$request->input('farmer')));
+    }
+
+    public function farmerCheck(Request $request)
+    {
+        $id = $request->input('id');
+        $farmer = Farmer::with('profile')
+            ->where('community_leader', 0)
+            ->where('account_id', $id)
+            ->first();
+
+        return $farmer;
     }
 
     public function farmerInfo($account)
@@ -262,6 +277,9 @@ class FarmerController extends Controller
         $profile->qr_image = $farmer->account_id.'.png';
         $profile->qr_image_path = '/images/farmer/'.$farmer->account_id.'.png';
         if($farmer->profile()->save($profile)){
+            $user = User::find($farmer->user_id);
+            $user->name = $profile->first_name.' '.$profile->last_name;
+            $user->save();
             return redirect()->route('home');
         }
     }

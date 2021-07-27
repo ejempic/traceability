@@ -18,9 +18,10 @@
 
   .nav {
     li {
-      a {
+      & > a {
         //color: $white !important;
         font-weight: 400 !important;
+        padding: 14px 20px 14px 20px !important;
 
         &:hover, &:focus {
           background: $primary-darken !important;
@@ -31,8 +32,9 @@
         background: $primary-darken !important;
         border-left: 0 !important;
 
-        a {
+        & > a {
           border-left: 4px solid $primary-3 !important;
+          padding-left: 16px !important;
         }
 
         .nav-second-level {
@@ -44,10 +46,22 @@
         }
       }
 
+
       .nav-second-level {
         li {
           border-left: none !important;
+
+          &:last-child {
+            padding-bottom: 0;
+          }
+
         }
+      }
+    }
+
+    &.navbar-top-links {
+      a {
+        font-size: 1rem !important;
       }
     }
   }
@@ -106,6 +120,11 @@
 }
 
 
+.metismenu .arrow {
+  margin-right: -9px;
+}
+
+
 //LOAN
 
 .template-loan {
@@ -133,6 +152,32 @@
           background: darken($primary-2, 5%) !important;
         }
       }
+
+      &.active {
+        background: darken($primary-2, 5%) !important;
+
+        & > a {
+          border-left-color: $primary-1 !important;
+        }
+      }
+    }
+  }
+
+  ul.nav-second-level {
+    background: darken($primary-2, 15%);
+
+    li {
+      a {
+        &:hover {
+          background: darken($primary-2, 10%) !important;
+        }
+      }
+
+      &.active {
+        a {
+          background: darken($primary-2, 10%) !important;
+        }
+      }
     }
   }
 
@@ -154,7 +199,7 @@
     border-color: $lighten-blue !important;
 
     &:hover {
-      background: darken($lighten-blue, 5%) !important;
+      background: darken($lighten-blue, 10%) !important;
     }
   }
 
@@ -162,9 +207,18 @@
     li {
       a {
         &:hover, &:focus {
-          background: darken($lighten-blue, 5%) !important;
+          background: darken($lighten-blue, 10%) !important;
         }
       }
+
+      &.active {
+        background: darken($lighten-blue, 10%) !important;
+
+        & > a {
+          border-left-color: darken($primary-3, 0%) !important;
+        }
+      }
+
     }
   }
 

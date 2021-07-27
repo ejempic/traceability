@@ -58,7 +58,7 @@
                                                     <option value="" readonly></option>
                                                     <option value="Single">Single</option>
                                                     <option value="Married">Married</option>
-                                                    <option value="Widow/er">Widow/er</option>
+                                                    <option value="Widow/er">Widower</option>
                                                     <option value="Separated">Separated</option>
                                                 </select>
                                                 <label for="civil_status">Civil Status *</label>
@@ -98,7 +98,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input name="sss_gsis" type="text" data-title="SSS / GSIS No." class="profile_info form-control" id="sss-gsis">
+                                                <input name="sss_gsis" type="text" data-title="SSS / GSIS No." class="profile_info form-control" id="sss_gsis">
                                                 <label for="sss_gsis">SSS / GSIS No.</label>
                                             </div>
                                         </div>
@@ -403,34 +403,50 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td>Other Source of Income <small>(Pension, Allowance, Salary, <br> Business Sales, Harvest, Others)</small></td>
+                                        <td>
+                                            <div class="form-group">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <input type="number" name="other_source_income" data-title="Other Source Income" class="income_asset_info form-control row-input required" id="rowd-income" required>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>Total Monthly Income</td>
                                         <td></td>
                                         <td></td>
                                         <td>
                                             <div class="form-group display_peso">
-                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowabc-total" readonly>
+                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowabcd-total" readonly>
                                             </div>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td>Less Monthly Expenses <small>(Living, Utilitites, rental, transpo..)</small></td>
+                                        <td>Less Monthly Expenses <small>(Living, Utilitites, Rental, <br> Transpo, Food, Tuition)</small></td>
                                         <td></td>
                                         <td></td>
                                         <td>
                                             <div class="form-group">
-                                                <input type="number" name="monthly_expenses" data-title="Less Monthly Expenses (Living, Utilitites, rental, transpo..)" class="income_asset_info form-control row-input required" id="rowd-expense" required>
+                                                <input type="number" name="monthly_expenses" data-title="Less Monthly Expenses (Living, Utilitites, rental, transpo..)" class="income_asset_info form-control row-input required" id="rowe-expense" required>
                                             </div>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td>Loan Amortization<small>(Mortgage/loan)</small></td>
+                                        <td>Other Expenses</td>
                                         <td></td>
                                         <td></td>
                                         <td>
                                             <div class="form-group">
-                                                <input type="number" name="loan_amortization_expenses" data-title="Loan Amortization (Mortgage/loan)" class="income_asset_info form-control row-input required" id="rowe-expense" required>
+                                                <input type="number" name="other_expenses" data-title="Other Expenses" class="income_asset_info form-control row-input required" id="rowf-expense" required>
                                             </div>
                                         </td>
                                     </tr>
@@ -440,7 +456,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group display_peso">
-                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowde-total" readonly>
+                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowef-total" readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -476,13 +492,23 @@
                                     </a>
                                 </div>
                             </div>
+
                         </fieldset>
 
                         <h1>Finish</h1>
                         <fieldset>
-                            <h2>Terms and Conditions</h2>
+                            <div class="terms-conditions-content">
+                                <h2>Terms and Conditions</h2>
+                                <div class="content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nec nam aliquam sem et tortor consequat. Tempus quam pellentesque nec nam aliquam sem et tortor. Sem nulla pharetra diam sit. Pellentesque pulvinar pellentesque habitant morbi tristique. Gravida arcu ac tortor dignissim convallis aenean et. Nec feugiat nisl pretium fusce id. Curabitur gravida arcu ac tortor dignissim convallis aenean. Neque egestas congue quisque egestas diam in arcu cursus euismod. Tellus molestie nunc non blandit massa enim.</p>
+                                    <p>Cursus turpis massa tincidunt dui ut ornare lectus sit amet. Egestas tellus rutrum tellus pellentesque eu tincidunt. Rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt. Turpis massa sed elementum tempus egestas. Diam ut venenatis tellus in. Risus sed vulputate odio ut enim blandit. Lobortis scelerisque fermentum dui faucibus in ornare. Imperdiet massa tincidunt nunc pulvinar. Eu volutpat odio facilisis mauris. Enim eu turpis egestas pretium. Elementum tempus egestas sed sed.</p>
+                                    <p>Nisl pretium fusce id velit ut tortor pretium viverra suspendisse. Id faucibus nisl tincidunt eget. Viverra nam libero justo laoreet sit. Quis vel eros donec ac odio tempor orci dapibus ultrices. Risus viverra adipiscing at in tellus integer feugiat scelerisque. Suscipit adipiscing bibendum est ultricies integer quis auctor elit. In aliquam sem fringilla ut. Sagittis purus sit amet volutpat consequat mauris nunc. Enim nec dui nunc mattis. Massa vitae tortor condimentum lacinia quis vel eros donec ac. Bibendum neque egestas congue quisque egestas. Purus in mollis nunc sed id semper risus.</p>
+                                    <p>Ullamcorper morbi tincidunt ornare massa eget egestas purus viverra. Congue eu consequat ac felis donec et. In tellus integer feugiat scelerisque varius morbi enim nunc faucibus. Amet porttitor eget dolor morbi non arcu. Risus quis varius quam quisque id. Nunc sed blandit libero volutpat sed cras ornare arcu dui. Vitae tempus quam pellentesque nec nam aliquam. Sodales neque sodales ut etiam sit amet nisl. Sit amet risus nullam eget. Sit amet consectetur adipiscing elit ut. Aliquam vestibulum morbi blandit cursus risus at. Pellentesque habitant morbi tristique senectus et netus. Scelerisque purus semper eget duis. Sapien et ligula ullamcorper malesuada proin libero nunc consequat. At urna condimentum mattis pellentesque. Orci a scelerisque purus semper eget duis at. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget. Purus non enim praesent elementum. Nec sagittis aliquam malesuada bibendum arcu vitae. Adipiscing bibendum est ultricies integer quis auctor elit.</p>
+                                </div>
+                            </div>
                             <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required i-checks"> <label for="acceptTerms">I agree with the Terms and Conditions.</label>
                         </fieldset>
+
 
                     </form>
                 </div>
@@ -716,13 +742,13 @@
                             '<div class="repeater-item">' +
                                 '<div class="row">' +
                                     '<div class="col-12 col-lg-4">' +
-                                        '<input type="text" name="asset_name" class="form-control required" data-title="Other assets aside from collateral">' +
+                                        '<input type="text" name="asset_name" class="form-control required" data-title="Other assets aside from collateral" placeholder="Other assets aside from collateral">' +
                                     '</div>' +
                                     '<div class="col-12 col-lg-4">' +
-                                        '<input type="text" name="asset_location" class="form-control required" data-title="Location/Description">' +
+                                        '<input type="text" name="asset_location" class="form-control required" data-title="Location/Description" placeholder="Location/Description">' +
                                     '</div>' +
                                     '<div class="col-12 col-lg-4">' +
-                                        '<input type="text" name="asset_size" class="form-control required" data-title="Size(sq.m.) Estimated Value">' +
+                                        '<input type="text" name="asset_size" class="form-control required" data-title="Size(sq.m.) Estimated Value" placeholder="Size(sq.m.) Estimated Value">' +
                                     '</div>' +
                                 '</div>' +
                             '</div>' +
@@ -759,18 +785,19 @@
                 var rowBTotal = $('#rowb-total');
 
                 var rowCIncome = parseInt($('#rowc-income').val() || 0);
+                var rowDIncome = parseInt($('#rowd-income').val() || 0);
 
-                var rowABCTotal = $('#rowabc-total');
+                var rowABCDTotal = $('#rowabcd-total');
 
-                var rowDExpense = parseInt($('#rowd-expense').val() || 0);
                 var rowEExpense = parseInt($('#rowe-expense').val() || 0);
-                var rowDETotal = $('#rowde-total');
+                var rowFExpense = parseInt($('#rowf-expense').val() || 0);
+                var rowEFTotal = $('#rowef-total');
 
                 var totalIncome = $('#total-income');
                 var rowASum = 0;
                 var rowBSum = 0;
-                var rowABCSum = 0;
-                var rowDESum = 0;
+                var rowABCDSum = 0;
+                var rowEFSum = 0;
                 var totalIncomeSum = 0;
 
                 rowASum += rowAAIncome;
@@ -783,23 +810,24 @@
                 rowBTotal.val(rowBSum);
                 // rowBTotal.val(numeral(rowBSum).format('0,0.00'));
 
-                rowABCSum += rowAAIncome;
-                rowABCSum += rowABIncome;
-                rowABCSum += rowBAIncome;
-                rowABCSum += rowBBIncome;
-                rowABCSum += rowCIncome;
+                rowABCDSum += rowAAIncome;
+                rowABCDSum += rowABIncome;
+                rowABCDSum += rowBAIncome;
+                rowABCDSum += rowBBIncome;
+                rowABCDSum += rowCIncome;
+                rowABCDSum += rowDIncome;
 
-                rowABCTotal.val(rowABCSum);
+                rowABCDTotal.val(rowABCDSum);
                 // rowABCTotal.val(numeral(rowABCSum).format('0,0.00'));
 
-                rowDESum += rowDExpense;
-                rowDESum += rowEExpense;
+                rowEFSum += rowEExpense;
+                rowEFSum += rowFExpense;
 
-                rowDETotal.val(rowDExpense + rowEExpense);
+                rowEFTotal.val(rowEExpense + rowFExpense);
                 // rowDETotal.val(numeral(rowDExpense + rowEExpense).format('0,0.00'));
 
-                totalIncomeSum += rowABCSum;
-                totalIncomeSum -= rowDESum;
+                totalIncomeSum += rowABCDSum;
+                totalIncomeSum -= rowEFSum;
 
                 totalIncome.val(totalIncomeSum);
                 // totalIncome.val(numeral(totalIncomeSum).format('0,0.00'));
