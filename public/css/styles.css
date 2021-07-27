@@ -14,7 +14,7 @@
 }
 
 body {
-  font-size: 1rem !important;
+  font-size: 1.1rem !important;
   font-family: "Source Sans Pro", sans-serif !important;
 }
 
@@ -46,6 +46,9 @@ body {
 }
 .nav li .nav-second-level li {
   border-left: none !important;
+}
+.nav.navbar-top-links a {
+  font-size: 1rem !important;
 }
 
 .navbar-minimalize {
@@ -82,6 +85,10 @@ body {
           filter: brightness(0) invert(1);
 }
 
+.metismenu .arrow {
+  margin-right: -8px;
+}
+
 .template-loan .nav-header {
   background-color: #548714 !important;
 }
@@ -97,6 +104,24 @@ body {
 }
 .template-loan .nav li a:hover, .template-loan .nav li a:focus {
   background: #467111 !important;
+}
+.template-loan .nav li.active {
+  background: #467111 !important;
+}
+.template-loan .nav li.active a {
+  border-left-color: #9ed35a !important;
+}
+.template-loan ul.nav-second-level {
+  background: #2b440a;
+}
+.template-loan ul.nav-second-level li a:hover {
+  background: #385b0d !important;
+}
+.template-loan ul.nav-second-level li.active a {
+  background: #385b0d !important;
+}
+.template-loan ul.nav-second-level li:last-child {
+  padding-bottom: 0;
 }
 
 .template-trace .nav-header {
@@ -128,10 +153,18 @@ body {
 .btn-primary {
   background-color: #094e9d !important;
   border-color: #094e9d !important;
-  font-size: 0.9rem !important;
+  font-size: 1rem !important;
 }
 .btn-primary:hover {
   background-color: #074080 !important;
+}
+
+.ibox-title h5 {
+  font-size: 15px !important;
+}
+
+.form-control {
+  font-size: 1rem !important;
 }
 
 .page-forms a.link {
