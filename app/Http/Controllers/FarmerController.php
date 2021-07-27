@@ -277,6 +277,9 @@ class FarmerController extends Controller
         $profile->qr_image = $farmer->account_id.'.png';
         $profile->qr_image_path = '/images/farmer/'.$farmer->account_id.'.png';
         if($farmer->profile()->save($profile)){
+            $user = User::find($farmer->user_id);
+            $user->name = $profile->first_name.' '.$profile->last_name;
+            $user->save();
             return redirect()->route('home');
         }
     }
