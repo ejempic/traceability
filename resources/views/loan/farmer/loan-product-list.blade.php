@@ -630,7 +630,7 @@
                         boxs.empty().append('' +
                             '<div class="form-group">' +
                             '<label>Vehicle Model</label>' +
-                            '<input type="text" name="" class="form-control">' +
+                            '<input type="text" name="" class="form-control required">' +
                             '</div>' +
                             '<div class="form-group row">' +
                             '<div class="col i-checkss">' +
@@ -642,6 +642,9 @@
                             '</div>' +
                             '');
                         break;
+                    default:
+                        boxs.empty();
+                        break
                 }
                 $('.i-checkss').iCheck({
                     radioClass: 'iradio_square-green'
@@ -686,19 +689,23 @@
                 console.log(type);
                 switch(type){
                     case 'loan-application-detail':
-                        var inputs = new Array();
+                        $('.has-error-box').removeClass('has-error-box');
+                        var inputs = new Array(), error = 0;
                         inputs.push(modal.data('id'));
                         var info_loan_detail = new Array();
                         $('.info-loan-detail').each(function(){
                             var forms = new Array();
                             var title = $(this).data('title');
                             var value = new Array();
-
                             switch (title) {
                                 case 'Purpose of Loan':
                                     $(this).find('input[type=checkbox]:checked').each(function(){
                                         value.push($(this).val());
                                     });
+                                    if($(this).find('input[type=checkbox]:checked').length < 1){
+                                        $(this).closest('.form-group').addClass('has-error-box');
+                                        error += 1;
+                                    }
                                     break;
                                 case 'Primary User':
                                     value.push($(this).val());
@@ -710,16 +717,27 @@
                                     $(this).find('input[type=checkbox]:checked').each(function(){
                                         value.push($(this).val());
                                     });
+                                    if($(this).find('input[type=checkbox]:checked').length < 1){
+                                        $(this).addClass('has-error-box');
+                                        error += 1;
+                                    }
                                     break;
                                 case 'Collateral':
                                     var innerValue = new Array();
                                     var box = $('#collateral-box');
+                                    if($(this).find('input[type=radio]:checked').val() === 'None'){
+                                        innerValue.push(box.find('input[type=radio]:checked').val());
+                                    }
                                     if($(this).find('input[type=radio]:checked').val() === 'Land Title: TCT No.'){
                                         innerValue.push(box.find('input[type=radio]:checked').val());
                                     }
                                     if($(this).find('input[type=radio]:checked').val() === 'Motor Vehicle'){
                                         innerValue.push(box.find('input[type=radio]:checked').val());
                                         innerValue.push(box.find('input[type=text]').val());
+                                        if(box.find('input[type=text]').val().length < 1){
+                                            box.find('input[type=text]').closest('.form-group').addClass('has-error');
+                                            error += 1;
+                                        }
                                     }
                                     value.push($(this).find('input[type=radio]:checked').val());
                                     value.push(innerValue);
@@ -778,6 +796,10 @@
                         inputs.push(trade_reference_info);
 
                         console.log(inputs);
+                        console.log('error: '+ error);
+                        if(error > 0){
+                            return false;
+                        }
 
                         if($('#terms_agree').prop('checked')){
                             // modal.modal('toggle');
@@ -847,7 +869,7 @@
                                     '<div class="row">' +
                                         '<div class="col">' +
                                             '<div class="form-group row info-loan-detail" data-title="Purpose of Loan">' +
-                                                '<div class="col">' +
+                                                '<div class="ctextol">' +
                                                     '<div class="i-checks">' +
                                                         '<label class="check-labels"><input type="checkbox" value="Auto Financing"><i></i> Auto Financing</label>' +
                                                     '</div>' +
@@ -922,6 +944,9 @@
                                     '<div class="row">' +
                                         '<div class="col-lg-4">' +
                                             '<div class="form-group info-loan-detail" data-title="Collateral">' +
+                                                '<div class="i-checks">' +
+                                                    '<label class="check-labels"><input type="radio" name="collateral" class="collateral" data-type="none" value="None" checked><i></i> None</label>' +
+                                                '</div>' +
                                                 '<div class="i-checks">' +
                                                     '<label class="check-labels"><input type="radio" name="collateral" class="collateral" data-type="land-title" value="Land Title: TCT No."><i></i> Land Title: TCT No.</label>' +
                                                 '</div>' +

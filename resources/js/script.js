@@ -106,14 +106,15 @@ $(document).ready(function(){
         var rowBBIncome = parseInt(profile.income_asset_info[3][2]);
 
         var rowCIncome = parseInt(profile.income_asset_info[4][2]);
+        var rowDIncome = parseInt(profile.income_asset_info[5][2]);
 
-        var rowDExpense = parseInt(profile.income_asset_info[5][2]);
         var rowEExpense = parseInt(profile.income_asset_info[6][2]);
+        var rowFExpense = parseInt(profile.income_asset_info[7][2]);
 
         var rowASum = 0;
         var rowBSum = 0;
-        var rowABCSum = 0;
-        var rowDESum = 0;
+        var rowABCDSum = 0;
+        var rowEFSum = 0;
         var totalIncomeSum = 0;
 
         rowASum += rowAAIncome;
@@ -122,17 +123,18 @@ $(document).ready(function(){
         rowBSum += rowBAIncome;
         rowBSum += rowBBIncome;
 
-        rowABCSum += rowAAIncome;
-        rowABCSum += rowABIncome;
-        rowABCSum += rowBAIncome;
-        rowABCSum += rowBBIncome;
-        rowABCSum += rowCIncome;
+        rowABCDSum += rowAAIncome;
+        rowABCDSum += rowABIncome;
+        rowABCDSum += rowBAIncome;
+        rowABCDSum += rowBBIncome;
+        rowABCDSum += rowCIncome;
+        rowABCDSum += rowDIncome;
 
-        rowDESum += rowDExpense;
-        rowDESum += rowEExpense;
+        rowEFSum += rowEExpense;
+        rowEFSum += rowFExpense;
 
-        totalIncomeSum += rowABCSum;
-        totalIncomeSum -= rowDESum;
+        totalIncomeSum += rowABCDSum;
+        totalIncomeSum -= rowEFSum;
 
         var loanDetailMenu = '';
         var loanDetailContent = '';
@@ -202,12 +204,24 @@ $(document).ready(function(){
 
 
 
-            var collateral = (loanDetail.info_loan_detail[4][1][0] === 'Motor Vehicle') ? '' +
-                '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][1] +' <small>['+ loanDetail.info_loan_detail[4][1][1][0] +']</small></dd>' +
-                '' : '' +
-
-                '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][0] +'</dd>' +
-                '';
+            // var collateral = (loanDetail.info_loan_detail[4][1][0] === 'Motor Vehicle') ? '' +
+            //     '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][1] +' <small>['+ loanDetail.info_loan_detail[4][1][1][0] +']</small></dd>' +
+            //     '' : '' +
+            //
+            //     '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][0] +'</dd>' +
+            //     '';
+            var collateral = null;
+            switch(loanDetail.info_loan_detail[4][1][0]){
+                case 'Motor Vehicle':
+                    collateral = '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][1] +' <small>['+ loanDetail.info_loan_detail[4][1][1][0] +']</small></dd>';
+                    break;
+                case 'None':
+                    collateral = '<dd>'+ loanDetail.info_loan_detail[4][1][0] +'</dd>';
+                    break;
+                default:
+                    collateral = '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][0] +'</dd>';
+                    break;
+            }
 
 
             loanDetailContent = '' +
@@ -226,11 +240,11 @@ $(document).ready(function(){
                             '<div class="col">' +
                                 '<dl>' +
                                     '<dt>Primary User</dt>' +
-                                    '<dd>'+ loanDetail.info_loan_detail[1][1] +'</dd>' +
+                                    '<dd>'+ loanDetail.info_loan_detail[1][1][0] +'</dd>' +
                                 '</dl>' +
                                 '<dl>' +
                                     '<dt>Relationship to Applicant</dt>' +
-                                    '<dd>'+ loanDetail.info_loan_detail[2][1] +'</dd>' +
+                                    '<dd>'+ loanDetail.info_loan_detail[2][1][0] +'</dd>' +
                                 '</dl>' +
                             '</div>' +
                         '</div>' +
@@ -643,28 +657,34 @@ $(document).ready(function(){
                                         '<td class="text-right">'+ numFormat(rowCIncome) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
+                                        '<td>Other Source of Income</td>' +
+                                        '<td></td>' +
+                                        '<td></td>' +
+                                        '<td class="text-right">'+ numFormat(rowDIncome) +'</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
                                         '<td>Total Monthly Income</td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">'+ numFormat(rowABCSum) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowABCDSum) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Less Monthly Expenses <small><br>(Living, Utilitites, rental, transpo..)</small></td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">'+ numFormat(rowDExpense) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowEExpense) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Loan Amortization <small><br>(Mortgage/loan)</small></td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">'+ numFormat(rowEExpense) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowFExpense) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Total Expenses</td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">'+ numFormat(rowDESum) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowEFSum) +'</td>' +
                                     '</tr>' +
                                 '</tbody>' +
                                 '<tfoot>' +

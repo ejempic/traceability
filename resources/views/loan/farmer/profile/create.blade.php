@@ -403,7 +403,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Other Source of Income <small>(Pension, Allowance, Salary, Business Sales, Harvest, Others)</small></td>
+                                        <td>Other Source of Income <small>(Pension, Allowance, Salary, <br> Business Sales, Harvest, Others)</small></td>
                                         <td>
                                             <div class="form-group">
                                             </div>
@@ -414,7 +414,7 @@
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input type="number" name="other_source_income" data-title="Other Source Income" class="income_asset_info form-control row-input required" id="rowc-income" required>
+                                                <input type="number" name="other_source_income" data-title="Other Source Income" class="income_asset_info form-control row-input required" id="rowd-income" required>
                                             </div>
                                         </td>
                                     </tr>
@@ -424,29 +424,29 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group display_peso">
-                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowabc-total" readonly>
+                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowabcd-total" readonly>
                                             </div>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td>Less Monthly Expenses <small>(Living, Utilitites, Rental, Transpo, Food, Tuition)</small></td>
+                                        <td>Less Monthly Expenses <small>(Living, Utilitites, Rental, <br> Transpo, Food, Tuition)</small></td>
                                         <td></td>
                                         <td></td>
                                         <td>
                                             <div class="form-group">
-                                                <input type="number" name="monthly_expenses" data-title="Less Monthly Expenses (Living, Utilitites, rental, transpo..)" class="income_asset_info form-control row-input required" id="rowd-expense" required>
+                                                <input type="number" name="monthly_expenses" data-title="Less Monthly Expenses (Living, Utilitites, rental, transpo..)" class="income_asset_info form-control row-input required" id="rowe-expense" required>
                                             </div>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td>Other Expenses</small></td>
+                                        <td>Other Expenses</td>
                                         <td></td>
                                         <td></td>
                                         <td>
                                             <div class="form-group">
-                                                <input type="number" name="other_expenses" data-title="Other Expenses" class="income_asset_info form-control row-input required" id="rowe-expense" required>
+                                                <input type="number" name="other_expenses" data-title="Other Expenses" class="income_asset_info form-control row-input required" id="rowf-expense" required>
                                             </div>
                                         </td>
                                     </tr>
@@ -456,7 +456,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group display_peso">
-                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowde-total" readonly>
+                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowef-total" readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -785,18 +785,19 @@
                 var rowBTotal = $('#rowb-total');
 
                 var rowCIncome = parseInt($('#rowc-income').val() || 0);
+                var rowDIncome = parseInt($('#rowd-income').val() || 0);
 
-                var rowABCTotal = $('#rowabc-total');
+                var rowABCDTotal = $('#rowabcd-total');
 
-                var rowDExpense = parseInt($('#rowd-expense').val() || 0);
                 var rowEExpense = parseInt($('#rowe-expense').val() || 0);
-                var rowDETotal = $('#rowde-total');
+                var rowFExpense = parseInt($('#rowf-expense').val() || 0);
+                var rowEFTotal = $('#rowef-total');
 
                 var totalIncome = $('#total-income');
                 var rowASum = 0;
                 var rowBSum = 0;
-                var rowABCSum = 0;
-                var rowDESum = 0;
+                var rowABCDSum = 0;
+                var rowEFSum = 0;
                 var totalIncomeSum = 0;
 
                 rowASum += rowAAIncome;
@@ -809,23 +810,24 @@
                 rowBTotal.val(rowBSum);
                 // rowBTotal.val(numeral(rowBSum).format('0,0.00'));
 
-                rowABCSum += rowAAIncome;
-                rowABCSum += rowABIncome;
-                rowABCSum += rowBAIncome;
-                rowABCSum += rowBBIncome;
-                rowABCSum += rowCIncome;
+                rowABCDSum += rowAAIncome;
+                rowABCDSum += rowABIncome;
+                rowABCDSum += rowBAIncome;
+                rowABCDSum += rowBBIncome;
+                rowABCDSum += rowCIncome;
+                rowABCDSum += rowDIncome;
 
-                rowABCTotal.val(rowABCSum);
+                rowABCDTotal.val(rowABCDSum);
                 // rowABCTotal.val(numeral(rowABCSum).format('0,0.00'));
 
-                rowDESum += rowDExpense;
-                rowDESum += rowEExpense;
+                rowEFSum += rowEExpense;
+                rowEFSum += rowFExpense;
 
-                rowDETotal.val(rowDExpense + rowEExpense);
+                rowEFTotal.val(rowEExpense + rowFExpense);
                 // rowDETotal.val(numeral(rowDExpense + rowEExpense).format('0,0.00'));
 
-                totalIncomeSum += rowABCSum;
-                totalIncomeSum -= rowDESum;
+                totalIncomeSum += rowABCDSum;
+                totalIncomeSum -= rowEFSum;
 
                 totalIncome.val(totalIncomeSum);
                 // totalIncome.val(numeral(totalIncomeSum).format('0,0.00'));
