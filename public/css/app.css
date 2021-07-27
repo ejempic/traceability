@@ -11317,6 +11317,16 @@ a.text-dark:focus {
   height: 106px !important;
 }
 
+.has-error-box {
+  border: 1px solid #fd4d4d;
+  padding: 2px 10px;
+}
+
+#acceptTerms-error {
+  width: 180px;
+  padding: 20px;
+}
+
 .page-forms form .form-group select {
   width: 100%;
   padding: 10px;

@@ -19,7 +19,8 @@ class FarmerSeeder extends Seeder
         for($a = 0; $a < $accounts; $a++){
 
             $faker = Faker\Factory::create();
-            $number = Farmer::count() + 1;
+//            $number = Farmer::count() + 1;
+            $number = str_pad(Farmer::count() + 1, 5, 0, STR_PAD_LEFT);
 
             $farmer = new Farmer();
             $farmer->account_id = $number;
