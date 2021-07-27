@@ -50,6 +50,12 @@
         }
       }
     }
+
+    &.navbar-top-links {
+      a {
+        font-size: 1rem !important;
+      }
+    }
   }
 
   .navbar-minimalize {
@@ -106,6 +112,11 @@
 }
 
 
+.metismenu .arrow {
+  margin-right: -8px;
+}
+
+
 //LOAN
 
 .template-loan {
@@ -132,6 +143,36 @@
         &:hover, &:focus {
           background: darken($primary-2, 5%) !important;
         }
+      }
+
+      &.active {
+        background: darken($primary-2, 5%) !important;
+
+        a {
+          border-left-color: $primary-1 !important;
+        }
+      }
+    }
+  }
+
+  ul.nav-second-level {
+    background: darken($primary-2, 15%);
+
+    li {
+      a {
+        &:hover {
+          background: darken($primary-2, 10%) !important;
+        }
+      }
+
+      &.active {
+        a {
+          background: darken($primary-2, 10%) !important;
+        }
+      }
+
+      &:last-child {
+        padding-bottom: 0;
       }
     }
   }
