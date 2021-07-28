@@ -1100,14 +1100,16 @@
                                         '<div class="col">' +
                                             '<div class="form-group">' +
                                                 '<label>ID #1 <span class="text-danger">*</span></label>' +
-                                                '<input type="file" name="reference_id_a" data-title="ID #1" class="form-control required" accept="image/*" required>' +
+                                                '<input type="file" name="reference_id_a" data-title="ID #1" data-base64="" class="form-control required image-upload" accept="image/*" required>' +
                                             '</div>' +
+                                            '<img class="img-input img-fluid">' +
                                         '</div>' +
                                         '<div class="col">' +
                                             '<div class="form-group">' +
                                                 '<label>ID #2 <span class="text-danger">*</span></label>' +
-                                                '<input type="file" name="reference_id_b" data-title="ID #2" class="form-control required" accept="image/*" required>' +
+                                                '<input type="file" name="reference_id_b" data-title="ID #2" data-base64="" class="form-control required image-upload" accept="image/*" required>' +
                                             '</div>' +
+                                            '<img id="img" class="img-input img-fluid">' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
@@ -1243,6 +1245,21 @@
                         break;
                 }
             });
+
+            // $(document).on('change', '.image-upload', function(){
+            //     var box = $(this).closest('.col').find('.img-input');
+            //     if (this.files && this.files[0]) {
+            //
+            //         var FR= new FileReader();
+            //
+            //         FR.addEventListener("load", function(e) {
+            //             document.getElementById("img").src       = e.target.result;
+            //             document.getElementById("b64").innerHTML = e.target.result;
+            //         });
+            //
+            //         FR.readAsDataURL( this.files[0] );
+            //     }
+            // });
 
             function getList(type, term, amount) {
                 console.log('type: ' + type);
