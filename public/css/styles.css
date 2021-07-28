@@ -89,6 +89,17 @@ body {
     display: block;
   }
 }
+#page-wrapper .btn-logout {
+  padding: 10px 1rem !important;
+}
+@media (max-width: 500px) {
+  #page-wrapper .btn-logout span {
+    display: none;
+  }
+  #page-wrapper .btn-logout i {
+    font-size: 1.5rem;
+  }
+}
 
 .navbar-default {
   position: relative;
@@ -114,6 +125,12 @@ body {
 }
 .mini-navbar .navbar-default .version .long {
   display: none;
+}
+.mini-navbar #side-menu li a:not(.dropdown-item) {
+  text-align: center;
+}
+.mini-navbar #side-menu li a:not(.dropdown-item) i {
+  margin-right: 0;
 }
 
 .nav.navbar-right .btn-logout {
