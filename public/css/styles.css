@@ -459,6 +459,14 @@ body {
     padding: 1rem 5%;
   }
 }
+.page-forms.page-loan .sign-in .left {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+.page-forms.page-loan .sign-in .left .logo {
+  margin-bottom: 40%;
+}
 
 @media (max-width: 500px) {
   .page-register h1 {
