@@ -59,14 +59,61 @@ body {
 .navbar-minimalize {
   background: #094e9d !important;
   border-color: #094e9d !important;
+  margin: 0 !important;
 }
 
 #page-wrapper {
   background: #e4e8ed !important;
 }
+#page-wrapper .navbar-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px 1.5rem;
+}
+@media (max-width: 500px) {
+  #page-wrapper .navbar-header {
+    padding: 10px 1rem;
+  }
+}
+#page-wrapper .mobile-logo {
+  max-width: 130px;
+  margin-left: 10px;
+  display: none;
+}
+@media (max-width: 500px) {
+  #page-wrapper .mobile-logo {
+    display: block;
+  }
+}
 
 .navbar-default {
+  position: relative;
   background-color: #094e9d !important;
+}
+.navbar-default .version {
+  color: #fff;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 13px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+}
+.navbar-default .version .short {
+  display: none;
+}
+
+.mini-navbar .navbar-default .version .short {
+  display: block;
+}
+.mini-navbar .navbar-default .version .long {
+  display: none;
 }
 
 .nav.navbar-right .btn-logout {
@@ -147,6 +194,27 @@ body {
 }
 .template-trace .nav li.active > a {
   border-left-color: #3a8cdd !important;
+}
+
+.footer .copyright {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.footer .copyright p {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  opacity: 0.5;
+}
+@media (max-width: 500px) {
+  .footer .copyright p {
+    width: 100%;
+  }
 }
 
 .panel-success .panel-heading {
@@ -445,6 +513,16 @@ body {
 }
 .page-forms .sign-in .left a.link {
   color: #fff;
+}
+.page-forms .sign-in .left .copyright {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  font-size: 0.9rem;
+  color: #fff;
+  bottom: 8%;
 }
 .page-forms .sign-in .right {
   padding: 7rem 15%;
@@ -1135,5 +1213,12 @@ body {
   to {
     -webkit-transform: translateY(-1050%) rotate(360deg);
             transform: translateY(-1050%) rotate(360deg);
+  }
+}
+
+@media (max-width: 500px) {
+  .project-list {
+    position: relative;
+    overflow: auto;
   }
 }
