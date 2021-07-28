@@ -139,6 +139,21 @@
                                     </div>
                                 </div>
                             </div>
+                            <h3>Reference ID's</h3>
+                            <div class="row info-loan-detail" data-title="Reference ID's">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>ID #1 <span class="text-danger">*</span></label>
+                                        <input type="file" name="reference_id_a" class="form-control required" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>ID #2 <span class="text-danger">*</span></label>
+                                        <input type="file" name="reference_id_b" class="form-control required" required>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -708,10 +723,10 @@
                                     }
                                     break;
                                 case 'Primary User':
-                                    value.push($(this).val());
+                                    value.push(($(this).val().length < 1) ? 'N/A': $(this).val());
                                     break;
                                 case 'Relationship to Applicant':
-                                    value.push($(this).val());
+                                    value.push(($(this).val().length < 1) ? 'N/A': $(this).val());
                                     break;
                                 case 'Place of use':
                                     $(this).find('input[type=checkbox]:checked').each(function(){
@@ -733,7 +748,8 @@
                                     }
                                     if($(this).find('input[type=radio]:checked').val() === 'Motor Vehicle'){
                                         innerValue.push(box.find('input[type=radio]:checked').val());
-                                        innerValue.push(box.find('input[type=text]').val());
+                                        // innerValue.push(box.find('input[type=text]').val());
+                                        innerValue.push((box.find('input[type=text]').val().length < 1) ? 'N/A': box.find('input[type=text]').val());
                                         if(box.find('input[type=text]').val().length < 1){
                                             box.find('input[type=text]').closest('.form-group').addClass('has-error');
                                             error += 1;
@@ -795,24 +811,42 @@
                         });
                         inputs.push(trade_reference_info);
 
+                        var reference_ids = new Array();
+                        $('.reference-ids').each(function(){
+                            var forms = new Array();
+                            var title = $(this).data('title');
+                            var value = new Array();
+
+                            $(this).find('.form-control').each(function(){
+                                var innestValue = new Array();
+                                innestValue.push($(this).data('title'), $(this).val());
+                                value.push(innestValue);
+                            });
+
+                            forms.push(title);
+                            forms.push(value);
+                            reference_ids.push(forms);
+                        });
+                        inputs.push(reference_ids);
+
                         console.log(inputs);
                         console.log('error: '+ error);
                         if(error > 0){
                             return false;
                         }
 
-                        if($('#terms_agree').prop('checked')){
-                            // modal.modal('toggle');
-                            $.post('{!! route('loan-submit-form') !!}', {
-                                _token: '{!! csrf_token() !!}',
-                                inputs: inputs
-                            }, function(data){
-                                console.log(data);
-                                window.location.replace(data);
-                            });
-                        }else{
-                            $('#terms_agree').closest('.form-group').addClass('has-error');
-                        }
+                        {{--if($('#terms_agree').prop('checked')){--}}
+                        {{--    // modal.modal('toggle');--}}
+                        {{--    $.post('{!! route('loan-submit-form') !!}', {--}}
+                        {{--        _token: '{!! csrf_token() !!}',--}}
+                        {{--        inputs: inputs--}}
+                        {{--    }, function(data){--}}
+                        {{--        console.log(data);--}}
+                        {{--        window.location.replace(data);--}}
+                        {{--    });--}}
+                        {{--}else{--}}
+                        {{--    $('#terms_agree').closest('.form-group').addClass('has-error');--}}
+                        {{--}--}}
 
 
                         break;
@@ -860,6 +894,11 @@
                         }
                         modal.data('type', 'loan-application-detail');
                         modal.data('id', loanProductID);
+
+                        // modal.find('.modal-title').text('Loan Application Details');
+                        // modal.find('#modal-size').removeClass().addClass('modal-dialog modal-lg');
+                        // modal.modal({backdrop: 'static', keyboard: false});
+                        // return false;
 
                         modal.find('.modal-body').empty().append('' +
                             '<div class="panel panel-default" id="loan-details">' +
@@ -970,12 +1009,13 @@
                                                 '<div class="row form-repeater">' +
                                                     '<div class="col">' +
                                                         '<div class="form-group">' +
-                                                            '<select name="" class="form-control" data-title="Account type">' +
-                                                                '<option value="">Account type</option>' +
-                                                                '<option value="Savings">Savings</option>' +
-                                                                '<option value="Checking">Checking</option>' +
-                                                                '<option value="Time Deposit">Time Deposit</option>' +
-                                                            '</select>' +
+                                                            '<input type="text" name="bank-name" class="form-control" data-title="Bank name" placeholder="Bank name">' +
+                                                            // '<select name="" class="form-control" data-title="Account type">' +
+                                                            //     '<option value="">Account type</option>' +
+                                                            //     '<option value="Savings">Savings</option>' +
+                                                            //     '<option value="Checking">Checking</option>' +
+                                                            //     '<option value="Time Deposit">Time Deposit</option>' +
+                                                            // '</select>' +
                                                         '</div>' +
                                                     '</div>' +
                                                     '<div class="col">' +
@@ -1011,7 +1051,13 @@
                                                 '<button type="button" class="btn btn-xs btn-white btn-action" data-action="repeater-remove"><i class="text-danger fa fa-minus"></i></button>' +
                                             '</div>' +
                                         '</div>' +
+
+
                                     '</div>' +
+
+
+
+
                                 '</div>' +
                             '</div>' +
 
@@ -1043,8 +1089,31 @@
                                             '<button type="button" class="btn btn-xs btn-white btn-action" data-action="repeater-remove"><i class="text-danger fa fa-minus"></i></button>' +
                                         '</div>' +
                                     '</div>' +
+
                                 '</div>' +
                             '</div>' +
+
+                            '<div class="panel panel-default">' +
+                                '<div class="panel-body">' +
+                                    '<strong><h2 class="text-success">REFERENCE ID\'s</h2></strong>' +
+                                    '<div class="row reference-ids" data-title="Reference ID\'s">' +
+                                        '<div class="col">' +
+                                            '<div class="form-group">' +
+                                                '<label>ID #1 <span class="text-danger">*</span></label>' +
+                                                '<input type="file" name="reference_id_a" data-title="ID #1" class="form-control required" accept="image/*" required>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="col">' +
+                                            '<div class="form-group">' +
+                                                '<label>ID #2 <span class="text-danger">*</span></label>' +
+                                                '<input type="file" name="reference_id_b" data-title="ID #2" class="form-control required" accept="image/*" required>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+
+
 
                             '<div class="panel panel-default">' +
                                 '<div class="panel-body">' +
@@ -1110,12 +1179,13 @@
                             '<div class="row form-repeater">' +
                                 '<div class="col">' +
                                     '<div class="form-group">' +
-                                        '<select name="" class="form-control" data-title="Account type">' +
-                                            '<option value="">Account type</option>' +
-                                            '<option value="Savings">Savings</option>' +
-                                            '<option value="Checking">Checking</option>' +
-                                            '<option value="Time Deposit">Time Deposit</option>' +
-                                        '</select>' +
+                                        '<input type="text" name="bank-name" class="form-control" data-title="Bank name" placeholder="Bank name">' +
+                                        // '<select name="" class="form-control" data-title="Account type">' +
+                                        //     '<option value="">Account type</option>' +
+                                        //     '<option value="Savings">Savings</option>' +
+                                        //     '<option value="Checking">Checking</option>' +
+                                        //     '<option value="Time Deposit">Time Deposit</option>' +
+                                        // '</select>' +
                                     '</div>' +
                                 '</div>' +
                                 '<div class="col">' +

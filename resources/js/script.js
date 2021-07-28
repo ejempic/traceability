@@ -452,7 +452,7 @@ $(document).ready(function(){
                                             '<thead>' +
                                             '<tr>' +
                                             '<th>Name</th>' +
-                                            '<th>Age</th>' +
+                                            '<th>Birthday</th>' +
                                             '</tr>' +
                                             '</thead>' +
                                             '<tbody>'+ dependents +'</tbody>' +
@@ -555,13 +555,13 @@ $(document).ready(function(){
                                     '<h2 class="text-success"><strong>Farming Information</strong></h2>' +
                                     '<div class="row">' +
                                         '<dl class="col">' +
-                                            '<dt>Farm Lot</dt>' +
+                                            '<dt>Farm Description</dt>' +
                                             '<dd>'+ profile.farming_info[0][2] +'</dd>' +
                                         '</dl>' +
-                                        '<dl class="col">' +
-                                            '<dt>Farming Since</dt>' +
-                                            '<dd>'+ profile.farming_info[1][2] +'</dd>' +
-                                        '</dl>' +
+                                        // '<dl class="col">' +
+                                        //     '<dt>Farming Since</dt>' +
+                                        //     '<dd>'+ profile.farming_info[1][2] +'</dd>' +
+                                        // '</dl>' +
                                     '</div>' +
                                 '</div>' +
                                 '<div class="col">' +
