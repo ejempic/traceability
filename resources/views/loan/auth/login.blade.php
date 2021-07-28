@@ -2,9 +2,9 @@
 
 @section('content')
 
-    <main class="page-forms">
+    <main class="page-forms page-loan">
         <div class="row no-gutters sign-in">
-            <div class="col-12 col-lg-4 left d-none d-lg-flex" style="background-image: url({{ asset('images/loan/bg-img.jpg') }})">
+            <div class="col-12 col-lg-4 left d-none d-lg-flex" style="background-image: url({{ asset('images/loan/bg-img-4.png') }})">
                 <div>
                     <a href="{{ asset('/') }}">
                         <img src="{{ asset('images/agrabah-logo.png') }}" alt="logo" class="img-fluid d-block mx-auto logo">

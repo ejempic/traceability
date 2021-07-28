@@ -306,4 +306,17 @@
     }
   }
 
+
+
+  &.page-loan {
+    .sign-in {
+      .left {
+        justify-content: flex-end;
+        .logo {
+          margin-bottom: 40%;
+        }
+      }
+    }
+  }
+
 }
