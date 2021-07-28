@@ -21,6 +21,7 @@
                 </div>
 
                 {{--                <a href="{{ asset('/') }}" class="link">Back to homepage</a>--}}
+                <div class="copyright">Powered by Agrabah Ventures</div>
 
             </div>
             <div class="col-12 col-lg-8 right d-flex align-items-center justify-content-center">

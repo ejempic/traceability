@@ -19,6 +19,8 @@
                     {{--<li>Join us now</li>--}}
                     {{--</ul>--}}
                     {{--</div>--}}
+
+                    <div class="copyright">Powered by Agrabah Ventures</div>
                 </div>
 
                 {{--                <a href="{{ asset('/') }}" class="link">Back to homepage</a>--}}
