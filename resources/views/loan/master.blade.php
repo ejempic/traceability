@@ -109,7 +109,7 @@
                     {{-- slot for general notification --}}
 
                     <li>
-                        <a href="#" class="btn-logout"> <i class="fa fa-sign-out"></i> Log out </a>
+                        <a href="#" class="btn-logout"> <i class="fa fa-sign-out"></i> <span>Log out</span> </a>
                     </li>
                 </ul>
 
