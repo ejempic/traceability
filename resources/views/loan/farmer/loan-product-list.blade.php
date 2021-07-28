@@ -354,7 +354,7 @@
                     </dl>
                     <dl class="row mb-0">
                         <div class="col-sm-6 text-sm-right">
-                            <dt>Monthly Rate:</dt>
+                            <dt>Amortization Rate:</dt>
                         </div>
                         <div class="col-sm-6 text-sm-left">
                             <dd class="mb-1 loan-amor"></dd>
@@ -588,7 +588,7 @@
                 lvl_terms.text(duration);
                 lvl_type.text(type);
                 lvl_interest.text(interest_rate);
-                var loan_amor = (amount / interest_rate) * duration;
+                var loan_amor = (amount + (interest_rate/100) * amount) / duration;
                 lvl_amor.text(numberWithCommas(loan_amor));
                 /**
                  * amount: 30000
