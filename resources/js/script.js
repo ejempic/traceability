@@ -152,9 +152,9 @@ $(document).ready(function(){
             loanPurpose = loanPurpose.join('');
 
             var placeUse = new Array();
-            for(var a = 0; a < loanDetail.info_loan_detail[3][1].length; a++){
+            for(var a = 0; a < loanDetail.info_loan_detail[1][1].length; a++){
                 placeUse.push('' +
-                    '<li>'+ loanDetail.info_loan_detail[3][1][a] +'</li>' +
+                    '<li>'+ loanDetail.info_loan_detail[1][1][a] +'</li>' +
                 '');
             }
             placeUse = placeUse.join('');
@@ -204,22 +204,22 @@ $(document).ready(function(){
 
 
 
-            // var collateral = (loanDetail.info_loan_detail[4][1][0] === 'Motor Vehicle') ? '' +
-            //     '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][1] +' <small>['+ loanDetail.info_loan_detail[4][1][1][0] +']</small></dd>' +
+            // var collateral = (loanDetail.info_loan_detail[2][1][0] === 'Motor Vehicle') ? '' +
+            //     '<dd>'+ loanDetail.info_loan_detail[2][1][0] +' : '+ loanDetail.info_loan_detail[2][1][1][1] +' <small>['+ loanDetail.info_loan_detail[2][1][1][0] +']</small></dd>' +
             //     '' : '' +
             //
-            //     '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][0] +'</dd>' +
+            //     '<dd>'+ loanDetail.info_loan_detail[2][1][0] +' : '+ loanDetail.info_loan_detail[2][1][1][0] +'</dd>' +
             //     '';
             var collateral = null;
-            switch(loanDetail.info_loan_detail[4][1][0]){
+            switch(loanDetail.info_loan_detail[2][1][0]){
                 case 'Motor Vehicle':
-                    collateral = '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][1] +' <small>['+ loanDetail.info_loan_detail[4][1][1][0] +']</small></dd>';
+                    collateral = '<dd>'+ loanDetail.info_loan_detail[2][1][0] +' : '+ loanDetail.info_loan_detail[2][1][1][1] +' <small>['+ loanDetail.info_loan_detail[2][1][1][0] +']</small></dd>';
                     break;
                 case 'None':
-                    collateral = '<dd>'+ loanDetail.info_loan_detail[4][1][0] +'</dd>';
+                    collateral = '<dd>'+ loanDetail.info_loan_detail[2][1][0] +'</dd>';
                     break;
                 default:
-                    collateral = '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][0] +'</dd>';
+                    collateral = '<dd>'+ loanDetail.info_loan_detail[2][1][0] +' : '+ loanDetail.info_loan_detail[2][1][1][0] +'</dd>';
                     break;
             }
 
@@ -237,16 +237,16 @@ $(document).ready(function(){
                                     '</dd>' +
                                 '</dl>' +
                             '</div>' +
-                            '<div class="col">' +
-                                '<dl>' +
-                                    '<dt>Primary User</dt>' +
-                                    '<dd>'+ loanDetail.info_loan_detail[1][1][0] +'</dd>' +
-                                '</dl>' +
-                                '<dl>' +
-                                    '<dt>Relationship to Applicant</dt>' +
-                                    '<dd>'+ loanDetail.info_loan_detail[2][1][0] +'</dd>' +
-                                '</dl>' +
-                            '</div>' +
+                            // '<div class="col">' +
+                            //     '<dl>' +
+                            //         '<dt>Primary User</dt>' +
+                            //         '<dd>'+ loanDetail.info_loan_detail[1][1][0] +'</dd>' +
+                            //     '</dl>' +
+                            //     '<dl>' +
+                            //         '<dt>Relationship to Applicant</dt>' +
+                            //         '<dd>'+ loanDetail.info_loan_detail[2][1][0] +'</dd>' +
+                            //     '</dl>' +
+                            // '</div>' +
                         '</div>' +
                         '<div class="row">' +
                             '<div class="col">' +
@@ -316,6 +316,28 @@ $(document).ready(function(){
                                 '</table>' +
                             '</div>' +
                         '</div>' +
+
+                        '<h2 class="text-success"><strong>Reference ID\'s</strong></h2>' +
+                        '<div class="row">' +
+                            '<div class="col">' +
+                                '<dl>' +
+                                    '<dt>ID 1</dt>' +
+                                    '<dd>' +
+                                        '<img src="'+ loanDetail.reference_id[0][1][0][1] +'" class="img-fluid" alt="">' +
+                                    '</dd>' +
+                                '</dl>' +
+                            '</div>' +
+                            '<div class="col">' +
+                                '<dl>' +
+                                    '<dt>ID 2</dt>' +
+                                    '<dd>' +
+                                        '<img src="'+ loanDetail.reference_id[0][1][1][1] +'" class="img-fluid" alt="">' +
+                                    '</dd>' +
+                                '</dl>' +
+                            '</div>' +
+                        '</div>' +
+
+
                     '</div>' +
                 '</div>' +
             '';

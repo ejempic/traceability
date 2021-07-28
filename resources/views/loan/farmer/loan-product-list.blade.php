@@ -819,7 +819,7 @@
 
                             $(this).find('.form-control').each(function(){
                                 var innestValue = new Array();
-                                innestValue.push($(this).data('title'), $(this).val());
+                                innestValue.push($(this).data('title'), $(this).data('base64'), $(this).val());
                                 value.push(innestValue);
                             });
 
@@ -880,6 +880,7 @@
                             modal.modal('toggle');
                             swal("Success!", "You may proceed to Loan Application.", "success");
                         });
+
                         break;
                 }
             });
@@ -908,7 +909,7 @@
                                     '<div class="row">' +
                                         '<div class="col">' +
                                             '<div class="form-group row info-loan-detail" data-title="Purpose of Loan">' +
-                                                '<div class="ctextol">' +
+                                                '<div class="col">' +
                                                     '<div class="i-checks">' +
                                                         '<label class="check-labels"><input type="checkbox" value="Auto Financing"><i></i> Auto Financing</label>' +
                                                     '</div>' +
@@ -931,20 +932,20 @@
                                             '</div>' +
                                         '</div>' +
                                     '</div>' +
-                                    '<div class="row">' +
-                                        '<div class="col-lg-6">' +
-                                            '<div class="form-group">' +
-                                                '<h3>Primary User</h3>' +
-                                                '<input type="text" name="primary-user" class="form-control info-loan-detail" data-title="Primary User">' +
-                                            '</div>' +
-                                        '</div>' +
-                                        '<div class="col-lg-6">' +
-                                            '<div class="form-group">' +
-                                                '<h3>Relationship to Applicant</h3>' +
-                                                '<input type="text" name="relationship" class="form-control info-loan-detail" data-title="Relationship to Applicant">' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</div>' +
+                                    // '<div class="row">' +
+                                    //     '<div class="col-lg-6">' +
+                                    //         '<div class="form-group">' +
+                                    //             '<h3>Primary User</h3>' +
+                                    //             '<input type="text" name="primary-user" class="form-control info-loan-detail" data-title="Primary User">' +
+                                    //         '</div>' +
+                                    //     '</div>' +
+                                    //     '<div class="col-lg-6">' +
+                                    //         '<div class="form-group">' +
+                                    //             '<h3>Relationship to Applicant</h3>' +
+                                    //             '<input type="text" name="relationship" class="form-control info-loan-detail" data-title="Relationship to Applicant">' +
+                                    //         '</div>' +
+                                    //     '</div>' +
+                                    // '</div>' +
                                     '<h3>Place of use</h3>' +
                                     '<div class="row info-loan-detail" data-title="Place of use">' +
                                         '<div class="col">' +
@@ -1100,14 +1101,14 @@
                                         '<div class="col">' +
                                             '<div class="form-group">' +
                                                 '<label>ID #1 <span class="text-danger">*</span></label>' +
-                                                '<input type="file" name="reference_id_a" data-title="ID #1" data-base64="" class="form-control required image-upload" accept="image/*" required>' +
+                                                '<input type="file" name="reference_id_a" data-title="ID #1" data-base64="base64" class="form-control required image-upload" accept="image/*" required>' +
                                             '</div>' +
                                             '<img class="img-input img-fluid">' +
                                         '</div>' +
                                         '<div class="col">' +
                                             '<div class="form-group">' +
                                                 '<label>ID #2 <span class="text-danger">*</span></label>' +
-                                                '<input type="file" name="reference_id_b" data-title="ID #2" data-base64="" class="form-control required image-upload" accept="image/*" required>' +
+                                                '<input type="file" name="reference_id_b" data-title="ID #2" data-base64="base64" class="form-control required image-upload" accept="image/*" required>' +
                                             '</div>' +
                                             '<img id="img" class="img-input img-fluid">' +
                                         '</div>' +

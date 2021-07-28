@@ -19,6 +19,7 @@ class CreateLoanApplicationDetailsTable extends Migration
             $table->text('info_loan_detail')->nullable();
             $table->text('credit_financial_info')->nullable();
             $table->text('trade_reference_info')->nullable();
+            $table->text('reference_id')->nullable();
             $table->timestamps();
         });
     }

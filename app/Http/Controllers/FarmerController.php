@@ -386,6 +386,7 @@ class FarmerController extends Controller
             $details->info_loan_detail = serialize($inputs[1]);
             $details->credit_financial_info = serialize($inputs[2]);
             $details->trade_reference_info = serialize($inputs[3]);
+            $details->reference_id = serialize($inputs[4]);
             $details->save();
 
             $url = route('my-loans');
