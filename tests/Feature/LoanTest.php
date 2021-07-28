@@ -92,7 +92,7 @@ class LoanTest extends TestCase
             "timing" => " monthly ",
             "allowance" => " 1 ",
             "first_allowance" => " 0 ",
-            "disclosure" => $faker->paragraphs,
+            "disclosure" => $faker->paragraph,
         ];
 
         $response = $this->post(route('products.store'), $loanProductStore);
