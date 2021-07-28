@@ -835,18 +835,18 @@
                             return false;
                         }
 
-                        {{--if($('#terms_agree').prop('checked')){--}}
-                        {{--    // modal.modal('toggle');--}}
-                        {{--    $.post('{!! route('loan-submit-form') !!}', {--}}
-                        {{--        _token: '{!! csrf_token() !!}',--}}
-                        {{--        inputs: inputs--}}
-                        {{--    }, function(data){--}}
-                        {{--        console.log(data);--}}
-                        {{--        window.location.replace(data);--}}
-                        {{--    });--}}
-                        {{--}else{--}}
-                        {{--    $('#terms_agree').closest('.form-group').addClass('has-error');--}}
-                        {{--}--}}
+                        if($('#terms_agree').prop('checked')){
+                            // modal.modal('toggle');
+                            $.post('{!! route('loan-submit-form') !!}', {
+                                _token: '{!! csrf_token() !!}',
+                                inputs: inputs
+                            }, function(data){
+                                console.log(data);
+                                window.location.replace(data);
+                            });
+                        }else{
+                            $('#terms_agree').closest('.form-group').addClass('has-error');
+                        }
 
 
                         break;
