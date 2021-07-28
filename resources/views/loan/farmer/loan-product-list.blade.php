@@ -819,7 +819,8 @@
 
                             $(this).find('.form-control').each(function(){
                                 var innestValue = new Array();
-                                innestValue.push($(this).data('title'), $(this).data('base64'), $(this).val());
+                                innestValue.push($(this).data('title'), $(this).data('base'), $(this).val());
+                                // innestValue.push($(this).data('title'), $(this).val(), $(this).val());
                                 value.push(innestValue);
                             });
 
@@ -1098,19 +1099,19 @@
                                 '<div class="panel-body">' +
                                     '<strong><h2 class="text-success">REFERENCE ID\'s</h2></strong>' +
                                     '<div class="row reference-ids" data-title="Reference ID\'s">' +
-                                        '<div class="col">' +
+                                        '<div class="col-lg-6 img-box">' +
                                             '<div class="form-group">' +
                                                 '<label>ID #1 <span class="text-danger">*</span></label>' +
-                                                '<input type="file" name="reference_id_a" data-title="ID #1" data-base64="base64" class="form-control required image-upload" accept="image/*" required>' +
+                                                '<input type="file" name="reference_id_a" data-title="ID #1" data-base="" class="form-control required image-upload" accept="image/*" required>' +
                                             '</div>' +
                                             '<img class="img-input img-fluid">' +
                                         '</div>' +
-                                        '<div class="col">' +
+                                        '<div class="col-lg-6 img-box">' +
                                             '<div class="form-group">' +
                                                 '<label>ID #2 <span class="text-danger">*</span></label>' +
-                                                '<input type="file" name="reference_id_b" data-title="ID #2" data-base64="base64" class="form-control required image-upload" accept="image/*" required>' +
+                                                '<input type="file" name="reference_id_b" data-title="ID #2" data-base="" class="form-control required image-upload" accept="image/*" required>' +
                                             '</div>' +
-                                            '<img id="img" class="img-input img-fluid">' +
+                                            '<img class="img-input img-fluid">' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
@@ -1247,20 +1248,21 @@
                 }
             });
 
-            // $(document).on('change', '.image-upload', function(){
-            //     var box = $(this).closest('.col').find('.img-input');
-            //     if (this.files && this.files[0]) {
-            //
-            //         var FR= new FileReader();
-            //
-            //         FR.addEventListener("load", function(e) {
-            //             document.getElementById("img").src       = e.target.result;
-            //             document.getElementById("b64").innerHTML = e.target.result;
-            //         });
-            //
-            //         FR.readAsDataURL( this.files[0] );
-            //     }
-            // });
+            $(document).on('change', '.image-upload', function(){
+                var preview = $(this).closest('.img-box').find('.img-input');
+                var input = $(this);
+                var file = this.files[0];
+                var reader = new FileReader();
+
+                reader.addEventListener("load", function () {
+                    preview.attr('src', reader.result);
+                    input.data('base', reader.result);
+                }, false);
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            });
 
             function getList(type, term, amount) {
                 console.log('type: ' + type);

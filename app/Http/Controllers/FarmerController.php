@@ -364,6 +364,8 @@ class FarmerController extends Controller
 
         $inputs = $request->input('inputs');
 
+//        return response()->json($inputs);
+
         $farmer = Farmer::find(Auth::user()->farmer->id);
 
 
