@@ -1,6 +1,13 @@
 
 
 .page-register {
+  h1 {
+    @media (max-width: 500px) {
+      padding-bottom: 0;
+      margin-top: 0;
+    }
+  }
+
   .sign-in {
     .left {
       background-size: cover;
@@ -192,6 +199,10 @@
                 font-size: 13px;
                 top: -10px;
                 color: $red;
+
+                @media (max-width: 500px) {
+                  left: 0;
+                }
               }
             }
 
@@ -202,7 +213,7 @@
           }
 
           select {
-            padding: 0;
+            padding: 0 11px;
             height: 50px !important;
           }
 
@@ -262,6 +273,7 @@
               width: 80%;
               text-align: right;
               margin: auto;
+              padding: 1.5rem 0;
 
               @media (max-width: 500px) {
                 width: 90%;
@@ -272,6 +284,17 @@
                 -webkit-appearance: none;
                 margin: 0;
               }
+
+              &:focus {
+                border-color: $black !important;
+              }
+              
+              &[readonly] {
+                &:focus {
+                  border-color: $gray-2 !important;
+                }
+              }
+
             }
           }
 
@@ -287,7 +310,7 @@
 
             input {
               padding: 0 !important;
-              border: 0 !important;
+              //border: 0 !important;
               font-size: 1.3rem;
             }
           }
@@ -296,6 +319,7 @@
 
         .repeater-container {
           padding-bottom: 1rem;
+          padding-top: 1rem;
 
           @media (max-width: 500px) {
             margin-top: 2rem;
@@ -400,6 +424,20 @@
         }
       }
 
+      .terms-conditions-content {
+        .content {
+          min-height: 400px;
+          max-height: 400px;
+          overflow-y: auto;
+          margin-bottom: 2rem;
+
+          @media (max-width: 1600px) {
+            min-height: 350px;
+            max-height: 350px;
+          }
+        }
+      }
+
 
     }
   }
@@ -411,29 +449,32 @@
           min-height: 70vh;
           overflow-y: auto;
 
-          /* width */
-          &::-webkit-scrollbar {
-            width: 5px;
-            opacity: .5;
-          }
+          ///* width */
+          //&::-webkit-scrollbar {
+          //  width: 5px;
+          //  opacity: .5;
+          //}
+          //
+          ///* Track */
+          //&::-webkit-scrollbar-track {
+          //  box-shadow: inset 0 0 5px $gray-2;
+          //  border-radius: 0px;
+          //}
+          //
+          ///* Handle */
+          //&::-webkit-scrollbar-thumb {
+          //  background: $primary-1;
+          //  border-radius: 10px;
+          //}
+          //
+          ///* Handle on hover */
+          //&::-webkit-scrollbar-thumb:hover {
+          //  background: $gray;
+          //}
 
-          /* Track */
-          &::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px $gray-2;
-            border-radius: 0px;
+          .body {
+            //width: 100%;
           }
-
-          /* Handle */
-          &::-webkit-scrollbar-thumb {
-            background: $primary-1;
-            border-radius: 10px;
-          }
-
-          /* Handle on hover */
-          &::-webkit-scrollbar-thumb:hover {
-            background: $gray;
-          }
-
 
         }
 
@@ -445,6 +486,10 @@
 
               @media (max-width: 992px) {
                 width: 100%;
+                
+                &:not(.current) {
+                  display: none;
+                }
               }
             }
           }
@@ -508,5 +553,73 @@
       }
     }
 
+  }
+}
+
+//Verify Email
+.verify-email-template {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .card {
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border-radius: 0;
+    border: 0;
+    box-shadow: 1px 1px 15px rgba( $black, .1);
+
+
+    @media (max-width: 500px) {
+      min-height: 300px;
+    }
+
+    & + .alert-success {
+      background-color: lighten($primary-1, 20%);
+      border-color: $primary-1;
+      border-radius: 0;
+    }
+  }
+  .body {
+    text-align: center;
+
+    h1 {
+      font-weight: bold;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: $primary-4;
+
+      @media (max-width: 500px) {
+        font-size: 1.5rem;
+      }
+    }
+
+    p {
+      color: $default;
+
+      &.text-1 {
+        margin-bottom: 4rem;
+      }
+    }
+
+    form {
+      button {
+        width: 100%;
+        background-color: $primary-4;
+        color: $white;
+        padding: 1rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: .3s;
+
+        &:hover {
+          opacity: .9;
+        }
+      }
+    }
   }
 }

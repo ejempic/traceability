@@ -14,7 +14,7 @@ $(document).on('click', '.btn-logout', function(event){
     // });
 });
 
-$(document).on('select2:open', () => {
+$(document).on('select2_modal:open', () => {
     document.querySelector('.select2-search__field').focus();
 });
 
@@ -57,6 +57,19 @@ function numFormat(yourNumber) {
 
 
 $(document).ready(function(){
+    $('.password-field').after('<span toggle=".password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>');
+
+    $('.toggle-password').click(function() {
+        $(this).toggleClass('fa-eye fa-eye-slash');
+        // var input = $($(this).attr('toggle'));
+        var input = $(this).closest('.form-group').find('.password-field');
+        if (input.attr('type') === 'password') {
+            input.attr('type', 'text');
+        } else {
+            input.attr('type', 'password');
+        }
+    });
+
     window.displayLoanApplicationDetails = function (profile, loanDetail){
         console.log(profile);
         console.log(loanDetail);
@@ -93,14 +106,15 @@ $(document).ready(function(){
         var rowBBIncome = parseInt(profile.income_asset_info[3][2]);
 
         var rowCIncome = parseInt(profile.income_asset_info[4][2]);
+        var rowDIncome = parseInt(profile.income_asset_info[5][2]);
 
-        var rowDExpense = parseInt(profile.income_asset_info[5][2]);
         var rowEExpense = parseInt(profile.income_asset_info[6][2]);
+        var rowFExpense = parseInt(profile.income_asset_info[7][2]);
 
         var rowASum = 0;
         var rowBSum = 0;
-        var rowABCSum = 0;
-        var rowDESum = 0;
+        var rowABCDSum = 0;
+        var rowEFSum = 0;
         var totalIncomeSum = 0;
 
         rowASum += rowAAIncome;
@@ -109,17 +123,18 @@ $(document).ready(function(){
         rowBSum += rowBAIncome;
         rowBSum += rowBBIncome;
 
-        rowABCSum += rowAAIncome;
-        rowABCSum += rowABIncome;
-        rowABCSum += rowBAIncome;
-        rowABCSum += rowBBIncome;
-        rowABCSum += rowCIncome;
+        rowABCDSum += rowAAIncome;
+        rowABCDSum += rowABIncome;
+        rowABCDSum += rowBAIncome;
+        rowABCDSum += rowBBIncome;
+        rowABCDSum += rowCIncome;
+        rowABCDSum += rowDIncome;
 
-        rowDESum += rowDExpense;
-        rowDESum += rowEExpense;
+        rowEFSum += rowEExpense;
+        rowEFSum += rowFExpense;
 
-        totalIncomeSum += rowABCSum;
-        totalIncomeSum -= rowDESum;
+        totalIncomeSum += rowABCDSum;
+        totalIncomeSum -= rowEFSum;
 
         var loanDetailMenu = '';
         var loanDetailContent = '';
@@ -137,9 +152,9 @@ $(document).ready(function(){
             loanPurpose = loanPurpose.join('');
 
             var placeUse = new Array();
-            for(var a = 0; a < loanDetail.info_loan_detail[3][1].length; a++){
+            for(var a = 0; a < loanDetail.info_loan_detail[1][1].length; a++){
                 placeUse.push('' +
-                    '<li>'+ loanDetail.info_loan_detail[3][1][a] +'</li>' +
+                    '<li>'+ loanDetail.info_loan_detail[1][1][a] +'</li>' +
                 '');
             }
             placeUse = placeUse.join('');
@@ -189,12 +204,24 @@ $(document).ready(function(){
 
 
 
-            var collateral = (loanDetail.info_loan_detail[4][1][0] === 'Motor Vehicle') ? '' +
-                '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][1] +' <small>['+ loanDetail.info_loan_detail[4][1][1][0] +']</small></dd>' +
-                '' : '' +
-
-                '<dd>'+ loanDetail.info_loan_detail[4][1][0] +' : '+ loanDetail.info_loan_detail[4][1][1][0] +'</dd>' +
-                '';
+            // var collateral = (loanDetail.info_loan_detail[2][1][0] === 'Motor Vehicle') ? '' +
+            //     '<dd>'+ loanDetail.info_loan_detail[2][1][0] +' : '+ loanDetail.info_loan_detail[2][1][1][1] +' <small>['+ loanDetail.info_loan_detail[2][1][1][0] +']</small></dd>' +
+            //     '' : '' +
+            //
+            //     '<dd>'+ loanDetail.info_loan_detail[2][1][0] +' : '+ loanDetail.info_loan_detail[2][1][1][0] +'</dd>' +
+            //     '';
+            var collateral = null;
+            switch(loanDetail.info_loan_detail[2][1][0]){
+                case 'Motor Vehicle':
+                    collateral = '<dd>'+ loanDetail.info_loan_detail[2][1][0] +' : '+ loanDetail.info_loan_detail[2][1][1][1] +' <small>['+ loanDetail.info_loan_detail[2][1][1][0] +']</small></dd>';
+                    break;
+                case 'None':
+                    collateral = '<dd>'+ loanDetail.info_loan_detail[2][1][0] +'</dd>';
+                    break;
+                default:
+                    collateral = '<dd>'+ loanDetail.info_loan_detail[2][1][0] +' : '+ loanDetail.info_loan_detail[2][1][1][0] +'</dd>';
+                    break;
+            }
 
 
             loanDetailContent = '' +
@@ -210,16 +237,16 @@ $(document).ready(function(){
                                     '</dd>' +
                                 '</dl>' +
                             '</div>' +
-                            '<div class="col">' +
-                                '<dl>' +
-                                    '<dt>Primary User</dt>' +
-                                    '<dd>'+ loanDetail.info_loan_detail[1][1] +'</dd>' +
-                                '</dl>' +
-                                '<dl>' +
-                                    '<dt>Relationship to Applicant</dt>' +
-                                    '<dd>'+ loanDetail.info_loan_detail[2][1] +'</dd>' +
-                                '</dl>' +
-                            '</div>' +
+                            // '<div class="col">' +
+                            //     '<dl>' +
+                            //         '<dt>Primary User</dt>' +
+                            //         '<dd>'+ loanDetail.info_loan_detail[1][1][0] +'</dd>' +
+                            //     '</dl>' +
+                            //     '<dl>' +
+                            //         '<dt>Relationship to Applicant</dt>' +
+                            //         '<dd>'+ loanDetail.info_loan_detail[2][1][0] +'</dd>' +
+                            //     '</dl>' +
+                            // '</div>' +
                         '</div>' +
                         '<div class="row">' +
                             '<div class="col">' +
@@ -289,6 +316,28 @@ $(document).ready(function(){
                                 '</table>' +
                             '</div>' +
                         '</div>' +
+
+                        '<h2 class="text-success"><strong>Reference ID\'s</strong></h2>' +
+                        '<div class="row">' +
+                            '<div class="col">' +
+                                '<dl>' +
+                                    '<dt>ID 1</dt>' +
+                                    '<dd>' +
+                                        '<img src="'+ loanDetail.reference_id[0][1][0][1] +'" class="img-fluid" alt="">' +
+                                    '</dd>' +
+                                '</dl>' +
+                            '</div>' +
+                            '<div class="col">' +
+                                '<dl>' +
+                                    '<dt>ID 2</dt>' +
+                                    '<dd>' +
+                                        '<img src="'+ loanDetail.reference_id[0][1][1][1] +'" class="img-fluid" alt="">' +
+                                    '</dd>' +
+                                '</dl>' +
+                            '</div>' +
+                        '</div>' +
+
+
                     '</div>' +
                 '</div>' +
             '';
@@ -425,7 +474,7 @@ $(document).ready(function(){
                                             '<thead>' +
                                             '<tr>' +
                                             '<th>Name</th>' +
-                                            '<th>Age</th>' +
+                                            '<th>Birthday</th>' +
                                             '</tr>' +
                                             '</thead>' +
                                             '<tbody>'+ dependents +'</tbody>' +
@@ -528,13 +577,13 @@ $(document).ready(function(){
                                     '<h2 class="text-success"><strong>Farming Information</strong></h2>' +
                                     '<div class="row">' +
                                         '<dl class="col">' +
-                                            '<dt>Farm Lot</dt>' +
+                                            '<dt>Farm Description</dt>' +
                                             '<dd>'+ profile.farming_info[0][2] +'</dd>' +
                                         '</dl>' +
-                                        '<dl class="col">' +
-                                            '<dt>Farming Since</dt>' +
-                                            '<dd>'+ profile.farming_info[1][2] +'</dd>' +
-                                        '</dl>' +
+                                        // '<dl class="col">' +
+                                        //     '<dt>Farming Since</dt>' +
+                                        //     '<dd>'+ profile.farming_info[1][2] +'</dd>' +
+                                        // '</dl>' +
                                     '</div>' +
                                 '</div>' +
                                 '<div class="col">' +
@@ -630,28 +679,34 @@ $(document).ready(function(){
                                         '<td class="text-right">'+ numFormat(rowCIncome) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
+                                        '<td>Other Source of Income</td>' +
+                                        '<td></td>' +
+                                        '<td></td>' +
+                                        '<td class="text-right">'+ numFormat(rowDIncome) +'</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
                                         '<td>Total Monthly Income</td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">'+ numFormat(rowABCSum) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowABCDSum) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Less Monthly Expenses <small><br>(Living, Utilitites, rental, transpo..)</small></td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">'+ numFormat(rowDExpense) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowEExpense) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Loan Amortization <small><br>(Mortgage/loan)</small></td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">'+ numFormat(rowEExpense) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowFExpense) +'</td>' +
                                     '</tr>' +
                                     '<tr>' +
                                         '<td>Total Expenses</td>' +
                                         '<td></td>' +
                                         '<td></td>' +
-                                        '<td class="text-right">'+ numFormat(rowDESum) +'</td>' +
+                                        '<td class="text-right">'+ numFormat(rowEFSum) +'</td>' +
                                     '</tr>' +
                                 '</tbody>' +
                                 '<tfoot>' +

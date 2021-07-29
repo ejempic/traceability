@@ -120,6 +120,15 @@
                                 </tr>
                                 </tbody>
                             </table>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Disclosure</label>
+                                        <textarea name="disclosure" id="disclosure" cols="30" rows="10"  class="form-control">{{$loanProduct->disclosure}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -166,7 +175,7 @@
     <script>
 
         function numberWithCommas(x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
         function populateSchedule() {

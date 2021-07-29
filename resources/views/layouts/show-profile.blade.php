@@ -25,29 +25,20 @@
     <div id="app" class="wrapper wrapper-content animated fadeInRight">
 
 
-        <div class="row m-b-lg m-t-lg">
-            <div class="col-md-4">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
 
-                <div class="profile-image">
-                    <img src="{{ URL::to('/img/blank-profile.jpg') }}" class="rounded-circle circle-border m-b-md" alt="profile">
-                </div>
-                <div class="profile-info">
-                    <div class="">
-                        <div>
-                            <h2 class="no-margins">
-                                {{ $profile->first_name }} {{ $profile->last_name }}
-                            </h2>
-                            <h4>{{ getRoleName('display_name') }}</h4>
-                            <address>
-                                <strong>Date of Birth</strong><br>
-                                {{ $profile->dob }}
-                            </address>
-                        </div>
+                    <div class="ibox-content" id="profile-info-box">
+
+
+
                     </div>
                 </div>
             </div>
-
         </div>
+
+
     </div>
 
     <div class="modal inmodal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category="" data-variant="" data-bal="">
@@ -110,6 +101,13 @@
             {{-- });--}}
 
             {{--table.ajax.reload();--}}
+            loadProfile();
+            function loadProfile(){
+                $.get('{!! route('get-my-profile') !!}', function(data){
+                    console.log(data);
+                    $('#profile-info-box').empty().append(displayLoanApplicationDetails(data.profile, null));
+                });
+            }
 
         });
     </script>

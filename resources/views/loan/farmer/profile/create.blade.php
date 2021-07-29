@@ -58,7 +58,7 @@
                                                     <option value="" readonly></option>
                                                     <option value="Single">Single</option>
                                                     <option value="Married">Married</option>
-                                                    <option value="Widow/er">Widow/er</option>
+                                                    <option value="Widow/er">Widower</option>
                                                     <option value="Separated">Separated</option>
                                                 </select>
                                                 <label for="civil_status">Civil Status *</label>
@@ -98,7 +98,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input name="sss_gsis" type="text" data-title="SSS / GSIS No." class="profile_info form-control" id="sss-gsis">
+                                                <input name="sss_gsis" type="text" data-title="SSS / GSIS No." class="profile_info form-control" id="sss_gsis">
                                                 <label for="sss_gsis">SSS / GSIS No.</label>
                                             </div>
                                         </div>
@@ -154,7 +154,7 @@
                                     <div class="repeater-container">
                                         <div class="row header d-none d-lg-flex">
                                             <div class="col-8"><div class="box">Name</div></div>
-                                            <div class="col-4"><div class="box">Age</div></div>
+                                            <div class="col-4"><div class="box">Birthday</div></div>
                                         </div>
                                         <div class="secondary_info repeater-lists" name="dependents" data-title="Dependents" id="dependent-box"></div>
                                         <div class="actions text-right">
@@ -173,7 +173,7 @@
 
                         </fieldset>
 
-                        <h1>More Information</h1>
+                        <h1>More Info</h1>
                         <fieldset>
                             <h2>Spouse/Co-maker Info</h2>
                             <div class="row">
@@ -278,13 +278,17 @@
                                 <div class="col-12 col-lg-6">
                                     <h2>Farming Info</h2>
                                     <div class="form-group">
-                                        <input name="farm_lot" type="text" data-title="Farm Lot" class="farming_info form-control required" id="farm_lot">
-                                        <label for="farm_lot">Farm Lot *</label>
+                                        <textarea name="farming_description" data-title="Farming Description" class="farming_info form-control required" id="farming_description"></textarea>
+                                        <label for="farming_description">Farming Description *</label>
                                     </div>
-                                    <div class="form-group">
-                                        <input name="farming_since" type="text" data-title="Farming since" class="farming_info form-control required" id="farming_since">
-                                        <label for="farming_since">Farming since *</label>
-                                    </div>
+{{--                                    <div class="form-group">--}}
+{{--                                        <input name="farm_lot" type="text" data-title="Farm Lot" class="farming_info form-control required" id="farm_lot">--}}
+{{--                                        <label for="farm_lot">Farm Lot *</label>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <input name="farming_since" type="text" data-title="Farming since" class="farming_info form-control required" id="farming_since">--}}
+{{--                                        <label for="farming_since">Farming since *</label>--}}
+{{--                                    </div>--}}
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <h2>Membership / Group</h2>
@@ -403,34 +407,50 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td>Other Source of Income <small>(Pension, Allowance, Salary, <br> Business Sales, Harvest, Others)</small></td>
+                                        <td>
+                                            <div class="form-group">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <input type="number" name="other_source_income" data-title="Other Source Income" class="income_asset_info form-control row-input required" id="rowd-income" required>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>Total Monthly Income</td>
                                         <td></td>
                                         <td></td>
                                         <td>
                                             <div class="form-group display_peso">
-                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowabc-total" readonly>
+                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowabcd-total" readonly>
                                             </div>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td>Less Monthly Expenses <small>(Living, Utilitites, rental, transpo..)</small></td>
+                                        <td>Less Monthly Expenses <small>(Living, Utilitites, Rental, <br> Transpo, Food, Tuition)</small></td>
                                         <td></td>
                                         <td></td>
                                         <td>
                                             <div class="form-group">
-                                                <input type="number" name="monthly_expenses" data-title="Less Monthly Expenses (Living, Utilitites, rental, transpo..)" class="income_asset_info form-control row-input required" id="rowd-expense" required>
+                                                <input type="number" name="monthly_expenses" data-title="Less Monthly Expenses (Living, Utilitites, rental, transpo..)" class="income_asset_info form-control row-input required" id="rowe-expense" required>
                                             </div>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td>Loan Amortization<small>(Mortgage/loan)</small></td>
+                                        <td>Other Expenses</td>
                                         <td></td>
                                         <td></td>
                                         <td>
                                             <div class="form-group">
-                                                <input type="number" name="loan_amortization_expenses" data-title="Loan Amortization (Mortgage/loan)" class="income_asset_info form-control row-input required" id="rowe-expense" required>
+                                                <input type="number" name="other_expenses" data-title="Other Expenses" class="income_asset_info form-control row-input required" id="rowf-expense" required>
                                             </div>
                                         </td>
                                     </tr>
@@ -440,7 +460,7 @@
                                         <td></td>
                                         <td>
                                             <div class="form-group display_peso">
-                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowde-total" readonly>
+                                                <input type="number" name="" value="0.00" class="form-control text-success" id="rowef-total" readonly>
                                             </div>
                                         </td>
                                     </tr>
@@ -476,13 +496,20 @@
                                     </a>
                                 </div>
                             </div>
+
                         </fieldset>
 
                         <h1>Finish</h1>
                         <fieldset>
-                            <h2>Terms and Conditions</h2>
+                            <div class="terms-conditions-content">
+                                <h2>Terms and Conditions</h2>
+{{--                                <div class="content">--}}
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I hereby authorize Agrabah Ventures to collect and process my personal information I understand that my personal data is protected by the Data Privacy Act of 2012 (R.A. 10173)</p>
+{{--                                </div>--}}
+                            </div>
                             <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required i-checks"> <label for="acceptTerms">I agree with the Terms and Conditions.</label>
                         </fieldset>
+
 
                     </form>
                 </div>
@@ -695,18 +722,27 @@
                 var action = $(this).data('action'), dependentBox = $('#dependent-box'), assetsBox = $('#assets-box');
                 switch(action){
                     case 'add-dependent':
+                        var dependentCount = dependentBox.children().length;
                         dependentBox.append('' +
                             '<div class="repeater-item">' +
                                 '<div class="row">' +
-                                    '<div class="col-12 col-lg-8">' +
-                                        '<input type="text" name="dependent-name" class="form-control required" placeholder="Name" required>' +
+                                    '<div class="col-12 col-lg-7">' +
+                                        '<input type="text" name="dependent-name-'+ dependentCount +'" class="form-control required" id="name-'+ dependentCount +'" placeholder="Name" required>' +
                                     '</div>' +
-                                    '<div class="col-12 col-lg-4">' +
-                                        '<input type="text" name="dependent-age" class="form-control required" placeholder="Age" required>' +
+                                    '<div class="col-12 col-lg-5">' +
+                                        '<input type="text" name="dependent-dob-'+ dependentCount +'" class="form-control required dob-input" id="dob-'+ dependentCount +'" placeholder="Date of Birth" required>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>' +
                         '');
+                        $('.dob-input').datepicker({
+                            startView: 1,
+                            todayBtn: "linked",
+                            keyboardNavigation: false,
+                            forceParse: false,
+                            autoclose: true,
+                            format: "mm/dd/yyyy"
+                        });
                         break;
                     case 'remove-dependent':
                         dependentBox.find('.repeater-item').last().remove();
@@ -716,13 +752,13 @@
                             '<div class="repeater-item">' +
                                 '<div class="row">' +
                                     '<div class="col-12 col-lg-4">' +
-                                        '<input type="text" name="asset_name" class="form-control required" data-title="Other assets aside from collateral">' +
+                                        '<input type="text" name="asset_name" class="form-control required" data-title="Other assets aside from collateral" placeholder="Other assets aside from collateral">' +
                                     '</div>' +
                                     '<div class="col-12 col-lg-4">' +
-                                        '<input type="text" name="asset_location" class="form-control required" data-title="Location/Description">' +
+                                        '<input type="text" name="asset_location" class="form-control required" data-title="Location/Description" placeholder="Location/Description">' +
                                     '</div>' +
                                     '<div class="col-12 col-lg-4">' +
-                                        '<input type="text" name="asset_size" class="form-control required" data-title="Size(sq.m.) Estimated Value">' +
+                                        '<input type="text" name="asset_size" class="form-control required" data-title="Size(sq.m.) Estimated Value" placeholder="Size(sq.m.) Estimated Value">' +
                                     '</div>' +
                                 '</div>' +
                             '</div>' +
@@ -759,18 +795,19 @@
                 var rowBTotal = $('#rowb-total');
 
                 var rowCIncome = parseInt($('#rowc-income').val() || 0);
+                var rowDIncome = parseInt($('#rowd-income').val() || 0);
 
-                var rowABCTotal = $('#rowabc-total');
+                var rowABCDTotal = $('#rowabcd-total');
 
-                var rowDExpense = parseInt($('#rowd-expense').val() || 0);
                 var rowEExpense = parseInt($('#rowe-expense').val() || 0);
-                var rowDETotal = $('#rowde-total');
+                var rowFExpense = parseInt($('#rowf-expense').val() || 0);
+                var rowEFTotal = $('#rowef-total');
 
                 var totalIncome = $('#total-income');
                 var rowASum = 0;
                 var rowBSum = 0;
-                var rowABCSum = 0;
-                var rowDESum = 0;
+                var rowABCDSum = 0;
+                var rowEFSum = 0;
                 var totalIncomeSum = 0;
 
                 rowASum += rowAAIncome;
@@ -783,23 +820,24 @@
                 rowBTotal.val(rowBSum);
                 // rowBTotal.val(numeral(rowBSum).format('0,0.00'));
 
-                rowABCSum += rowAAIncome;
-                rowABCSum += rowABIncome;
-                rowABCSum += rowBAIncome;
-                rowABCSum += rowBBIncome;
-                rowABCSum += rowCIncome;
+                rowABCDSum += rowAAIncome;
+                rowABCDSum += rowABIncome;
+                rowABCDSum += rowBAIncome;
+                rowABCDSum += rowBBIncome;
+                rowABCDSum += rowCIncome;
+                rowABCDSum += rowDIncome;
 
-                rowABCTotal.val(rowABCSum);
+                rowABCDTotal.val(rowABCDSum);
                 // rowABCTotal.val(numeral(rowABCSum).format('0,0.00'));
 
-                rowDESum += rowDExpense;
-                rowDESum += rowEExpense;
+                rowEFSum += rowEExpense;
+                rowEFSum += rowFExpense;
 
-                rowDETotal.val(rowDExpense + rowEExpense);
+                rowEFTotal.val(rowEExpense + rowFExpense);
                 // rowDETotal.val(numeral(rowDExpense + rowEExpense).format('0,0.00'));
 
-                totalIncomeSum += rowABCSum;
-                totalIncomeSum -= rowDESum;
+                totalIncomeSum += rowABCDSum;
+                totalIncomeSum -= rowEFSum;
 
                 totalIncome.val(totalIncomeSum);
                 // totalIncome.val(numeral(totalIncomeSum).format('0,0.00'));
@@ -812,7 +850,7 @@
                 $('.profile_info').each(function(){
                     var name = $(this).attr('name');
                     var title = $(this).data('title');
-                    var value = $(this).val();
+                    var value = ($(this).val().length < 1) ? 'N/A': $(this).val();
                     var values = new Array();
 
                     values.push(name);
@@ -835,8 +873,10 @@
                             var dependent = new Array();
                             $(this).find('.repeater-item').each(function(){
                                 var item = new Array();
-                                item.push($(this).find('input[name=dependent-name]').val());
-                                item.push($(this).find('input[name=dependent-age]').val());
+                                item.push($(this).find('input[type=text]').first().val());
+                                item.push($(this).find('input[type=text]').last().val());
+                                // item.push($(this).find('input[name=dependent-name]').val());
+                                // item.push($(this).find('input[name=dependent-dob]').val());
                                 dependent.push(item);
                             });
                             value = dependent;
@@ -861,7 +901,7 @@
                 $('.spouse_comaker_info').each(function(){
                     var name = $(this).attr('name');
                     var title = $(this).data('title');
-                    var value = $(this).val();
+                    var value = ($(this).val().length < 1) ? 'N/A': $(this).val();
                     var values = new Array();
                     values.push(name);
                     values.push(title);
@@ -875,7 +915,7 @@
                 $('.farming_info').each(function(){
                     var name = $(this).attr('name');
                     var title = $(this).data('title');
-                    var value = $(this).val();
+                    var value = ($(this).val().length < 1) ? 'N/A': $(this).val();
                     var values = new Array();
                     if($(this).is('input[type=checkbox]')){
                         value = ($(this).is(':checked')) ? 1 : 0;
@@ -892,7 +932,7 @@
                 $('.employment_info').each(function(){
                     var name = $(this).attr('name');
                     var title = $(this).data('title');
-                    var value = $(this).val();
+                    var value = ($(this).val().length < 1) ? 'N/A': $(this).val();
                     var values = new Array();
 
                     if($(this).is('input[type=radio]')){
