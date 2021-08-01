@@ -37,8 +37,9 @@
                         <label>User type</label>
                         <select name="type" class="form-control" style="height: 48px !important;">
                             <option value="">Select</option>
-                            <option value="farmer">Farmer</option>
-                            <option value="loan-provider">Loan Provider</option>
+                            @foreach($app_registrant as $role)
+                            <option value="{{$role->role->name}}">{{$role->role->display_name}}</option>
+                            @endforeach
                         </select>
                         @if($errors->has('type'))
                             <span class="text-danger">{{$errors->first('type')}}</span>

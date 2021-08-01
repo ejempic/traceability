@@ -18,9 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/registration', function () {
-    return view(subdomain_name().'.auth.register');
-});
+Route::get('/registration', 'Controller@registration');
 
 //Auth::routes();
 Auth::routes(['verify' => true]);
