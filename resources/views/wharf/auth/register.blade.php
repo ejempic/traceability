@@ -32,7 +32,7 @@
 {{--                    <small>Log on using your login and password or use social media login to enter</small>--}}
 
 
-                    {!! Form::open(array('route'=>array('loan-user-registration-store'))) !!}
+                    {!! Form::open(array('route'=>array('wharf-user-registration-store'))) !!}
                     <div class="form-group">
                         <label>User type</label>
                         <select name="type" class="form-control" style="height: 48px !important;">

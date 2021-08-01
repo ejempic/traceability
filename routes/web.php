@@ -76,6 +76,9 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
 // ROUTES FOR WHARF
 Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
+
+    Route::post('wharf-user-registration-store', 'PublicController@wharfUserRegistrationStore')->name('wharf-user-registration-store');
+
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('purchase-order', 'PurchaseOrderController');
     });
