@@ -55,6 +55,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::post('role-update/{id}', 'RoleController@update')->name('role-update');
     Route::post('add-role', 'RoleController@addRole')->name('add-role');
 
+    Route::post('save_registrant', 'RoleController@saveRegistrant')->name('save-registrant');
+
     Route::resource('settings', 'SettingController');
 
 //    Route::get('trace-report', 'ReportController@traceReport')->name('trace-report');
