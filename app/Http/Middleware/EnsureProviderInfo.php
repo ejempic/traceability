@@ -20,6 +20,10 @@ class EnsureProviderInfo
             return $next($request);
         }
 
+        if(subdomain_name() == 'wharf'){
+            return $next($request);
+        }
+
         if(auth()->user()->hasRole('loan-provider')){
             if(is_null(auth()->user()->loan_provider->profile)){
                 return redirect()->route('loan-provider-profile-create');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AppRegistrant;
 use App\DataTables\RoleDataTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,11 @@ class RoleController extends Controller
 {
     public function index(RoleDataTable $dataTable)
     {
-        return $dataTable->render('admin.role.index');
+        $roles = Role::whereNotIn('name',['super-admin'])->get();
+
+        $wharf_registrant = AppRegistrant::where('app', 'wharf')->pluck('role_id')->toArray();
+
+        return $dataTable->render('admin.role.index', compact('roles', 'wharf_registrant'));
     }
 
     public function show($id)
@@ -56,5 +61,17 @@ class RoleController extends Controller
             'category' => $category
         ));
         return response()->json($data);
+    }
+
+    public function saveRegistrant(Request $request)
+    {
+        $registrants = $request->input('wharf_registrant');
+        foreach($registrants as $registrant){
+            AppRegistrant::create([
+                'app' => $request->input('app'),
+                'role_id' => $registrant,
+            ]);
+        }
+        return redirect()->back()->with('success', 'Successfully Saved!');
     }
 }

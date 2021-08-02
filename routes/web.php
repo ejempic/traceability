@@ -18,9 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/registration', function () {
-    return view(subdomain_name().'.auth.register');
-});
+Route::get('/registration', 'Controller@registration');
 
 Route::get('qr-reader', 'PublicController@qrReader')->name('qr-reader');
 
@@ -57,6 +55,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::post('role-update/{id}', 'RoleController@update')->name('role-update');
     Route::post('add-role', 'RoleController@addRole')->name('add-role');
 
+    Route::post('save_registrant', 'RoleController@saveRegistrant')->name('save-registrant');
+
     Route::resource('settings', 'SettingController');
 
 //    Route::get('trace-report', 'ReportController@traceReport')->name('trace-report');
@@ -78,6 +78,9 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
 // ROUTES FOR WHARF
 Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
+
+    Route::post('wharf-user-registration-store', 'PublicController@wharfUserRegistrationStore')->name('wharf-user-registration-store');
+
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('purchase-order', 'PurchaseOrderController');
     });

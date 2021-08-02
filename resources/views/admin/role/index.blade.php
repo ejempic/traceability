@@ -37,6 +37,24 @@
                     </div>
                 </div>
             </div>
+            <div class="col-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h3>Wharf Registrant</h3>
+                        {{ Form::open(['route'=>'save-registrant']) }}
+                        <input type="hidden" name="app" value="wharf">
+                        <div class="form-group">
+                            @foreach($roles as $role)
+                                <div class="i-checks">
+                                    <label>{{ Form::checkbox('wharf_registrant[]', $role->id, in_array($role->id,$wharf_registrant)) }}<i></i> {{$role->display_name}}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                        <button type="submit" class="btn btn-primary ">Save</button>
+                        {{ Form::close() }}
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -63,12 +81,14 @@
 
 
 @section('styles')
+    {!! Html::style('/css/template/plugins/iCheck/custom.css') !!}
     {{--{!! Html::style('') !!}--}}
 @endsection
 
 @section('scripts')
     {{--    {!! Html::script('') !!}--}}
     {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}
+    {!! Html::script('/js/template/plugins/iCheck/icheck.min.js') !!}
     {!! $dataTable->scripts() !!}
     <script>
         $(document).ready(function(){
