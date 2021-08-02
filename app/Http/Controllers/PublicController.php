@@ -220,4 +220,9 @@ class PublicController extends Controller
         }
 
     }
+
+    public function qrReader()
+    {
+        return view('trace.mobile.qr-reader');
+    }
 }

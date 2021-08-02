@@ -22,6 +22,8 @@ Route::get('/registration', function () {
     return view(subdomain_name().'.auth.register');
 });
 
+Route::get('qr-reader', 'PublicController@qrReader')->name('qr-reader');
+
 //Auth::routes();
 Auth::routes(['verify' => true]);
 Route::get('logout', 'UserController@logout')->name('logout');
@@ -139,6 +141,7 @@ Route::domain('trace.'.config('dev.domain_ext'))->group(function () {
     Route::get('trace-tracking/{code}', 'PublicController@traceTracking')->name('trace-tracking');
     Route::get('trace-update-status', 'PublicController@traceUpdate')->name('trace-update-status');
     Route::get('trace-info/{code}', 'PublicController@traceInfo')->name('trace-info');
+
 
     Route::middleware(['auth', 'verified'])->group(function () {
 
