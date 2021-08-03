@@ -83,6 +83,7 @@ Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
 
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('purchase-order', 'PurchaseOrderController');
+        Route::resource('spot-market', 'SpotMarketController');
     });
 });
 

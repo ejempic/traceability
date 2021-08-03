@@ -53,4 +53,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(LoanProvider::class, 'user_id', 'id')->with('profile');
     }
+
+    public function mySpotMarketList()
+    {
+        return $this->morphMany(SpotMarket::class, 'model');
+    }
 }
