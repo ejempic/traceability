@@ -12,7 +12,7 @@
                     <a href="{{ route('home') }}">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ route('products.index') }}">Lists</a>
+                    <a href="{{ route('spot-market.index') }}">Lists</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>@yield('title')</strong>
@@ -30,7 +30,7 @@
         {{--        {{ Form::open(array('route'=>array('farmer.store'), array('id'=>'form'))) }}--}}
         {{--        {{ Form::open(array('route'=>array('farmer.store'), 'method'=>'post', 'id'=>'form')) }}--}}
 
-        {{ Form::open(['route'=>'products.store','id'=>'form']) }}
+        {{ Form::open(['route'=>'spot-market.store', 'class'=>'','id'=>'form','files'=>true]) }}
         <div class="row">
             <div class="col-sm-12">
                 @csrf
@@ -39,13 +39,21 @@
                         Product Listing
                     </div>
                     <div class="panel-body">
+
+                        <div class="form-group">
+                            <div>
+                                <img src="" alt="" id="image_preview" width="250px">
+                            </div>
+                            <label>Photo</label>
+                            <input accept="image/*" type="file" class="form-control" id="image" name="image">
+                        </div>
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" name="name">
                         </div>
                         <div class="form-group">
                             <label>Description</label>
-                            <div class="summernote">
+                            <textarea class="summernote" name="description">
                                 <h3>Product Details</h3>
                                 Ang produktong ito ay dekalidad at matibay. It a galing sa pag sisikap nang ating mga natatangin magsasaka. Tangkilikin ang sariling atin.
                                 <br/>
@@ -55,15 +63,15 @@
                                     <li>Authentic</li>
                                     <li>Legit</li>
                                 </ul>
-                            </div>
+                            </textarea>
                         </div>
                         <div class="form-group">
                             <label>Original Price</label>
-                            <input type="text" class="form-control" name="original_price">
+                            <input type="text" class="form-control money" name="original_price">
                         </div>
                         <div class="form-group">
                             <label>Selling Price</label>
-                            <input type="text" class="form-control" name="selling_price">
+                            <input type="text" class="form-control money" name="selling_price">
                         </div>
                     </div>
                 </div>
@@ -99,6 +107,7 @@
 @section('styles')
     {!! Html::style('/css/template/plugins/iCheck/custom.css') !!}
     {!! Html::style('/css/template/plugins/summernote/summernote-bs4.css') !!}
+{{--    {!! Html::style('/css/template/plugins/dropzone/dropzone.css') !!}--}}
     {{--{!! Html::style('') !!}--}}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
@@ -108,6 +117,7 @@
     {!! Html::script('/js/template/plugins/iCheck/icheck.min.js') !!}
     {!! Html::script('/js/template/plugins/jqueryMask/jquery.mask.min.js') !!}
     {!! Html::script('/js/template/plugins/summernote/summernote-bs4.js') !!}
+{{--    {!! Html::script('/js/template/plugins/dropzone/dropzone.js') !!}--}}
     {{--    {!! Html::script('') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
@@ -115,55 +125,25 @@
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
 
+        // Dropzone.options.dropz
         function numberWithCommas(x) {
             return x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
-        function populateSchedule() {
-            var duration = $('#duration').val()
-            var amount = $('#amount').val()
-            var interest_rate = $('#interest_rate').val()
-            var timing = $('#timing').val()
-            var allowance = $('#allowance').val()
-            var first_allowance = $('#first_allowance').val()
-
-            $.get('{!! route('generate-schedule') !!}', {
-                duration:duration,
-                amount:amount,
-                interest_rate:interest_rate,
-                timing:timing,
-                allowance:allowance,
-                first_allowance:first_allowance,
-            }, function(data){
-
-                var table = '';
-                var total = 0;
-                for (let i = 0; i < data.length; i++) {
-                    const datum = data[i];
-                    table +='<tr>';
-                    table +='<td>';
-                    table += datum.date;
-                    table +='</td>'
-                    table +='<td class="text-right">';
-                    table += numberWithCommas(datum.amount);
-                    table +='</td>';
-                    table +='</tr>';
-                    total += datum.amount;
-                }
-                $('#total_loan_amount').html(numberWithCommas(total));
-                $('#payment_schedule_review').empty().append(table);
-                $('#payment_schedule_input').val(JSON.stringify(data))
-            });
-        }
-
-        $(document).on('change, input', '.changeSchedule', function () {
-            populateSchedule();
-        });
-
         $(document).ready(function () {
             $('.summernote').summernote();
 
-            populateSchedule();
+
+            var imgInp = document.getElementById('image');
+            var imgPre = document.getElementById('image_preview');
+
+            imgInp.onchange = evt => {
+                const [file] = imgInp.files
+                if (file) {
+                    imgPre.src = URL.createObjectURL(file)
+                }
+            }
+
             $('.money').mask("#,##0.00", {reverse: true});
 
             $(document).on('click', '.btn-action', function () {

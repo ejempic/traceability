@@ -1,6 +1,6 @@
 @extends(subdomain_name().'.master')
 
-@section('title', 'Loan Products')
+@section('title', 'Spot Market List')
 
 @section('content')
 
@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                    <a href="{!! route('products.create') !!}" class="btn btn-primary">Create</a>
+                    <a href="{!! route('spot-market.create') !!}" class="btn btn-primary">Create</a>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
     <div id="app" class="wrapper wrapper-content">
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="ibox float-e-margins">
 {{--                    <div class="ibox-title">--}}
 {{--                        <h5>Blank <small>page</small></h5>--}}
@@ -45,17 +45,25 @@
                             <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                             <thead>
                             <tr>
+                                <th>Image</th>
                                 <th>Name</th>
+                                <th>Description</th>
+                                <th>Original Price</th>
+                                <th>Selling Price</th>
                                 <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($spotMarketList as $data)
                                 <tr>
+                                    <td width="200px">{!! ($data->hasMedia('spot-market')? "<img class='img-thumbnail' src='".$data->getFirstMediaUrl('spot-market')."'>":'')  !!}  </td>
                                     <td>{{ $data->name }} </td>
+                                    <td>{!!  $data->description  !!} </td>
+                                    <td>{!!  $data->original_price  !!} </td>
+                                    <td>{!!  $data->selling_price  !!} </td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
-                                            <a href="#" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> View/Edit</a>
+                                            <a href="{{route('spot-market.edit', $data->id)}}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> View/Edit</a>
 {{--                                            <a href="{!! route('inv-listing', array('account' => $data->account_id)) !!}" class="action btn-white btn btn-xs" target="blank_"><i class="fa fa-plus text-success"></i> Inv</a>--}}
                                         </div>
                                     </td>

@@ -35,8 +35,12 @@ class SpotMarketController extends Controller
     public function index()
     {
 
-        $spotMarketList = User::find(auth()->user()->id)
-            ->mySpotMarketList
+        $spotMarketList = [];
+
+        $roleName = auth()->user()->roles->first()->name;
+        if($roleName == 'farmer'){
+            $spotMarketList = auth()->user()->farmer->spotMarket;
+        }
 ;
 //        dd($spotMarketList->can('read-spot-market'));
 
@@ -62,7 +66,22 @@ class SpotMarketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $roleName = auth()->user()->roles->first()->name;
+        $array = $request->except('_token');
+        if($roleName == 'farmer'){
+            $farmerModel = auth()->user()->farmer;
+
+            $array = array_merge($array,[
+                'model_id' => $farmerModel->id,
+                'model_type' => 'App\Farmer',
+            ]);
+            $spotMarket = SpotMarket::create($array);
+            $spotMarket->addMedia($request->file('image'))
+                ->toMediaCollection('spot-market');
+            $farmerModel->spotMarket()->save($spotMarket);
+        }
+
+        return redirect()->route('spot-market.index');
     }
 
     /**
@@ -82,9 +101,10 @@ class SpotMarketController extends Controller
      * @param \App\Loan $loan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Loan $loan)
+    public function edit($id)
     {
-        //
+        $data = SpotMarket::find($id);
+        return view(subDomainPath('spot-market.edit'), compact('data'));
     }
 
     /**
@@ -94,9 +114,17 @@ class SpotMarketController extends Controller
      * @param \App\Loan $loan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Loan $loan)
+    public function update(Request $request, $id)
     {
-        //
+        $data = SpotMarket::find($id);
+        $data->update($request->except(['_token', 'image']));
+        if($request->hasFile('image')){
+            $media = $data->getFirstMedia('spot-market');
+            $media->delete();
+            $data->addMedia($request->file('image'))->toMediaCollection('spot-market');
+        }
+
+        return redirect()->back();
     }
 
     /**
