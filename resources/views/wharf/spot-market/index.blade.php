@@ -63,8 +63,13 @@
                                     <td>{!!  $data->selling_price  !!} </td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
-                                            <a href="{{route('spot-market.edit', $data->id)}}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> View/Edit</a>
-{{--                                            <a href="{!! route('inv-listing', array('account' => $data->account_id)) !!}" class="action btn-white btn btn-xs" target="blank_"><i class="fa fa-plus text-success"></i> Inv</a>--}}
+                                            @if($isCommunityLeader)
+                                                <a href="{{route('spot-market.edit', $data->id)}}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> View/Edit</a>
+                                            @else
+                                                <button class="add-to-cart btn-white btn btn-xs"  data-name="{{$data->name}}" data-id="{{$data->id}}">
+                                                    <i class="fa fa-plus text-success"></i> Add to Cart</button>
+                                                <button class="buy-to-cart btn-white btn btn-xs" ><i class="fa fa-cart-plus text-success"></i> Buy</button>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -105,11 +110,30 @@
         </div>
     </div>
 
+    <div style="position: absolute; top: 20px; right: 20px;">
+
+        <div class="toast toast1 toast-bootstrap toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fa fa-cart-plus"> </i>
+                <strong class="mr-auto m-l-sm">Add to Cart</strong>
+{{--                <small>2 seconds ago</small>--}}
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <strong id="item_added_to_cart"></strong> has been added to Cart.
+            </div>
+        </div>
+
+    </div>
+
 @endsection
 
 
 @section('styles')
     {!! Html::style('css/template/plugins/footable/footable.core.css') !!}
+    {!! Html::style('css/template/plugins/toastr/toastr.min.css') !!}
     {{--{!! Html::style('') !!}--}}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
@@ -125,32 +149,19 @@
     <script>
         $(document).ready(function(){
             $('.footable').footable();
-            {{--var modal = $('#modal');--}}
-            {{--$(document).on('click', '', function(){--}}
-            {{--    modal.modal({backdrop: 'static', keyboard: false});--}}
-            {{--    modal.modal('toggle');--}}
-            {{--});--}}
 
-            {{-- var table = $('#table').DataTable({--}}
-            {{--     processing: true,--}}
-            {{--     serverSide: true,--}}
-            {{--     ajax: {--}}
-            {{--         url: '{!! route('') !!}',--}}
-            {{--         data: function (d) {--}}
-            {{--             d.branch_id = '';--}}
-            {{--         }--}}
-            {{--     },--}}
-            {{--     columnDefs: [--}}
-            {{--         { className: "text-right", "targets": [ 0 ] }--}}
-            {{--     ],--}}
-            {{--     columns: [--}}
-            {{--         { data: 'name', name: 'name' },--}}
-            {{--         { data: 'action', name: 'action' }--}}
-            {{--     ]--}}
-            {{-- });--}}
+            let toast1 = $('.toast1');
+            toast1.toast({
+                delay: 5000,
+                animation: true
+            });
 
-            {{--table.ajax.reload();--}}
-
+            $('.add-to-cart').on('click', function(e){
+                e.preventDefault();
+                toast1.toast('show');
+                var item = $(this).data('name');
+                $('#item_added_to_cart').html(item);
+            })
         });
     </script>
 @endsection

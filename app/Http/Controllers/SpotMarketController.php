@@ -8,6 +8,7 @@ use App\LoanPayment;
 use App\LoanPaymentSchedule;
 use App\Services\LoanService;
 use App\SpotMarket;
+use App\SpotMarketCart;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,6 +28,45 @@ class SpotMarketController extends Controller
 
     }
 
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cart()
+    {
+        $cart = SpotMarket::
+            join('spot_market_carts', 'spot_market_carts.spot_market_id','=','spot_markets.id')
+            ->where('user_id', auth()->user()->id)
+            ->select(
+                'spot_markets.*',
+                'spot_market_carts.id as cart_id',
+                'spot_market_carts.quantity'
+            )
+            ->get();
+        return view(subDomainPath('spot-market.cart'), compact('cart'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addToCart(Request $request)
+    {
+
+        $array = [
+            'user_id' => auth()->user()->id,
+            'spot_market_id' => $request->id
+        ];
+        $cart = SpotMarketCart::firstOrNew($array);
+        $cart->quantity = $cart->quantity + 1;
+        $cart->save();
+        return getUserSpotMarketCartCount();
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,13 +78,19 @@ class SpotMarketController extends Controller
         $spotMarketList = [];
 
         $roleName = auth()->user()->roles->first()->name;
+        $isCommunityLeader = false;
         if($roleName == 'farmer'){
-            $spotMarketList = auth()->user()->farmer->spotMarket;
+            if(isCommunityLeader()){
+                $spotMarketList = auth()->user()->farmer->spotMarket;
+                $isCommunityLeader = true;
+            }else{
+                $spotMarketList = SpotMarket::all();
+                return view(subDomainPath('spot-market.browse'), compact('spotMarketList', 'isCommunityLeader'));
+            }
         }
 ;
-//        dd($spotMarketList->can('read-spot-market'));
 
-        return view(subDomainPath('spot-market.index'), compact('spotMarketList'));
+        return view(subDomainPath('spot-market.index'), compact('spotMarketList', 'isCommunityLeader'));
     }
 
 
@@ -90,9 +136,10 @@ class SpotMarketController extends Controller
      * @param \App\Loan $loan
      * @return \Illuminate\Http\Response
      */
-    public function show(Loan $loan)
+    public function show($id)
     {
-        //
+        $data = SpotMarket::find($id);
+        return view(subDomainPath('spot-market.show'), compact('data'));
     }
 
     /**

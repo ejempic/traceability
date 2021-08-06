@@ -265,4 +265,22 @@ if (!function_exists('loanStatInfo')) {
         return $data;
     }
 }
+if (!function_exists('isCommunityLeader')) {
+    function isCommunityLeader()
+    {
+        $isCommunityLeader = false;
+        if(auth()->user()->farmer){
+            if(auth()->user()->farmer->community_leader){
+                $isCommunityLeader = true;
+            }
+        }
+        return $isCommunityLeader;
+    }
+}
+if (!function_exists('getUserSpotMarketCartCount')) {
+    function getUserSpotMarketCartCount()
+    {
+        return \App\SpotMarketCart::where('user_id', auth()->user()->id)->sum('quantity');
+    }
+}
 
