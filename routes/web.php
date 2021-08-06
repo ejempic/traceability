@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/registration', function () {
-    return view(subdomain_name().'.auth.register');
+Route::get('/admin-generate-permissions', function () {
+    echo "Generating Spot Market Permission<br>";
+    Artisan::call('permission:spot_market');
+    return 'Done';
 });
+
+Route::get('/registration', 'Controller@registration');
+
+Route::get('qr-reader', 'PublicController@qrReader')->name('qr-reader');
+Route::get('sms-test', 'PublicController@smsTest')->name('sms-test');
 
 //Auth::routes();
 Auth::routes(['verify' => true]);
@@ -55,6 +63,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::post('role-update/{id}', 'RoleController@update')->name('role-update');
     Route::post('add-role', 'RoleController@addRole')->name('add-role');
 
+    Route::post('save_registrant', 'RoleController@saveRegistrant')->name('save-registrant');
+
     Route::resource('settings', 'SettingController');
 
 //    Route::get('trace-report', 'ReportController@traceReport')->name('trace-report');
@@ -76,8 +86,14 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
 // ROUTES FOR WHARF
 Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
+
+    Route::post('wharf-user-registration-store', 'PublicController@wharfUserRegistrationStore')->name('wharf-user-registration-store');
+
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('purchase-order', 'PurchaseOrderController');
+        Route::resource('spot-market', 'SpotMarketController');
+        Route::get('spot-market-cart', 'SpotMarketController@cart')->name('spot-market.cart');
+        Route::post('spot-market-add-to-cart', 'SpotMarketController@addToCart')->name('spot-market.add_cart');
     });
 });
 
@@ -139,6 +155,7 @@ Route::domain('trace.'.config('dev.domain_ext'))->group(function () {
     Route::get('trace-tracking/{code}', 'PublicController@traceTracking')->name('trace-tracking');
     Route::get('trace-update-status', 'PublicController@traceUpdate')->name('trace-update-status');
     Route::get('trace-info/{code}', 'PublicController@traceInfo')->name('trace-info');
+
 
     Route::middleware(['auth', 'verified'])->group(function () {
 

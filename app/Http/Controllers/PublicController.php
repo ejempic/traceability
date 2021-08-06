@@ -9,6 +9,7 @@ use App\LoanProvider;
 use App\Trace;
 use App\ModelInfo;
 use App\User;
+use CreatvStudio\Itexmo\Facades\Itexmo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -219,5 +220,74 @@ class PublicController extends Controller
             return redirect()->route('home');
         }
 
+    }
+
+    public function wharfUserRegistrationStore(Request $request)
+    {
+        $rules = array(
+            'email' => 'required|email|unique:users,email|max:255',
+            'password' => 'required|max:255',
+            'repeat-password' => 'required|same:password',
+        );
+        $messages = [
+            'same'    => 'Password not match.',
+            'repeat-password'    => 'This field is required..',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $data = new User();
+        $data->email = $request->input('email');
+        $data->password = bcrypt($request->input('password'));
+        $data->passkey = $request->input('password');
+        if($data->save()){
+
+            switch ($type = $request->input('type')){
+                case 'farmer':
+                case 'borrower':
+                case 'community-leader':
+                    $data->assignRole(stringSlug('Farmer'));
+//                    $number = Farmer::count() + 1;
+                    $number = str_pad(Farmer::count() + 1, 5, 0, STR_PAD_LEFT);
+                    $farmer = new Farmer();
+                    $farmer->account_id = $number;
+                    $farmer->user_id = $data->id;
+                    if($type == 'community-leader'){
+                        $farmer->community_leader = 1;
+                    }
+                    $farmer->save();
+                    break;
+                case 'loan-provider':
+                    $data->assignRole(stringSlug('Loan Provider'));
+//                    $number = LoanProvider::count() + 1;
+                    $number = str_pad(LoanProvider::count() + 1, 5, 0, STR_PAD_LEFT);
+                    $loanProvider = new LoanProvider();
+                    $loanProvider->account_id = $number;
+                    $loanProvider->user_id = $data->id;
+                    $loanProvider->save();
+                    break;
+            }
+
+            $data->sendEmailVerificationNotification();
+            Auth::loginUsingId($data->id);
+            return redirect()->route('home');
+        }
+
+    }
+
+    public function qrReader()
+    {
+        return view('trace.mobile.qr-reader');
+    }
+
+    public function smsTest()
+    {
+        Itexmo::to('09156819270')->content('Test SMS from Agrabah Loan App')->send();
     }
 }

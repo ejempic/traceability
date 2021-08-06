@@ -33,7 +33,10 @@ class HomeController extends Controller
 //        $subdomain = join('.', explode('.', $_SERVER['HTTP_HOST'], -2));
 //        $host_names = explode(".", $_SERVER['HTTP_HOST']);
 //        $domain = $host_names[count($host_names)-2] . "." . $host_names[count($host_names)-1];
+        if(subdomain_name() == 'wharf'){
 
+            return view('wharf.dashboard');
+        }
         if(auth()->user()->hasRole('super-admin')){
             $inventory = Inventory::count();
             $trace = Trace::count();

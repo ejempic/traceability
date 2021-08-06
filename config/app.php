@@ -168,6 +168,9 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        CreatvStudio\Itexmo\ItexmoServiceProvider::class,
+        HieuLe\Active\ActiveServiceProvider::class,
+        CreatvStudio\Itexmo\ItexmoServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -229,8 +232,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
-
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Active' => HieuLe\Active\Facades\Active::class,
+        'Itexmo' => CreatvStudio\Itexmo\Facades\Itexmo::class,
     ],
 
 ];

@@ -29,17 +29,17 @@
 {{--    </ul>--}}
 {{--</li>--}}
 
-<li class="{{ (request()->is('farmer*')) ? 'active' : '' }}">
-    <a href="{!! route('farmer.index') !!}"><i class="fa fa-user-circle"></i> <span class="nav-label">Farmer</span></a>
-</li>
+{{--<li class="{{ (request()->is('farmer*')) ? 'active' : '' }}">--}}
+{{--    <a href="{!! route('farmer.index') !!}"><i class="fa fa-user-circle"></i> <span class="nav-label">Farmer</span></a>--}}
+{{--</li>--}}
 
-<li class="{{ (request()->is('loan-provider*')) ? 'active' : '' }}">
-    <a href="{!! route('loan-provider.index') !!}"><i class="fa fa-address-card-o"></i> <span class="nav-label">Loan Provider</span></a>
-</li>
+{{--<li class="{{ (request()->is('loan-provider*')) ? 'active' : '' }}">--}}
+{{--    <a href="{!! route('loan-provider.index') !!}"><i class="fa fa-address-card-o"></i> <span class="nav-label">Loan Provider</span></a>--}}
+{{--</li>--}}
 
-<li class="{{ (request()->is('community-leader*')) ? 'active' : '' }}">
-    <a href="{!! route('community-leader.index') !!}"><i class="fa fa-money"></i> <span class="nav-label">Community Leader</span></a>
-</li>
+{{--<li class="{{ (request()->is('community-leader*')) ? 'active' : '' }}">--}}
+{{--    <a href="{!! route('community-leader.index') !!}"><i class="fa fa-money"></i> <span class="nav-label">Community Leader</span></a>--}}
+{{--</li>--}}
 
 
 {{--<li class="{{ (request()->is('community-leader*')) ? 'active' : '' }}">--}}
@@ -84,6 +84,15 @@
 
 <li class="{{ (request()->is('trace*')) ? 'active' : '' }}">
     <a href="{!! route('trace.index') !!}"><i class="fa fa-truck"></i> <span class="nav-label">Trace</span></a>
+</li>
+
+<li class="{{ if_uri_pattern(array('farmer*', 'loan-provider*', 'community-leader*')) == 1 ? 'active' : '' }}">
+    <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Users</span><span class="fa arrow"></span></a>
+    <ul class="nav nav-second-level collapse">
+        <li class="{{ (request()->is('farmer*')) ? 'active' : '' }}"><a href="{!! route('farmer.index') !!}">Farmer</a></li>
+        <li class="{{ (request()->is('loan-provider*')) ? 'active' : '' }}"><a href="{!! route('loan-provider.index') !!}">Loan Provider</a></li>
+        <li class="{{ (request()->is('community-leader*')) ? 'active' : '' }}"><a href="{!! route('community-leader.index') !!}">Community Leader</a></li>
+    </ul>
 </li>
 
 <li class="{{ (request()->is('role*')) ? 'active' : '' }}">
