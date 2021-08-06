@@ -9,6 +9,7 @@ use App\LoanProvider;
 use App\Trace;
 use App\ModelInfo;
 use App\User;
+use CreatvStudio\Itexmo\Facades\Itexmo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -283,5 +284,10 @@ class PublicController extends Controller
     public function qrReader()
     {
         return view('trace.mobile.qr-reader');
+    }
+
+    public function smsTest()
+    {
+        Itexmo::to('09156819270')->content('Test SMS from Agrabah Loan App')->send();
     }
 }

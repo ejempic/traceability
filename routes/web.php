@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::get('/registration', 'Controller@registration');
 
 Route::get('qr-reader', 'PublicController@qrReader')->name('qr-reader');
+Route::get('sms-test', 'PublicController@smsTest')->name('sms-test');
 
 //Auth::routes();
 Auth::routes(['verify' => true]);

@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'itexmo' => [
+        'code' => env('ITEXTMO_CODE'),
+        'password' => env('ITEXMO_PASSWORD'),
+        'sender_id' => env('ITEXMO_SENDER_ID'),
+    ]
+
 ];

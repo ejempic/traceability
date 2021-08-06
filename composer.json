@@ -13,6 +13,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.0",
+        "hieu-le/active": "7.*",
         "kitetail/zttp": "^0.6.0",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^7.29",

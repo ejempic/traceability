@@ -8,6 +8,26 @@ use App\Inventory;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 
+if (!function_exists('smsNotification')) {
+    function smsNotification($type)
+    {
+
+        switch($type){
+            case 'ucfirst':
+                $subdomain = ucfirst(config('app.name').' '.$subdomain);
+                break;
+            case 'ucwords':
+                $subdomain = ucwords(config('app.name').' '.$subdomain);
+                break;
+            default:
+                $subdomain = strtoupper(config('app.name').' '.$subdomain);
+                break;
+        }
+
+        return $subdomain;
+    }
+}
+
 if (!function_exists('subdomain_title')) {
     function subdomain_title($case)
     {
@@ -28,6 +48,7 @@ if (!function_exists('subdomain_title')) {
         return $subdomain;
     }
 }
+
 if (!function_exists('subdomain_name')) {
     function subdomain_name()
     {
@@ -36,6 +57,7 @@ if (!function_exists('subdomain_name')) {
         return $subdomain;
     }
 }
+
 if (!function_exists('subDomainPath')) {
     function subDomainPath($path)
     {
@@ -51,6 +73,7 @@ if (!function_exists('subDomainPath')) {
         return $subdomain.'.'.$path;
     }
 }
+
 if (!function_exists('farmerCount')) {
     function farmerCount($id)
     {
@@ -63,6 +86,7 @@ if (!function_exists('farmerCount')) {
         return $count;
     }
 }
+
 if (!function_exists('productInvCount')) {
     function productInvCount($id)
     {
@@ -178,7 +202,6 @@ if (!function_exists('authProfilePic')) {
         return $data;
     }
 }
-
 
 if (!function_exists('computeAmortization')) {
     function computeAmortization($amount, $terms, $interest, $decimal = 2)
