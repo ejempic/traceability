@@ -36,6 +36,11 @@ class Farmer extends Model
         return $this->hasMany(Inventory::class, 'farmer_id')->where('status', 'Accepted');
     }
 
+    public function spotMarket()
+    {
+        return $this->morphMany(SpotMarket::class, 'model');
+    }
+
     public function loans()
     {
         return $this->morphMany(Loan::class, 'borrower')->with('payment_schedules', 'product', 'provider');

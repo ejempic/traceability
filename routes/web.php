@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 // GLOBAL ROUTES START
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/admin-generate-permissions', function () {
+    echo "Generating Spot Market Permission<br>";
+    Artisan::call('permission:spot_market');
+    return 'Done';
 });
 
 Route::get('/registration', 'Controller@registration');
@@ -85,6 +92,8 @@ Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('purchase-order', 'PurchaseOrderController');
         Route::resource('spot-market', 'SpotMarketController');
+        Route::get('spot-market-cart', 'SpotMarketController@cart')->name('spot-market.cart');
+        Route::post('spot-market-add-to-cart', 'SpotMarketController@addToCart')->name('spot-market.add_cart');
     });
 });
 

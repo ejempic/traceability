@@ -58,4 +58,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->morphMany(SpotMarket::class, 'model');
     }
+
+    public function spotMarketCart()
+    {
+        return $this->hasMany(SpotMarketCart::class, 'user_id');
+    }
 }

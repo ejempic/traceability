@@ -4,7 +4,7 @@
 
     <main class="page-forms">
         <div class="row no-gutters sign-in">
-            <div class="col-12 col-lg-4 left d-none d-lg-flex" style="background-image: url({{ asset('images/loan/bg-img.jpg') }})">
+            <div class="col-12 col-lg-4 left d-none d-lg-flex" style="background-image: url({{ asset('images/wharf/bg-img.jpg') }})">
                 <div>
                     <a href="{{ asset('/') }}">
                         <img src="{{ asset('images/agrabah-logo.png') }}" alt="logo" class="img-fluid d-block mx-auto logo">
@@ -81,7 +81,7 @@
 
                         {{--<a href="" class="link d-flex justify-content-center">Forgot password?</a>--}}
 
-                        <div class="register-text text-center">Not registered yet? <a href="{{ route('register-loan-provider') }}">Sign up</a> now!</div>
+                        <div class="register-text text-center">Not registered yet? <a href="{{ url('registration') }}">Sign up</a> now!</div>
                     </form>
                 </div>
             </div>

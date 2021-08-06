@@ -47,4 +47,14 @@ class LoginController extends Controller
     {
         return view(subDomainPath('auth.login'));
     }
+
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'email';
+    }
 }

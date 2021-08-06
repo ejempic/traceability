@@ -259,7 +259,7 @@ class PublicController extends Controller
                     $farmer->account_id = $number;
                     $farmer->user_id = $data->id;
                     if($type == 'community-leader'){
-                        $farmer->community_leader = $data->id;
+                        $farmer->community_leader = 1;
                     }
                     $farmer->save();
                     break;

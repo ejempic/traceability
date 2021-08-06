@@ -8,6 +8,7 @@ use App\LoanPayment;
 use App\LoanPaymentSchedule;
 use App\Services\LoanService;
 use App\SpotMarket;
+use App\SpotMarketCart;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,6 +28,45 @@ class SpotMarketController extends Controller
 
     }
 
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cart()
+    {
+        $cart = SpotMarket::
+            join('spot_market_carts', 'spot_market_carts.spot_market_id','=','spot_markets.id')
+            ->where('user_id', auth()->user()->id)
+            ->select(
+                'spot_markets.*',
+                'spot_market_carts.id as cart_id',
+                'spot_market_carts.quantity'
+            )
+            ->get();
+        return view(subDomainPath('spot-market.cart'), compact('cart'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addToCart(Request $request)
+    {
+
+        $array = [
+            'user_id' => auth()->user()->id,
+            'spot_market_id' => $request->id
+        ];
+        $cart = SpotMarketCart::firstOrNew($array);
+        $cart->quantity = $cart->quantity + 1;
+        $cart->save();
+        return getUserSpotMarketCartCount();
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,12 +75,22 @@ class SpotMarketController extends Controller
     public function index()
     {
 
-        $spotMarketList = User::find(auth()->user()->id)
-            ->mySpotMarketList
-;
-//        dd($spotMarketList->can('read-spot-market'));
+        $spotMarketList = [];
 
-        return view(subDomainPath('spot-market.index'), compact('spotMarketList'));
+        $roleName = auth()->user()->roles->first()->name;
+        $isCommunityLeader = false;
+        if($roleName == 'farmer'){
+            if(isCommunityLeader()){
+                $spotMarketList = auth()->user()->farmer->spotMarket;
+                $isCommunityLeader = true;
+            }else{
+                $spotMarketList = SpotMarket::all();
+                return view(subDomainPath('spot-market.browse'), compact('spotMarketList', 'isCommunityLeader'));
+            }
+        }
+;
+
+        return view(subDomainPath('spot-market.index'), compact('spotMarketList', 'isCommunityLeader'));
     }
 
 
@@ -62,7 +112,22 @@ class SpotMarketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $roleName = auth()->user()->roles->first()->name;
+        $array = $request->except('_token');
+        if($roleName == 'farmer'){
+            $farmerModel = auth()->user()->farmer;
+
+            $array = array_merge($array,[
+                'model_id' => $farmerModel->id,
+                'model_type' => 'App\Farmer',
+            ]);
+            $spotMarket = SpotMarket::create($array);
+            $spotMarket->addMedia($request->file('image'))
+                ->toMediaCollection('spot-market');
+            $farmerModel->spotMarket()->save($spotMarket);
+        }
+
+        return redirect()->route('spot-market.index');
     }
 
     /**
@@ -71,9 +136,10 @@ class SpotMarketController extends Controller
      * @param \App\Loan $loan
      * @return \Illuminate\Http\Response
      */
-    public function show(Loan $loan)
+    public function show($id)
     {
-        //
+        $data = SpotMarket::find($id);
+        return view(subDomainPath('spot-market.show'), compact('data'));
     }
 
     /**
@@ -82,9 +148,10 @@ class SpotMarketController extends Controller
      * @param \App\Loan $loan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Loan $loan)
+    public function edit($id)
     {
-        //
+        $data = SpotMarket::find($id);
+        return view(subDomainPath('spot-market.edit'), compact('data'));
     }
 
     /**
@@ -94,9 +161,17 @@ class SpotMarketController extends Controller
      * @param \App\Loan $loan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Loan $loan)
+    public function update(Request $request, $id)
     {
-        //
+        $data = SpotMarket::find($id);
+        $data->update($request->except(['_token', 'image']));
+        if($request->hasFile('image')){
+            $media = $data->getFirstMedia('spot-market');
+            $media->delete();
+            $data->addMedia($request->file('image'))->toMediaCollection('spot-market');
+        }
+
+        return redirect()->back();
     }
 
     /**
