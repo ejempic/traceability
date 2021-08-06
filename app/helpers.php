@@ -12,19 +12,6 @@ if (!function_exists('smsNotification')) {
     function smsNotification($type)
     {
 
-        switch($type){
-            case 'ucfirst':
-                $subdomain = ucfirst(config('app.name').' '.$subdomain);
-                break;
-            case 'ucwords':
-                $subdomain = ucwords(config('app.name').' '.$subdomain);
-                break;
-            default:
-                $subdomain = strtoupper(config('app.name').' '.$subdomain);
-                break;
-        }
-
-        return $subdomain;
     }
 }
 
