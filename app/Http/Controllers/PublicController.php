@@ -290,4 +290,9 @@ class PublicController extends Controller
     {
         Itexmo::to('09156819270')->content('Test SMS from Agrabah Loan App')->send();
     }
+
+    public function activation()
+    {
+        return view('layouts.account-activation');
+    }
 }
