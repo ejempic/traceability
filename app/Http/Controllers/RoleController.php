@@ -66,6 +66,7 @@ class RoleController extends Controller
     public function saveRegistrant(Request $request)
     {
         $registrants = $request->input('wharf_registrant');
+        AppRegistrant::where('app', $request->input('app'))->delete();
         foreach($registrants as $registrant){
             AppRegistrant::create([
                 'app' => $request->input('app'),

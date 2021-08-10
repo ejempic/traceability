@@ -95,7 +95,10 @@ Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
         Route::resource('purchase-order', 'PurchaseOrderController');
         Route::resource('spot-market', 'SpotMarketController');
         Route::get('spot-market-cart', 'SpotMarketController@cart')->name('spot-market.cart');
+        Route::get('spot-market-my-orders', 'SpotMarketController@myOrders')->name('spot-market.my_orders');
         Route::post('spot-market-add-to-cart', 'SpotMarketController@addToCart')->name('spot-market.add_cart');
+        Route::post('spot-market-lock-in-order', 'SpotMarketController@lockInOrder')->name('spot-market.lock_in_order');
+        Route::post('spot-market-verify-payment', 'SpotMarketController@verifyPayment')->name('spot-market.verify_payment');
     });
 });
 
