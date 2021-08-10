@@ -24,7 +24,15 @@ class LoanService
             $returnArray = [];
             $date = Carbon::now();
             if($first_allowance > 0){
-                $date->addDays($first_allowance);
+                if($timing == 'monthly'){
+                    $date->addMonths($first_allowance);
+                }
+                if($timing == 'day'){
+                    $date->addDays($first_allowance);
+                }
+                if($timing == 'week'){
+                    $date->addDays($first_allowance);
+                }
             }
             $amortization = computeAmortization($amount, $duration, $interest_rate);
             foreach(range(1, $duration) as $counter){
@@ -35,6 +43,9 @@ class LoanService
                 }
                 if($timing == 'day'){
                     $date->addDays($allowance);
+                }
+                if($timing == 'week'){
+                    $date->addWeeks($allowance);
                 }
                 $array['date'] = $date->copy()->toFormattedDateString();
                 $array['amount'] = $amortization;
