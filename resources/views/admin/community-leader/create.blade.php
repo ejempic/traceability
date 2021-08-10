@@ -37,7 +37,7 @@
                             <select name="farmer-select" class="form-control select2">
                                 <option value=""></option>
                                 @foreach($farmers as $farmer)
-                                    <option value="{{ $farmer->id }}">[ID# {{ $farmer->id }}] {{ $farmer->profile->first_name }} {{ $farmer->profile->last_name }}</option>
+                                    <option value="{{ $farmer->id }}">[ID# {{ $farmer->account_id }}] {{ $farmer->profile->first_name }} {{ $farmer->profile->last_name }}</option>
                                 @endforeach
                             </select>
                         </div>

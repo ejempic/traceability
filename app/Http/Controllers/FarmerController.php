@@ -233,7 +233,7 @@ class FarmerController extends Controller
     public function farmerCheck(Request $request)
     {
         $id = $request->input('id');
-        $farmer = Farmer::with('profile')
+        $farmer = Farmer::has('profile')
             ->where('community_leader', 0)
             ->where('account_id', $id)
             ->first();

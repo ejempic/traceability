@@ -24,6 +24,7 @@ class CreateLoansTable extends Migration
             $table->date('end_date')->nullable();
             $table->double('penalty')->nullable();
             $table->boolean('accept')->default(0);
+            $table->boolean('loan_received')->default(0);
             $table->double('amount')->nullable();
             $table->integer('duration')->nullable();
             $table->double('interest_rate')->nullable();

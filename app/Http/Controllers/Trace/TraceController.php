@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Trace;
 
+use App\Events\TraceCreatedEvent;
 use App\Farmer;
 use App\Http\Controllers\Controller;
 use App\Inventory;
@@ -166,10 +167,12 @@ class TraceController extends Controller
                     'title' => 'Agrabah Shipping details.',
                     'url' => route('trace-tracking', array('code'=>$trace->reference)),
                     'body' => '<p>Please present this CODE upon receiving your package.</p><br><table><thead><tr><th colspan="4" align="center">Dispatch Information</th></tr></thead><tbody><tr><td width="150" align="left">Driver Name</td><td align="left">'. $data[4] .'</td></tr><tr><td align="left">Mobile no.</td><td align="left">'. $data[5] .'</td></tr><tr><td align="left">Vehicle Type</td><td align="left">'. $data[6] .'</td></tr><tr><td align="left">Plate No.</td><td align="left">'. $data[7] .'</td></tr></tbody></table><br><br><br>',
-                    'code' => $modelInfo->value_3
+                    'code' => $modelInfo->value_3,
+                    'email' => $myEmail
                 ];
 
-                Mail::to($myEmail)->send(new TraceShipped($details));
+                event(new TraceCreatedEvent($details));
+//                Mail::to($myEmail)->send(new TraceShipped($details));
             }
 
             $modelInfo = new ModelInfo();
