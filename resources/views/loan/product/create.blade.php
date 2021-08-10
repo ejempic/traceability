@@ -81,6 +81,7 @@
                             <label>Timing</label>
                             <select name="timing" id="timing" class="form-control changeSchedule">
                                 <option value="day">Day</option>
+                                <option value="week">Weeks</option>
                                 <option value="monthly" selected>Monthly</option>
                             </select>
                         </div>
@@ -270,7 +271,7 @@
             $(".decimal").inputmask({
                 alias: 'decimal',
                 integerDigits:3,
-                digits:2,
+                digits:3,
                 allowMinus:false,
                 digitsOptional: true,
                 placeholder: "0"

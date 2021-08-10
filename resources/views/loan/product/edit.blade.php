@@ -254,7 +254,7 @@
             $(".decimal").inputmask({
                 alias: 'decimal',
                 integerDigits:3,
-                digits:2,
+                digits:3,
                 allowMinus:false,
                 digitsOptional: true,
                 placeholder: "0"
