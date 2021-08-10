@@ -62,7 +62,7 @@
                         </div>
                         <div class="form-group">
                             <label>Interest Rate (%)</label>
-                            <input name="interest_rate" id="interest_rate" type="text" data-mask="##0%" class="form-control changeSchedule">
+                            <input name="interest_rate" id="interest_rate" type="text"  class="form-control changeSchedule decimal">
                         </div>
                     </div>
                 </div>
@@ -182,53 +182,79 @@
 
 @section('scripts')
     {!! Html::script('/js/template/plugins/iCheck/icheck.min.js') !!}
-    {!! Html::script('/js/template/plugins/jqueryMask/jquery.mask.min.js') !!}
+{{--    {!! Html::script('/js/template/plugins/jqueryMask/jquery.mask.min.js') !!}--}}
+    {!! Html::script('https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js') !!}
     {{--    {!! Html::script('') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
     {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
+        Inputmask.extendAliases({
+            pesos: {
+                prefix: "₱ ",
+                groupSeparator: ".",
+                alias: "numeric",
+                placeholder: "0",
+                autoGroup: true,
+                digits: 2,
+                digitsOptional: false,
+                clearMaskOnLostFocus: false
+            },
+            money: {
+                prefix: "",
+                groupSeparator: ".",
+                alias: "numeric",
+                placeholder: "0",
+                autoGroup: true,
+                digits: 2,
+                digitsOptional: true,
+                clearMaskOnLostFocus: false
+            }
+        });
 
         function numberWithCommas(x) {
-            return x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parseFloat(x).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
         function populateSchedule() {
-            var duration = $('#duration').val()
-            var amount = $('#amount').val()
-            var interest_rate = $('#interest_rate').val()
-            var timing = $('#timing').val()
-            var allowance = $('#allowance').val()
-            var first_allowance = $('#first_allowance').val()
+            var duration = $('#duration').val();
+            var amount = $('#amount').val();
+            var interest_rate = $('#interest_rate').val();
+            var timing = $('#timing').val();
+            var allowance = $('#allowance').val();
+            var first_allowance = $('#first_allowance').val();
 
-            $.get('{!! route('generate-schedule') !!}', {
-                duration:duration,
-                amount:amount,
-                interest_rate:interest_rate,
-                timing:timing,
-                allowance:allowance,
-                first_allowance:first_allowance,
-            }, function(data){
+            if(duration && interest_rate && amount){
+                $.get('{!! route('generate-schedule') !!}', {
+                    duration:duration,
+                    amount:amount,
+                    interest_rate:interest_rate,
+                    timing:timing,
+                    allowance:allowance,
+                    first_allowance:first_allowance,
+                }, function(data){
 
-                var table = '';
-                var total = 0;
-                for (let i = 0; i < data.length; i++) {
-                    const datum = data[i];
-                    table +='<tr>';
-                    table +='<td>';
-                    table += datum.date;
-                    table +='</td>'
-                    table +='<td class="text-right">';
-                    table += numberWithCommas(datum.amount);
-                    table +='</td>';
-                    table +='</tr>';
-                    total += datum.amount;
-                }
-                $('#total_loan_amount').html(numberWithCommas(total));
-                $('#payment_schedule_review').empty().append(table);
-                $('#payment_schedule_input').val(JSON.stringify(data))
-            });
+                    var table = '';
+                    var total = 0;
+                    for (let i = 0; i < data.length; i++) {
+                        const datum = data[i];
+                        table +='<tr>';
+                        table +='<td>';
+                        table += datum.date;
+                        table +='</td>'
+                        table +='<td class="text-right">';
+                        table += numberWithCommas(datum.amount);
+                        table +='</td>';
+                        table +='</tr>';
+                        total += datum.amount;
+                    }
+                    $('#total_loan_amount').html(numberWithCommas(total));
+                    $('#payment_schedule_review').empty().append(table);
+                    $('#payment_schedule_input').val(JSON.stringify(data))
+                });
+            }
+
         }
 
         $(document).on('change, input', '.changeSchedule', function () {
@@ -237,7 +263,19 @@
 
         $(document).ready(function () {
             populateSchedule();
-            $('.money').mask("#,##0.00", {reverse: true});
+            // $('.money').mask("#,##0.00", {reverse: true});
+            $(".money").inputmask({
+                alias:"money"
+            });
+            $(".decimal").inputmask({
+                alias: 'decimal',
+                integerDigits:3,
+                digits:2,
+                allowMinus:false,
+                digitsOptional: true,
+                placeholder: "0"
+            });
+
 
             $(document).on('click', '.btn-action', function () {
                 switch ($(this).data('action')) {

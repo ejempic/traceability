@@ -294,3 +294,17 @@ if (!function_exists('getUserSpotMarketCartCount')) {
     }
 }
 
+if (!function_exists('getSpotMarketOrderStatus')) {
+    function getSpotMarketOrderStatus($orderNumber)
+    {
+        return \App\SpotMarketOrderStatus::where('spot_market_orders', $orderNumber)->where('is_current', 1)->first();
+    }
+}
+
+if (!function_exists('getSpotMarketOrderStatuses')) {
+    function getSpotMarketOrderStatuses($orderNumber)
+    {
+        return \App\SpotMarketOrderStatus::where('spot_market_orders', $orderNumber)->pluck('is_current', 'status')->toArray();
+    }
+}
+

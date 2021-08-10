@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\LoanCollection;
 use App\Loan;
-use App\LoanPayment;
-use App\LoanPaymentSchedule;
 use App\Services\LoanService;
+use App\Services\SpotMarketOrderService;
 use App\SpotMarket;
 use App\SpotMarketCart;
-use App\User;
-use Carbon\Carbon;
+use App\SpotMarketOrder;
+use App\SpotMarketPayment;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Spatie\Permission\Models\Role;
 
 class SpotMarketController extends Controller
 {
     /**
+     * @var SpotMarketOrderService
+     */
+    private $spotMarketOrderService;
+
+    /**
      * @var LoanService
      */
-    public function __construct()
+    public function __construct(SpotMarketOrderService $spotMarketOrderService)
     {
-
+        $this->spotMarketOrderService = $spotMarketOrderService;
     }
 
 
@@ -46,6 +46,32 @@ class SpotMarketController extends Controller
             )
             ->get();
         return view(subDomainPath('spot-market.cart'), compact('cart'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function myOrders()
+    {
+        $orders = SpotMarket::
+            join('spot_market_orders', 'spot_market_orders.spot_market_id','=','spot_markets.id')
+            ->where('user_id', auth()->user()->id)
+            ->select(
+                'spot_markets.*',
+                'spot_market_orders.id as order_id',
+                'spot_market_orders.id as cart_id',
+                'spot_market_orders.order_number',
+                'spot_market_orders.price as order_price',
+                'spot_market_orders.quantity as order_quantity',
+                'spot_market_orders.sub_total as order_subtotal',
+                'spot_market_orders.created_at as order_placed'
+            )
+            ->orderBy('spot_market_orders.created_at','desc')
+            ->get()
+            ->groupBy('order_number');
+        return view(subDomainPath('spot-market.my_orders'), compact('orders'));
     }
 
     /**
@@ -83,10 +109,14 @@ class SpotMarketController extends Controller
             if(isCommunityLeader()){
                 $spotMarketList = auth()->user()->farmer->spotMarket;
                 $isCommunityLeader = true;
+                return view(subDomainPath('spot-market.index'), compact('spotMarketList', 'isCommunityLeader'));
             }else{
                 $spotMarketList = SpotMarket::all();
                 return view(subDomainPath('spot-market.browse'), compact('spotMarketList', 'isCommunityLeader'));
             }
+        }else{
+            $spotMarketList = SpotMarket::all();
+            return view(subDomainPath('spot-market.browse'), compact('spotMarketList', 'isCommunityLeader'));
         }
 ;
 
@@ -121,6 +151,8 @@ class SpotMarketController extends Controller
                 'model_id' => $farmerModel->id,
                 'model_type' => 'App\Farmer',
             ]);
+            $array["original_price"] = preg_replace('/,/','', $array['original_price']);
+            $array["selling_price"] = preg_replace('/,/','', $array['selling_price']);
             $spotMarket = SpotMarket::create($array);
             $spotMarket->addMedia($request->file('image'))
                 ->toMediaCollection('spot-market');
@@ -167,26 +199,72 @@ class SpotMarketController extends Controller
         $data->update($request->except(['_token', 'image']));
         if($request->hasFile('image')){
             $media = $data->getFirstMedia('spot-market');
-            $media->delete();
+            if($media){
+                $media->delete();
+            }
             $data->addMedia($request->file('image'))->toMediaCollection('spot-market');
         }
 
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Loan $loan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Loan $loan)
+    public function destroy()
     {
         //
     }
 
-//    public function loanList()
-//    {
-//
-//    }
+    public function lockInOrder(Request $request)
+    {
+
+        $formStringify = $request->input('form');
+        $form = json_decode($formStringify,true);
+        DB::beginTransaction();
+        $orderNumber = sprintf('%08d', SpotMarketOrder::count()+1);
+        foreach($form as $row){
+            $spotMarketOrder = new SpotMarketOrder();
+            $spotMarketOrder->order_number = $orderNumber;
+            $spotMarketOrder->spot_market_id = $row['id'];
+            $spotMarketOrder->user_id = auth()->user()->id;
+            $spotMarketOrder->quantity = $row['qty'];
+            $spotMarketOrder->price = $row['price'];
+            $spotMarketOrder->sub_total = $row['sub_total'];
+            if($spotMarketOrder->save()){
+                $cart = SpotMarketCart::find($row['cart_id']);
+                if($cart){
+                    $cart->delete();
+                    $this->spotMarketOrderService->newOrder($spotMarketOrder);
+                }else{
+                }
+            }else{
+            }
+        }
+
+        DB::commit();
+
+    }
+
+    public function verifyPayment(Request  $request)
+    {
+        $request->validate([
+            'proof_of_payment' => 'max:10000',
+        ],[
+            'proof_of_payment.max' => 'Proof of Payment Must be less than 10MB'
+        ]);
+
+        $orders = SpotMarketOrder::where('order_number', $request->order_number)->first();
+        if($orders){
+            $payment = new SpotMarketPayment();
+            $payment->order_number = $request->order_number;
+            $payment->payment_date = $request->paid_date;
+            $payment->reference_number = $request->reference_number;
+            $payment->save();
+            $payment->addMedia($request->file('proof_of_payment'))
+                ->toMediaCollection('spot-market-proof-payment');
+
+            $this->spotMarketOrderService->verified($orders);
+
+        }
+        return redirect()->back()->with('success','Payment Verified!');
+    }
+
 }

@@ -5,56 +5,144 @@
 
 @section('content')
 
-    <div class="wrapper wrapper-content">
-
-        <div class="row">
-            <div class="col-12">
-                <div class="ibox">
-                    <div class="ibox-title">
-
+    <div class="wrapper wrapper-content page-dashboard">
+        <div class="page-dashboard">
+            <div class="row list-count space-1">
+                <div class="col-12 col-lg-3 col-md-6">
+                    <div class="box">
+                        <div class="item counter">14</div>
+                        <div class="item counter-label">New Loan Applications Today</div>
                     </div>
-                    <div class="ibox-content">
-                        <div class="table-responsive">
-                            <table class="table table-borderless">
-                                <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th colspan="4" class="text-center">Loan Applicants</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach(loanStatInfo(Auth::user()->loan_provider->id) as $info)
-                                    <tr>
-                                        <td>
-                                            <small><strong class="stats-label text-success">{{ $info[0][0] }} </strong></small>
-                                            <h4>{{ $info[0][1] }} <small>total products</small></h4>
-                                        </td>
-                                        <td class="text-right">
-                                            <small class="stats-label">Pending</small>
-                                            <h4>{{ $info[1] }}</h4>
-                                        </td>
-                                        <td class="text-right">
-                                            <small class="stats-label">Active</small>
-                                            <h4>{{ $info[2] }}</h4>
-                                        </td>
-                                        <td class="text-right">
-                                            <small class="stats-label">Completed</small>
-                                            <h4>{{ $info[3] }}</h4>
-                                        </td>
-                                        <td class="text-right">
-                                            <small class="stats-label">Declined</small>
-                                            <h4>{{ $info[4] }}</h4>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-
+                </div>
+                <div class="col-12 col-lg-3 col-md-6">
+                    <div class="box">
+                        <div class="item counter">951</div>
+                        <div class="item counter-label">Registered Farmers</div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3 col-md-6">
+                    <div class="box">
+                        <div class="item counter">188</div>
+                        <div class="item counter-label">Registered Loan Providers</div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3 col-md-6">
+                    <div class="box">
+                        <div class="item counter">887</div>
+                        <div class="item counter-label">Approved Loans This Week</div>
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-12 col-lg-9 graphs">
+                    <div class="box">
+                        <canvas id="doughnutChart" height="130"></canvas>
+                        {{--<div class="chart-container" style="position: relative; height:40vh;">--}}
+                            {{--<canvas id="doughnutChart"></canvas>--}}
+                        {{--</div>--}}
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3">
+                    <div class="box list-group">
+                        <div class="header-label">
+                            <div class="row">
+                                <div class="col-6 col-lg-6">
+                                    <label>Loan Type</label>
+                                </div>
+                                <div class="col-6 col-lg-6">
+                                    <label>Total Active Users</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul>
+                            <li>
+                                <div class="row">
+                                    <div class="col-6 col-lg-6">
+                                        <div class="text">Loan Type 1</div>
+                                    </div>
+                                    <div class="col-6 col-lg-6">
+                                        <div class="text">10</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-6 col-lg-6">
+                                        <div class="text">Loan Type 2</div>
+                                    </div>
+                                    <div class="col-6 col-lg-6">
+                                        <div class="text">50</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-6 col-lg-6">
+                                        <div class="text">Loan Type 3</div>
+                                    </div>
+                                    <div class="col-6 col-lg-6">
+                                        <div class="text">100</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
         </div>
+
+        {{--<div class="row">--}}
+            {{--<div class="col-12">--}}
+                {{--<div class="ibox">--}}
+                    {{--<div class="ibox-title">--}}
+
+                    {{--</div>--}}
+                    {{--<div class="ibox-content">--}}
+                        {{--<div class="table-responsive">--}}
+                            {{--<table class="table table-borderless">--}}
+                                {{--<thead>--}}
+                                {{--<tr>--}}
+                                    {{--<th>Product</th>--}}
+                                    {{--<th colspan="4" class="text-center">Loan Applicants</th>--}}
+                                {{--</tr>--}}
+                                {{--</thead>--}}
+                                {{--<tbody>--}}
+                                {{--@foreach(loanStatInfo(Auth::user()->loan_provider->id) as $info)--}}
+                                    {{--<tr>--}}
+                                        {{--<td>--}}
+                                            {{--<small><strong class="stats-label text-success">{{ $info[0][0] }} </strong></small>--}}
+                                            {{--<h4>{{ $info[0][1] }} <small>total products</small></h4>--}}
+                                        {{--</td>--}}
+                                        {{--<td class="text-right">--}}
+                                            {{--<small class="stats-label">Pending</small>--}}
+                                            {{--<h4>{{ $info[1] }}</h4>--}}
+                                        {{--</td>--}}
+                                        {{--<td class="text-right">--}}
+                                            {{--<small class="stats-label">Active</small>--}}
+                                            {{--<h4>{{ $info[2] }}</h4>--}}
+                                        {{--</td>--}}
+                                        {{--<td class="text-right">--}}
+                                            {{--<small class="stats-label">Completed</small>--}}
+                                            {{--<h4>{{ $info[3] }}</h4>--}}
+                                        {{--</td>--}}
+                                        {{--<td class="text-right">--}}
+                                            {{--<small class="stats-label">Declined</small>--}}
+                                            {{--<h4>{{ $info[4] }}</h4>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                {{--@endforeach--}}
+                                {{--</tbody>--}}
+                            {{--</table>--}}
+                        {{--</div>--}}
+
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
     </div>
 
@@ -67,9 +155,28 @@
 
 @section('scripts')
     {{--{!! Html::script('') !!}--}}
-    <script>
-        $(document).ready(function(){
 
+    <!-- ChartJS-->
+    {!! Html::script('/js/plugins/chartJs/Chart.min.js') !!}
+
+    <script>
+        $(function () {
+            var doughnutData = {
+                labels: ["Not Payed","Pending","Active Payers" ],
+                datasets: [{
+                    data: [100,200,50],
+                    backgroundColor: ["#548714","#dedede","#9ed35a"]
+                }]
+            } ;
+
+
+            var doughnutOptions = {
+                responsive: true
+            };
+
+
+            var ctx4 = document.getElementById("doughnutChart").getContext("2d");
+            new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
         });
     </script>
 @endsection

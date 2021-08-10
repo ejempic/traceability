@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AddSpotMarketPermission extends Command
 {
@@ -38,6 +39,12 @@ class AddSpotMarketPermission extends Command
      */
     public function handle()
     {
+
+        $addBuyerRole = Role::firstOrCreate([
+            'name' => 'buyer',
+            'display_name' => 'Buyer',
+            'guard_name' => 'web',
+        ]);
         $spotMarketPermissions = [
             [
                 'read-spot-market',

@@ -2,7 +2,7 @@
     <a href="{!! route('home') !!}"><i class="fa fa-tachometer"></i> <span class="nav-label">Home</span></a>
 </li>
 
-@if(auth()->user()->can('read-spot-market') && isCommunityLeader())
+@if(auth()->user()->can('read-spot-market')  && isCommunityLeader())
     <li class="{{ (request()->is('spot-market*')) ? 'active' : '' }}">
         <a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">My Spot Market</span><span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
@@ -14,9 +14,12 @@
         </ul>
     </li>
 @endif
-@if(auth()->user()->can('browse-spot-market'))
-    <li class="{{ (request()->is('spot-market*')) && !(request()->is('spot-market-cart')) ? 'active' : '' }}">
+@if(auth()->user()->can('browse-spot-market')  && !isCommunityLeader())
+    <li class="{{ (request()->is('spot-market')) ? 'active' : '' }}">
         <a href="{!! route('spot-market.index') !!}"><i class="fa fa-list"></i> <span class="nav-label">Spot Market</span></a>
+    </li>
+    <li class="{{ (request()->is('spot-market-my-orders')) ? 'active' : '' }}">
+        <a href="{!! route('spot-market.my_orders') !!}"><i class="fa fa-shopping-bag"></i> <span class="nav-label">My Orders</span></a>
     </li>
 @endif
 {{--@if(auth()->user()->can('buy-spot-market'))--}}

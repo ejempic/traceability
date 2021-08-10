@@ -26,7 +26,7 @@
     <div id="app" class="wrapper wrapper-content">
         <div class="row">
 
-            @foreach($spotMarketList as $data)
+            @forelse($spotMarketList as $data)
             <div class="col-md-3">
                 <div class="ibox">
                     <div class="ibox-content product-box">
@@ -41,17 +41,26 @@
                                 </span>
                             <small class="text-muted d-none">Category</small>
                             <a href="{{route('spot-market.show', $data->id)}}" class="product-name"> {{$data->name}}</a>
-                            <div class="small m-t-xs d-none">
-                                {!! $data->description !!}
+                            <div class="small m-t-xs">
+                                <h4>Highest Bid: ₱12,050</h4>
+                                Following Bids
+                                <ul>
+                                    <li>₱12,000</li>
+                                    <li>₱11,500</li>
+                                </ul>
                             </div>
-                            <div class="m-t text-righ">
-                                <a href="#" class="btn btn-xs btn-primary w-100 add-to-cart"  data-name="{{$data->name}}" data-id="{{$data->id}}">Add to Cart <i class="fa fa-cart-plus"></i> </a>
+                            <div class="m-t text-right">
+                                <a href="#" class="btn btn-xs btn-primary w-100 add-to-cart"  data-name="{{$data->name}}" data-id="{{$data->id}}">Bid</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            @endforeach
+            @empty
+                <div class="col-12">
+                    <h1 class="text-center w-100">No Listing Yet</h1>
+                </div>
+            @endforelse
         </div>
     </div>
 
