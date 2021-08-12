@@ -1,6 +1,6 @@
 @extends(subdomain_name().'.master')
 
-@section('title', 'Add Listing')
+@section('title', 'Edit '.$data->name )
 
 @section('content')
 
@@ -28,53 +28,77 @@
 
     <div id="app" class="wrapper wrapper-content">
         {{ Form::open(['route'=>['spot-market.update', $data->id],'id'=>'form','method'=>'put','files'=>true]) }}
-            <div class="row">
-                <div class="col-sm-12">
-                    @csrf
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Product Listing
-                        </div>
-                        <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-12">
+                @csrf
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Product Listing
+                    </div>
+                    <div class="panel-body">
 
-                            <div class="form-group">
-                                <div>
-                                    <img src="{{$data->getFirstMediaUrl('spot-market')}}" alt="" id="image_preview" width="250px">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <img src="{{$data->getFirstMediaUrl('spot-market')}}" alt="" id="image_preview" class="mb-2" style="height: 174px;">
+                                    <label class="w-100">Photo</label>
+                                    <input accept="image/*" type="file" class="form-control" id="image" name="image">
                                 </div>
-                                <label>Photo</label>
-                                <input accept="image/*" type="file" class="form-control" id="image" name="image">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="name" value="{{$data->name}}">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" name="name" value="{{$data->name}}">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>From Farmer</label>
+                                    <select class="form-control" id="from_user_id" name="from_user_id">
+                                        @foreach($farmers as $farmer)
+                                            <option value="{{$farmer->user->id}}" {{$data->from_user_id==$farmer->user->id?'selected':''}}>{{$farmer->user->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Duration (Hours & Minutes)</label>
+                                    <div style="position: relative">
+                                        <input type="text" id="time" class="form-control" name="duration"
+                                               autocomplete="off" value="{{$data->duration}}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>How many Kilos?</label>
+                                    <input type="number" class="form-control" name="quantity" value="{{$data->quantity}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Starting Bid</label>
+                                    <input type="text" class="form-control money" name="selling_price"
+                                           value="{{$data->selling_price}}">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea class="summernote" name="description">
-                                {!! $data->description !!}
-                            </textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Original Price</label>
-                                <input type="text" class="form-control money" name="original_price" value="{{$data->original_price}}">
-                            </div>
-                            <div class="form-group">
-                                <label>Selling Price</label>
-                                <input type="text" class="form-control money" name="selling_price" value="{{$data->selling_price}}">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="summernote" name="description">
+                                    {!! $data->description !!}
+                                </textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         {{ Form::close() }}
 
     </div>
 
-    <div class="modal inmodal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category="" data-variant="" data-bal="">
+    <div class="modal inmodal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true"
+         data-category="" data-variant="" data-bal="">
         <div id="modal-size">
             <div class="modal-content">
                 <div class="modal-header" style="padding: 15px;">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">
@@ -93,6 +117,10 @@
 @section('styles')
     {!! Html::style('/css/template/plugins/iCheck/custom.css') !!}
     {!! Html::style('/css/template/plugins/summernote/summernote-bs4.css') !!}
+    {!! Html::style('/packages/jquery.datetimepicker.css') !!}
+    {!! Html::style('/css/template/plugins/select2/select2.min.css') !!}
+    {!! Html::style('/css/template/plugins/select2/select2-bootstrap4.min.css') !!}
+
     {{--    {!! Html::style('/css/template/plugins/dropzone/dropzone.css') !!}--}}
     {{--{!! Html::style('') !!}--}}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
@@ -103,6 +131,13 @@
     {!! Html::script('/js/template/plugins/iCheck/icheck.min.js') !!}
     {!! Html::script('/js/template/plugins/jqueryMask/jquery.mask.min.js') !!}
     {!! Html::script('/js/template/plugins/summernote/summernote-bs4.js') !!}
+    {!! Html::script('/js/template/plugins/jquery-ui/jquery-ui.min.js') !!}
+    {{--    {!! Html::script('/js/template/plugins/datapicker/bootstrap-datepicker.js') !!}--}}
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    {!! Html::script('/packages/jquery.datetimepicker.full.min.js') !!}
+    {!! Html::script('/js/template/plugins/select2/select2.full.min.js') !!}
+
     {{--    {!! Html::script('/js/template/plugins/dropzone/dropzone.js') !!}--}}
     {{--    {!! Html::script('') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
@@ -119,6 +154,18 @@
         $(document).ready(function () {
             $('.summernote').summernote();
 
+            $("#from_user_id").select2({
+                theme: 'bootstrap4',
+                // placeholder: "",
+            });
+
+            $('#time').datetimepicker({
+                datepicker: false,
+                step: 5,
+                minTime: '00:05',
+                defaultTime: '00:05',
+                format: 'H:i'
+            });
 
             var imgInp = document.getElementById('image');
             var imgPre = document.getElementById('image_preview');

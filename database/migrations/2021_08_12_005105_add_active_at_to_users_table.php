@@ -13,9 +13,12 @@ class AddActiveAtToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('active_at')->nullable()->after('active');
-        });
+        if (!Schema::hasColumn('users', 'active_at'))
+        {
+            Schema::table('users', function (Blueprint $table) {
+                $table->timestamp('active_at')->nullable()->after('active');
+            });
+        }
     }
 
     /**
@@ -25,8 +28,11 @@ class AddActiveAtToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('active_at');
-        });
+        if (Schema::hasColumn('users', 'active_at'))
+        {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('active_at');
+            });
+        }
     }
 }

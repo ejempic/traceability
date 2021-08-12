@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Farmer;
 use App\Loan;
 use App\Services\LoanService;
 use App\Services\SpotMarketOrderService;
@@ -9,6 +10,7 @@ use App\SpotMarket;
 use App\SpotMarketCart;
 use App\SpotMarketOrder;
 use App\SpotMarketPayment;
+use Carbon\Carbon;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -111,7 +113,8 @@ class SpotMarketController extends Controller
                 $isCommunityLeader = true;
                 return view(subDomainPath('spot-market.index'), compact('spotMarketList', 'isCommunityLeader'));
             }else{
-                $spotMarketList = SpotMarket::all();
+                $spotMarketList = SpotMarket::where('expiration_time','>=',Carbon::now())->get();
+//                return $spotMarketList;
                 return view(subDomainPath('spot-market.browse'), compact('spotMarketList', 'isCommunityLeader'));
             }
         }else{
@@ -131,7 +134,10 @@ class SpotMarketController extends Controller
      */
     public function create()
     {
-        return view(subDomainPath('spot-market.create'));
+
+        $farmers = Farmer::with('user')->where('community_leader', 0)->get();
+
+        return view(subDomainPath('spot-market.create'), compact('farmers'));
     }
 
     /**
@@ -151,9 +157,20 @@ class SpotMarketController extends Controller
                 'model_id' => $farmerModel->id,
                 'model_type' => 'App\Farmer',
             ]);
-            $array["original_price"] = preg_replace('/,/','', $array['original_price']);
+            $array["original_price"] = preg_replace('/,/','', $array['selling_price']);
             $array["selling_price"] = preg_replace('/,/','', $array['selling_price']);
+
+
             $spotMarket = SpotMarket::create($array);
+
+            $expiration = Carbon::parse($spotMarket['created_at']);
+            if($spotMarket['duration']){
+                $duration = explode(':',$spotMarket['duration']);
+                $expiration->addHour($duration[0]);
+                $expiration->addMinute($duration[1]);
+            }
+            $spotMarket->expiration_time = $expiration;
+            $spotMarket->save();
             $spotMarket->addMedia($request->file('image'))
                 ->toMediaCollection('spot-market');
             $farmerModel->spotMarket()->save($spotMarket);
@@ -183,7 +200,9 @@ class SpotMarketController extends Controller
     public function edit($id)
     {
         $data = SpotMarket::find($id);
-        return view(subDomainPath('spot-market.edit'), compact('data'));
+        $farmers = Farmer::with('user')->where('community_leader', 0)->get();
+
+        return view(subDomainPath('spot-market.edit'), compact('data','farmers'));
     }
 
     /**
@@ -197,6 +216,15 @@ class SpotMarketController extends Controller
     {
         $data = SpotMarket::find($id);
         $data->update($request->except(['_token', 'image']));
+
+        $expiration = Carbon::parse($data['created_at']);
+        if($data['duration']){
+            $duration = explode(':',$data['duration']);
+            $expiration->addHour($duration[0]);
+            $expiration->addMinute($duration[1]);
+        }
+        $data->expiration_time = $expiration;
+        $data->save();
         if($request->hasFile('image')){
             $media = $data->getFirstMedia('spot-market');
             if($media){

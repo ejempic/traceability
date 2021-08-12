@@ -47,9 +47,13 @@
                             <tr>
                                 <th>Image</th>
                                 <th>Name</th>
+                                <th>Farmer</th>
                                 <th>Description</th>
-                                <th>Original Price</th>
-                                <th>Selling Price</th>
+                                <th>Quantity</th>
+                                <th>Starting Bid</th>
+                                <th>Added At</th>
+                                <th>Expiration</th>
+                                <th>Is Expired</th>
                                 <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
                             </tr>
                             </thead>
@@ -58,9 +62,13 @@
                                 <tr>
                                     <td width="200px">{!! ($data->hasMedia('spot-market')? "<img class='img-thumbnail' src='".$data->getFirstMediaUrl('spot-market')."'>":'')  !!}  </td>
                                     <td>{{ $data->name }} </td>
+                                    <td style="white-space: nowrap">{{ $data->fromFarmer['name'] }} </td>
                                     <td>{!!  $data->description  !!} </td>
-                                    <td>{!!  $data->original_price  !!} </td>
-                                    <td>{!!  $data->selling_price  !!} </td>
+                                    <td>{!!  $data->quantity?floatval($data->quantity).'kg':''  !!} </td>
+                                    <td class="text-right">{!!  $data->selling_price  !!} </td>
+                                    <td style="white-space: nowrap">{!!  \Carbon\Carbon::parse($data->created_at)->format('M d, Y H:i:s')  !!} </td>
+                                    <td style="white-space: nowrap">{{ \Carbon\Carbon::parse($data->expiration_time)->format('M d, Y H:i:s')  }} </td>
+                                    <td>{!!  $data->is_expired?'Expired':'Active'  !!} </td>
                                     <td class="text-right">
                                         <div class="btn-group text-right">
                                             @if($isCommunityLeader)
