@@ -222,24 +222,24 @@
         });
 
         $(document).on('click', '.payment_modal_trigger', function () {
-            var data_id = $(this).data('id');
+            verifyDisbursement($(this).data('id'), $('#verify_payment_modal'), $(this).data('amount_monthly'), $(this).data('amount_max'), $(this).data('status'));
 
-            if(verifyDisbursement(data_id) > 0){
-                return false;
-            }
 
-            var verify_payment_modal = $('#verify_payment_modal');
-            verify_payment_modal.modal('show');
-            var data_monthly = $(this).data('amount_monthly');
-            var data_max = $(this).data('amount_max');
-            var data_status = $(this).data('status');
-            $('#verify_payment_show').hide();
-            if(data_status == 'Active'){
-                $('#verify_payment_show').show();
-            }
-            $('.verify_amount_fast_monthly').attr('data-amount', data_monthly);
-            $('.verify_amount_fast_max').attr('data-amount', data_max);
-            $('#verify_loan_id').val(data_id);
+            // var data_id = $(this).data('id');
+            // var verify_payment_modal = $('#verify_payment_modal');
+            // verify_payment_modal.modal('show');
+            // var data_monthly = $(this).data('amount_monthly');
+            // var data_max = $(this).data('amount_max');
+            // var data_status = $(this).data('status');
+            // $('#verify_payment_show').hide();
+            // if(data_status == 'Active'){
+            //     $('#verify_payment_show').show();
+            // }
+            // $('.verify_amount_fast_monthly').attr('data-amount', data_monthly);
+            // $('.verify_amount_fast_max').attr('data-amount', data_max);
+            // $('#verify_loan_id').val(data_id);
+
+
         });
 
         $(document).on('click', '#verify_payment_show', function () {
@@ -352,15 +352,61 @@
 
         });
 
-        function verifyDisbursement(loanID){
-            var error = 0;
+        function verifyDisbursement(loanID, verify_payment_modal, data_monthly, data_max, data_status){
             $.get('{!! route('verify-disbursement') !!}', {
                 id: loanID,
                 type: 'check'
             }, function(data){
+                console.log('data: '+ data);
 
+                if( (data > 0) && (data_status === 'Active') ){
+                    swal({
+                        title: "Verify Loan Disbursement!",
+                        text: "Please verify if received to continue in payments!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#5563dd",
+                        confirmButtonText: "Loan Received!",
+                        closeOnConfirm: true
+                    },function (isConfirm) {
+                        if (isConfirm) {
+                            updateDisbursement(loanID, verify_payment_modal, data_monthly, data_max, data_status);
+                        }
+                    });
+                }else{
+                    verify_payment_modal.modal('show');
+                    $('#verify_payment_show').hide();
+                    if(data_status === 'Active'){
+                        $('#verify_payment_show').show();
+                    }
+                    $('.verify_amount_fast_monthly').attr('data-amount', data_monthly);
+                    $('.verify_amount_fast_max').attr('data-amount', data_max);
+                    $('#verify_loan_id').val(loanID);
+                }
             });
-            return error;
         }
+
+        function updateDisbursement(loanID, verify_payment_modal, data_monthly, data_max, data_status){
+            $.get('{!! route('verify-disbursement') !!}', {
+                id: loanID,
+                type: 'update'
+            }, function(){
+                swal({
+                    title: "Success!",
+                    text: "Loan disbursement verified.",
+                    type: "success",
+                    confirmButtonColor: "#5563dd",
+                    confirmButtonText: "ok!",
+                    closeOnConfirm: true
+                },function (isConfirm) {
+                    if (isConfirm) {
+                        verifyDisbursement(loanID, verify_payment_modal, data_monthly, data_max, data_status);
+                    }
+                });
+
+                // swal("Success", "Loan disbursement verified.", "success");
+            });
+        }
+
     </script>
 @endsection

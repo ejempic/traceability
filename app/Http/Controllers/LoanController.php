@@ -212,15 +212,21 @@ class LoanController extends Controller
 
     public function verifyDisbursement(Request $request)
     {
+        $error = 0;
+        $now = Carbon::now();
         $loan = Loan::find($request->input('id'));
         switch($request->input('type')) {
             case 'check':
                 if($loan->loan_received === null){
-                    return 1;
+                    $error += 1;
                 }
                 break;
             case 'update':
+                $loan->loan_received = $now;
+                $loan->save();
                 break;
         }
+
+        return $error;
     }
 }
