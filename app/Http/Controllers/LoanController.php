@@ -210,8 +210,17 @@ class LoanController extends Controller
         //
     }
 
-//    public function loanList()
-//    {
-//
-//    }
+    public function verifyDisbursement(Request $request)
+    {
+        $loan = Loan::find($request->input('id'));
+        switch($request->input('type')) {
+            case 'check':
+                if($loan->loan_received === null){
+                    return 1;
+                }
+                break;
+            case 'update':
+                break;
+        }
+    }
 }

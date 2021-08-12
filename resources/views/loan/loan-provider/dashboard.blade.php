@@ -9,29 +9,29 @@
         <div class="page-dashboard">
             <div class="row list-count space-1">
                 <div class="col-12 col-lg-3 col-md-6">
-                    <div class="box">
-                        <div class="item counter">14</div>
-                        <div class="item counter-label">New Loan Applications Today</div>
+                    <div class="box" id="new-loan-application">
+                        <div class="item counter">0</div>
+                        <div class="item counter-label">New Loan Application</div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-3 col-md-6">
-                    <div class="box">
-                        <div class="item counter">951</div>
-                        <div class="item counter-label">Registered Farmers</div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-3 col-md-6">
-                    <div class="box">
-                        <div class="item counter">188</div>
-                        <div class="item counter-label">Registered Loan Providers</div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-3 col-md-6">
-                    <div class="box">
-                        <div class="item counter">887</div>
+                    <div class="box" id="approve-loans">
+                        <div class="item counter">0</div>
                         <div class="item counter-label">Approved Loans This Week</div>
                     </div>
                 </div>
+{{--                <div class="col-12 col-lg-3 col-md-6">--}}
+{{--                    <div class="box">--}}
+{{--                        <div class="item counter">951</div>--}}
+{{--                        <div class="item counter-label">Registered Farmers</div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-12 col-lg-3 col-md-6">--}}
+{{--                    <div class="box">--}}
+{{--                        <div class="item counter">188</div>--}}
+{{--                        <div class="item counter-label">Registered Loan Providers</div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
 
             <div class="row">
@@ -51,42 +51,44 @@
                                     <label>Loan Type</label>
                                 </div>
                                 <div class="col-6 col-lg-6">
-                                    <label>Total Active Users</label>
+                                    <label>Total Product</label>
                                 </div>
                             </div>
                         </div>
 
                         <ul>
+                            @foreach($loanType as $type)
                             <li>
                                 <div class="row">
                                     <div class="col-6 col-lg-6">
-                                        <div class="text">Loan Type 1</div>
+                                        <div class="text">{{ $type->display_name }}</div>
                                     </div>
                                     <div class="col-6 col-lg-6">
-                                        <div class="text">10</div>
+                                        <div class="text">{{ $type->product_count }}</div>
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-6 col-lg-6">
-                                        <div class="text">Loan Type 2</div>
-                                    </div>
-                                    <div class="col-6 col-lg-6">
-                                        <div class="text">50</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-6 col-lg-6">
-                                        <div class="text">Loan Type 3</div>
-                                    </div>
-                                    <div class="col-6 col-lg-6">
-                                        <div class="text">100</div>
-                                    </div>
-                                </div>
-                            </li>
+                            @endforeach
+{{--                            <li>--}}
+{{--                                <div class="row">--}}
+{{--                                    <div class="col-6 col-lg-6">--}}
+{{--                                        <div class="text">Loan Type 2</div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-6 col-lg-6">--}}
+{{--                                        <div class="text">50</div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </li>--}}
+{{--                            <li>--}}
+{{--                                <div class="row">--}}
+{{--                                    <div class="col-6 col-lg-6">--}}
+{{--                                        <div class="text">Loan Type 3</div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-6 col-lg-6">--}}
+{{--                                        <div class="text">100</div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </li>--}}
                         </ul>
 
                     </div>
@@ -160,23 +162,30 @@
     {!! Html::script('/js/plugins/chartJs/Chart.min.js') !!}
 
     <script>
-        $(function () {
-            var doughnutData = {
-                labels: ["Not Payed","Pending","Active Payers" ],
-                datasets: [{
-                    data: [100,200,50],
-                    backgroundColor: ["#548714","#dedede","#9ed35a"]
-                }]
-            } ;
+        $(document).ready(function(){
+            $.get('{!! route('loan-provider-dashboard') !!}', function(data){
+                console.log(data);
+                $('#new-loan-application').find('.counter').text(data[1]);
+                $('#approve-loans').find('.counter').text(data[0]);
+
+                var doughnutData = {
+                    labels: ["Pending Loans", "Active Loans", "Completed Loans", "Declined Loans", "Cancelled Loans" ],
+                    datasets: [{
+                        data: [data[1], data[2], data[3], data[4], data[5]],
+                        backgroundColor: ["#346815","#3aa615","#5559a8","#d6cc2e","#f5f0ee"]
+                    }]
+                } ;
 
 
-            var doughnutOptions = {
-                responsive: true
-            };
+                var doughnutOptions = {
+                    responsive: true
+                };
 
 
-            var ctx4 = document.getElementById("doughnutChart").getContext("2d");
-            new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
+                var ctx4 = document.getElementById("doughnutChart").getContext("2d");
+                new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
+
+            });
         });
     </script>
 @endsection

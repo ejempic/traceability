@@ -93,8 +93,7 @@
                                                     <a href="#" class="btn btn-warning btn-sm payment_history_modal_trigger"
                                                        data-payments="{{$loan->payments}}"
                                                        data-status="{{$loan->status}}"
-                                                    ><i
-                                                                class="fa fa-list"></i> Payments </a>
+                                                    ><i class="fa fa-list"></i> Payments </a>
                                                     @endif
                                                     @if($loan->status == 'Pending')
                                                         <button type="button" class="btn btn-sm btn-danger">Cancel</button>
@@ -221,12 +220,18 @@
                 }
             }
         });
+
         $(document).on('click', '.payment_modal_trigger', function () {
+            var data_id = $(this).data('id');
+
+            if(verifyDisbursement(data_id) > 0){
+                return false;
+            }
+
             var verify_payment_modal = $('#verify_payment_modal');
             verify_payment_modal.modal('show');
             var data_monthly = $(this).data('amount_monthly');
             var data_max = $(this).data('amount_max');
-            var data_id = $(this).data('id');
             var data_status = $(this).data('status');
             $('#verify_payment_show').hide();
             if(data_status == 'Active'){
@@ -236,15 +241,18 @@
             $('.verify_amount_fast_max').attr('data-amount', data_max);
             $('#verify_loan_id').val(data_id);
         });
+
         $(document).on('click', '#verify_payment_show', function () {
             $('#verify_payment').show();
             $(this).hide();
 
         });
+
         $(document).on('click', '.verify_amount_fast_btn', function () {
             var data_amount = $(this).data('amount');
              $('#verify_amount').val(data_amount);
         });
+
         $(document).on('click', '.sched_modal_trigger', function () {
             var sched_modal = $('#sched_modal');
             sched_modal.modal('show');
@@ -281,6 +289,7 @@
                 $('#schedules_tbody').append(setRows);
             }
         });
+
         $(document).ready(function () {
 
 
@@ -342,5 +351,16 @@
 
 
         });
+
+        function verifyDisbursement(loanID){
+            var error = 0;
+            $.get('{!! route('verify-disbursement') !!}', {
+                id: loanID,
+                type: 'check'
+            }, function(data){
+
+            });
+            return error;
+        }
     </script>
 @endsection

@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('passkey')->nullable();
             $table->string('category')->nullable();
             $table->boolean('active')->default(0);
-            $table->timestamp('active_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

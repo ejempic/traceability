@@ -171,8 +171,8 @@ class TraceController extends Controller
                     'email' => $myEmail
                 ];
 
-                event(new TraceCreatedEvent($details));
-//                Mail::to($myEmail)->send(new TraceShipped($details));
+//                event(new TraceCreatedEvent($details));
+                Mail::to($myEmail)->send(new TraceShipped($details));
             }
 
             $modelInfo = new ModelInfo();

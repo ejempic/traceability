@@ -123,6 +123,9 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
 
     Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
+        Route::get('loan-provider-dashboard', 'HomeController@loanProviderDashboard')->name('loan-provider-dashboard');
+        Route::get('verify-disbursement', 'LoanController@verifyDisbursement')->name('verify-disbursement');
+
         Route::resource('products', 'LoanProductController');
 
 //        Route::get('loan/product/show', 'FarmerController@loanProductShow')->name('loan-product-show');

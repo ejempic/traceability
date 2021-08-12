@@ -160,8 +160,8 @@ class PublicController extends Controller
                     $loanProvider->save();
                     break;
             }
-
-            event(new NewUserRegisteredEvent($user));
+            $user->sendEmailVerificationNotification();
+//            event(new NewUserRegisteredEvent($user));
 
             Auth::loginUsingId($user->id);
             return redirect()->route('home');

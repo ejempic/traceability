@@ -29,28 +29,28 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        <small>China Bank</small>
-                                    </td>
-                                    <td>
-                                        <small>Short Loan</small>
-                                    </td>
-                                    <td>
-                                        <small>100,000.00</small>
-                                    </td>
-                                    <td>
-                                        <small>100,000.00</small>
-                                    </td>
-                                    <td>
-                                        <div class="project-completion">
-                                            <div class="progress progress-mini">
-                                                <div style="width: 48%;" class="progress-bar"></div>
-                                            </div>
-                                            <small>78%</small>
-                                        </div>
-                                    </td>
-                                </tr>
+{{--                                <tr>--}}
+{{--                                    <td>--}}
+{{--                                        <small>China Bank</small>--}}
+{{--                                    </td>--}}
+{{--                                    <td>--}}
+{{--                                        <small>Short Loan</small>--}}
+{{--                                    </td>--}}
+{{--                                    <td>--}}
+{{--                                        <small>100,000.00</small>--}}
+{{--                                    </td>--}}
+{{--                                    <td>--}}
+{{--                                        <small>100,000.00</small>--}}
+{{--                                    </td>--}}
+{{--                                    <td>--}}
+{{--                                        <div class="project-completion">--}}
+{{--                                            <div class="progress progress-mini">--}}
+{{--                                                <div style="width: 48%;" class="progress-bar"></div>--}}
+{{--                                            </div>--}}
+{{--                                            <small>78%</small>--}}
+{{--                                        </div>--}}
+{{--                                    </td>--}}
+{{--                                </tr>--}}
                                 </tbody>
                             </table>
                         </div>

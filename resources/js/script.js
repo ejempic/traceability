@@ -202,6 +202,24 @@ $(document).ready(function(){
                 tradeRef = tradeRef.join('');
             }
 
+            var refAttachment = '';
+            if(loanDetail.reference_id[0][1].length > 0){
+                refAttachment = new Array();
+                for(var a = 0; a < loanDetail.reference_id[0][1].length; a++){
+                    refAttachment.push('' +
+                        '<div class="col-6">' +
+                        '<dl>' +
+                        '<dt>'+ loanDetail.reference_id[0][1][a][0] +'</dt>' +
+                        '<dd>' +
+                        '<img src="'+ loanDetail.reference_id[0][1][a][1] +'" class="img-fluid" alt="">' +
+                        '</dd>' +
+                        '</dl>' +
+                        '</div>' +
+                    '');
+                }
+                refAttachment = refAttachment.join('');
+            }
+
 
 
             // var collateral = (loanDetail.info_loan_detail[2][1][0] === 'Motor Vehicle') ? '' +
@@ -317,24 +335,9 @@ $(document).ready(function(){
                             '</div>' +
                         '</div>' +
 
-                        '<h2 class="text-success"><strong>Reference ID\'s</strong></h2>' +
+                        '<h2 class="text-success"><strong>Reference ID\'s / Documents</strong></h2>' +
                         '<div class="row">' +
-                            '<div class="col">' +
-                                '<dl>' +
-                                    '<dt>ID 1</dt>' +
-                                    '<dd>' +
-                                        '<img src="'+ loanDetail.reference_id[0][1][0][1] +'" class="img-fluid" alt="">' +
-                                    '</dd>' +
-                                '</dl>' +
-                            '</div>' +
-                            '<div class="col">' +
-                                '<dl>' +
-                                    '<dt>ID 2</dt>' +
-                                    '<dd>' +
-                                        '<img src="'+ loanDetail.reference_id[0][1][1][1] +'" class="img-fluid" alt="">' +
-                                    '</dd>' +
-                                '</dl>' +
-                            '</div>' +
+                            refAttachment +
                         '</div>' +
 
 

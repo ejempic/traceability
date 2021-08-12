@@ -8,6 +8,13 @@ use App\Inventory;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 
+if (!function_exists('emailNotification')) {
+    function emailNotification($type)
+    {
+
+    }
+}
+
 if (!function_exists('smsNotification')) {
     function smsNotification($type)
     {
