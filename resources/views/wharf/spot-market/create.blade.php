@@ -39,40 +39,62 @@
                         Product Listing
                     </div>
                     <div class="panel-body">
-
-                        <div class="form-group">
-                            <div>
-                                <img src="" alt="" id="image_preview" width="250px">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <img src="{{url('img/blank-landscape.jpg')}}" alt="" id="image_preview" class="mb-2" style="height: 174px;">
+                                    <label class="w-100">Photo</label>
+                                    <input accept="image/*" type="file" class="form-control" id="image" name="image">
+                                </div>
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="name">
+                                </div>
                             </div>
-                            <label>Photo</label>
-                            <input accept="image/*" type="file" class="form-control" id="image" name="image">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>From Farmer</label>
+                                    <select class="form-control" id="from_user_id" name="from_user_id">
+                                        <option value="" disabled selected></option>
+                                        @foreach($farmers as $farmer)
+                                            <option value="{{$farmer->user->id}}">{{$farmer->user->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Duration (Hours & Minutes)</label>
+                                    <div style="position: relative">
+                                        <input type="text" id="time" class="form-control" name="duration"
+                                               autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>How many Kilos?</label>
+                                    <input type="number" class="form-control" name="quantity">
+                                </div>
+                                <div class="form-group">
+                                    <label>Starting Bid</label>
+                                    <input type="text" class="form-control money" name="selling_price">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="summernote" name="description">
+                                        <h3>Product Details</h3>
+                                        Ang produktong ito ay dekalidad at matibay. It a galing sa pag sisikap nang ating mga natatangin magsasaka. Tangkilikin ang sariling atin.
+                                        <br/>
+                                        <br/>
+                                        <ul>
+                                            <li>High quality</li>
+                                            <li>Authentic</li>
+                                            <li>Legit</li>
+                                        </ul>
+                                    </textarea>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" name="name">
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="summernote" name="description">
-                                <h3>Product Details</h3>
-                                Ang produktong ito ay dekalidad at matibay. It a galing sa pag sisikap nang ating mga natatangin magsasaka. Tangkilikin ang sariling atin.
-                                <br/>
-                                <br/>
-                                <ul>
-                                    <li>High quality</li>
-                                    <li>Authentic</li>
-                                    <li>Legit</li>
-                                </ul>
-                            </textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Original Price</label>
-                            <input type="text" class="form-control money" name="original_price">
-                        </div>
-                        <div class="form-group">
-                            <label>Selling Price</label>
-                            <input type="text" class="form-control money" name="selling_price">
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -107,22 +129,23 @@
 @section('styles')
     {!! Html::style('/css/template/plugins/iCheck/custom.css') !!}
     {!! Html::style('/css/template/plugins/summernote/summernote-bs4.css') !!}
-{{--    {!! Html::style('/css/template/plugins/dropzone/dropzone.css') !!}--}}
-    {{--{!! Html::style('') !!}--}}
-    {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
-    {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
+    {!! Html::style('/packages/jquery.datetimepicker.css') !!}
+    {!! Html::style('/css/template/plugins/select2/select2.min.css') !!}
+    {!! Html::style('/css/template/plugins/select2/select2-bootstrap4.min.css') !!}
+
 @endsection
 
 @section('scripts')
     {!! Html::script('/js/template/plugins/iCheck/icheck.min.js') !!}
     {!! Html::script('/js/template/plugins/jqueryMask/jquery.mask.min.js') !!}
     {!! Html::script('/js/template/plugins/summernote/summernote-bs4.js') !!}
-{{--    {!! Html::script('/js/template/plugins/dropzone/dropzone.js') !!}--}}
-    {{--    {!! Html::script('') !!}--}}
-    {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
-    {{--    {!! $dataTable->scripts() !!}--}}
-    {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
-    {{--    {!! Html::script('/js/template/moment.js') !!}--}}
+    {!! Html::script('/js/template/plugins/jquery-ui/jquery-ui.min.js') !!}
+    {{--    {!! Html::script('/js/template/plugins/datapicker/bootstrap-datepicker.js') !!}--}}
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    {!! Html::script('/packages/jquery.datetimepicker.full.min.js') !!}
+    {!! Html::script('/js/template/plugins/select2/select2.full.min.js') !!}
+
     <script>
 
         // Dropzone.options.dropz
@@ -133,6 +156,18 @@
         $(document).ready(function () {
             $('.summernote').summernote();
 
+            $("#from_user_id").select2({
+                theme: 'bootstrap4',
+                // placeholder: "",
+            });
+
+            $('#time').datetimepicker({
+                datepicker: false,
+                step: 5,
+                minTime: '00:05',
+                defaultTime: '00:05',
+                format: 'H:i'
+            });
 
             var imgInp = document.getElementById('image');
             var imgPre = document.getElementById('image_preview');

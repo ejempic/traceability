@@ -18,7 +18,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                @include('wharf.spot-market.includes.cart_button')
+{{--                @include('wharf.spot-market.includes.cart_button')--}}
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
         <div class="row">
 
             @forelse($spotMarketList as $data)
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
                 <div class="ibox">
                     <div class="ibox-content product-box">
                         <a href="{{route('spot-market.show', $data->id)}}" class="">
@@ -37,21 +37,34 @@
                         </a>
                         <div class="product-desc">
                                 <span class="product-price">
-                                   ₱{{$data->selling_price}}
+                                   Current Bid  <span style="font-weight: 700">₱{{number_format($data->toArray()['current_bid'],2)}}</span>
                                 </span>
-                            <small class="text-muted d-none">Category</small>
-                            <a href="{{route('spot-market.show', $data->id)}}" class="product-name"> {{$data->name}}</a>
+                            <a href="{{route('spot-market.show', $data->id)}}" class="product-name" style="font-size: 18px"> {{$data->name}}</a>
                             <div class="small m-t-xs">
-                                <h4>Highest Bid: ₱12,050</h4>
                                 Following Bids
                                 <ul>
                                     <li>₱12,000</li>
                                     <li>₱11,500</li>
                                 </ul>
                             </div>
-                            <div class="m-t text-right">
-                                <a href="#" class="btn btn-xs btn-primary w-100 add-to-cart"  data-name="{{$data->name}}" data-id="{{$data->id}}">Bid</a>
+                            <div class="my-2 text-right">
+                                <div class="input-group">
+                                    <input type="text" class="form-control money" value="{{$data->current_bid}}" id="bid_value_{{$data->id}}">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-primary btn" data-id="{{$data->id}}">Bid</button>
+                                    </span>
+                                </div>
                             </div>
+                            <small class="row">
+                                <div class="col-6">
+                                    Countdown <br>
+                                    <span id="expiration_{{$data->id}}">00:00:00</span>
+                                </div>
+                                <div class="col-6 text-right">
+                                    Expiring At <br>
+                                    <span>{{\Carbon\Carbon::parse($data->expiration_time)->format('H:i:s a')}}</span>
+                                </div>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -108,14 +121,48 @@
 
 @section('scripts')
     {!! Html::script('js/template/plugins/footable/footable.all.min.js') !!}
+    {!! Html::script('https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js') !!}
     {{--    {!! Html::script('') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
     {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
+
     <script>
+
+        Inputmask.extendAliases({
+            pesos: {
+                prefix: "₱ ",
+                groupSeparator: ".",
+                alias: "numeric",
+                placeholder: "0",
+                autoGroup: true,
+                digits: 2,
+                digitsOptional: false,
+                clearMaskOnLostFocus: false
+            },
+            money: {
+                prefix: "",
+                groupSeparator: ".",
+                alias: "numeric",
+                placeholder: "0",
+                autoGroup: true,
+                digits: 2,
+                digitsOptional: true,
+                clearMaskOnLostFocus: false
+            }
+        });
+        // function
+        // window.onload = function () {
+        //     var fiveMinutes = 60 * 5,
+        //         display = document.querySelector('#time');
+        //     startTimer(fiveMinutes, display);
+        // };
+
         $(document).ready(function(){
-            $('.footable').footable();
+            $(".money").inputmask({
+                alias:"money"
+            });
 
             let toast1 = $('.toast1');
             toast1.toast({
@@ -149,5 +196,31 @@
             });
             console.log(id)
         }
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            @foreach($spotMarketList as $data)
+            var countDownDate{{$data->id}} = new Date("{{$data->expiration_time}}").getTime();
+            var x{{$data->id}} = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownDate{{$data->id}} - now;
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                document.getElementById("expiration_{{$data->id}}").innerHTML =  hours + ":" + minutes + ":" + seconds;
+                if (distance < 0) {
+                    clearInterval(x{{$data->id}});
+                    document.getElementById("expiration_{{$data->id}}").innerHTML = "Expired";
+                }
+            }, 1000);
+            @endforeach
+        });
     </script>
 @endsection
