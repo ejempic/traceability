@@ -36,7 +36,7 @@
                         <div class="row">
                             <div class="col-4 align-self-center">
                                 <div class="file-manager text-center">
-                                    <div id="image-upload" data-submit="" class="portrait-img img-cropper-lg"></div>
+                                    <div id="image-upload" data-submit="" class="portrait-img img-cropper-md"></div>
                                     <small class="text-success">click frame to select image</small>
                                     <div class="clearfix mt-3"></div>
                                 </div>

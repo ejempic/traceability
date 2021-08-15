@@ -79467,6 +79467,7 @@ modal.on('shown.bs.modal', function (e) {
         url: imageUploadRawFile
       }).then(function () {
         console.log('jQuery bind complete');
+        $('.cr-slider').attr('max', 10);
       });
       break;
   }
@@ -79737,9 +79738,9 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Files\jhazFiles\Work\MamsLTG\Projects\agrabah\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! D:\Files\jhazFiles\Work\MamsLTG\Projects\agrabah\resources\js\script.js */"./resources/js/script.js");
-module.exports = __webpack_require__(/*! D:\Files\jhazFiles\Work\MamsLTG\Projects\agrabah\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Files\Documents\Projects\agrabah\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! D:\Files\Documents\Projects\agrabah\resources\js\script.js */"./resources/js/script.js");
+module.exports = __webpack_require__(/*! D:\Files\Documents\Projects\agrabah\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

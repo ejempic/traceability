@@ -175,6 +175,7 @@ modal.on('shown.bs.modal', function (e) {
                 url: imageUploadRawFile
             }).then(function(){
                 console.log('jQuery bind complete');
+                $('.cr-slider').attr('max', 10);
             });
             break;
     }
