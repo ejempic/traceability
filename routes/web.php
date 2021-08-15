@@ -99,6 +99,9 @@ Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
         Route::post('spot-market-add-to-cart', 'SpotMarketController@addToCart')->name('spot-market.add_cart');
         Route::post('spot-market-lock-in-order', 'SpotMarketController@lockInOrder')->name('spot-market.lock_in_order');
         Route::post('spot-market-verify-payment', 'SpotMarketController@verifyPayment')->name('spot-market.verify_payment');
+
+        Route::post('spot-market-post-bid', 'SpotMarketController@postBid')->name('spot-market.post_bid');
+        Route::post('spot-market-refresh-bid', 'SpotMarketController@refreshBid')->name('spot-market.refresh_bid');
     });
 });
 

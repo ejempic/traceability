@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Farmer;
+use App\Http\Resources\SpotMarketBrowseCollection;
 use App\Loan;
 use App\Services\LoanService;
 use App\Services\SpotMarketOrderService;
 use App\SpotMarket;
+use App\SpotMarketBid;
 use App\SpotMarketCart;
 use App\SpotMarketOrder;
 use App\SpotMarketPayment;
@@ -113,8 +115,10 @@ class SpotMarketController extends Controller
                 $isCommunityLeader = true;
                 return view(subDomainPath('spot-market.index'), compact('spotMarketList', 'isCommunityLeader'));
             }else{
-                $spotMarketList = SpotMarket::where('expiration_time','>=',Carbon::now())->get();
-//                return $spotMarketList;
+                $spotMarketList = SpotMarket::where('expiration_time','>=',Carbon::now())
+                    ->get();
+//                $spotMarketList = new SpotMarketBrowseCollection($spotMarket);
+
                 return view(subDomainPath('spot-market.browse'), compact('spotMarketList', 'isCommunityLeader'));
             }
         }else{
@@ -138,6 +142,39 @@ class SpotMarketController extends Controller
         $farmers = Farmer::with('user')->where('community_leader', 0)->get();
 
         return view(subDomainPath('spot-market.create'), compact('farmers'));
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postBid(Request $request)
+    {
+        $spotMarketBid = SpotMarket::find($request->id);
+        $current_bid = $spotMarketBid->current_bid;
+        $bids = $spotMarketBid->spot_market_bids;
+        $value = floatval(preg_replace('/,/','',$request->value));
+
+        if(count($bids) > 0){
+            $current_bid = $bids->first()->bid;
+            $current_bid+=settings('spot_market_next_bid');
+        }
+
+        if($current_bid > $value){
+            return response()->json(['status' => false,'$current_bid'=>$current_bid,'value'=>$value]);
+        }
+
+        $spotMarketBid = new SpotMarketBid();
+        $spotMarketBid->spot_market_id = $request->id;
+        $spotMarketBid->user_id = $request->user()->id;
+        $spotMarketBid->bid = $request->value;
+        $spotMarketBid->save();
+
+        $nextBid = $request->value + settings('spot_market_next_bid');
+
+        $bids = SpotMarketBid::where('spot_market_id', $spotMarketBid->spot_market_id)->orderBy('bid','desc')->pluck('bid')->toArray();
+
+        return response()->json(['status' => true, 'bids' => $bids, 'next_bid' => $nextBid,'$current_bid'=>$current_bid,'value'=>$value]);
     }
 
     /**

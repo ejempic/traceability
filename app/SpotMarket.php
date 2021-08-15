@@ -30,6 +30,11 @@ class SpotMarket extends Model implements HasMedia
         return $this->belongsTo(User::class, 'from_user_id');
     }
 
+    public function spot_market_bids()
+    {
+        return $this->hasMany(SpotMarketBid::class, 'spot_market_id')->orderBy('bid','desc');
+    }
+
 
     public function toArray()
     {
@@ -37,13 +42,13 @@ class SpotMarket extends Model implements HasMedia
         $array['is_expired'] = Carbon::parse($this->expiration_time)->isPast();
         $array['in_minutes'] = null;
         $array['in_hours'] = null;
-        $array['current_bid'] = $this->selling_price;
         return $array;
     }
 
     public function getCurrentBidAttribute()
     {
-        $currentBid = $this->selling_price;
+        $bids = SpotMarketBid::where('spot_market_id', $this->id)->orderBy('bid','desc')->first();
+        $currentBid = $bids->bid??$this->selling_price;
         return $currentBid;
     }
 
