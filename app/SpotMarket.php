@@ -20,6 +20,7 @@ class SpotMarket extends Model implements HasMedia
         'selling_price',
         'status',
         'from_user_id',
+        'area',
         'duration',
         'expiration_time',
         'quantity',

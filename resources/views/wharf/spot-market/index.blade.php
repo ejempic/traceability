@@ -48,6 +48,7 @@
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Farmer</th>
+                                <th>Area</th>
                                 <th>Description</th>
                                 <th>Quantity</th>
                                 <th>Starting Bid</th>
@@ -58,11 +59,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($spotMarketList as $data)
+                            @forelse($spotMarketList as $data)
                                 <tr>
                                     <td width="200px">{!! ($data->hasMedia('spot-market')? "<img class='img-thumbnail' src='".$data->getFirstMediaUrl('spot-market')."'>":'')  !!}  </td>
                                     <td>{{ $data->name }} </td>
                                     <td style="white-space: nowrap">{{ $data->fromFarmer['name'] }} </td>
+                                    <td style="white-space: nowrap">{{ $data->area }} </td>
                                     <td>{!!  $data->description  !!} </td>
                                     <td>{!!  $data->quantity?floatval($data->quantity).'kg':''  !!} </td>
                                     <td class="text-right">{!!  $data->selling_price  !!} </td>
@@ -81,7 +83,11 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="99" class="text-center"><a class="btn btn-sm btn-primary" href="{{route('spot-market.create')}}">Add Item</a></td>
+                                </tr>
+                            @endforelse
                             </tbody>
                             <tfoot>
                             <tr>

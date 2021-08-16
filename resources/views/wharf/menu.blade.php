@@ -19,7 +19,7 @@
         <a href="{!! route('spot-market.index') !!}"><i class="fa fa-list"></i> <span class="nav-label">Spot Market</span></a>
     </li>
     <li class="{{ (request()->is('spot-market-my-orders')) ? 'active' : '' }}">
-        <a href="{!! route('spot-market.my_orders') !!}"><i class="fa fa-shopping-bag"></i> <span class="nav-label">My Orders</span></a>
+        <a href="{!! route('spot-market.my_bids') !!}"><i class="fa fa-trophy"></i> <span class="nav-label">My Bids</span></a>
     </li>
 @endif
 {{--@if(auth()->user()->can('buy-spot-market'))--}}

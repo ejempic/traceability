@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SpotMarketController extends Controller
 {
@@ -83,6 +84,34 @@ class SpotMarketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function myBids()
+    {
+
+
+//
+//        $orders = SpotMarket::query()
+//            join('spot_market_orders', 'spot_market_orders.spot_market_id','=','spot_markets.id')
+//            ->where('user_id', auth()->user()->id)
+////            ->select(
+////                'spot_markets.*',
+////                'spot_market_orders.id as order_id',
+////                'spot_market_orders.id as cart_id',
+////                'spot_market_orders.order_number',
+////                'spot_market_orders.price as order_price',
+////                'spot_market_orders.quantity as order_quantity',
+////                'spot_market_orders.sub_total as order_subtotal',
+////                'spot_market_orders.created_at as order_placed'
+////            )
+//            ->orderBy('created_at','desc')
+//            ->get();
+//        return view(subDomainPath('spot-market.my_orders'), compact('orders'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function addToCart(Request $request)
     {
 
@@ -100,9 +129,9 @@ class SpotMarketController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
 
         $spotMarketList = [];
@@ -114,22 +143,18 @@ class SpotMarketController extends Controller
                 $spotMarketList = auth()->user()->farmer->spotMarket;
                 $isCommunityLeader = true;
                 return view(subDomainPath('spot-market.index'), compact('spotMarketList', 'isCommunityLeader'));
-            }else{
-                $spotMarketList = SpotMarket::
-//                where('expiration_time','>=',Carbon::now())
-//                    ->
-                    get();
-//                $spotMarketList = new SpotMarketBrowseCollection($spotMarket);
-
-                return view(subDomainPath('spot-market.browse'), compact('spotMarketList', 'isCommunityLeader'));
             }
-        }else{
-            $spotMarketList = SpotMarket::all();
-            return view(subDomainPath('spot-market.browse'), compact('spotMarketList', 'isCommunityLeader'));
         }
-;
+        Log::info($request->area);
+        $spotMarketList = SpotMarket::when($request->area,function($q) use ($request){
+            if($request->area != '_all'){
+                $q->where('area',$request->area);
+            }
+        })->where('expiration_time','>=',Carbon::now())->get();
+        $areas = SpotMarket::distinct('area')->pluck('area')->toArray();
 
-        return view(subDomainPath('spot-market.index'), compact('spotMarketList', 'isCommunityLeader'));
+        return view(subDomainPath('spot-market.browse'), compact('spotMarketList', 'isCommunityLeader', 'areas'));
+
     }
 
 
@@ -142,8 +167,14 @@ class SpotMarketController extends Controller
     {
 
         $farmers = Farmer::with('user')->where('community_leader', 0)->get();
+        $defaultAreaQuery = Farmer::where('user_id', auth()->user()->id)->first()->spotMarket;
+        $defaultAreaQuery = $defaultAreaQuery->whereNotNull('area')->first();
+        $defaultArea = "";
+        if($defaultAreaQuery){
+            $defaultArea = $defaultAreaQuery->area;
+        }
 
-        return view(subDomainPath('spot-market.create'), compact('farmers'));
+        return view(subDomainPath('spot-market.create'), compact('farmers', 'defaultArea'));
     }
     /**
      * Show the form for creating a new resource.
@@ -223,7 +254,6 @@ class SpotMarketController extends Controller
             ]);
             $array["original_price"] = preg_replace('/,/','', $array['selling_price']);
             $array["selling_price"] = preg_replace('/,/','', $array['selling_price']);
-
 
             $spotMarket = SpotMarket::create($array);
 

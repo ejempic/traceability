@@ -26,7 +26,23 @@
 
     <div id="app" class="wrapper wrapper-content">
         <div class="row">
-
+            <div class="col-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label>Areas</label>
+                            <select class="form-control" id="areas" name="areas" required>
+                                <option value="_all">All</option>
+                                @foreach($areas as $id => $area)
+                                    <option value="{{$area}}" {{request()->area == $area ?'selected':''}}>{{$area}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             @forelse($spotMarketList as $data)
             @php
               $allowCurrentBid = floatval($data['current_bid'])+settings('spot_market_next_bid');
@@ -201,12 +217,9 @@
             })
         });
 
-        $(document).on('change','.input-bids', function(e){
+        $(document).on('change','#areas', function(e){
             var value = this.value;
-            var min = $(this).data('min');
-            // if(numberRemoveCommas(min) > value){
-            //     this.value =  min;
-            // }
+            window.location.href = "{{route('spot-market.index')}}?area=" + value;
         });
 
         function postBid(id, value){

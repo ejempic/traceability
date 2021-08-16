@@ -102,6 +102,8 @@ Route::domain('wharf.'.config('dev.domain_ext'))->group(function () {
 
         Route::post('spot-market-post-bid', 'SpotMarketController@postBid')->name('spot-market.post_bid');
         Route::post('spot-market-refresh-bid', 'SpotMarketController@refreshBid')->name('spot-market.refresh_bid');
+
+        Route::get('spot-market-my-bids', 'SpotMarketController@myBids')->name('spot-market.my_bids');
     });
 });
 
