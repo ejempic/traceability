@@ -115,8 +115,10 @@ class SpotMarketController extends Controller
                 $isCommunityLeader = true;
                 return view(subDomainPath('spot-market.index'), compact('spotMarketList', 'isCommunityLeader'));
             }else{
-                $spotMarketList = SpotMarket::where('expiration_time','>=',Carbon::now())
-                    ->get();
+                $spotMarketList = SpotMarket::
+//                where('expiration_time','>=',Carbon::now())
+//                    ->
+                    get();
 //                $spotMarketList = new SpotMarketBrowseCollection($spotMarket);
 
                 return view(subDomainPath('spot-market.browse'), compact('spotMarketList', 'isCommunityLeader'));
@@ -172,9 +174,34 @@ class SpotMarketController extends Controller
 
         $nextBid = $request->value + settings('spot_market_next_bid');
 
-        $bids = SpotMarketBid::where('spot_market_id', $spotMarketBid->spot_market_id)->orderBy('bid','desc')->pluck('bid')->toArray();
+        $bids = SpotMarketBid::where('spot_market_id', $request->id)->orderBy('bid','desc')->pluck('bid')->toArray();
 
-        return response()->json(['status' => true, 'bids' => $bids, 'next_bid' => $nextBid,'$current_bid'=>$current_bid,'value'=>$value]);
+        event(new \App\Events\UpdateBidBrowse($request->id));
+
+        return response()->json(['status' => true, 'bids' => $bids, 'next_bid' => $nextBid, '$current_bid'=>$current_bid, 'value'=>$value]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refreshBid(Request $request)
+    {
+
+        $array = $request->all();
+
+        $spotMarketBid = SpotMarket::find($request->id);
+        $current_bid = $spotMarketBid->current_bid;
+        $bids = $spotMarketBid->spot_market_bids;
+
+        $value = floatval(preg_replace('/,/','',$current_bid));
+
+        $nextBid = $value + settings('spot_market_next_bid');
+
+        $bids = SpotMarketBid::where('spot_market_id', $request->id)->orderBy('bid','desc')->pluck('bid');
+
+        return response()->json(['status' => true, 'bids' => $bids, 'next_bid' => $nextBid, 'current_bid'=>$current_bid, 'value'=>$value]);
     }
 
     /**

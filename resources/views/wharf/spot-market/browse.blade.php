@@ -138,6 +138,7 @@
     {!! Html::script('js/template/plugins/footable/footable.all.min.js') !!}
     {!! Html::script('https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js') !!}
     {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}
+    <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
     {{--    {!! Html::script('') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
@@ -249,13 +250,22 @@
                 },
                 success:function(response){
                     var bids = response.bids;
+                    var value = response.value;
+                    var next_bid = response.next_bid;
+                    if(response.status){
+                        $('#bids_list_'+id).empty();
+                        for (let i = 0; i < bids.length; i++) {
+                            const bid = bids[i];
+                            $('#bids_list_'+id).append("<li>₱"+bid+"</li>");
+                        }
+                        $('#bid_value_'+id).val(next_bid);
+                        $('#current_bid_'+id).html(numberWithCommas(value));
+                        $('#btn_bid_'+id).data('min', next_bid);
+                        $('#btn_bid_'+id).attr('data-min', next_bid);
 
-                    $('#bids_list_'+id).empty();
-                    for (let i = 0; i < bids.length; i++) {
-                        const bid = bids[i];
-                        $('#bids_list_'+id).append("<li>"+bid+"</li>");
+                    }else{
+
                     }
-                    console.log(response)
                 },
             });
         }
@@ -285,6 +295,24 @@
                 }
             }, 1000);
             @endforeach
+        });
+    </script>
+
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('31cb6af362d7e1f61f7f', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('bid-browse');
+        channel.bind('update-bid', function(data) {
+            console.log('pusher data');
+            console.log(data);
+            var id = data.id;
+            refreshBid(id);
         });
     </script>
 @endsection
