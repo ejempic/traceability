@@ -298,4 +298,9 @@ class PublicController extends Controller
     {
         return view('layouts.account-activation');
     }
+
+    public function test()
+    {
+        return view('layouts.test');
+    }
 }

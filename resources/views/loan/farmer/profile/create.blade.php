@@ -22,7 +22,16 @@
                         <fieldset>
                             <h2>Personal Information</h2>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <div class="file-manager text-center">
+                                            <div id="image-upload" data-submit="" class="portrait-img img-cropper-md"></div>
+                                            <small class="text-success">click frame to select image</small>
+                                            <div class="clearfix mt-3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
                                     <div class="form-group">
                                         <input name="first_name" type="text" data-title="First name" class="profile_info form-control required" id="first_name">
                                         <label for="first_name">First name *</label>
@@ -50,6 +59,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="row">
                                         <div class="col">
@@ -89,6 +100,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -117,7 +130,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <h2>Secondary Information</h2>
                             <div class="row">
@@ -168,9 +180,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </fieldset>
 
                         <h1>More Info</h1>
@@ -510,12 +519,29 @@
                             <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required i-checks"> <label for="acceptTerms">I agree with the Terms and Conditions.</label>
                         </fieldset>
 
-
                     </form>
                 </div>
             </div>
         </div>
     </main>
+
+    <div class="modal inmodal fade" id="modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category="" data-variant="" data-bal="">
+        <div id="modal-size">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 15px;">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="modal-save-btn">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 @endsection
@@ -530,11 +556,11 @@
     {!! Html::style('/css/template/plugins/datapicker/datepicker3.css') !!}
     {!! Html::style('/css/template/plugins/daterangepicker/daterangepicker-bs3.css') !!}
     {{--{!! Html::style('/js/template/plugins/') !!}--}}
+    {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css') !!}
 @endsection
 
 @section('scripts')
     {{--{!! Html::script('') !!}--}}
-
     <script src="{{ URL::to('/js/app.js') }}"></script>
     <script src="{{ URL::to('/js/template/inspinia.js') }}"></script>
     <script src="{{ URL::to('/js/template/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
@@ -546,6 +572,7 @@
     {!! Html::script('/js/template/plugins/daterangepicker/daterangepicker.js') !!}
     {!! Html::script('/js/template/moment.js') !!}
     {!! Html::script('/js/template/numeral.js') !!}
+    {!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js') !!}
 
 
     <script>

@@ -11406,3 +11406,74 @@ select.form-control:not([size]):not([multiple]) {
   color: #FFFFFF;
 }
 
+#preview-crop-image {
+  background: #9d9d9d;
+  width: 300px;
+  padding: 25px;
+  height: 300px;
+}
+
+#preview-crop-image img {
+  width: 250px;
+  height: 250px;
+}
+
+.has-error #image-upload {
+  border-color: #ed5565;
+}
+
+#image-upload {
+  position: relative;
+  border: 1px solid #DDDDDD;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+#image-upload.landscape-img {
+  height: 250px;
+  width: 400px !important;
+  background: #FFFFFF url("/img/blank-landscape.jpg") center center no-repeat;
+  background-size: 400px 250px;
+}
+
+#image-upload.landscape-img img {
+  position: absolute;
+  width: 400px;
+  height: 250px;
+  left: 0;
+}
+
+#image-upload.portrait-img {
+  height: 250px;
+  width: 250px;
+  background: #FFFFFF url("/img/blank-profile.jpg") center center no-repeat;
+  background-size: 250px 250px;
+}
+
+#image-upload.portrait-img img {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  left: 0;
+}
+
+#image-upload input[type=file] {
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  -moz-opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+  left: 0;
+}
+
+#image-upload input[type=file]:hover {
+  cursor: pointer;
+}
+
+#image-upload-demo {
+  width: 250px;
+  height: 250px;
+}
+

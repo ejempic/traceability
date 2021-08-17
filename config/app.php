@@ -171,6 +171,7 @@ return [
         CreatvStudio\Itexmo\ItexmoServiceProvider::class,
         HieuLe\Active\ActiveServiceProvider::class,
         CreatvStudio\Itexmo\ItexmoServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -235,6 +236,7 @@ return [
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Active' => HieuLe\Active\Facades\Active::class,
         'Itexmo' => CreatvStudio\Itexmo\Facades\Itexmo::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];
