@@ -33,52 +33,6 @@ class SpotMarketController extends Controller
         $this->spotMarketOrderService = $spotMarketOrderService;
     }
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function cart()
-    {
-        $cart = SpotMarket::
-            join('spot_market_carts', 'spot_market_carts.spot_market_id','=','spot_markets.id')
-            ->where('user_id', auth()->user()->id)
-            ->select(
-                'spot_markets.*',
-                'spot_market_carts.id as cart_id',
-                'spot_market_carts.quantity'
-            )
-            ->get();
-        return view(subDomainPath('spot-market.cart'), compact('cart'));
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function myOrders()
-    {
-        $orders = SpotMarket::
-            join('spot_market_orders', 'spot_market_orders.spot_market_id','=','spot_markets.id')
-            ->where('user_id', auth()->user()->id)
-            ->select(
-                'spot_markets.*',
-                'spot_market_orders.id as order_id',
-                'spot_market_orders.id as cart_id',
-                'spot_market_orders.order_number',
-                'spot_market_orders.price as order_price',
-                'spot_market_orders.quantity as order_quantity',
-                'spot_market_orders.sub_total as order_subtotal',
-                'spot_market_orders.created_at as order_placed'
-            )
-            ->orderBy('spot_market_orders.created_at','desc')
-            ->get()
-            ->groupBy('order_number');
-        return view(subDomainPath('spot-market.my_orders'), compact('orders'));
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -86,25 +40,23 @@ class SpotMarketController extends Controller
      */
     public function myBids()
     {
+        $spotMarketBidsWinsQuery = SpotMarketBid::query();
+        $spotMarketBidsWinsQuery = $spotMarketBidsWinsQuery->Where('user_id', auth()->user()->id);
+        $spotMarketBidsWinsQuery = $spotMarketBidsWinsQuery->Where('winner', 1);
+        $spotMarketBidsWins = $spotMarketBidsWinsQuery->pluck('spot_market_id')->toArray();
 
+        $winningBids = SpotMarket::whereIn('id', $spotMarketBidsWins)->get();
 
-//
-//        $orders = SpotMarket::query()
-//            join('spot_market_orders', 'spot_market_orders.spot_market_id','=','spot_markets.id')
-//            ->where('user_id', auth()->user()->id)
-////            ->select(
-////                'spot_markets.*',
-////                'spot_market_orders.id as order_id',
-////                'spot_market_orders.id as cart_id',
-////                'spot_market_orders.order_number',
-////                'spot_market_orders.price as order_price',
-////                'spot_market_orders.quantity as order_quantity',
-////                'spot_market_orders.sub_total as order_subtotal',
-////                'spot_market_orders.created_at as order_placed'
-////            )
-//            ->orderBy('created_at','desc')
-//            ->get();
-//        return view(subDomainPath('spot-market.my_orders'), compact('orders'));
+        $spotMarketBidsLoseQuery = SpotMarketBid::query();
+        $spotMarketBidsLoseQuery = $spotMarketBidsLoseQuery->Where('user_id', auth()->user()->id);
+        $spotMarketBidsLoseQuery = $spotMarketBidsLoseQuery->Where('winner', 0);
+        $spotMarketBidsLose = $spotMarketBidsLoseQuery->pluck('spot_market_id')->toArray();
+        $losingBids = SpotMarket::whereIn('id', $spotMarketBidsLose)
+            ->whereNotIn('id', $winningBids)
+            ->get();
+
+        return view(subDomainPath('spot-market.my_bids'), compact('winningBids', 'losingBids'));
+
     }
 
     /**
@@ -112,19 +64,37 @@ class SpotMarketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function addToCart(Request $request)
+    public function winningBids()
     {
+        $spotMarketList = auth()->user()->farmer->spotMarket->where('expiration_time','<',Carbon::parse())->pluck('id')->toArray();
 
-        $array = [
-            'user_id' => auth()->user()->id,
-            'spot_market_id' => $request->id
-        ];
-        $cart = SpotMarketCart::firstOrNew($array);
-        $cart->quantity = $cart->quantity + 1;
-        $cart->save();
-        return getUserSpotMarketCartCount();
+        $spotMarketBidsWinsQuery = SpotMarketBid::query();
+        $spotMarketBidsWinsQuery = $spotMarketBidsWinsQuery->Where('winner', 1);
+        $spotMarketBidsWinsQuery = $spotMarketBidsWinsQuery->WhereIn('spot_market_id', $spotMarketList);
+        $spotMarketBidsWins = $spotMarketBidsWinsQuery->pluck('spot_market_id')->toArray();
+
+        $winningBids = SpotMarket::whereIn('id', $spotMarketBidsWins)->get();
+
+        return view(subDomainPath('spot-market.winning_bids'), compact('winningBids'));
 
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function completeBid(Request $request)
+    {
+        $spotMarket = SpotMarket::find($request->id);
+        $method = $request->input('method');
+        $spotMarket->method = $method;
+        $spotMarket->status = 1;
+        $spotMarket->save();
+
+        return redirect()->back();
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -145,7 +115,6 @@ class SpotMarketController extends Controller
                 return view(subDomainPath('spot-market.index'), compact('spotMarketList', 'isCommunityLeader'));
             }
         }
-        Log::info($request->area);
         $spotMarketList = SpotMarket::when($request->area,function($q) use ($request){
             if($request->area != '_all'){
                 $q->where('area',$request->area);
@@ -224,7 +193,6 @@ class SpotMarketController extends Controller
 
         $spotMarketBid = SpotMarket::find($request->id);
         $current_bid = $spotMarketBid->current_bid;
-        $bids = $spotMarketBid->spot_market_bids;
 
         $value = floatval(preg_replace('/,/','',$current_bid));
 
@@ -262,6 +230,7 @@ class SpotMarketController extends Controller
                 $duration = explode(':',$spotMarket['duration']);
                 $expiration->addHour($duration[0]);
                 $expiration->addMinute($duration[1]);
+                $expiration->second(0);
             }
             $spotMarket->expiration_time = $expiration;
             $spotMarket->save();

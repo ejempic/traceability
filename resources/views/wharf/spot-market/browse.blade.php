@@ -286,6 +286,20 @@
 
     <!--  Spot Market Countdowns  -->
     <script>
+        function finishBid(id){
+            console.log(id)
+            $.ajax({
+                url: "{{route('spot-market.make_winner')}}",
+                type:"POST",
+                data:{
+                    id:id,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(response){
+                    console.log(response)
+                },
+            });
+        }
         $(document).ready(function(){
             @foreach($spotMarketList as $data)
             var countDownDate{{$data->id}} = new Date("{{$data->expiration_time}}").getTime();
@@ -304,7 +318,8 @@
                 document.getElementById("expiration_{{$data->id}}").innerHTML =  hours + ":" + minutes + ":" + seconds;
                 if (distance < 0) {
                     clearInterval(x{{$data->id}});
-                    document.getElementById("expiration_{{$data->id}}").innerHTML = "Expired";
+                    finishBid('{{$data->id}}');
+                    document.getElementById("expiration_{{$data->id}}").innerHTML = "Awarding";
                 }
             }, 1000);
             @endforeach

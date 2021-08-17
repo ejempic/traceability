@@ -1,6 +1,6 @@
 @extends(subdomain_name().'.master')
 
-@section('title', 'My Bids')
+@section('title', 'Winning Bids')
 
 @section('content')
 
@@ -37,73 +37,61 @@
                             <table class="table shoping-cart-table">
                                 <tbody>
                                 @foreach($winningBids as $item)
-                                <tr>
-                                    <td width="90">
-                                        <div class="cart-product-imitation">
-                                            {!! ($item->hasMedia('spot-market')? "<img class='img-thumbnail' src='".$item->getFirstMediaUrl('spot-market')."'>":'')  !!}
-                                        </div>
-                                    </td>
-                                    <td class="desc">
-                                        <h3>
-                                            <a href="#" class="text-navy">
-                                                <a href="{{route('spot-market.show', $item->id)}}" class="product-name"> {{$item->name}}</a>
-                                            </a>
-                                        </h3>
-                                        {!! $item->description !!}
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            {{$item->quantity}}kg(s)
-                                        </h4>
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            ₱{{number_format($item->spot_market_bids->first()->bid, 2)}}
-                                        </h4>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td width="90">
+                                            <div class="cart-product-imitation">
+                                                {!! ($item->hasMedia('spot-market')? "<img class='img-thumbnail' src='".$item->getFirstMediaUrl('spot-market')."'>":'')  !!}
+                                            </div>
+                                        </td>
+                                        <td class="desc">
+                                            <h3>
+                                                <a href="#" class="text-navy">
+                                                    <a href="{{route('spot-market.show', $item->id)}}"
+                                                       class="product-name"> {{$item->name}}</a>
+                                                </a>
+                                            </h3>
+                                            {!! $item->description !!}
+                                        </td>
+                                        <td>
+                                            <h4>
+                                                {{$item->quantity}}kg(s)
+                                            </h4>
+                                        </td>
+                                        <td>
+                                            <h4>
+                                                ₱{{number_format($item->spot_market_bids->first()->bid, 2)}}
+                                            </h4>
+                                        </td>
+                                        <td class="text-left">
+                                            @if($item->status == 0)
+                                            <form action="{{route('spot-market.complete_bid')}}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$item->id}}">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="method" id="method_local" value="local" checked="">
+                                                <label class="form-check-label" for="method_local">
+                                                    Local
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="method" id="method_transport" value="transport">
+                                                <label class="form-check-label" for="method_transport">
+                                                    Transport
+                                                </label>
+                                            </div>
+                                            <button class="btn btn-primary mt-3">Complete</button>
+                                            </form>
+                                            @elseif($item->status == 1)
+                                                <span class="text-green">{{$item->method=='transport'?'Transported':'Completed'}}</span>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="ibox">
-                    <div class="ibox-title pr-3">
-                        <h5>Unsuccessful Bids</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="table-responsive">
-                            <table class="table shoping-cart-table">
-                                <tbody>
-                                @foreach($losingBids as $item)
-                                <tr>
-                                    <td width="90">
-                                        <div class="cart-product-imitation">
-                                            {!! ($item->hasMedia('spot-market')? "<img class='img-thumbnail' src='".$item->getFirstMediaUrl('spot-market')."'>":'')  !!}
-                                        </div>
-                                    </td>
-                                    <td class="desc">
-                                        <h3>
-                                            <a href="#" class="text-navy">
-                                                <a href="{{route('spot-market.show', $item->id)}}" class="product-name"> {{$item->name}}</a>
-                                            </a>
-                                        </h3>
-                                        {!! $item->description !!}
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            ₱{{number_format($item->spot_market_bids->first()->bid, 2)}}
-                                        </h4>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
             <div class="col-md-3 d-none">
@@ -126,7 +114,8 @@
                             </span>
                         <div class="m-t-sm">
                             <div class="btn-group">
-                                <a href="#" class="btn btn-primary btn-sm show_confirm_modal"><i class="fa fa-shopping-cart"></i> Confirm Order</a>
+                                <a href="#" class="btn btn-primary btn-sm show_confirm_modal"><i
+                                            class="fa fa-shopping-cart"></i> Confirm Order</a>
                                 <a href="#" class="btn btn-white btn-sm"> Cancel</a>
                             </div>
                         </div>
@@ -150,11 +139,13 @@
         </div>
     </div>
 
-    <div class="modal inmodal fade" id="confirm_order_modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true" data-category="" data-variant="" data-bal="">
+    <div class="modal inmodal fade" id="confirm_order_modal" data-type="" tabindex="-1" role="dialog" aria-hidden="true"
+         data-category="" data-variant="" data-bal="">
         <div id="modal-size" class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header" style="padding: 15px;">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">Verify Payment</h4>
                 </div>
                 <div class="modal-body">
@@ -164,7 +155,8 @@
                         <div class="ibox-content">
                             <div class="form-group">
                                 <label>Proof of Payment</label>
-                                <input name="proof_of_payment" id="myFileInput" class="form-control" type="file" accept="image/*;capture=camera">
+                                <input name="proof_of_payment" id="myFileInput" class="form-control" type="file"
+                                       accept="image/*;capture=camera">
                             </div>
                             <div class="form-group">
                                 <label>Payment Date</label>
@@ -175,7 +167,8 @@
                                 <input name="reference_number" type="text" class="form-control" autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-green w-100" id="verify_payment_submit">Verify</button>
+                                <button type="submit" class="btn btn-green w-100" id="verify_payment_submit">Verify
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -190,7 +183,7 @@
             <div class="toast-header">
                 <i class="fa fa-cart-plus"> </i>
                 <strong class="mr-auto m-l-sm">Add to Cart</strong>
-{{--                <small>2 seconds ago</small>--}}
+                {{--                <small>2 seconds ago</small>--}}
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -209,8 +202,8 @@
     {!! Html::style('css/template/plugins/footable/footable.core.css') !!}
     {!! Html::style('css/template/plugins/toastr/toastr.min.css') !!}
     <style>
-        .cart-product-imitation{
-            padding: 0!important;
+        .cart-product-imitation {
+            padding: 0 !important;
         }
     </style>
     {{--{!! Html::style('') !!}--}}
@@ -231,11 +224,12 @@
         function numberWithCommas(x) {
             return x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
+
         function numberRemoveCommas(x) {
             return x.toString().replace(/,/g, "");
         }
 
-        $(document).on('click', '.show_confirm_modal', function(){
+        $(document).on('click', '.show_confirm_modal', function () {
             $('#confirm_order_modal').modal('show');
             let order_number = $(this).data('order_number');
             console.log(order_number)
@@ -243,22 +237,22 @@
         });
 
         let lockInFields = [];
-        $(document).on('click', '#modal-save-btn', function(){
+        $(document).on('click', '#modal-save-btn', function () {
             //spot-market.lock_in_order
             console.log(lockInFields)
             $.ajax({
                 url: "{{route('spot-market.lock_in_order')}}",
-                type:"POST",
-                data:{
+                type: "POST",
+                data: {
                     form: JSON.stringify(lockInFields),
                     _token: $('meta[name="csrf-token"]').attr('content')
                 },
-                success:function(response){
+                success: function (response) {
                     window.location.replace("{{route('spot-market.my_orders')}}");
                 },
             });
         });
-        $(document).ready(function(){
+        $(document).ready(function () {
 
             var mem = $('.datepicker').datepicker({
                 todayBtn: "linked",
@@ -270,12 +264,12 @@
                 placement: 'bottom'
             });
 
-            $('.changeSummaryTotal').on('keyup', function(e){
+            $('.changeSummaryTotal').on('keyup', function (e) {
 
                 var target = $(this).data('target');
                 var price = $(this).data('price');
                 var qty = $(this).val();
-                if(isNaN(qty) || qty === ''){
+                if (isNaN(qty) || qty === '') {
                     qty = 1;
                 }
                 $(target).html(numberWithCommas(parseFloat(numberRemoveCommas(price)) * qty));
@@ -287,7 +281,8 @@
             computeTotalCount();
 
         });
-        function computeTotalCount(){
+
+        function computeTotalCount() {
             var count = 0;
             lockInFields = [];
             // $('.changeSummaryTotal').each(function(i, e){
@@ -307,11 +302,12 @@
             // });
             $('#cart_count').html(parseInt(count));
         }
-        function computeTotalSummary(){
+
+        function computeTotalSummary() {
 
             var subTotalPerItem = $('.sub_total_per_item');
             var total = 0;
-            subTotalPerItem.each(function(i, e){
+            subTotalPerItem.each(function (i, e) {
                 let eVal = parseFloat(numberRemoveCommas(e.innerHTML));
                 total += eVal;
             });

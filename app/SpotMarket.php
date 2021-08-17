@@ -24,6 +24,7 @@ class SpotMarket extends Model implements HasMedia
         'duration',
         'expiration_time',
         'quantity',
+        'method',
     ];
 
     public function fromFarmer()

@@ -3,7 +3,7 @@
 </li>
 
 @if(auth()->user()->can('read-spot-market')  && isCommunityLeader())
-    <li class="{{ (request()->is('spot-market*')) ? 'active' : '' }}">
+    <li class="{{ (request()->is('spot-market*')) && !request()->is('spot-market-winning-bids') ? 'active' : '' }}">
         <a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">My Spot Market</span><span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
             <li class="{{ (request()->is('spot-market')) ? 'active' : '' }}"><a href="{!! route('spot-market.index') !!}">My List</a></li>
@@ -12,6 +12,9 @@
             <li class="{{ (request()->is('spot-market/create')) ? 'active' : '' }}"><a href="{!! route('spot-market.create') !!}">Create</a></li>
             @endif
         </ul>
+    </li>
+    <li class="{{ (request()->is('spot-market-winning-bids')) ? 'active' : '' }}">
+        <a href="{!! route('spot-market.winning_bids') !!}"><i class="fa fa-trophy"></i> <span class="nav-label">Winning Bids</span></a>
     </li>
 @endif
 @if(auth()->user()->can('browse-spot-market')  && !isCommunityLeader())
