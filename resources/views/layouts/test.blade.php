@@ -39,6 +39,7 @@
                                     <div id="image-upload" data-submit="" class="portrait-img img-cropper-md"></div>
                                     <small class="text-success">click frame to select image</small>
                                     <div class="clearfix mt-3"></div>
+
                                 </div>
                             </div>
                         </div>

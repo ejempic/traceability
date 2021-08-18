@@ -2,6 +2,7 @@ $('#flash-overlay-modal').modal();
 $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 let modal = $('#modal');
 
+// $(document).ready(function(){
 // Image Cropper Start =======================================
 let imageBox,
     imageUploadId,
@@ -32,6 +33,14 @@ $(document).on('change', '#image-upload-input', function(){
     if(imageBox.hasClass('portrait-img')){
         console.log('portrait-img');
         modal.find('.modal-body').append('<div id="upload-demo" class="upload-portrait-img"></div>');
+        if(imageBox.hasClass('img-cropper-sm')){
+            console.log('img-cropper-md');
+            modal.find('#modal-size').removeClass().addClass('modal-dialog modal-md');
+            imgW = 150;
+            imgH = 150;
+            imgWB = 200;
+            imgHB = 200;
+        }
         if(imageBox.hasClass('img-cropper-md')){
             console.log('img-cropper-md');
             modal.find('#modal-size').removeClass().addClass('modal-dialog modal-md');
@@ -55,6 +64,18 @@ $(document).on('change', '#image-upload-input', function(){
             imgH = 625;
             imgWB = 675;
             imgHB = 675;
+        }
+    }
+    if(imageBox.hasClass('portrait-img-sm')){
+        console.log('portrait-img');
+        modal.find('.modal-body').append('<div id="upload-demo" class="upload-portrait-img"></div>');
+        if(imageBox.hasClass('img-cropper-sm')){
+            console.log('img-cropper-md');
+            modal.find('#modal-size').removeClass().addClass('modal-dialog modal-md');
+            imgW = 150;
+            imgH = 150;
+            imgWB = 200;
+            imgHB = 200;
         }
     }
     if(imageBox.hasClass('landscape-img')){
@@ -138,25 +159,28 @@ function imageUploadReadFile(input){
 }
 
 function imageSaveCropped(){
+    var imgBox = $('#image-upload');
     imageUploadCrop.croppie('result', {
         type: 'canvas',
         size: 'viewport'
     }).then(function (img) {
-        imageBox.append('<img src="' + img + '" class="img-fluid" id="img-cropper-result" />');
-        imageBox.data('image', img);
-        $('#image-upload').closest('.file-manager').removeClass('has-error');
+        imgBox.find('#img-cropper-result').remove();
+        imgBox.append('<img src="' + img + '" class="img-fluid" id="img-cropper-result" />');
+        imgBox.data('image', img);
+        imgBox.closest('.file-manager').removeClass('has-error');
         if(modal.data('submit') === 'auto'){
             $('#img-cropper-auto-upload').trigger('click');
         }
+
     });
 }
 // Image Cropper End =========================================
+// });
 
 modal.on('hide.bs.modal', function (e) {
     switch (modal.data('form')){
         case 'address':
             modal.find('.modal-body').empty();
-
             break;
         case 'image':
             modal.find('.modal-body').empty();
@@ -198,7 +222,6 @@ $(document).on('click', '#modal-save-btn', function(){
             }
             break;
     }
-
 });
 
 $(document).on('click', '.btn-logout', function(event){
@@ -564,7 +587,9 @@ $(document).ready(function(){
                         '<div class="panel-body">' +
                             '<h2 class="text-success"><strong>Personal Information</strong></h2>' +
                             '<div class="row">' +
-
+                                '<div class="col-3">' +
+                                    '<img src="'+ profile.image +'" alt="profile-picture" class="img-fluid">' +
+                                '</div>' +
                                 '<div class="col">' +
                                     '<div class="row">' +
                                         '<div class="col">' +
