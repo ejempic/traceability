@@ -275,6 +275,9 @@ class PublicController extends Controller
                     $loanProvider->user_id = $data->id;
                     $loanProvider->save();
                     break;
+                default:
+                    $data->assignRole(stringSlug($type));
+                    break;
             }
 
             $data->sendEmailVerificationNotification();

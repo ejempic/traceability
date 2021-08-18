@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20bfa8c7cc4e65c6ed2b1723cfb9576f",
+    "content-hash": "2c8a85974516a1140a1a8211aedac434",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1700,16 +1700,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.1.4",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "f3ad69181b8afed2c9edf7be5a2918144ff4ea32"
+                "reference": "18634df356bfd4119fe3d6156bdb990c414c14ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/f3ad69181b8afed2c9edf7be5a2918144ff4ea32",
-                "reference": "f3ad69181b8afed2c9edf7be5a2918144ff4ea32",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/18634df356bfd4119fe3d6156bdb990c414c14ea",
+                "reference": "18634df356bfd4119fe3d6156bdb990c414c14ea",
                 "shasum": ""
             },
             "require": {
@@ -1782,7 +1782,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/1.1.4"
+                "source": "https://github.com/thephpleague/flysystem/tree/1.1.5"
             },
             "funding": [
                 {
@@ -1790,7 +1790,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-06-23T21:56:05+00:00"
+            "time": "2021-08-17T13:49:42+00:00"
         },
         {
             "name": "league/fractal",
@@ -3415,22 +3415,22 @@
         },
         {
             "name": "pusher/pusher-php-server",
-            "version": "v4.0.0",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pusher/pusher-http-php.git",
-                "reference": "43540be9536469f8eaec95a347d3f7532bac852c"
+                "reference": "3c05ef64839845b6114396ff8406712cba052750"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pusher/pusher-http-php/zipball/43540be9536469f8eaec95a347d3f7532bac852c",
-                "reference": "43540be9536469f8eaec95a347d3f7532bac852c",
+                "url": "https://api.github.com/repos/pusher/pusher-http-php/zipball/3c05ef64839845b6114396ff8406712cba052750",
+                "reference": "3c05ef64839845b6114396ff8406712cba052750",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "paragonie/sodium_compat": "^1.6",
-                "php": ">=7.1 <7.4",
+                "php": "^7.1",
                 "psr/log": "^1.0"
             },
             "require-dev": {
@@ -3467,9 +3467,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pusher/pusher-http-php/issues",
-                "source": "https://github.com/pusher/pusher-http-php/tree/v4.0.0"
+                "source": "https://github.com/pusher/pusher-http-php/tree/v4.1.1"
             },
-            "time": "2019-06-25T09:22:44+00:00"
+            "time": "2019-12-03T13:29:13+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -3984,16 +3984,16 @@
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "4.2.0",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "a6e4122b65094baba7f98df153af0768ef910c85"
+                "reference": "78eaa5e06c313a9f3672a7571b4d83b913721b72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/a6e4122b65094baba7f98df153af0768ef910c85",
-                "reference": "a6e4122b65094baba7f98df153af0768ef910c85",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/78eaa5e06c313a9f3672a7571b4d83b913721b72",
+                "reference": "78eaa5e06c313a9f3672a7571b4d83b913721b72",
                 "shasum": ""
             },
             "require": {
@@ -4050,7 +4050,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-permission/issues",
-                "source": "https://github.com/spatie/laravel-permission/tree/4.2.0"
+                "source": "https://github.com/spatie/laravel-permission/tree/4.3.0"
             },
             "funding": [
                 {
@@ -4058,7 +4058,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-04T23:47:08+00:00"
+            "time": "2021-08-17T18:37:17+00:00"
         },
         {
             "name": "spatie/pdf-to-image",
@@ -7322,16 +7322,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.11.3",
+            "version": "2.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "7ac7f9729f178f64335728bcaf1499ec3c6a540f"
+                "reference": "1b8d83c5dac7c5ee8429daf284ce3f19b1d17ea2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/7ac7f9729f178f64335728bcaf1499ec3c6a540f",
-                "reference": "7ac7f9729f178f64335728bcaf1499ec3c6a540f",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/1b8d83c5dac7c5ee8429daf284ce3f19b1d17ea2",
+                "reference": "1b8d83c5dac7c5ee8429daf284ce3f19b1d17ea2",
                 "shasum": ""
             },
             "require": {
@@ -7394,7 +7394,7 @@
                 "issues": "https://github.com/facade/ignition/issues",
                 "source": "https://github.com/facade/ignition"
             },
-            "time": "2021-08-16T13:18:40+00:00"
+            "time": "2021-08-17T11:45:33+00:00"
         },
         {
             "name": "facade/ignition-contracts",
