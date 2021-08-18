@@ -9,13 +9,13 @@
         <div class="page-dashboard">
             <div class="row list-count space-1">
                 <div class="col-12 col-lg-3 col-md-6 space-1">
-                    <div class="box" id="new-loan-application">
+                    <div class="box">
                         <div class="item counter">0</div>
                         <div class="item counter-label">Loan Amount</div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-3 col-md-6 space-1">
-                    <div class="box" id="approve-loans">
+                    <div class="box">
                         <div class="item counter">0</div>
                         <div class="item counter-label">Loan Tenure</div>
                     </div>
