@@ -5,30 +5,177 @@
 
 @section('content')
 
-    <section class="container animated fadeInRight">
-
-    </section>
-
     <div class="wrapper wrapper-content">
-        <div class="row">
+        <div class="page-dashboard">
+            <div class="row list-count space-1">
+                <div class="col-12 col-lg-3 col-md-6">
+                    <div class="box" id="new-loan-application">
+                        <div class="item counter">0</div>
+                        <div class="item counter-label">Active Loans</div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3 col-md-6">
+                    <div class="box" id="approve-loans">
+                        <div class="item counter">0</div>
+                        <div class="item counter-label">Paid Loans</div>
+                    </div>
+                </div>
+            </div>
 
-            <div class="col">
-                <div class="ibox">
-                    <div class="ibox-content">
-                        <h3>Active Loans</h3>
-                        <div class="project-list">
+            <div class="row space-1">
+                <div class="col-12 col-lg-4">
+                    <div class="box list-group">
+                        <div class="header-label">
+                            <div class="row">
+                                <div class="col-6 col-lg-6">
+                                    <label>Payment History</label>
+                                </div>
+                                <div class="col-6 col-lg-6">
+                                    {{--<label>Total Product</label>--}}
+                                </div>
+                            </div>
+                        </div>
 
-                            <table class="table table-hover table-borderless">
-                                <thead>
-                                <tr>
-                                    <th>Loan Provider</th>
-                                    <th>Loan Type</th>
-                                    <th>Loan Amount</th>
-                                    <th>Amount Paid</th>
-                                    <th>Payment Completion</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+
+                        <div class="repeat-container">
+                            <div class="repeat-item">
+                                <div class="date">TODAY</div>
+                                <ul>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-6 col-lg-6">
+                                                <div class="text payment-label"><img src="https://img.icons8.com/ios/20/909090/bank-card-back-side.png" alt="icon" class="img-fluid"/> Payment 1</div>
+                                            </div>
+                                            <div class="col-6 col-lg-6">
+                                                <div class="text text-right">+ 1,000.00 <b>PHP</b></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-6 col-lg-6">
+                                                <div class="text payment-label"><img src="https://img.icons8.com/ios/20/909090/bank-card-back-side.png" alt="icon" class="img-fluid"/> Payment 2</div>
+                                            </div>
+                                            <div class="col-6 col-lg-6">
+                                                <div class="text text-right">+ 1,000.00 <b>PHP</b></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="repeat-item">
+                                <div class="date">August 18, 2021</div>
+                                <ul>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-6 col-lg-6">
+                                                <div class="text payment-label"><img src="https://img.icons8.com/ios/20/909090/bank-card-back-side.png" alt="icon" class="img-fluid"/> Payment 3</div>
+                                            </div>
+                                            <div class="col-6 col-lg-6">
+                                                <div class="text text-right">+ 1,000.00 <b>PHP</b></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-6 col-lg-6">
+                                                <div class="text payment-label"><img src="https://img.icons8.com/ios/20/909090/bank-card-back-side.png" alt="icon" class="img-fluid"/> Payment 4</div>
+                                            </div>
+                                            <div class="col-6 col-lg-6">
+                                                <div class="text text-right">+ 1,000.00 <b>PHP</b></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        {{--<div class="row">--}}
+        {{--<div class="col-12">--}}
+        {{--<div class="ibox">--}}
+        {{--<div class="ibox-title">--}}
+
+        {{--</div>--}}
+        {{--<div class="ibox-content">--}}
+        {{--<div class="table-responsive">--}}
+        {{--<table class="table table-borderless">--}}
+        {{--<thead>--}}
+        {{--<tr>--}}
+        {{--<th>Product</th>--}}
+        {{--<th colspan="4" class="text-center">Loan Applicants</th>--}}
+        {{--</tr>--}}
+        {{--</thead>--}}
+        {{--<tbody>--}}
+        {{--@foreach(loanStatInfo(Auth::user()->loan_provider->id) as $info)--}}
+        {{--<tr>--}}
+        {{--<td>--}}
+        {{--<small><strong class="stats-label text-success">{{ $info[0][0] }} </strong></small>--}}
+        {{--<h4>{{ $info[0][1] }} <small>total products</small></h4>--}}
+        {{--</td>--}}
+        {{--<td class="text-right">--}}
+        {{--<small class="stats-label">Pending</small>--}}
+        {{--<h4>{{ $info[1] }}</h4>--}}
+        {{--</td>--}}
+        {{--<td class="text-right">--}}
+        {{--<small class="stats-label">Active</small>--}}
+        {{--<h4>{{ $info[2] }}</h4>--}}
+        {{--</td>--}}
+        {{--<td class="text-right">--}}
+        {{--<small class="stats-label">Completed</small>--}}
+        {{--<h4>{{ $info[3] }}</h4>--}}
+        {{--</td>--}}
+        {{--<td class="text-right">--}}
+        {{--<small class="stats-label">Declined</small>--}}
+        {{--<h4>{{ $info[4] }}</h4>--}}
+        {{--</td>--}}
+        {{--</tr>--}}
+        {{--@endforeach--}}
+        {{--</tbody>--}}
+        {{--</table>--}}
+        {{--</div>--}}
+
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+
+    </div>
+
+
+    {{--<section class="container animated fadeInRight">--}}
+
+    {{--</section>--}}
+
+    {{--<div class="wrapper wrapper-content">--}}
+        {{--<div class="row">--}}
+
+            {{--<div class="col">--}}
+                {{--<div class="ibox">--}}
+                    {{--<div class="ibox-content">--}}
+                        {{--<h3>Active Loans</h3>--}}
+                        {{--<div class="project-list">--}}
+
+                            {{--<table class="table table-hover table-borderless">--}}
+                                {{--<thead>--}}
+                                {{--<tr>--}}
+                                    {{--<th>Loan Provider</th>--}}
+                                    {{--<th>Loan Type</th>--}}
+                                    {{--<th>Loan Amount</th>--}}
+                                    {{--<th>Amount Paid</th>--}}
+                                    {{--<th>Payment Completion</th>--}}
+                                {{--</tr>--}}
+                                {{--</thead>--}}
+                                {{--<tbody>--}}
 {{--                                <tr>--}}
 {{--                                    <td>--}}
 {{--                                        <small>China Bank</small>--}}
@@ -51,12 +198,12 @@
 {{--                                        </div>--}}
 {{--                                    </td>--}}
 {{--                                </tr>--}}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                {{--</tbody>--}}
+                            {{--</table>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
 {{--            <div class="col-lg-8">--}}
 {{--                <div class="ibox ">--}}
@@ -66,8 +213,8 @@
 {{--                </div>--}}
 {{--            </div>--}}
 
-        </div>
-    </div>
+        {{--</div>--}}
+    {{--</div>--}}
 
 @endsection
 
