@@ -39,6 +39,9 @@ class LoanProduct extends Model
             case 'monthly':
                 $timingName = 'Months';
                 break;
+            case 'week':
+                $timingName = 'Weeks';
+                break;
             case 'day':
                 $timingName = 'Days';
         }

@@ -156,6 +156,10 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
         Route::get('check-disbursement', 'LoanDisbursementController@getList')->name('check-disbursement');
         Route::post('store-disbursement', 'LoanDisbursementController@storeDisbursement')->name('store-disbursement');
 
+
+        Route::get('reports/loan', 'ReportController@loanReportIndex')->name('loan-report');
+        Route::get('get-loan-report', 'ReportController@loanReportList')->name('get-loan-report');
+
     });
 
 });

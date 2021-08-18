@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Loan;
 use App\Trace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -190,5 +191,20 @@ class ReportController extends Controller
                 break;
         }
         return response()->json($datas);
+    }
+
+    public function loanReportIndex()
+    {
+        return view('loan.loan-provider.report.index');
+    }
+
+    public function loanReportList(Request $request)
+    {
+        $data = Loan::with('borrower', 'product', 'provider')
+            ->where('status', $request->input('status'))
+            ->where('accept', 1)
+            ->get();
+
+        return response()->json($data);
     }
 }
