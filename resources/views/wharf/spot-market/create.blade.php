@@ -48,13 +48,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="form-control" name="name">
+                                    <input type="text" class="form-control" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Starting Bid</label>
+                                    <input type="text" class="form-control money" name="selling_price" required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>From Farmer</label>
-                                    <select class="form-control" id="from_user_id" name="from_user_id">
+                                    <select class="form-control" id="from_user_id" name="from_user_id" required>
                                         <option value="" disabled selected></option>
                                         @foreach($farmers as $farmer)
                                             <option value="{{$farmer->user->id}}">{{$farmer->user->name}}</option>
@@ -62,25 +66,25 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label>Area</label>
+                                    <input type="text" class="form-control" name="area" value="{{$defaultArea}}" required>
+                                </div>
+                                <div class="form-group">
                                     <label>Duration (Hours & Minutes)</label>
                                     <div style="position: relative">
-                                        <input type="text" id="time" class="form-control" name="duration"
+                                        <input type="text" id="time" class="form-control" name="duration" required
                                                autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>How many Kilos?</label>
-                                    <input type="number" class="form-control" name="quantity">
-                                </div>
-                                <div class="form-group">
-                                    <label>Starting Bid</label>
-                                    <input type="text" class="form-control money" name="selling_price">
+                                    <input type="number" class="form-control" name="quantity" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <textarea class="summernote" name="description">
+                                    <textarea class="summernote" name="description" required>
                                         <h3>Product Details</h3>
                                         Ang produktong ito ay dekalidad at matibay. It a galing sa pag sisikap nang ating mga natatangin magsasaka. Tangkilikin ang sariling atin.
                                         <br/>
