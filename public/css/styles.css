@@ -1319,3 +1319,38 @@ body {
 .template-loan .page-dashboard .list-group ul li .text {
   color: #000;
 }
+.template-loan .page-dashboard .repeat-container .repeat-item {
+  padding: 10px 0;
+  border-top: 1px dashed #948b96;
+}
+.template-loan .page-dashboard .repeat-container .repeat-item:first-child {
+  border-top: 0;
+}
+.template-loan .page-dashboard .repeat-container .repeat-item .date {
+  padding: 10px 1rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #948b96;
+  text-transform: uppercase;
+}
+.template-loan .page-dashboard .repeat-container .repeat-item ul {
+  min-height: auto;
+  max-height: auto;
+}
+.template-loan .page-dashboard .repeat-container .repeat-item ul li {
+  border: 0;
+}
+.template-loan .page-dashboard .repeat-container .repeat-item ul li .text b {
+  font-size: 1rem;
+}
+.template-loan .page-dashboard .repeat-container .repeat-item ul li .text.payment-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.template-loan .page-dashboard .repeat-container .repeat-item ul li .text.payment-label img {
+  margin-right: 10px;
+}
