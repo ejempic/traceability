@@ -6,6 +6,7 @@ use App\CommunityLeader;
 use App\Events\NewUserRegisteredEvent;
 use App\Farmer;
 use App\Inventory;
+use App\LoanPaymentSchedule;
 use App\LoanProvider;
 use App\Trace;
 use App\ModelInfo;
@@ -304,6 +305,7 @@ class PublicController extends Controller
 
     public function test()
     {
+        $dues = LoanPaymentSchedule::where()->first();
         return view('layouts.test');
     }
 }
