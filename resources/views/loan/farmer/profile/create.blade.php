@@ -4,6 +4,17 @@
 @section('title', 'Create Profile')
 
 @section('content')
+{{--    <div class="row">--}}
+{{--        <div class="col">--}}
+{{--            <div class="form-group">--}}
+{{--                <div class="file-manager text-center">--}}
+{{--                    <div id="image-upload" data-submit="" class="portrait-img img-cropper-md"></div>--}}
+{{--                    <small class="text-success">click frame to select image</small>--}}
+{{--                    <div class="clearfix mt-3"></div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
     <main class="page-forms page-register page-farmers">
         <div class="row no-gutters sign-in">
@@ -11,6 +22,7 @@
                 <div class="text">Setup Your Account</div>
             </div>
             <div class="col-12 col-lg-8 right d-flex align-items-center justify-content-center">
+
                 <div class="content w-100">
                     <h1 class="d-block d-lg-none text-center">Setup Your Account</h1>
                     <small>Fill all form field to go next step</small>
@@ -24,8 +36,8 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <div class="file-manager text-center">
-                                            <div id="image-upload" data-submit="" class="portrait-img img-cropper-md"></div>
+                                        <div class="file-manager text-center profile_info" data-title="Profile Picture" data-name="image">
+                                            <div id="image-upload" data-submit="" class="portrait-img-sm img-cropper-sm"></div>
                                             <small class="text-success">click frame to select image</small>
                                             <div class="clearfix mt-3"></div>
                                         </div>
@@ -44,6 +56,10 @@
                                         <input name="last_name" type="text" data-title="Last name" class="profile_info form-control required" id="last_name">
                                         <label for="last_name">Last name *</label>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="form-group">
@@ -58,10 +74,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
@@ -549,21 +561,24 @@
 
 @section('styles')
     {{--{!! Html::style('') !!}--}}
-    {!! Html::style('/css/app.css') !!}
-    {!! Html::style('/css/template/style.css') !!}
+{{--    {!! Html::style('/css/app.css') !!}--}}
+{{--    {!! Html::style('/css/template/style.css') !!}--}}
+
+    {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css') !!}
     {!! Html::style('/css/template/plugins/iCheck/custom.css') !!}
     {!! Html::style('/css/template/plugins/steps/jquery.steps.css') !!}
     {!! Html::style('/css/template/plugins/datapicker/datepicker3.css') !!}
     {!! Html::style('/css/template/plugins/daterangepicker/daterangepicker-bs3.css') !!}
     {{--{!! Html::style('/js/template/plugins/') !!}--}}
-    {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css') !!}
 @endsection
 
 @section('scripts')
     {{--{!! Html::script('') !!}--}}
-    <script src="{{ URL::to('/js/app.js') }}"></script>
-    <script src="{{ URL::to('/js/template/inspinia.js') }}"></script>
-    <script src="{{ URL::to('/js/template/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+{{--    <script src="{{ URL::to('/js/app.js') }}"></script>--}}
+{{--    <script src="{{ URL::to('/js/template/inspinia.js') }}"></script>--}}
+{{--    <script src="{{ URL::to('/js/template/plugins/metisMenu/jquery.metisMenu.js') }}"></script>--}}
+
+    {!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js') !!}
     {!! Html::script('/js/template/plugins/iCheck/icheck.min.js') !!}
     {!! Html::script('/js/template/plugins/steps/jquery.steps.min.js') !!}
     {!! Html::script('/js/template/plugins/validate/jquery.validate.min.js') !!}
@@ -572,7 +587,6 @@
     {!! Html::script('/js/template/plugins/daterangepicker/daterangepicker.js') !!}
     {!! Html::script('/js/template/moment.js') !!}
     {!! Html::script('/js/template/numeral.js') !!}
-    {!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js') !!}
 
 
     <script>
@@ -875,11 +889,20 @@
 
                 var profile_info = new Array();
                 $('.profile_info').each(function(){
-                    var name = $(this).attr('name');
-                    var title = $(this).data('title');
-                    var value = ($(this).val().length < 1) ? 'N/A': $(this).val();
-                    var values = new Array();
+                    var name = null;
+                    var title = null;
+                    var value = null;
+                    if($(this).data('title') === 'Profile Picture'){
+                        name = $(this).data('name');
+                        title = $(this).data('title');
+                        value = ($(this).find('img').attr('src').length < 1) ? 'N/A': $(this).find('img').attr('src');
+                    }else{
+                        name = $(this).attr('name');
+                        title = $(this).data('title');
+                        value = ($(this).val().length < 1) ? 'N/A': $(this).val();
+                    }
 
+                    var values = new Array();
                     values.push(name);
                     values.push(title);
                     values.push(value);
