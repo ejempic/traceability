@@ -5,10 +5,28 @@
 
 @section('content')
 
-    <div class="wrapper wrapper-content page-dashboard">
+    <div class="wrapper wrapper-content">
         <div class="page-dashboard">
             <div class="row list-count space-1">
-                <div class="col-12 col-lg-3 col-md-6">
+                <div class="col-12 col-lg-3 col-md-6 space-1">
+                    <div class="box" id="new-loan-application">
+                        <div class="item counter">0</div>
+                        <div class="item counter-label">Loan Amount</div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3 col-md-6 space-1">
+                    <div class="box" id="approve-loans">
+                        <div class="item counter">0</div>
+                        <div class="item counter-label">Loan Tenure</div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3 col-md-6 space-1">
+                    <div class="box">
+                        <div class="item counter">0</div>
+                        <div class="item counter-label">Loan Agin</div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3 col-md-6 space-1">
                     <div class="box" id="new-loan-application">
                         <div class="item counter">0</div>
                         <div class="item counter-label">New Loan Application</div>
@@ -20,18 +38,12 @@
                         <div class="item counter-label">Approved Loans This Week</div>
                     </div>
                 </div>
-{{--                <div class="col-12 col-lg-3 col-md-6">--}}
-{{--                    <div class="box">--}}
-{{--                        <div class="item counter">951</div>--}}
-{{--                        <div class="item counter-label">Registered Farmers</div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="col-12 col-lg-3 col-md-6">--}}
-{{--                    <div class="box">--}}
-{{--                        <div class="item counter">188</div>--}}
-{{--                        <div class="item counter-label">Registered Loan Providers</div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                <div class="col-12 col-lg-3 col-md-6">
+                    <div class="box">
+                        <div class="item counter">0</div>
+                        <div class="item counter-label">Declined Loans</div>
+                    </div>
+                </div>
             </div>
 
             <div class="row">
