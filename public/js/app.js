@@ -79278,7 +79278,8 @@ __webpack_require__.r(__webpack_exports__);
 
 $('#flash-overlay-modal').modal();
 $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
-var modal = $('#modal'); // Image Cropper Start =======================================
+var modal = $('#modal'); // $(document).ready(function(){
+// Image Cropper Start =======================================
 
 var imageBox, imageUploadId, imageUploadCrop, imageUploadFilename, imageUploadRawFile;
 imageBox = $('#image-upload');
@@ -79311,6 +79312,15 @@ $(document).on('change', '#image-upload-input', function () {
     console.log('portrait-img');
     modal.find('.modal-body').append('<div id="upload-demo" class="upload-portrait-img"></div>');
 
+    if (imageBox.hasClass('img-cropper-sm')) {
+      console.log('img-cropper-md');
+      modal.find('#modal-size').removeClass().addClass('modal-dialog modal-md');
+      imgW = 150;
+      imgH = 150;
+      imgWB = 200;
+      imgHB = 200;
+    }
+
     if (imageBox.hasClass('img-cropper-md')) {
       console.log('img-cropper-md');
       modal.find('#modal-size').removeClass().addClass('modal-dialog modal-md');
@@ -79336,6 +79346,20 @@ $(document).on('change', '#image-upload-input', function () {
       imgH = 625;
       imgWB = 675;
       imgHB = 675;
+    }
+  }
+
+  if (imageBox.hasClass('portrait-img-sm')) {
+    console.log('portrait-img');
+    modal.find('.modal-body').append('<div id="upload-demo" class="upload-portrait-img"></div>');
+
+    if (imageBox.hasClass('img-cropper-sm')) {
+      console.log('img-cropper-md');
+      modal.find('#modal-size').removeClass().addClass('modal-dialog modal-md');
+      imgW = 150;
+      imgH = 150;
+      imgWB = 200;
+      imgHB = 200;
     }
   }
 
@@ -79429,19 +79453,22 @@ function imageUploadReadFile(input) {
 }
 
 function imageSaveCropped() {
+  var imgBox = $('#image-upload');
   imageUploadCrop.croppie('result', {
     type: 'canvas',
     size: 'viewport'
   }).then(function (img) {
-    imageBox.append('<img src="' + img + '" class="img-fluid" id="img-cropper-result" />');
-    imageBox.data('image', img);
-    $('#image-upload').closest('.file-manager').removeClass('has-error');
+    imgBox.find('#img-cropper-result').remove();
+    imgBox.append('<img src="' + img + '" class="img-fluid" id="img-cropper-result" />');
+    imgBox.data('image', img);
+    imgBox.closest('.file-manager').removeClass('has-error');
 
     if (modal.data('submit') === 'auto') {
       $('#img-cropper-auto-upload').trigger('click');
     }
   });
 } // Image Cropper End =========================================
+// });
 
 
 modal.on('hide.bs.modal', function (e) {
@@ -79466,7 +79493,8 @@ modal.on('shown.bs.modal', function (e) {
       imageUploadCrop.croppie('bind', {
         url: imageUploadRawFile
       }).then(function () {
-        console.log('jQuery bind complete'); // $('.cr-slider').attr('max', 10);
+        console.log('jQuery bind complete');
+        $('.cr-slider').attr('max', 10);
       });
       break;
   }
@@ -79708,7 +79736,7 @@ $(document).ready(function () {
       '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Place of use</dt>' + '<dd>' + '<ul class="list-inline-item">' + placeUse + '</ul>' + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Collateral</dt>' + '<dd>' + collateral + '</dd>' + '</dl>' + '</div>' + '</div>' + '<h2 class="text-success"><strong>Credit / Financial Information</strong></h2>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Bank Accounts</dt>' + '<dd>' + '<table class="table table-borderless">' + '<thead>' + '<tr>' + '<th><small>Account Type</small></th>' + '<th><small>Account No.</small></th>' + '</tr>' + '</thead>' + '<tbody>' + bankAccount + '</tbody>' + '</table>' + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Credit References</dt>' + '<dd>' + '<table class="table table-borderless">' + '<thead>' + '<tr>' + '<th><small>Bank / Financing</small></th>' + '<th><small>Monthly Amortization</small></th>' + '</tr>' + '</thead>' + '<tbody>' + creditRef + '</tbody>' + '</table>' + '</dd>' + '</dl>' + '</div>' + '</div>' + '<h2 class="text-success"><strong>Trade and other Reference</strong></h2>' + '<div class="row">' + '<div class="col">' + '<table class="table table-borderless">' + '<thead>' + '<tr>' + '<th><small>Customer name / Co maker</small></th>' + '<th><small>Address</small></th>' + '<th><small>Contact No.</small></th>' + '</tr>' + '</thead>' + '<tbody>' + tradeRef + '</tbody>' + '</table>' + '</div>' + '</div>' + '<h2 class="text-success"><strong>Reference ID\'s / Documents</strong></h2>' + '<div class="row">' + refAttachment + '</div>' + '</div>' + '</div>' + '';
     }
 
-    var content = '' + '<div class="tabs-container" id="loan-app-detail">' + '<ul class="nav nav-tabs" role="tablist">' + '<li><a class="nav-link active" data-toggle="tab" href="#tab-1"> Profile</a></li>' + '<li><a class="nav-link" data-toggle="tab" href="#tab-2">More Information</a></li>' + '<li><a class="nav-link" data-toggle="tab" href="#tab-3">Employment</a></li>' + '<li><a class="nav-link" data-toggle="tab" href="#tab-4">Monthly Income</a></li>' + loanDetailMenu + '</ul>' + '<div class="tab-content">' + '<div role="tabpanel" id="tab-1" class="tab-pane active">' + '<div class="panel-body">' + '<h2 class="text-success"><strong>Personal Information</strong></h2>' + '<div class="row">' + '<div class="col">' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>First name</dt>' + '<dd>' + profile.first_name + '</dd>' + '</dl>' + '<dl>' + '<dt>Middle name</dt>' + '<dd>' + profile.middle_name + '</dd>' + '</dl>' + '<dl>' + '<dt>Last name</dt>' + '<dd>' + profile.last_name + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Date of Birth</dt>' + '<dd>' + profile.bday + '</dd>' + '</dl>' + '<dl>' + '<dt>Age</dt>' + '<dd>' + getAge(profile.dob) + '</dd>' + '</dl>' + '</div>' + '</div>' + '</div>' + '<div class="col">' + '<div class="row">' + '<div class="col ">' + '<dl>' + '<dt>Civil Status</dt>' + '<dd>' + profile.civil_status + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Gender</dt>' + '<dd>' + profile.gender + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Land Line</dt>' + '<dd>' + profile.landline + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Mobile</dt>' + '<dd>' + profile.mobile + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Tin No.</dt>' + '<dd>' + profile.tin + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>SSS / GSIS No.</dt>' + '<dd>' + profile.sss_gsis + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Education</dt>' + '<dd>' + profile.education + '</dd>' + '</dl>' + '</div>' + '</div>' + '</div>' + '</div>' + '<h2 class="text-success"><strong>Secondary Information</strong></h2>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Current Address</dt>' + '<dd>' + profile.secondary_info[0][2] + '</dd>' + '</dl>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Years of Stay</dt>' + '<dd>' + profile.secondary_info[1][2] + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Address Status</dt>' + '<dd>' + profile.secondary_info[2][2] + '</dd>' + '</dl>' + '</div>' + '</div>' + landlord + '</div>' + '<div class="col">' + '<dl>' + '<dt>Dependents</dt>' + '<dd>' + '<table class="table table-borderless table-striped">' + '<thead>' + '<tr>' + '<th>Name</th>' + '<th>Birthday</th>' + '</tr>' + '</thead>' + '<tbody>' + dependents + '</tbody>' + '</table>' + '</dd>' + '</dl>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div role="tabpanel" id="tab-2" class="tab-pane">' + '<div class="panel-body">' + '<h2 class="text-success"><strong>Spouse/Co-maker Information</strong></h2>' + '<div class="row">' + '<div class="col">' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>First name</dt>' + '<dd>' + profile.spouse_comaker_info[0][2] + '</dd>' + '</dl>' + '<dl>' + '<dt>Middle name</dt>' + '<dd>' + profile.spouse_comaker_info[1][2] + '</dd>' + '</dl>' + '<dl>' + '<dt>Last name</dt>' + '<dd>' + profile.spouse_comaker_info[2][2] + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Date of Birth</dt>' + '<dd>' + profile.spouse_comaker_info[3][2] + '</dd>' + '</dl>' + '<dl>' + '<dt>Age</dt>' + '<dd>' + getAge(profile.spouse_comaker_info[3][2]) + '</dd>' + '</dl>' + '</div>' + '</div>' + '</div>' + '<div class="col">' + '<div class="row">' + '<div class="col ">' + '<dl>' + '<dt>Civil Status</dt>' + '<dd>' + profile.spouse_comaker_info[4][2] + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Gender</dt>' + '<dd>' + profile.spouse_comaker_info[5][2] + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Land Line</dt>' + '<dd>' + profile.spouse_comaker_info[6][2] + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Mobile</dt>' + '<dd>' + profile.spouse_comaker_info[7][2] + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Tin No.</dt>' + '<dd>' + profile.spouse_comaker_info[8][2] + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>SSS / GSIS No.</dt>' + '<dd>' + profile.spouse_comaker_info[9][2] + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Education</dt>' + '<dd>' + profile.spouse_comaker_info[10][2] + '</dd>' + '</dl>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<h2 class="text-success"><strong>Farming Information</strong></h2>' + '<div class="row">' + '<dl class="col">' + '<dt>Farm Description</dt>' + '<dd>' + profile.farming_info[0][2] + '</dd>' + '</dl>' + // '<dl class="col">' +
+    var content = '' + '<div class="tabs-container" id="loan-app-detail">' + '<ul class="nav nav-tabs" role="tablist">' + '<li><a class="nav-link active" data-toggle="tab" href="#tab-1"> Profile</a></li>' + '<li><a class="nav-link" data-toggle="tab" href="#tab-2">More Information</a></li>' + '<li><a class="nav-link" data-toggle="tab" href="#tab-3">Employment</a></li>' + '<li><a class="nav-link" data-toggle="tab" href="#tab-4">Monthly Income</a></li>' + loanDetailMenu + '</ul>' + '<div class="tab-content">' + '<div role="tabpanel" id="tab-1" class="tab-pane active">' + '<div class="panel-body">' + '<h2 class="text-success"><strong>Personal Information</strong></h2>' + '<div class="row">' + '<div class="col-3">' + '<img src="' + profile.image + '" alt="profile-picture" class="img-fluid">' + '</div>' + '<div class="col">' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>First name</dt>' + '<dd>' + profile.first_name + '</dd>' + '</dl>' + '<dl>' + '<dt>Middle name</dt>' + '<dd>' + profile.middle_name + '</dd>' + '</dl>' + '<dl>' + '<dt>Last name</dt>' + '<dd>' + profile.last_name + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Date of Birth</dt>' + '<dd>' + profile.bday + '</dd>' + '</dl>' + '<dl>' + '<dt>Age</dt>' + '<dd>' + getAge(profile.dob) + '</dd>' + '</dl>' + '</div>' + '</div>' + '</div>' + '<div class="col">' + '<div class="row">' + '<div class="col ">' + '<dl>' + '<dt>Civil Status</dt>' + '<dd>' + profile.civil_status + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Gender</dt>' + '<dd>' + profile.gender + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Land Line</dt>' + '<dd>' + profile.landline + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Mobile</dt>' + '<dd>' + profile.mobile + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Tin No.</dt>' + '<dd>' + profile.tin + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>SSS / GSIS No.</dt>' + '<dd>' + profile.sss_gsis + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Education</dt>' + '<dd>' + profile.education + '</dd>' + '</dl>' + '</div>' + '</div>' + '</div>' + '</div>' + '<h2 class="text-success"><strong>Secondary Information</strong></h2>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Current Address</dt>' + '<dd>' + profile.secondary_info[0][2] + '</dd>' + '</dl>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Years of Stay</dt>' + '<dd>' + profile.secondary_info[1][2] + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Address Status</dt>' + '<dd>' + profile.secondary_info[2][2] + '</dd>' + '</dl>' + '</div>' + '</div>' + landlord + '</div>' + '<div class="col">' + '<dl>' + '<dt>Dependents</dt>' + '<dd>' + '<table class="table table-borderless table-striped">' + '<thead>' + '<tr>' + '<th>Name</th>' + '<th>Birthday</th>' + '</tr>' + '</thead>' + '<tbody>' + dependents + '</tbody>' + '</table>' + '</dd>' + '</dl>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div role="tabpanel" id="tab-2" class="tab-pane">' + '<div class="panel-body">' + '<h2 class="text-success"><strong>Spouse/Co-maker Information</strong></h2>' + '<div class="row">' + '<div class="col">' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>First name</dt>' + '<dd>' + profile.spouse_comaker_info[0][2] + '</dd>' + '</dl>' + '<dl>' + '<dt>Middle name</dt>' + '<dd>' + profile.spouse_comaker_info[1][2] + '</dd>' + '</dl>' + '<dl>' + '<dt>Last name</dt>' + '<dd>' + profile.spouse_comaker_info[2][2] + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Date of Birth</dt>' + '<dd>' + profile.spouse_comaker_info[3][2] + '</dd>' + '</dl>' + '<dl>' + '<dt>Age</dt>' + '<dd>' + getAge(profile.spouse_comaker_info[3][2]) + '</dd>' + '</dl>' + '</div>' + '</div>' + '</div>' + '<div class="col">' + '<div class="row">' + '<div class="col ">' + '<dl>' + '<dt>Civil Status</dt>' + '<dd>' + profile.spouse_comaker_info[4][2] + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Gender</dt>' + '<dd>' + profile.spouse_comaker_info[5][2] + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Land Line</dt>' + '<dd>' + profile.spouse_comaker_info[6][2] + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>Mobile</dt>' + '<dd>' + profile.spouse_comaker_info[7][2] + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Tin No.</dt>' + '<dd>' + profile.spouse_comaker_info[8][2] + '</dd>' + '</dl>' + '</div>' + '<div class="col">' + '<dl>' + '<dt>SSS / GSIS No.</dt>' + '<dd>' + profile.spouse_comaker_info[9][2] + '</dd>' + '</dl>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<dl>' + '<dt>Education</dt>' + '<dd>' + profile.spouse_comaker_info[10][2] + '</dd>' + '</dl>' + '</div>' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="col">' + '<h2 class="text-success"><strong>Farming Information</strong></h2>' + '<div class="row">' + '<dl class="col">' + '<dt>Farm Description</dt>' + '<dd>' + profile.farming_info[0][2] + '</dd>' + '</dl>' + // '<dl class="col">' +
     //     '<dt>Farming Since</dt>' +
     //     '<dd>'+ profile.farming_info[1][2] +'</dd>' +
     // '</dl>' +

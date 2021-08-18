@@ -14,6 +14,7 @@
     <link href="{{ asset('images/favicon.png') }}" rel="apple-touch-icon-precomposed">
 
     {!! Html::style('/css/app.css') !!}
+    {!! Html::style('/css/template/style.css') !!}
 {{--    {!! Html::style('/css/styles.css') !!}--}}
     {!! Html::style('/font-awesome/css/font-awesome.css') !!}
     {!! Html::style('/css/template/animate.css') !!}
@@ -30,10 +31,10 @@
 </div>
 
 
-<script src="{{ URL::to('/js/app.js') }}"></script>
-<script src="{{ URL::to('/js/template/popper.min.js') }}"></script>
-<script src="{{ URL::to('/js/template/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-<script src="{{ URL::to('/js/template/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+{!! Html::script('/js/app.js') !!}
+{!! Html::script('/js/template/popper.min.js') !!}
+{!! Html::script('/js/template/plugins/metisMenu/jquery.metisMenu.js') !!}
+{!! Html::script('/js/template/plugins/slimscroll/jquery.slimscroll.min.js') !!}
 
 @yield('scripts')
 

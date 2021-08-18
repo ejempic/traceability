@@ -11457,6 +11457,20 @@ select.form-control:not([size]):not([multiple]) {
   left: 0;
 }
 
+#image-upload.portrait-img-sm {
+  height: 150px;
+  width: 150px;
+  background: #FFFFFF url("/img/blank-profile.jpg") center center no-repeat;
+  background-size: 150px 150px;
+}
+
+#image-upload.portrait-img-sm img {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  left: 0;
+}
+
 #image-upload input[type=file] {
   position: absolute;
   z-index: 1;
