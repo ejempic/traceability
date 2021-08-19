@@ -1309,7 +1309,7 @@
                     term: term,
                     amount: amount
                 }, function (data) {
-                    // console.log(data);
+                    console.log(data);
                     for (var a = 0; a < data.length; a++) {
                         list.push('' +
                             '<tr>' +

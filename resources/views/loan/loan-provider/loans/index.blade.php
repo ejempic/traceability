@@ -421,6 +421,7 @@
             $(document).on('click', '.btn-action', function () {
                 var action = $(this).data('action');
                 var id = $(this).closest('tr').data('id');
+                console.log('ID: '+ id);
                 switch (action) {
                     case 'decline':
                         $.get('{!! route('loan-update-status') !!}', {
@@ -494,7 +495,7 @@
                                 '<tbody>' +
                                 '<tr>' +
                                 '<td>Assuming Approved Date</td>' +
-                                '<td class="text-right">' + moment() + '</td>' +
+                                '<td class="text-right">' + moment({}).format('MMM DD, YYYY') + '</td>' +
                                 '</tr>' +
                                 '<tr>' +
                                 '<td>Total Loan Amount</td>' +
@@ -508,7 +509,8 @@
                                 '<label>Timing</label>' +
                                 '<select name="timing" id="timing" class="form-control changeSchedule">' +
                                 '<option value="day">Day</option>' +
-                                '<option value="monthly" selected>Monthly</option>' +
+                                '<option value="week">Weeks</option>' +
+                                '<option value="monthly">Monthly</option>' +
                                 '</select>' +
                                 '</div>' +
                                 '<div class="row">' +
@@ -543,7 +545,7 @@
                                 '';
                         });
 
-                        // modal.find('.modal-body').empty().append(body);
+                        modal.find('.modal-body').empty().append(body);
                         populateSchedule();
                         modal.modal({backdrop: 'static', keyboard: false});
 

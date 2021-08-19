@@ -17,6 +17,12 @@
     <a href="{!! route('loan-applicant') !!}"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Loan Application</span></a>
 </li>
 
+<li class="{{ (request()->is('reports/loan')) ? 'active' : '' }}">
+    <a href="{!! route('loan-report') !!}"><i class="fa fa-list"></i> <span class="nav-label">Reports</span></a>
+</li>
+
+
+
 {{--<li class="{{ (request()->is('loan-report')) ? 'active' : '' }}">--}}
 {{--    <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Reports</span><span class="fa arrow"></span></a>--}}
 {{--    <ul class="nav nav-second-level collapse">--}}
