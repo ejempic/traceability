@@ -9,16 +9,36 @@
         <div class="page-dashboard">
             <div class="row list-count space-1">
                 <div class="col-12 col-lg-3 col-md-6">
-                    <div class="box" id="new-loan-application">
-                        <div class="item counter">0</div>
-                        <div class="item counter-label">Active Loans</div>
-                    </div>
+                    <a href="">
+                        <div class="box" id="">
+                            <div class="item counter-label">
+                                <div class="counter-label">Active Loans</div>
+                                <div class="counter">0</div>
+                            </div>
+                            <div class="item">
+                                <div class="counter-icon">
+                                    <img src="https://img.icons8.com/plasticine/100/000000/bribery.png" class="img-fluid"/>
+                                </div>
+                            </div>
+                            <div class="box-link">View <img src="https://img.icons8.com/ios/20/948b96/long-arrow-right.png" class="img-fluid"/></div>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-12 col-lg-3 col-md-6">
-                    <div class="box" id="approve-loans">
-                        <div class="item counter">0</div>
-                        <div class="item counter-label">Paid Loans</div>
-                    </div>
+                    <a href="">
+                        <div class="box" id="">
+                            <div class="item counter-label">
+                                <div class="counter-label">Paid Loans</div>
+                                <div class="counter">0</div>
+                            </div>
+                            <div class="item">
+                                <div class="counter-icon">
+                                    <img src="https://img.icons8.com/plasticine/100/000000/cash-in-hand.png" class="img-fluid"/>
+                                </div>
+                            </div>
+                            <div class="box-link">View <img src="https://img.icons8.com/ios/20/948b96/long-arrow-right.png" class="img-fluid"/></div>
+                        </div>
+                    </a>
                 </div>
             </div>
 
