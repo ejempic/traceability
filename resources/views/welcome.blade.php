@@ -116,7 +116,7 @@
 
             <section class="section-content">
                 <h3>Welcome to</h3>
-                <h1 class="title">{{ subdomain_title(null) }}</h1>
+                <h1 class="title">{{ subdomain_title(null) == 'AGRABAH LOAN' ? 'Finance' : subdomain_title(null) }}</h1>
 
                 <div class="boxes">
                     <ul>
