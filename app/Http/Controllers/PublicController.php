@@ -307,8 +307,8 @@ class PublicController extends Controller
 
     public function test()
     {
-        $datas = Loan::where('status', 'Active')->get();
-        smsNotification('loan-due', 1);
-        return $datas;
+        $loans = Loan::where('status', 'Active')->get();
+//        smsNotification('loan-due', 1);
+        return $loans;
     }
 }

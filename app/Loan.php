@@ -15,7 +15,7 @@ class Loan extends Model
     {
         $paymentScheds = LoanPaymentSchedule::where('loan_id', $this->attributes['id'])->get();
         $now = Carbon::now();
-        $notifyStart = $now->copy()->addDays(71);
+        $notifyStart = $now->copy()->addDays(72);
         $dueDate = null;
         $payableAmount = 0;
         $paidAmount = 0;
