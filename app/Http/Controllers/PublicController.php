@@ -6,11 +6,13 @@ use App\CommunityLeader;
 use App\Events\NewUserRegisteredEvent;
 use App\Farmer;
 use App\Inventory;
+use App\Loan;
 use App\LoanPaymentSchedule;
 use App\LoanProvider;
 use App\Trace;
 use App\ModelInfo;
 use App\User;
+use Carbon\Carbon;
 use CreatvStudio\Itexmo\Facades\Itexmo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -305,7 +307,8 @@ class PublicController extends Controller
 
     public function test()
     {
-        $dues = LoanPaymentSchedule::where()->first();
-        return view('layouts.test');
+        $datas = Loan::where('status', 'Active')->get();
+        smsNotification('loan-due', 1);
+        return $datas;
     }
 }

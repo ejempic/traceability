@@ -2,23 +2,60 @@
 
 use App\LoanType;
 use App\Profile;
+use App\Loan;
 use App\User;
 use App\Farmer;
 use App\Inventory;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
+use CreatvStudio\Itexmo\Facades\Itexmo;
 
 if (!function_exists('emailNotification')) {
-    function emailNotification($type)
+    function emailNotification($type, $id)
     {
 
     }
 }
 
 if (!function_exists('smsNotification')) {
-    function smsNotification($type)
+    function smsNotification($type, $id)
     {
+        switch ($type){
+            case 'loan-due':
+                $arr = array();
+                $data = Loan::find($id);
+                array_push($arr, '09152451835');
+                array_push($arr, $data->due_info['amount']);
+                array_push($arr, $data->due_info['date']);
+                smsNotifMessage('due-date', $arr);
+                break;
+            case 'zxv':
+                break;
+            case 'as':
+                break;
+            case 'wer':
+                break;
+        }
+    }
+}
 
+if (!function_exists('smsNotifMessage')) {
+    function smsNotifMessage($type, $data)
+    {
+        switch ($type){
+            case 'due-date':
+                $message = 'Agrabah PH reminder:
+                Please pay Php '.$data[1].' on or before '.$data[2].'.
+                Thank you';
+                Itexmo::to($data[0])->content($message)->send();
+                break;
+            case 'zxv':
+                break;
+            case 'as':
+                break;
+            case 'wer':
+                break;
+        }
     }
 }
 
@@ -282,6 +319,7 @@ if (!function_exists('loanStatInfo')) {
         return $data;
     }
 }
+
 if (!function_exists('isCommunityLeader')) {
     function isCommunityLeader()
     {
@@ -294,6 +332,7 @@ if (!function_exists('isCommunityLeader')) {
         return $isCommunityLeader;
     }
 }
+
 if (!function_exists('getUserSpotMarketCartCount')) {
     function getUserSpotMarketCartCount()
     {

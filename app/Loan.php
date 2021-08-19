@@ -2,10 +2,46 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Loan extends Model
 {
+    protected $appends = [
+        'due_info'
+    ];
+
+    public function getDueInfoAttribute()
+    {
+        $paymentScheds = LoanPaymentSchedule::where('loan_id', $this->attributes['id'])->get();
+        $now = Carbon::now();
+        $notifyStart = $now->copy()->addDays(71);
+        $dueDate = null;
+        $payableAmount = 0;
+        $paidAmount = 0;
+        $notify = 0;
+
+        foreach ($paymentScheds as $sched){
+            if( ($sched->status === 'unpaid') && ($sched->due_date > $now) ){
+                $dueDate = $sched->due_date;
+                $payableAmount += $sched->payable_amount;
+                $paidAmount += $sched->paid_amount;
+                if ( $dueDate <= $notifyStart ) {
+                    $notify = 1;
+                }
+                break;
+            }
+        }
+        $totalAmount = $payableAmount - $paidAmount;
+        $data = [
+            'date' => $dueDate,
+            'date_diff' => Carbon::parse($dueDate)->diffForHumans(),
+            'amount' => number_format($totalAmount, 2),
+            'notify_start' => $notifyStart->toDateTimeString(),
+            'notify' => $notify
+        ];
+        return $data;
+    }
 
     public function borrower()
     {
@@ -36,4 +72,6 @@ class Loan extends Model
     {
         return $this->hasMany(LoanPayment::class, 'loan_id');
     }
+
+
 }
