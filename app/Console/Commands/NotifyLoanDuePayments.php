@@ -43,7 +43,9 @@ class NotifyLoanDuePayments extends Command
 //        return 0;
         $loans = Loan::where('status', 'active')->get();
         foreach ($loans as $loan){
-
+            if($loan->notify === 1){
+                smsNotification('loan-due', $loan->id);
+            }
         }
 
     }

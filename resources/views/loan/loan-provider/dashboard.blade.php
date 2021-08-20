@@ -17,7 +17,8 @@
                             </div>
                             <div class="item">
                                 <div class="counter-icon">
-                                    <img src="https://img.icons8.com/plasticine/100/000000/money.png" class="img-fluid"/>
+                                    {{--<img src="https://img.icons8.com/plasticine/100/000000/money.png" class="img-fluid"/>--}}
+                                    <img src="{{ asset('img/icons/ico-loan-amount.png') }}" class="img-fluid"/>
                                 </div>
                             </div>
                             <div class="box-link">View <img src="https://img.icons8.com/ios/20/948b96/long-arrow-right.png" class="img-fluid"/></div>
@@ -34,7 +35,8 @@
                             </div>
                             <div class="item">
                                 <div class="counter-icon">
-                                    <img src="https://img.icons8.com/plasticine/100/000000/money-bag.png" class="img-fluid"/>
+                                    {{--<img src="https://img.icons8.com/plasticine/100/000000/money-bag.png" class="img-fluid"/>--}}
+                                    <img src="{{ asset('img/icons/ico-loan-tenue.png') }}" class="img-fluid"/>
                                 </div>
                             </div>
                             <div class="box-link">View <img src="https://img.icons8.com/ios/20/948b96/long-arrow-right.png" class="img-fluid"/></div>
@@ -50,7 +52,8 @@
                             </div>
                             <div class="item">
                                 <div class="counter-icon">
-                                    <img src="https://img.icons8.com/plasticine/100/000000/online-money-transfer.png" class="img-fluid"/>
+                                    {{--<img src="https://img.icons8.com/plasticine/100/000000/online-money-transfer.png" class="img-fluid"/>--}}
+                                    <img src="{{ asset('img/icons/ico-loan-application.png') }}" class="img-fluid"/>
                                 </div>
                             </div>
                             <div class="box-link">View <img src="https://img.icons8.com/ios/20/948b96/long-arrow-right.png" class="img-fluid"/></div>
@@ -66,7 +69,8 @@
                             </div>
                             <div class="item">
                                 <div class="counter-icon">
-                                    <img src="https://img.icons8.com/plasticine/100/000000/refund.png" class="img-fluid"/>
+                                    {{--<img src="https://img.icons8.com/plasticine/100/000000/refund.png" class="img-fluid"/>--}}
+                                    <img src="{{ asset('img/icons/ico-approved-loan.png') }}" class="img-fluid"/>
                                 </div>
                             </div>
                             <div class="box-link">View <img src="https://img.icons8.com/ios/20/948b96/long-arrow-right.png" class="img-fluid"/></div>
@@ -82,7 +86,8 @@
                             </div>
                             <div class="item">
                                 <div class="counter-icon">
-                                    <img src="https://img.icons8.com/plasticine/100/000000/tax.png" class="img-fluid"/>
+                                    {{--<img src="https://img.icons8.com/plasticine/100/000000/tax.png" class="img-fluid"/>--}}
+                                    <img src="{{ asset('img/icons/ico-declined-loan.png') }}" class="img-fluid"/>
                                 </div>
                             </div>
                             <div class="box-link">View <img src="https://img.icons8.com/ios/20/948b96/long-arrow-right.png" class="img-fluid"/></div>
