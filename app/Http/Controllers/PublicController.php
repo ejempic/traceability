@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CommunityLeader;
 use App\Events\NewUserRegisteredEvent;
+use App\Exports\FarmersExport;
 use App\Farmer;
 use App\Inventory;
 use App\Loan;
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PublicController extends Controller
 {
@@ -303,6 +305,11 @@ class PublicController extends Controller
     public function activation()
     {
         return view('layouts.account-activation');
+    }
+
+    public function export()
+    {
+        return Excel::download(new FarmersExport(), 'farmers.xlsx');
     }
 
     public function test()
