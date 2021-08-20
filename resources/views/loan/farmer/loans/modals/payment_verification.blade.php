@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="btn-group btn-group-sm float-right">
-                                    <button type="button" class="btn btn-primary verify_amount_fast_btn verify_amount_fast_monthly" data-amount="">Monthly</button>
+                                    <button type="button" class="btn btn-primary verify_amount_fast_btn verify_amount_fast_monthly" data-amount="">Due amount</button>
                                     <button type="button" class="btn btn-danger verify_amount_fast_btn verify_amount_fast_max" data-amount="">Max</button>
                                 </div>
                                 <label>Paid Amount</label>
