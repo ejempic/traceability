@@ -43,7 +43,7 @@
 
 </head>
 
-<body class="pace-done template-loan">
+<body class="pace-done template-wharf">
 
 <div id="wrapper">
 
