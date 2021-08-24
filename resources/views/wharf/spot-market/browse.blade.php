@@ -331,7 +331,7 @@
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
-        var pusher = new Pusher('31cb6af362d7e1f61f7f', {
+        var pusher = new Pusher({{config('broadcasting.connections.pusher.key')}}, {
             cluster: 'ap1'
         });
 
