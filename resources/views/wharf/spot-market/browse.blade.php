@@ -318,7 +318,7 @@
                 document.getElementById("expiration_{{$data->id}}").innerHTML =  hours + ":" + minutes + ":" + seconds;
                 if (distance < 0) {
                     clearInterval(x{{$data->id}});
-                    finishBid('{{$data->id}}');
+                    {{--finishBid('{{$data->id}}');--}}
                     document.getElementById("expiration_{{$data->id}}").innerHTML = "Awarding";
                 }
             }, 1000);
@@ -340,7 +340,7 @@
             console.log('pusher data');
             console.log(data);
             var id = data.id;
-            // refreshBid(id);
+            refreshBid(id);
         });
     </script>
 @endsection
