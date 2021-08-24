@@ -49,7 +49,7 @@ class CommunityLeaderController extends Controller
         $farmer->community_leader = 1;
         $farmer->save();
         $user = User::find($farmer->user_id);
-        $user->syncRoles(['farmer', 'community-leader']);
+        $user->syncRoles(['community-leader']);
         return redirect()->route('community-leader.index');
 
 //        $number = str_pad(CommunityLeader::count() + 1, 5, 0, STR_PAD_LEFT);
@@ -80,18 +80,13 @@ class CommunityLeaderController extends Controller
 //        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\CommunityLeader  $communityLeader
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-//        $data = CommunityLeader::find($communityLeader->id);
-//
-////        return $data;
-//        return response()->view(subDomainPath('community-leader.show'), compact('data'));
+        $data = Farmer::find($id);
+
+//        return $data;
+        return response()->view(subDomainPath('community-leader.show'), compact('data'));
     }
 
     /**
