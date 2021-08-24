@@ -286,20 +286,20 @@
 
     <!--  Spot Market Countdowns  -->
     <script>
-        function finishBid(id){
-            console.log(id)
-            $.ajax({
-                url: "{{route('spot-market.make_winner')}}",
-                type:"POST",
-                data:{
-                    id:id,
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success:function(response){
-                    console.log(response)
-                },
-            });
-        }
+        {{--function finishBid(id){--}}
+        {{--    console.log(id)--}}
+        {{--    $.ajax({--}}
+        {{--        url: "{{route('spot-market.make_winner')}}",--}}
+        {{--        type:"POST",--}}
+        {{--        data:{--}}
+        {{--            id:id,--}}
+        {{--            _token: $('meta[name="csrf-token"]').attr('content')--}}
+        {{--        },--}}
+        {{--        success:function(response){--}}
+        {{--            console.log(response)--}}
+        {{--        },--}}
+        {{--    });--}}
+        {{--}--}}
         $(document).ready(function(){
             @foreach($spotMarketList as $data)
             var countDownDate{{$data->id}} = new Date("{{$data->expiration_time}}").getTime();
@@ -340,7 +340,7 @@
             console.log('pusher data');
             console.log(data);
             var id = data.id;
-            refreshBid(id);
+            // refreshBid(id);
         });
     </script>
 @endsection
