@@ -54,7 +54,7 @@
                             <tbody>
                             @foreach($datas as $data)
                                 <tr>
-                                    <td>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</td>
+                                    <td>{{ optional($data->profile)->first_name }} {{ optional($data->profile)->last_name }}</td>
                                     <td>{{ $data->user->email }}</td>
                                     <td>{{ farmerCount($data->id) }}</td>
                                     <td class="text-right">
