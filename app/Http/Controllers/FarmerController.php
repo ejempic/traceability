@@ -390,6 +390,7 @@ class FarmerController extends Controller
             $details->trade_reference_info = serialize($inputs[3]);
             $details->reference_id = serialize($inputs[4]);
             $details->save();
+            smsNotification('new-loan-application-admin', $loan->id);
 
             $url = route('my-loans');
             return response()->json($url);

@@ -314,3 +314,62 @@
     }
   }
 }
+
+
+//LOAN
+
+.template-wharf {
+  .nav-header {
+    background-color: $primary-3 !important;
+  }
+
+  .navbar-default {
+    background-color: $primary-3 !important;
+  }
+
+  .navbar-minimalize {
+    background: $primary-3 !important;
+    border-color: $primary-3 !important;
+
+    &:hover {
+      background: darken($primary-3, 10%) !important;
+    }
+  }
+
+  .nav {
+    li {
+      a {
+        &:hover, &:focus {
+          background: darken($primary-3, 10%) !important;
+        }
+      }
+
+      &.active {
+        background: darken($primary-3, 10%) !important;
+
+        & > a {
+          border-left-color: lighten($primary-5, 40%) !important;
+        }
+      }
+    }
+  }
+
+  ul.nav-second-level {
+    background: darken($primary-3, 15%);
+
+    li {
+      a {
+        &:hover {
+          background: darken($primary-3, 10%) !important;
+        }
+      }
+
+      &.active {
+        a {
+          background: darken($primary-3, 10%) !important;
+        }
+      }
+    }
+  }
+
+}

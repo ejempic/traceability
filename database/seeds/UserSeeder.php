@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use App\User;
 use App\Profile;
-use App\MasterFarmer;
+use App\Settings;
 use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
@@ -59,6 +59,7 @@ class UserSeeder extends Seeder
 
         $roles = array(
             'Super Admin',
+            'Administrator',
             'Community Leader',
             'Farmer',
             'Loan Provider',
@@ -81,6 +82,16 @@ class UserSeeder extends Seeder
         if($user->save()) {
             $user->assignRole(stringSlug('Super Admin'));
             $user->markEmailAsVerified();
+
+            $profile = new Profile();
+            $profile->first_name = 'Super';
+            $profile->last_name = 'Admin';
+            $profile->save();
+
+            $setting = new Settings();
+            $setting->name = stringSlug('Agrabah mobile number');
+            $setting->display_name = 'Agrabah mobile number';
+            $setting->save();
         }
 
 //        $user = new User();

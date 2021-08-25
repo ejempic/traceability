@@ -25,7 +25,14 @@
 
     <div id="app" class="wrapper wrapper-content">
 
-        <div class="ibox-content m-b-sm border-bottom">
+        <div class="float-filter trigger_filter">
+            <img src="https://img.icons8.com/ios-filled/30/ffffff/filter--v1.png"/>
+            <span>Filter</span>
+        </div>
+
+        <div class="filter-overlay"></div>
+
+        <div class="ibox-content m-b-sm border-bottom filter-container">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
@@ -38,7 +45,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-lg-6">
                     <div class="form-group">
                         <span id="term_value" class="float-right mt-2"></span>
                         <label class="col-form-label" for="product_name">Loan Term</label>
@@ -46,7 +53,7 @@
                         {{--                        <input type="range" name="term" min="4" max="60" value="4" placeholder="How many months?" class="form-control loan_input">--}}
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-12 col-lg-6">
                     <div class="form-group">
                         <span id="amount_value" class="float-right mt-2"></span>
                         <label class="col-form-label" for="price">Loanable Amount</label>
@@ -55,6 +62,8 @@
                     </div>
                 </div>
             </div>
+
+            <a class="btn btn-primary close-filter trigger_filter" href="javascript:;">CLOSE</a>
 
         </div>
 
@@ -390,6 +399,11 @@
             {{--            </div>--}}
         </div>
     </div>
+
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
 
 
 @endsection
@@ -1403,6 +1417,15 @@
                 return status;
             }
 
+        });
+    </script>
+
+    <script>
+        $(document).on('click','.trigger_filter', function () {
+            console.log('trggred')
+            $(this).toggleClass('triggered')
+            $('.filter-container').toggleClass('triggered')
+            $('.filter-overlay').toggleClass('open')
         });
     </script>
 @endsection
