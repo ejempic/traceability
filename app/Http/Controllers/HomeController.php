@@ -52,10 +52,20 @@ class HomeController extends Controller
         }
 
         if(auth()->user()->hasRole('community-leader')){
-            $inventory = Inventory::where('leader_id', Auth::user()->leader->account_id)->count();
-            $trace = Trace::where('user_id', Auth::user()->id)->count();
-            $farmer = Inventory::where('leader_id', Auth::user()->leader->account_id)->distinct('farmer_id')->count('farmer_id');
-            return view(subDomainPath('dashboard'), compact( 'inventory', 'trace', 'farmer'));
+            if(subdomain_name() == 'loan'){
+                $farmer = Farmer::find(Auth::user()->farmer->id);
+                $loans = $farmer->loans;
+
+                return view(subDomainPath('farmer.dashboard'), compact('loans'));
+            }
+
+            if(subdomain_name() == 'trace'){
+                $inventory = Inventory::where('leader_id', Auth::user()->leader->account_id)->count();
+                $trace = Trace::where('user_id', Auth::user()->id)->count();
+                $farmer = Inventory::where('leader_id', Auth::user()->leader->account_id)->distinct('farmer_id')->count('farmer_id');
+
+                return view(subDomainPath('dashboard'), compact( 'inventory', 'trace', 'farmer'));
+            }
         }
 
         if(auth()->user()->hasRole('loan-provider')){
