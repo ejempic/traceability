@@ -28,7 +28,8 @@
             <div class="col-12 col-lg-8 right d-flex align-items-center justify-content-center">
                 <div class="content w-100">
                     <img src="{{ asset('/images/logo.png') }}" alt="logo" class="img-fluid d-block mx-auto logo mb-5 d-block d-lg-none">
-                    <h1 class="title"><span class="text-primary">Agrabah Loan</span> Registration</h1>
+                    {{--<h1 class="title"><span class="text-primary"></span>Finance Registration</h1>--}}
+                    <h1 class="title">Finance Registration</h1>
 {{--                    <small>Log on using your login and password or use social media login to enter</small>--}}
 
 
