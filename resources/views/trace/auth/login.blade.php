@@ -29,7 +29,7 @@
                     <img src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid d-block mx-auto logo mb-5 d-block d-lg-none">
                     <h1 class="title">Trace Login</h1>
                     {{--<small>Log on using your login and password or use social media login to enter</small>--}}
-                    <small>Log in with your email and password that you entered during your resignation.</small>
+                    <small>Log in with your email and password that you entered during your registration.</small>
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

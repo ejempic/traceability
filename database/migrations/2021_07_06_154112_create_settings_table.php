@@ -17,7 +17,7 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('display_name')->nullable();
-            $table->text('value');
+            $table->text('value')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
