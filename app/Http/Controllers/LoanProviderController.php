@@ -168,6 +168,7 @@ class LoanProviderController extends Controller
                 $data = Loan::find($request->input('id'));
                 $data->accept = 1;
                 $data->save();
+                smsNotification('new-loan-application-provider', $data->id);
                 break;
             case 'show':
                 $data = Loan::with('borrower', 'details')

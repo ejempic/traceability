@@ -299,7 +299,7 @@ class PublicController extends Controller
 
     public function smsTest()
     {
-        Itexmo::to('09156819270')->content('Test SMS from Agrabah Loan App')->send();
+        Itexmo::to('09152451835')->content('Test SMS from Agrabah Loan App')->send();
     }
 
     public function activation()

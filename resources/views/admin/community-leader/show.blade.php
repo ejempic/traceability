@@ -26,14 +26,15 @@
     <div id="app" class="wrapper wrapper-content">
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Information</h5>
-                    </div>
-                    <div class="ibox-content">
+{{--                    <div class="ibox-title">--}}
+{{--                        <h5>Information</h5>--}}
+{{--                    </div>--}}
+                    <div class="ibox-content" id="profile-info-box" data-id="{{ $data->id }}">
 
-                        <h2>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</h2>
+{{--                        <h2>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</h2>--}}
+
 
                     </div>
                 </div>
@@ -104,13 +105,23 @@
 
             {{--table.ajax.reload();--}}
 
-            $(document).on('click', '.btn-action', function(){
-                switch ($(this).data('action')) {
-                    case 'store':
-                        $('#form').submit();
-                        break;
-                }
-            });
+            loadProfile();
+            function loadProfile(){
+                $.get('{!! route('select-profile') !!}', {
+                    id: $('#profile-info-box').data('id')
+                }, function(data){
+                    console.log(data);
+                    $('#profile-info-box').empty().append(displayLoanApplicationDetails(data.profile, null));
+                });
+            }
+
+            // $(document).on('click', '.btn-action', function(){
+            //     switch ($(this).data('action')) {
+            //         case 'store':
+            //             $('#form').submit();
+            //             break;
+            //     }
+            // });
         });
     </script>
 @endsection
