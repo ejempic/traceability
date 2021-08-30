@@ -36,6 +36,7 @@ Route::get('export', 'PublicController@export')->name('export');
 //Auth::routes();
 Auth::routes(['verify' => true]);
 Route::get('logout', 'UserController@logout')->name('logout');
+Route::get('loan-update-status', 'LoanProviderController@loanUpdateStatus')->name('loan-update-status');
 
 Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
@@ -150,7 +151,7 @@ Route::domain('loan.'.config('dev.domain_ext'))->group(function () {
         Route::get('generateSchedule', 'LoanController@getPaymentSchedule')->name('generate-schedule');
 
 //        Route::get('loan/applicants', 'LoanProviderController@loanApplicant')->name('loan-applicant');
-        Route::get('loan-update-status', 'LoanProviderController@loanUpdateStatus')->name('loan-update-status');
+//        Route::get('loan-update-status', 'LoanProviderController@loanUpdateStatus')->name('loan-update-status');
 
         Route::get('custom-forms', 'LoanProviderController@customForms')->name('custom-forms');
 
