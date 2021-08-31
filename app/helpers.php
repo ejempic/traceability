@@ -29,7 +29,9 @@ if (!function_exists('smsNotification')) {
                 $data = Loan::find($id);
                 array_push($arr, $data->due_info['amount']);
                 array_push($arr, $data->due_info['date']);
-                smsNotifMessage($type, $arr, $recipients);
+                if($recipients) {
+                    smsNotifMessage($type, $arr, $recipients);
+                }
                 break;
             case 'new-loan-application-admin':
                 $arr = array();
@@ -40,7 +42,9 @@ if (!function_exists('smsNotification')) {
                 array_push($arr, $borrower);
                 array_push($arr, $url);
                 array_push($recipients, mobileNumber('agrabah', null));
-                smsNotifMessage('new-loan-application', $arr, $recipients);
+                if($recipients){
+                    smsNotifMessage('new-loan-application', $arr, $recipients);
+                }
                 break;
             case 'new-loan-application-provider':
                 $arr = array();
@@ -51,7 +55,9 @@ if (!function_exists('smsNotification')) {
                 array_push($arr, $borrower);
                 array_push($arr, $url);
                 array_push($recipients, mobileNumber('provider', $data->loan_provider_id));
-                smsNotifMessage('new-loan-application', $arr, $recipients);
+                if($recipients){
+                    smsNotifMessage('new-loan-application', $arr, $recipients);
+                }
                 break;
             case 'new-loan-application-borrower':
                 break;
