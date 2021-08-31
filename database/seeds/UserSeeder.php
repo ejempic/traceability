@@ -74,7 +74,7 @@ class UserSeeder extends Seeder
         }
 
         $user = new User();
-        $user->name = 'Administrator';
+        $user->name = 'Super Admin';
         $user->email = 'superadmin@agrabah.ph';
         $user->password = bcrypt('agrabah');
         $user->passkey = 'agrabah';
@@ -87,6 +87,13 @@ class UserSeeder extends Seeder
             $profile->first_name = 'Super';
             $profile->last_name = 'Admin';
             $profile->save();
+
+            $setting = new Settings();
+            $setting->name = stringSlug('SMS');
+            $setting->display_name = 'SMS';
+            $setting->value = 'Switch for SMS Notification';
+            $setting->is_active = 1;
+            $setting->save();
 
             $setting = new Settings();
             $setting->name = stringSlug('Agrabah mobile number');

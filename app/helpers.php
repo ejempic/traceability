@@ -9,6 +9,7 @@ use App\User;
 use App\Farmer;
 use App\Inventory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Permission;
 use CreatvStudio\Itexmo\Facades\Itexmo;
 
@@ -38,7 +39,7 @@ if (!function_exists('smsNotification')) {
                 $borrower = $data->borrower->profile->first_name.' '.$data->borrower->profile->last_name;
                 $url = route('loan-applicant');
                 array_push($arr, $borrower);
-                array_push($arr, $url);
+//                array_push($arr, $url);
                 array_push($recipients, mobileNumber('agrabah', null));
                 smsNotifMessage('new-loan-application', $arr, $recipients);
                 break;
@@ -49,7 +50,7 @@ if (!function_exists('smsNotification')) {
                 $borrower = $data->borrower->profile->first_name.' '.$data->borrower->profile->last_name;
                 $url = route('loan-applicant');
                 array_push($arr, $borrower);
-                array_push($arr, $url);
+//                array_push($arr, $url);
                 array_push($recipients, mobileNumber('provider', $data->loan_provider_id));
                 smsNotifMessage('new-loan-application', $arr, $recipients);
                 break;
@@ -72,8 +73,7 @@ if (!function_exists('smsNotifMessage')) {
                 Thank you';
                 break;
             case 'new-loan-application':
-                $message = 'Agrabah Loan: new loan application created by, '.$arr[0].'
-                url: '.$arr[1];
+                $message = 'Agrabah Loan: new loan application created by, '.$arr[0];
                 break;
             case 'new-loan-application-borrower':
                 $message = 'Agrabah Loan: Congratulations! your loan application is now granted.';
@@ -83,8 +83,16 @@ if (!function_exists('smsNotifMessage')) {
                 break;
         }
 
+        $smsSet = Settings::where('name', 'sms')->first();
         foreach ($recipients as $recipient) {
-            Itexmo::to($recipient)->content($message)->send();
+            Log::channel('sms_log')->info(
+                'Type: ['.$type.']; 
+                Recipient: '.$recipient.'; 
+                Message: '. $message.';'
+            );
+            if($smsSet->is_active === 1){
+                Itexmo::to($recipient)->content($message)->send();
+            }
         }
     }
 }
