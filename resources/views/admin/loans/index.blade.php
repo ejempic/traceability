@@ -76,15 +76,18 @@
                                             <td class="text-right">{{ $loan->status }}</td>
                                             <td class="project-actions">
                                                     <button type="button" class="btn btn-white btn-sm btn-action" data-action="show"><i class="fa fa-search text-info"></i> View </button>
-                                                @if($loan->accept == 0)
-                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
-                                                    <button type="button" class="btn btn-white btn-sm btn-action" data-action="accept"><i class="fa fa-thumbs-up text-success"></i> Accept </button>
+                                                @if($loan->status != 'Declined')
+                                                    @if($loan->accept == 0)
+                                                        <button type="button" class="btn btn-white btn-sm btn-action" data-action="decline"><i class="fa fa-times text-danger"></i> Decline </button>
+                                                        <button type="button" class="btn btn-white btn-sm btn-action" data-action="accept"><i class="fa fa-thumbs-up text-success"></i> Accept </button>
+                                                    @endif
+                                                    @if($loan->status == 'Active')
+                                                        <button type="button" class="btn btn-white btn-sm payment_history_modal_trigger"
+                                                                data-payments="{{$loan->payments}}"
+                                                        ><i class="fa fa-list"></i> Payments </button>
+                                                    @endif
                                                 @endif
-                                                @if($loan->status == 'Active')
-                                                    <button type="button" class="btn btn-white btn-sm payment_history_modal_trigger"
-                                                            data-payments="{{$loan->payments}}"
-                                                    ><i class="fa fa-list"></i> Payments </button>
-                                                @endif
+
                                             </td>
                                         </tr>
                                     @empty

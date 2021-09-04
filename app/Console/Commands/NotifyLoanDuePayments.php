@@ -6,6 +6,7 @@ use App\Loan;
 use App\LoanPaymentSchedule;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class NotifyLoanDuePayments extends Command
 {
@@ -41,12 +42,14 @@ class NotifyLoanDuePayments extends Command
     public function handle()
     {
 //        return 0;
-        $loans = Loan::where('status', 'active')->get();
-        foreach ($loans as $loan){
-            if($loan->notify === 1){
-                smsNotification('loan-due', $loan->id);
-            }
-        }
+//        $loans = Loan::where('status', 'active')->get();
+//        foreach ($loans as $loan){
+//            if($loan->notify === 1){
+//                smsNotification('loan-due', $loan->id);
+//                Log::info('Loan payment due notification sent');
+//            }
+//        }
 
+        Log::info('Loan payment due notification sent');
     }
 }

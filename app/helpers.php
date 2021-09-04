@@ -9,6 +9,7 @@ use App\User;
 use App\Farmer;
 use App\Inventory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Permission;
 use CreatvStudio\Itexmo\Facades\Itexmo;
 
@@ -40,7 +41,7 @@ if (!function_exists('smsNotification')) {
                 $borrower = $data->borrower->profile->first_name.' '.$data->borrower->profile->last_name;
                 $url = route('loan-applicant');
                 array_push($arr, $borrower);
-                array_push($arr, $url);
+//                array_push($arr, $url);
                 array_push($recipients, mobileNumber('agrabah', null));
                 if($recipients){
                     smsNotifMessage('new-loan-application', $arr, $recipients);
@@ -53,7 +54,7 @@ if (!function_exists('smsNotification')) {
                 $borrower = $data->borrower->profile->first_name.' '.$data->borrower->profile->last_name;
                 $url = route('loan-applicant');
                 array_push($arr, $borrower);
-                array_push($arr, $url);
+//                array_push($arr, $url);
                 array_push($recipients, mobileNumber('provider', $data->loan_provider_id));
                 if($recipients){
                     smsNotifMessage('new-loan-application', $arr, $recipients);
@@ -62,6 +63,8 @@ if (!function_exists('smsNotification')) {
             case 'new-loan-application-borrower':
                 break;
             case 'loan-payment-confirmation':
+                break;
+            case 'trace-created':
                 break;
         }
     }
@@ -78,19 +81,28 @@ if (!function_exists('smsNotifMessage')) {
                 Thank you';
                 break;
             case 'new-loan-application':
-                $message = 'Agrabah Loan: new loan application created by, '.$arr[0].'
-                url: '.$arr[1];
+                $message = 'Agrabah Loan: new loan application created by, '.$arr[0];
                 break;
             case 'new-loan-application-borrower':
-                $message = 'Agrabah Loan: Congratulations! your loan application is now granted.';
+                $message = 'Agrabah Loan: Congratulations! your loan application has been approved.';
                 break;
             case 'loan-payment-confirmation':
                 $message = 'ghjk';
                 break;
         }
 
+        $smsSet = Settings::where('name', 'sms')->first();
         foreach ($recipients as $recipient) {
-            Itexmo::to($recipient)->content($message)->send();
+            Log::channel('sms_log')->info(
+                'Type: ['.$type.']; 
+                Recipient: '.$recipient.'; 
+                Message: '. $message.';'
+            );
+            if($smsSet){
+                if($smsSet->is_active === 1){
+                    Itexmo::to($recipient)->content($message)->send();
+                }
+            }
         }
     }
 }
@@ -102,7 +114,9 @@ if (!function_exists('mobileNumber')) {
         switch ($recipient){
             case 'agrabah':
                 $data = Settings::where('name', 'agrabah-mobile-number')->first();
-                $number = $data->value;
+                if($data){
+                    $number = $data->value;
+                }
                 break;
             case 'provider':
                 $data = LoanProvider::find($id);
