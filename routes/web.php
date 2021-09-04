@@ -135,6 +135,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('user-profile-store', 'ProfileController@profileStore')->name('user-profile-store');
 
+    Route::get('database', 'DatabaseController@index')->name('database-index');
+    Route::post('database/truncate', 'DatabaseController@truncate')->name('database.truncate');
+
 });
 
 Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {

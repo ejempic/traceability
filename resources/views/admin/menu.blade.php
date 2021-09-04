@@ -103,4 +103,7 @@
     <ul class="nav nav-second-level collapse">
         <li class="{{ (request()->is('settings*')) ? 'active' : '' }}"><a href="{!! route('settings.index') !!}">Settings</a></li>
     </ul>
+    <ul class="nav nav-second-level collapse">
+        <li class="{{ (request()->is('database*')) ? 'active' : '' }}"><a href="{!! route('database-index') !!}">Database</a></li>
+    </ul>
 </li>
