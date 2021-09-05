@@ -32,10 +32,17 @@
 {{--                        <h5>Blank <small>page</small></h5>--}}
 {{--                    </div>--}}
                     <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="table-responsive">
                             <div class="loan-product-list project-list">
-                                <table class="table table-hover">
+                                <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
                                     <thead>
                                     <tr>
                                         <th>Product</th>
@@ -96,6 +103,13 @@
                                         </tr>
                                     @endforelse
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="pagination pull-right"></ul>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -131,12 +145,14 @@
 
 @section('styles')
     {{--{!! Html::style('') !!}--}}
+    {!! Html::style('css/template/plugins/footable/footable.core.css') !!}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
 @endsection
 
 @section('scripts')
     {{--    {!! Html::script('') !!}--}}
+    {!! Html::script('js/template/plugins/footable/footable.all.min.js') !!}
 {{--    {!! Html::script('/js/template/plugins/jqueryMask/jquery.mask.min.js') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
@@ -144,6 +160,7 @@
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
 
+        $('.footable').footable();
         function numberWithCommas(x) {
             return x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
