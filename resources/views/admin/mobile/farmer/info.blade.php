@@ -47,7 +47,13 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>{!! $data->profile->first_name !!} {!! $data->profile->last_name !!} <small>Inventory</small></h5>
+                        @if($data)
+                        @if($data->profile)
+                            <h5>{!! $data->profile->first_name !!} {!! $data->profile->last_name !!} <small>Inventory</small></h5>
+                        @else
+                            <h5>{!! $data->name !!} <small>Inventory</small></h5>
+                        @endif
+                        @endif
                     </div>
                     <div class="ibox-content">
                         <div class="table-responsive">
@@ -61,6 +67,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="inv-list">
+                                @if($data)
                                 @foreach($data->listing as $list)
                                     <tr>
                                         <td>{{ $list->product->display_name }}</td>
@@ -73,6 +80,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                @endif
                                 </tbody>
                                 <tfoot>
                                 {{--                                <tr>--}}

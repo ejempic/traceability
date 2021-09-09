@@ -48,7 +48,11 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>{!! $data->profile->first_name !!} {!! $data->profile->last_name !!} <small>Inventory</small></h5>
+                        @if($data->profile)
+                            <h5>{!! $data->profile->first_name !!} {!! $data->profile->last_name !!} <small>Inventory</small></h5>
+                        @else
+                            <h5>{!! $data->name !!} <small>Inventory</small></h5>
+                        @endif
                     </div>
                     <div class="ibox-content">
                         <div class="table-responsive">
