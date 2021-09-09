@@ -210,21 +210,22 @@ class PublicController extends Controller
                 ->withInput();
         }
 
-        $data = new User();
-        $data->email = $request->input('email');
-        $data->password = bcrypt($request->input('password'));
-        $data->passkey = $request->input('password');
-        if($data->save()){
+        $user = new User();
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->passkey = $request->input('password');
+        if($user->save()){
 
-            $data->assignRole(stringSlug('Farmer'));
+            $user->assignRole(stringSlug('Farmer'));
             $number = Farmer::count() + 1;
             $farmer = new Farmer();
             $farmer->account_id = $number;
-            $farmer->user_id = $data->id;
+            $farmer->user_id = $user->id;
             $farmer->save();
 
-            $data->sendEmailVerificationNotification();
-            Auth::loginUsingId($data->id);
+//            $data->sendEmailVerificationNotification();
+            event(new NewUserRegisteredEvent($user));
+            Auth::loginUsingId($user->id);
             return redirect()->route('home');
         }
 

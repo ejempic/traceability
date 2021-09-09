@@ -58,6 +58,8 @@ if (!function_exists('smsNotification')) {
                 break;
             case 'loan-payment-confirmation':
                 break;
+            case 'trace-created':
+                break;
         }
     }
 }
