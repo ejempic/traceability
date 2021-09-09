@@ -32,16 +32,22 @@
 {{--                        <h5>Blank <small>page</small></h5>--}}
 {{--                    </div>--}}
                     <div class="ibox-content">
-
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
+                                </div>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <div class="loan-product-list project-list">
-                                <table class="table table-hover">
+                                <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                                     <thead>
                                     <tr>
                                         <th>Product</th>
                                         <th>Applicant</th>
                                         <th class="text-right">Status</th>
-                                        <th class="text-right">Action</th>
+                                        <th class="text-right" data-sort-ignore="true">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -96,6 +102,14 @@
                                         </tr>
                                     @endforelse
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="4">
+                                            <ul class="pagination pull-right"></ul>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+
                                 </table>
                             </div>
                         </div>
@@ -131,12 +145,14 @@
 
 @section('styles')
     {{--{!! Html::style('') !!}--}}
+    {!! Html::style('css/template/plugins/footable/footable.core.css') !!}
     {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
 @endsection
 
 @section('scripts')
     {{--    {!! Html::script('') !!}--}}
+    {!! Html::script('js/template/plugins/footable/footable.all.min.js') !!}
 {{--    {!! Html::script('/js/template/plugins/jqueryMask/jquery.mask.min.js') !!}--}}
     {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
     {{--    {!! $dataTable->scripts() !!}--}}
@@ -149,6 +165,7 @@
         }
 
         $(document).on('click', '.payment_history_modal_trigger', function () {
+
             $('#payment_history_modal').modal('show');
             var data_payments = $(this).data('payments');
 
@@ -187,6 +204,8 @@
         });
 
         $(document).ready(function(){
+            $('.footable').footable();
+
             var modal = $('#modal');
             {{--$(document).on('click', '', function(){--}}
             {{--    modal.modal({backdrop: 'static', keyboard: false});--}}
