@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class LoanProviderController extends Controller
 {
@@ -168,7 +169,11 @@ class LoanProviderController extends Controller
                 $data = Loan::find($request->input('id'));
                 $data->accept = 1;
                 $data->save();
-                smsNotification('new-loan-application-provider', $data->id);
+                try {
+                    smsNotification('new-loan-application-provider', $data->id);
+                }catch (\Exception $e){
+                    Log::error($e);
+                }
                 break;
             case 'show':
                 $data = Loan::with('borrower', 'details')

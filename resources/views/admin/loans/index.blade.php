@@ -39,16 +39,15 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="table-responsive">
                             <div class="loan-product-list project-list">
-                                <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
+                                <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
                                     <thead>
                                     <tr>
                                         <th>Product</th>
                                         <th>Applicant</th>
                                         <th class="text-right">Status</th>
-                                        <th class="text-right">Action</th>
+                                        <th class="text-right" data-sort-ignore="true">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -110,6 +109,7 @@
                                         </td>
                                     </tr>
                                     </tfoot>
+
                                 </table>
                             </div>
                         </div>
@@ -160,12 +160,12 @@
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
 
-        $('.footable').footable();
         function numberWithCommas(x) {
             return x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
         $(document).on('click', '.payment_history_modal_trigger', function () {
+
             $('#payment_history_modal').modal('show');
             var data_payments = $(this).data('payments');
 
@@ -204,6 +204,8 @@
         });
 
         $(document).ready(function(){
+            $('.footable').footable();
+
             var modal = $('#modal');
             {{--$(document).on('click', '', function(){--}}
             {{--    modal.modal({backdrop: 'static', keyboard: false});--}}

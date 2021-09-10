@@ -36,6 +36,7 @@ Route::get('export', 'PublicController@export')->name('export');
 //Auth::routes();
 Auth::routes(['verify' => true]);
 Route::get('logout', 'UserController@logout')->name('logout');
+Route::get('loan-update-status', 'LoanProviderController@loanUpdateStatus')->name('loan-update-status');
 
 Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
@@ -115,8 +116,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // ROUTES FOR LOAN
 
+
+//        Route::get('loan/applicants', 'LoanProviderController@loanApplicant')->name('loan-applicant');
+//        Route::get('loan-update-status', 'LoanProviderController@loanUpdateStatus')->name('loan-update-status');
+
 Route::get('loan-registration', 'PublicController@loanRegistration')->name('loan-registration');
 Route::post('loan-user-registration-store', 'PublicController@loanUserRegistrationStore')->name('loan-user-registration-store');
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
@@ -128,6 +134,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
     Route::post('user-profile-store', 'ProfileController@profileStore')->name('user-profile-store');
+
+    Route::get('database', 'DatabaseController@index')->name('database-index');
+    Route::post('database/truncate', 'DatabaseController@truncate')->name('database.truncate');
 
 });
 

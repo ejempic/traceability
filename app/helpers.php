@@ -30,7 +30,9 @@ if (!function_exists('smsNotification')) {
                 $data = Loan::find($id);
                 array_push($arr, $data->due_info['amount']);
                 array_push($arr, $data->due_info['date']);
-                smsNotifMessage($type, $arr, $recipients);
+                if($recipients) {
+                    smsNotifMessage($type, $arr, $recipients);
+                }
                 break;
             case 'new-loan-application-admin':
                 $arr = array();
@@ -41,7 +43,9 @@ if (!function_exists('smsNotification')) {
                 array_push($arr, $borrower);
 //                array_push($arr, $url);
                 array_push($recipients, mobileNumber('agrabah', null));
-                smsNotifMessage('new-loan-application', $arr, $recipients);
+                if($recipients){
+                    smsNotifMessage('new-loan-application', $arr, $recipients);
+                }
                 break;
             case 'new-loan-application-provider':
                 $arr = array();
@@ -52,7 +56,9 @@ if (!function_exists('smsNotification')) {
                 array_push($arr, $borrower);
 //                array_push($arr, $url);
                 array_push($recipients, mobileNumber('provider', $data->loan_provider_id));
-                smsNotifMessage('new-loan-application', $arr, $recipients);
+                if($recipients){
+                    smsNotifMessage('new-loan-application', $arr, $recipients);
+                }
                 break;
             case 'new-loan-application-borrower':
                 break;
@@ -92,8 +98,10 @@ if (!function_exists('smsNotifMessage')) {
                 Recipient: '.$recipient.'; 
                 Message: '. $message.';'
             );
-            if($smsSet->is_active === 1){
-                Itexmo::to($recipient)->content($message)->send();
+            if($smsSet){
+                if($smsSet->is_active === 1){
+                    Itexmo::to($recipient)->content($message)->send();
+                }
             }
         }
     }
@@ -106,7 +114,9 @@ if (!function_exists('mobileNumber')) {
         switch ($recipient){
             case 'agrabah':
                 $data = Settings::where('name', 'agrabah-mobile-number')->first();
-                $number = $data->value;
+                if($data){
+                    $number = $data->value;
+                }
                 break;
             case 'provider':
                 $data = LoanProvider::find($id);
