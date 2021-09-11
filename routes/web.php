@@ -86,6 +86,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
 
     Route::get('loan-update-status', 'LoanProviderController@loanUpdateStatus')->name('loan-update-status');
 
+    Route::get('bfar/settings', 'SettingController@bfarIndex')->name('bfar-settings');
+
 
 });
 // GLOBAL ROUTES END

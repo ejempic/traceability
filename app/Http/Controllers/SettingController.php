@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Profile;
 use App\Settings;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class SettingController extends Controller
 {
@@ -131,4 +133,33 @@ class SettingController extends Controller
     {
         //
     }
+
+    public function bfarIndex()
+    {
+        return view('admin.settings.bfar');
+    }
+
+    public function bfarUserStore(Request $request)
+    {
+        $role = 'BFAR';
+        Role::updateOrCreate(
+            ['name' => 'bfar'],
+            [
+                'name' => stringSlug($role),
+                'display_name' => $role
+            ]
+        );
+
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = bcrypt('agrabah');
+        $user->passkey = 'agrabah';
+        $user->active = 1;
+        if($user->save()) {
+            $user->assignRole(stringSlug($role));
+            $user->markEmailAsVerified();
+        }
+    }
+
 }

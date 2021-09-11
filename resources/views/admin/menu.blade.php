@@ -95,7 +95,7 @@
     </ul>
 </li>
 
-<li class="{{ (request()->is('role*')) ? 'active' : '' }}">
+<li class="{{ if_uri_pattern(array('role*', 'bfar*')) == 1 ? 'active' : '' }}">
     <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
     <ul class="nav nav-second-level collapse">
         <li class="{{ (request()->is('role*')) ? 'active' : '' }}"><a href="{!! route('role') !!}">Role</a></li>
@@ -105,5 +105,8 @@
     </ul>
     <ul class="nav nav-second-level collapse">
         <li class="{{ (request()->is('database*')) ? 'active' : '' }}"><a href="{!! route('database-index') !!}">Database</a></li>
+    </ul>
+    <ul class="nav nav-second-level collapse">
+        <li class="{{ (request()->is('bfar*')) ? 'active' : '' }}"><a href="{!! route('bfar-settings') !!}">BFAR</a></li>
     </ul>
 </li>

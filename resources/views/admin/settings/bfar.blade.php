@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Loan Provider')
+@section('title', 'BFAR Settings')
 
 @section('content')
 
@@ -26,57 +26,42 @@
     <div id="app" class="wrapper wrapper-content">
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-5">
                 <div class="ibox float-e-margins">
-{{--                    <div class="ibox-title">--}}
-{{--                        <h5>Blank <small>page</small></h5>--}}
-{{--                    </div>--}}
+                    <div class="ibox-title p-2">
+                        <h5>Users</h5>
+                        <button type="button" class="btn btn-success btn-xs float-right btn-action" data-action="create-user">Create</button>
+                    </div>
                     <div class="ibox-content">
-
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
-                                </div>
-                            </div>
-                        </div>
-
-                        <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                        <div class="table-responsive table-borderless">
+                        <table class="table">
                             <thead>
                             <tr>
-                                <th>Account ID</th>
-                                <th>Bank</th>
-                                <th>Contact Person</th>
-                                <th>Contact Number</th>
-                                <th>Email</th>
-                                <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
+                                <th>Name</th>
+                                <th>Position</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($datas as $data)
                             <tr>
-                                <td>{{ $data->account_id }}</td>
-                                <td>{{ $data->profile->bank_name }}</td>
-                                <td>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</td>
-                                <td><small>{{ $data->profile->mobile }}</small> <br> <small>{{ $data->profile->landline }}</small></td>
-                                <td>{{ $data->user->email }}</td>
-                                <td class="text-right">
-                                    <div class="btn-group text-right">
-                                        <a href="" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
-                                    </div>
-                                </td>
+                                <td></td>
                             </tr>
-                            @endforeach
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="5">
-                                    <ul class="pagination pull-right"></ul>
-                                </td>
-                            </tr>
-                            </tfoot>
                         </table>
-
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title p-2">
+                        <h5>BFAR Information</h5>
+                        <button type="button" class="btn btn-success btn-xs float-right">Create</button>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label>Mobile no.</label>
+                            <input type="text" class="form-control">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,7 +77,18 @@
                     <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">
-
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Position / Title</label>
+                        <input type="text" name="position" class="form-control">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
@@ -119,7 +115,7 @@
     {{--    {!! Html::script('/js/template/moment.js') !!}--}}
     <script>
         $(document).ready(function(){
-            {{--var modal = $('#modal');--}}
+            var modal = $('#modal');
             {{--$(document).on('click', '', function(){--}}
             {{--    modal.modal({backdrop: 'static', keyboard: false});--}}
             {{--    modal.modal('toggle');--}}
@@ -144,6 +140,20 @@
             {{-- });--}}
 
             {{--table.ajax.reload();--}}
+
+            $(document).on('click', '.btn-action', function(){
+                switch($(this).data('action')) {
+                    case 'create-user':
+                        modal.find('.modal-title').text('BFAR User Create');
+                        modal.find('#modal-size').removeClass().addClass('modal-dialog modal-md');
+                        modal.modal({backdrop: 'static', keyboard: false});
+                        break;
+                    case 'edit-info':
+                        break;
+                    case 'update-info':
+                        break;
+                }
+            });
 
         });
     </script>
