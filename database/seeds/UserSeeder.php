@@ -99,6 +99,12 @@ class UserSeeder extends Seeder
             $setting->name = stringSlug('Agrabah mobile number');
             $setting->display_name = 'Agrabah mobile number';
             $setting->save();
+
+            $setting = new Settings();
+            $setting->name = stringSlug('Finance Service Fee');
+            $setting->display_name = 'Finance Service Fee';
+            $setting->value = 0;
+            $setting->save();
         }
 
 //        $user = new User();
