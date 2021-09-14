@@ -19,7 +19,7 @@ class SettingController extends Controller
     public function index()
     {
 
-        $settings = Settings::all();
+        $settings = Settings::where('name', '!=', 'bfar')->get();
 
         return view('admin.settings.index', compact('settings'));
     }
@@ -132,34 +132,6 @@ class SettingController extends Controller
     public function destroy(Profile $profile)
     {
         //
-    }
-
-    public function bfarIndex()
-    {
-        return view('admin.settings.bfar');
-    }
-
-    public function bfarUserStore(Request $request)
-    {
-        $role = 'BFAR';
-        Role::updateOrCreate(
-            ['name' => 'bfar'],
-            [
-                'name' => stringSlug($role),
-                'display_name' => $role
-            ]
-        );
-
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = bcrypt('agrabah');
-        $user->passkey = 'agrabah';
-        $user->active = 1;
-        if($user->save()) {
-            $user->assignRole(stringSlug($role));
-            $user->markEmailAsVerified();
-        }
     }
 
 }
