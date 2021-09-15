@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Profile;
+use App\Settings;
 use App\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -55,5 +56,26 @@ class BfarController extends Controller
     public function deleteUser(Request $request)
     {
 
+    }
+
+    public function getBfarInfo(Request $request)
+    {
+        $data = Settings::where('name', 'bfar')->with('profile')->first();
+        return response()->json($data);
+    }
+
+    public function updateBfarInfo(Request $request)
+    {
+        $data = Settings::updateOrCreate(
+            ['name' => 'bfar'],
+            [ 'name' => stringSlug('bfar'), 'display_name' => 'bfar' ]
+        );
+        $data->profile()->updateOrCreate(
+            ['first_name' => 'bfar'],
+            [
+                'mobile' => $request->input('mobile'),
+                'landline' => $request->input('email')
+            ]
+        );
     }
 }

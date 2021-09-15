@@ -89,6 +89,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::get('bfar/settings', 'BfarController@bfarIndex')->name('bfar-settings');
     Route::get('store-user', 'BfarController@storeUser')->name('store-user');
     Route::get('bfar-user-list', 'BfarController@getUser')->name('bfar-user-list');
+    Route::get('bfar-get-info', 'BfarController@getBfarInfo')->name('bfar-get-info');
+    Route::get('bfar-update-info', 'BfarController@updateBfarInfo')->name('bfar-update-info');
 
 
 });

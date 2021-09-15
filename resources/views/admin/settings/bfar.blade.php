@@ -65,18 +65,7 @@
                         <h5>BFAR Information</h5>
                         <button type="button" class="btn btn-success btn-xs float-right btn-action" data-action="edit-info">Edit</button>
                     </div>
-                    <div class="ibox-content">
-                        <div class="form-group">
-                            <label>Mobile no.</label>
-                            <h2 class="text-success"><strong>N/A</strong></h2>
-{{--                            <input type="text" class="form-control">--}}
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <h2 class="text-success"><strong>N/A</strong></h2>
-{{--                            <input type="text" class="form-control">--}}
-                        </div>
-                    </div>
+                    <div class="ibox-content" id="bfar-info"></div>
                 </div>
             </div>
         </div>
@@ -188,35 +177,45 @@
                     case 'update-user':
                         break;
                     case 'edit-info':
+                        var mobile = '', email = '';
+                        $.get('{!! route('bfar-get-info') !!}', function(data){
+                            console.log(data);
+                            if(data.profile.mobile !== null){
+                                mobile = data.profile.mobile;
+                            }
+                            if(data.profile.landline !== null){
+                                email = data.profile.landline;
+                            }
+                        });
+
                         init.closest('.ibox').find('.ibox-content').empty().append('' +
                             '<div class="form-group">' +
                                 '<label>Mobile no.</label>' +
-                                '<input type="text" class="form-control">' +
+                                '<input type="text" name="mobile" value="'+ mobile +'" class="form-control">' +
                             '</div>' +
                             '<div class="form-group">' +
                                 '<label>Email</label>' +
-                                '<input type="text" class="form-control">' +
+                                '<input type="text" name="email" value="'+ email +'" class="form-control">' +
                             '</div>' +
                         '');
                         init.data('action', 'update-info');
                         init.text('update');
                         break;
                     case 'update-info':
-                        init.closest('.ibox').find('.ibox-content').empty().append('' +
-                            '<div class="form-group">' +
-                            '<label>Mobile no.</label>' +
-                            '<h2 class="text-success"><strong>N/A</strong></h2>' +
-                            '</div>' +
-                            '<div class="form-group">' +
-                            '<label>Email</label>' +
-                            '<h2 class="text-success"><strong>N/A</strong></h2>' +
-                            '</div>' +
-                            '');
+                        var box = $('#bfar-info');
+                        $.get('{!! route('bfar-update-info') !!}', {
+                            mobile: box.find('input[name=mobile]').val(),
+                            email: box.find('input[name=email]').val()
+                        }, function(){
+                            bfarInfo();
+                        });
+
                         init.data('action', 'edit-info');
                         init.text('edit');
                         break;
                 }
             });
+
             userList();
             function userList(){
                 var box = $('#tbody-users');
@@ -239,6 +238,34 @@
                         }
                     }
                 });
+            }
+
+            bfarInfo();
+            function bfarInfo(){
+                var box = $('#bfar-info'), mobile = 'N/A', email = 'N/A';
+                jQuery.ajaxSetup({
+                    async: false
+                });
+                $.get('{!! route('bfar-get-info') !!}', function(data){
+                    console.log(data.profile.mobile);
+                    console.log(data.profile.landline);
+                    if(data.profile.mobile !== null){
+                        mobile = data.profile.mobile;
+                    }
+                    if(data.profile.landline !== null){
+                        email = data.profile.landline;
+                    }
+                });
+                box.empty().append('' +
+                    '<div class="form-group">' +
+                        '<label>Mobile no.</label>' +
+                        '<h2 class="text-success"><strong>'+ mobile +'</strong></h2>' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                        '<label>Email</label>' +
+                        '<h2 class="text-success"><strong>'+ email +'</strong></h2>' +
+                    '</div>' +
+                '');
             }
         });
     </script>
