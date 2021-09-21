@@ -105,6 +105,11 @@ class UserSeeder extends Seeder
             $setting->display_name = 'Finance Service Fee';
             $setting->value = 0;
             $setting->save();
+
+            $setting = new Settings();
+            $setting->name = stringSlug('BFAR');
+            $setting->display_name = 'BFAR';
+            $setting->save();
         }
 
 //        $user = new User();

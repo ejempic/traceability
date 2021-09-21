@@ -99,7 +99,7 @@
     </ul>
 </li>
 
-<li class="{{ if_uri_pattern(array('role*', 'bfar*')) == 1 ? 'active' : '' }}">
+<li class="{{ if_uri_pattern(array('role*', 'bfar*', 'settings*', 'database*')) == 1 ? 'active' : '' }}">
     <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
     <ul class="nav nav-second-level collapse">
         <li class="{{ (request()->is('role*')) ? 'active' : '' }}"><a href="{!! route('role') !!}">Role</a></li>
