@@ -106,10 +106,10 @@ class UserSeeder extends Seeder
             $setting->value = 0;
             $setting->save();
 
-            $setting = new Settings();
-            $setting->name = stringSlug('BFAR');
-            $setting->display_name = 'BFAR';
-            $setting->save();
+//            $setting = new Settings();
+//            $setting->name = stringSlug('BFAR');
+//            $setting->display_name = 'BFAR';
+//            $setting->save();
         }
 
 //        $user = new User();

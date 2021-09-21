@@ -68,7 +68,7 @@ class BfarController extends Controller
     {
         $data = Settings::updateOrCreate(
             ['name' => 'bfar'],
-            [ 'name' => stringSlug('bfar'), 'display_name' => 'bfar' ]
+            [ 'name' => stringSlug('bfar'), 'display_name' => 'bfar', 'value' => 'bfar' ]
         );
         $data->profile()->updateOrCreate(
             ['first_name' => 'bfar'],
