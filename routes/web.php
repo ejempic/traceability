@@ -89,6 +89,13 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::get('bfar/settings', 'SettingController@bfarIndex')->name('bfar-settings');
 
 
+    Route::get('market-place/orders', 'MarketplaceController@orders')->name('market-place.orders');
+    Route::post('market-place/approve', 'MarketplaceController@approve')->name('market-place.approve');
+    Route::post('market-place/deliver', 'MarketplaceController@deliver')->name('market-place.deliver');
+    Route::post('market-place/delivered', 'MarketplaceController@delivered')->name('market-place.delivered');
+    Route::get('market-place-show/{id}', 'MarketplaceController@show')->name('market-place-show');
+
+
 });
 // GLOBAL ROUTES END
 

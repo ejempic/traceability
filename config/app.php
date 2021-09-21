@@ -54,6 +54,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'wharf_url' => env('WHARF_APP_URL', 'http://agrbah-marketplace.test/'),
+
     'asset_url' => env('ASSET_URL', null),
 
     /*

@@ -86,6 +86,10 @@
     <a href="{!! route('trace.index') !!}"><i class="fa fa-truck"></i> <span class="nav-label">Trace</span></a>
 </li>
 
+<li class="{{ (request()->is('market-place*')) ? 'active' : '' }}">
+    <a href="{!! route('market-place.orders') !!}"><i class="fa fa-building"></i> <span class="nav-label">Marketplace</span></a>
+</li>
+
 <li class="{{ if_uri_pattern(array('farmer*', 'loan-provider*', 'community-leader*')) == 1 ? 'active' : '' }}">
     <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Users</span><span class="fa arrow"></span></a>
     <ul class="nav nav-second-level collapse">

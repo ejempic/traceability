@@ -425,3 +425,44 @@ if (!function_exists('getSpotMarketOrderStatuses')) {
     }
 }
 
+
+if (!function_exists('getServiceFee')) {
+    function getServiceFee($uom, $quantity, $bid, $type = 'reverse')
+    {
+
+        $serviceFee = 0;
+        if($uom && $quantity && $bid){
+            if($type == 'reverse'){
+                $serviceFee = $bid * (settings('service_fee_percentage') / 100);
+            }elseif($type == 'spot_market'){
+                switch ($uom){
+                    case 'kilos':
+                        $serviceFee = $quantity;
+                        break;
+                    case 'lot':
+                    case 'bayera':
+                        $serviceFee = $bid * (settings('service_fee_percentage') / 100) ;
+                        break;
+                }
+            }else{
+                switch ($uom){
+                    case 'kilos':
+                        $serviceFee = $quantity;
+                        break;
+                    case 'lot':
+                    case 'bayera':
+                        $serviceFee = $bid * (settings('service_fee_percentage') / 100) ;
+                        break;
+                }
+            }
+        }
+        return $serviceFee;
+    }
+}
+
+if (!function_exists('getMarketplaceOrderStatuses')) {
+    function getMarketplaceOrderStatuses($orderNumber)
+    {
+        return \App\MarketplaceOrderStatus::where('market_place_order_id', $orderNumber)->pluck('is_current', 'status')->toArray();
+    }
+}
