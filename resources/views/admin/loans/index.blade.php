@@ -258,11 +258,12 @@
                             id: id,
                             action: action
                         }, function(data){
-                            console.log(data);
+                            // console.log(data);
                             modal.data('type', 'show-loan-details');
                             modal.find('.modal-title').text('Loan Application Details');
                             modal.find('#modal-size').removeClass().addClass('modal-dialog modal-xl');
-                            modal.find('.modal-body').empty().append(displayLoanApplicationDetails(data.borrower.profile, data.details));
+                            modal.find('.modal-body').empty().append(viewProfile(data.borrower.profile, data.details));
+                            // modal.find('.modal-body').empty().append(viewProfile(data.borrower.profile, null));
                             modal.find('#modal-save-btn').hide();
                             modal.modal({backdrop: 'static', keyboard: false});
                         });

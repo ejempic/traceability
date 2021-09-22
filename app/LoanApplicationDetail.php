@@ -6,6 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class LoanApplicationDetail extends Model
 {
+    public function getSpouseComakerInfoAttribute($value)
+    {
+        return unserialize($value);
+    }
+    public function getFarmingInfoAttribute($value)
+    {
+        return unserialize($value);
+    }
+    public function getEmploymentInfoAttribute($value)
+    {
+        return unserialize($value);
+    }
+    public function getincomeAssetInfoAttribute($value)
+    {
+        return unserialize($value);
+    }
     public function getInfoLoanDetailAttribute($value)
     {
         return unserialize($value);
