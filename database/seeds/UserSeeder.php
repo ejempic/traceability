@@ -92,7 +92,7 @@ class UserSeeder extends Seeder
             $setting->name = stringSlug('SMS');
             $setting->display_name = 'SMS';
             $setting->value = 'Switch for SMS Notification';
-            $setting->is_active = 1;
+            $setting->is_active = 0;
             $setting->save();
 
             $setting = new Settings();
@@ -104,12 +104,13 @@ class UserSeeder extends Seeder
             $setting->name = stringSlug('Finance Service Fee');
             $setting->display_name = 'Finance Service Fee';
             $setting->value = 0;
+            $setting->is_active = 0;
             $setting->save();
 
-//            $setting = new Settings();
-//            $setting->name = stringSlug('BFAR');
-//            $setting->display_name = 'BFAR';
-//            $setting->save();
+            $setting = new Settings();
+            $setting->name = stringSlug('BFAR');
+            $setting->display_name = 'BFAR';
+            $setting->save();
         }
 
 //        $user = new User();
