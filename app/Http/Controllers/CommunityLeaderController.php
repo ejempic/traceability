@@ -120,6 +120,10 @@ class CommunityLeaderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Farmer::find($id);
+        $data->community_leader = 0;
+        $data->save();
+
+        return redirect()->back();
     }
 }
