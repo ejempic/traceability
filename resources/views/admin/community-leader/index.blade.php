@@ -43,39 +43,39 @@
 
                         <div class="table-responsive">
                             <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
-                            <thead>
-                            <tr>
-                                <th>Account ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Farmer</th>
-                                <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($datas as $data)
+                                <thead>
                                 <tr>
-                                    <td>{{ $data->account_id }}</td>
-                                    <td>{{ optional($data->profile)->first_name }} {{ optional($data->profile)->last_name }}</td>
-                                    <td>{{ $data->user->email }}</td>
-                                    <td>{{ farmerCount($data->id) }}</td>
-                                    <td class="text-right">
-                                        <div class="btn-group text-right">
-                                            <a href="{!! route('community-leader-destroy', array('id' => $data->id)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-times text-danger"></i> Remove</a>
-                                            <a href="{!! route('community-leader.show', array('community_leader' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
-                                        </div>
+                                    <th>Account ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Farmer</th>
+                                    <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($datas as $data)
+                                    <tr>
+                                        <td>{{ $data->account_id }}</td>
+                                        <td>{{ optional($data->profile)->first_name }} {{ optional($data->profile)->last_name }}</td>
+                                        <td>{{ $data->user->email }}</td>
+                                        <td>{{ farmerCount($data->id) }}</td>
+                                        <td class="text-right">
+                                            <div class="btn-group text-right">
+                                                <a href="{!! route('community-leader-destroy', array('id' => $data->id)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-times text-danger"></i> Remove</a>
+                                                <a href="{!! route('community-leader.show', array('community_leader' => $data)) !!}" class="action btn-white btn btn-xs"><i class="fa fa-search text-success"></i> Show</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="3">
+                                        <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="3">
-                                    <ul class="pagination pull-right"></ul>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
+                                </tfoot>
+                            </table>
                         </div>
 
                     </div>
