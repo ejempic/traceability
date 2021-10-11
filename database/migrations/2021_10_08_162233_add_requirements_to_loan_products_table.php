@@ -15,7 +15,7 @@ class AddRequirementsToLoanProductsTable extends Migration
     {
         Schema::table('loan_products', function (Blueprint $table) {
             $table->longText('requirements')->nullable()->after('description');
-            $table->string('form_upload')->nullable()->after('requirements');
+            $table->string('attachment')->nullable()->after('requirements');
         });
     }
 
@@ -28,7 +28,7 @@ class AddRequirementsToLoanProductsTable extends Migration
     {
         Schema::table('loan_products', function (Blueprint $table) {
             $table->dropColumn('requirements');
-            $table->dropColumn('form_upload');
+            $table->dropColumn('attachment');
         });
     }
 }
