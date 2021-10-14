@@ -93,6 +93,12 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::get('bfar-update-info', 'BfarController@updateBfarInfo')->name('bfar-update-info');
 
 
+    Route::get('marketplace-categories', 'MarketplaceCategoriesController@index')->name('marketplace-categories.index');
+    Route::get('marketplace-categories-list', 'MarketplaceCategoriesController@list')->name('marketplace-categories-list');
+    Route::post('marketplace-categories-store', 'MarketplaceCategoriesController@store')->name('marketplace-categories-store');
+    Route::post('marketplace-categories-edit', 'MarketplaceCategoriesController@edit')->name('marketplace-categories-edit');
+    Route::get('marketplace-categories-delete', 'MarketplaceCategoriesController@delete')->name('marketplace-categories-delete');
+
     Route::get('market-place/orders', 'MarketplaceController@orders')->name('market-place.orders');
     Route::post('market-place/approve', 'MarketplaceController@approve')->name('market-place.approve');
     Route::post('market-place/deliver', 'MarketplaceController@deliver')->name('market-place.deliver');

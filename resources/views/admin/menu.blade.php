@@ -99,13 +99,16 @@
     </ul>
 </li>
 
-<li class="{{ if_uri_pattern(array('role*', 'bfar*', 'settings*', 'database*')) == 1 ? 'active' : '' }}">
+<li class="{{ if_uri_pattern(array('role*', 'bfar*', 'settings*', 'database*','marketplace-categories*')) == 1 ? 'active' : '' }}">
     <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
     <ul class="nav nav-second-level collapse">
         <li class="{{ (request()->is('role*')) ? 'active' : '' }}"><a href="{!! route('role') !!}">Role</a></li>
     </ul>
     <ul class="nav nav-second-level collapse">
-        <li class="{{ (request()->is('settings*')) ? 'active' : '' }}"><a href="{!! route('settings.index') !!}">Settings</a></li>
+        <li class="{{ (request()->is('settings*')) ? 'active' : '' }}"><a href="{!! route('settings.index') !!}">Custom Settings</a></li>
+    </ul>
+    <ul class="nav nav-second-level collapse">
+        <li class="{{ (request()->is('marketplace-categories*')) ? 'active' : '' }}"><a href="{!! route('marketplace-categories.index') !!}">Marketplace Categories</a></li>
     </ul>
     <ul class="nav nav-second-level collapse">
         <li class="{{ (request()->is('database*')) ? 'active' : '' }}"><a href="{!! route('database-index') !!}">Database</a></li>
