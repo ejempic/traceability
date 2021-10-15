@@ -144,6 +144,16 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Disclosure</label>
+                                    <textarea name="disclosure" id="disclosure" cols="30" rows="10"  class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

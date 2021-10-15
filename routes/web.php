@@ -45,7 +45,8 @@ Route::middleware(['auth', 'verified', 'has_profile'])->group(function () {
     Route::get('activation', 'PublicController@activation')->name('activation');
 
     Route::resource('farmer', 'FarmerController');
-    Route::resource('community-leader', 'CommunityLeaderController');
+    Route::resource('community-leader', 'CommunityLeaderController', ['except' => ['destroy']]);
+    Route::get('community-leader-destroy/{id}', 'CommunityLeaderController@destroy')->name('community-leader-destroy');
     Route::resource('loan-provider', 'LoanProviderController');
 
     Route::resource('profile', 'ProfileController');

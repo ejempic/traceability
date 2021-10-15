@@ -47,6 +47,7 @@
                             <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
                             <thead>
                             <tr>
+                                <th>Account ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th class="text-right" data-sort-ignore="true"><i class="fa fa-cogs text-success"></i></th>
@@ -55,6 +56,7 @@
                             <tbody>
                             @foreach($datas as $data)
                                 <tr>
+                                    <td>{{ $data->account_id }}</td>
                                     <td>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</td>
                                     <td>{{ $data->user->email }}</td>
                                     <td class="text-right">
