@@ -45,7 +45,7 @@
                         @foreach($order->items as $item)
                             @php
                                 $product  = $item->product;
-                                $image = ($product->hasMedia('market-place')? "<a href='".url('/').$order->payment->getFirstMediaUrl('market-place-proof-payment')."' target='_blank'><img class='img-thumbnail' src='".config('app.wharf_url').$product->getFirstMediaUrl('market-place')."'></a>":'')
+                                $image = ($product->hasMedia('market-place')? "<a href='".url('/').$product->getFirstMediaUrl('market-place')."' target='_blank'><img class='img-thumbnail' src='".config('app.wharf_url').$product->getFirstMediaUrl('market-place')."'></a>":'')
                             @endphp
                             <div class="ibox-content">
                                 {{--                                <pre>{{json_encode($item,128)}}</pre>--}}
