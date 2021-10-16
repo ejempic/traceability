@@ -111,9 +111,6 @@
         <li class="{{ (request()->is('marketplace-categories*')) ? 'active' : '' }}"><a href="{!! route('marketplace-categories.index') !!}">Marketplace Categories</a></li>
     </ul>
     <ul class="nav nav-second-level collapse">
-        <li class="{{ (request()->is('database*')) ? 'active' : '' }}"><a href="{!! route('database-index') !!}">Database</a></li>
-    </ul>
-    <ul class="nav nav-second-level collapse">
         <li class="{{ (request()->is('bfar*')) ? 'active' : '' }}"><a href="{!! route('bfar-settings') !!}">BFAR</a></li>
     </ul>
 </li>
