@@ -15,6 +15,7 @@ class AddAttachmentToLoansTable extends Migration
     {
         Schema::table('loans', function (Blueprint $table) {
             $table->string('attachment')->nullable()->after('status');
+            $table->boolean('attachment_active')->default(0)->after('attachment');
         });
     }
 
@@ -27,6 +28,7 @@ class AddAttachmentToLoansTable extends Migration
     {
         Schema::table('loans', function (Blueprint $table) {
             $table->dropColumn('attachment');
+            $table->dropColumn('attachment_active');
         });
     }
 }
