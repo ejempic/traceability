@@ -1,4 +1,4 @@
-@extends('admin..master')
+@extends('admin.master')
 
 @section('title', 'Orders')
 
@@ -33,7 +33,7 @@
                         $order_number = $order->order_number;
                         $proof = "";
                         if($order->payment){
-                            $proof = ($order->payment->hasMedia('market-place-proof-payment')? "<a href='".url('/').$order->payment->getFirstMediaUrl('market-place-proof-payment')."' target='_blank'><img class='img-thumbnail img-md' src='".config('app.wharf_url').$order->payment->getFirstMediaUrl('market-place-proof-payment')."'></a>":'');
+                            $proof = ($order->payment->hasMedia('market-place-proof-payment')? "<a href='".config('app.wharf_url').$order->payment->getFirstMediaUrl('market-place-proof-payment')."' target='_blank'><img class='img-thumbnail img-md' src='".config('app.wharf_url').$order->payment->getFirstMediaUrl('market-place-proof-payment')."'></a>":'');
                         }
                     @endphp
 
@@ -45,7 +45,7 @@
                         @foreach($order->items as $item)
                             @php
                                 $product  = $item->product;
-                                $image = ($product->hasMedia('market-place')? "<a href='".url('/').$order->payment->getFirstMediaUrl('market-place-proof-payment')."' target='_blank'><img class='img-thumbnail' src='".config('app.wharf_url').$product->getFirstMediaUrl('market-place')."'></a>":'')
+                                $image = ($product->hasMedia('market-place')? "<a href='".config('app.wharf_url').$product->getFirstMediaUrl('market-place')."' target='_blank'><img class='img-thumbnail' src='".config('app.wharf_url').$product->getFirstMediaUrl('market-place')."'></a>":'')
                             @endphp
                             <div class="ibox-content">
                                 {{--                                <pre>{{json_encode($item,128)}}</pre>--}}
@@ -203,52 +203,51 @@
                                 @endif
                             </div>
                         </div>
-                        @endforeach
-
-
                     </div>
-                    <div class="col-md-3 d-none">
+                @endforeach
 
-                        <div class="ibox">
-                            <div class="ibox-title">
-                                <h5>Cart Summary</h5>
-                            </div>
-                            <div class="ibox-content">
+                <div class="col-md-3 d-none">
+
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>Cart Summary</h5>
+                        </div>
+                        <div class="ibox-content">
                             <span>
                                 Total
                             </span>
-                                <h2 class="font-bold">
-                                    ₱<span id="total_summary">0</span>
-                                </h2>
+                            <h2 class="font-bold">
+                                ₱<span id="total_summary">0</span>
+                            </h2>
 
-                                <hr/>
-                                <span class="text-muted small">
+                            <hr/>
+                            <span class="text-muted small">
                                 *For faster transaction we suggest to do the payment via GCash
                             </span>
-                                <div class="m-t-sm">
-                                    <div class="btn-group">
-                                        <a href="#" class="btn btn-primary btn-sm show_confirm_modal"><i
-                                                    class="fa fa-shopping-cart"></i> Confirm Order</a>
-                                        <a href="#" class="btn btn-white btn-sm"> Cancel</a>
-                                    </div>
+                            <div class="m-t-sm">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary btn-sm show_confirm_modal"><i
+                                                class="fa fa-shopping-cart"></i> Confirm Order</a>
+                                    <a href="#" class="btn btn-white btn-sm"> Cancel</a>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="ibox">
-                            <div class="ibox-title">
-                                <h5>Support</h5>
-                            </div>
-                            <div class="ibox-content text-center">
-                                <h3><i class="fa fa-phone"></i> +43 100 783 001</h3>
-                                <span class="small">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>Support</h5>
+                        </div>
+                        <div class="ibox-content text-center">
+                            <h3><i class="fa fa-phone"></i> +43 100 783 001</h3>
+                            <span class="small">
                                 Please contact with us if you have any questions. We are available 24h.
                             </span>
-                            </div>
                         </div>
-
-
                     </div>
+
+
+                </div>
             </div>
         </div>
 
@@ -312,138 +311,139 @@
 
         </div>
 
-        @endsection
+    </div>
+@endsection
 
 
-        @section('styles')
-            {!! Html::style('css/template/plugins/footable/footable.core.css') !!}
-            {!! Html::style('css/template/plugins/toastr/toastr.min.css') !!}
-            <style>
-                .cart-product-imitation {
-                    padding: 0 !important;
+@section('styles')
+    {!! Html::style('css/template/plugins/footable/footable.core.css') !!}
+    {!! Html::style('css/template/plugins/toastr/toastr.min.css') !!}
+    <style>
+        .cart-product-imitation {
+            padding: 0 !important;
+        }
+
+        .no-wrap {
+            white-space: nowrap;
+        }
+
+        .tabulation {
+            font-size: 14px;
+        }
+
+        .total {
+            font-size: 16px;
+            font-weight: 700;
+            width: 250px;
+        }
+    </style>
+    {{--{!! Html::style('') !!}--}}
+    {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
+    {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
+@endsection
+
+@section('scripts')
+    {!! Html::script('js/template/plugins/footable/footable.all.min.js') !!}
+    {!! Html::style('/css/template/plugins/datapicker/datepicker3.css') !!}
+    {!! Html::script('/js/template/plugins/datapicker/bootstrap-datepicker.js') !!}
+    {{--    {!! Html::script('') !!}--}}
+    {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
+    {{--    {!! $dataTable->scripts() !!}--}}
+    {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
+    {{--    {!! Html::script('/js/template/moment.js') !!}--}}
+    <script>
+        function numberWithCommas(x) {
+            return x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function numberRemoveCommas(x) {
+            return x.toString().replace(/,/g, "");
+        }
+
+        $(document).on('click', '.show_confirm_modal', function () {
+            $('#confirm_order_modal').modal('show');
+            let order_number = $(this).data('order_number');
+            console.log(order_number)
+            $("#verify_order").val(order_number);
+        });
+
+        let lockInFields = [];
+        $(document).on('click', '#modal-save-btn', function () {
+            //spot-market.lock_in_order
+            console.log(lockInFields)
+            $.ajax({
+                url: "{{route('spot-market.lock_in_order')}}",
+                type: "POST",
+                data: {
+                    form: JSON.stringify(lockInFields),
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    window.location.replace("{{route('spot-market.my_orders')}}");
+                },
+            });
+        });
+        $(document).ready(function () {
+
+            var mem = $('.datepicker').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                placement: 'bottom'
+            });
+
+            $('.changeSummaryTotal').on('keyup', function (e) {
+
+                var target = $(this).data('target');
+                var price = $(this).data('price');
+                var qty = $(this).val();
+                if (isNaN(qty) || qty === '') {
+                    qty = 1;
                 }
+                $(target).html(numberWithCommas(parseFloat(numberRemoveCommas(price)) * qty));
+                computeTotalSummary();
+                computeTotalCount();
+            })
 
-                .no-wrap {
-                    white-space: nowrap;
-                }
+            computeTotalSummary()
+            computeTotalCount();
 
-                .tabulation {
-                    font-size: 14px;
-                }
+        });
 
-                .total {
-                    font-size: 16px;
-                    font-weight: 700;
-                    width: 250px;
-                }
-            </style>
-            {{--{!! Html::style('') !!}--}}
-            {{--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
-            {{--    {!! Html::style('/css/template/plugins/sweetalert/sweetalert.css') !!}--}}
-        @endsection
+        function computeTotalCount() {
+            var count = 0;
+            lockInFields = [];
+            // $('.changeSummaryTotal').each(function(i, e){
+            //
+            //     var target = $(e).data('target');
+            //     var price = $(e).data('price');
+            //     var id = $(e).data('id');
+            //     var cart_id = $(e).data('cart_id');
+            //     var sub_total = parseFloat(numberRemoveCommas($(target).html()));
+            //     let qty = parseInt($(e).val());
+            //     if(isNaN(qty)){
+            //         qty = 1;
+            //     }
+            //     count += qty;
+            //     let array = {id:id,cart_id:cart_id, price:price, qty:qty, sub_total:sub_total};
+            //     lockInFields.push(array);
+            // });
+            $('#cart_count').html(parseInt(count));
+        }
 
-        @section('scripts')
-            {!! Html::script('js/template/plugins/footable/footable.all.min.js') !!}
-            {!! Html::style('/css/template/plugins/datapicker/datepicker3.css') !!}
-            {!! Html::script('/js/template/plugins/datapicker/bootstrap-datepicker.js') !!}
-            {{--    {!! Html::script('') !!}--}}
-            {{--    {!! Html::script(asset('vendor/datatables/buttons.server-side.js')) !!}--}}
-            {{--    {!! $dataTable->scripts() !!}--}}
-            {{--    {!! Html::script('/js/template/plugins/sweetalert/sweetalert.min.js') !!}--}}
-            {{--    {!! Html::script('/js/template/moment.js') !!}--}}
-            <script>
-                function numberWithCommas(x) {
-                    return x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                }
+        function computeTotalSummary() {
 
-                function numberRemoveCommas(x) {
-                    return x.toString().replace(/,/g, "");
-                }
+            var subTotalPerItem = $('.sub_total_per_item');
+            var total = 0;
+            subTotalPerItem.each(function (i, e) {
+                let eVal = parseFloat(numberRemoveCommas(e.innerHTML));
+                total += eVal;
+            });
+            $('#total_summary').html(numberWithCommas(total));
 
-                $(document).on('click', '.show_confirm_modal', function () {
-                    $('#confirm_order_modal').modal('show');
-                    let order_number = $(this).data('order_number');
-                    console.log(order_number)
-                    $("#verify_order").val(order_number);
-                });
-
-                let lockInFields = [];
-                $(document).on('click', '#modal-save-btn', function () {
-                    //spot-market.lock_in_order
-                    console.log(lockInFields)
-                    $.ajax({
-                        url: "{{route('spot-market.lock_in_order')}}",
-                        type: "POST",
-                        data: {
-                            form: JSON.stringify(lockInFields),
-                            _token: $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function (response) {
-                            window.location.replace("{{route('spot-market.my_orders')}}");
-                        },
-                    });
-                });
-                $(document).ready(function () {
-
-                    var mem = $('.datepicker').datepicker({
-                        todayBtn: "linked",
-                        keyboardNavigation: false,
-                        forceParse: false,
-                        calendarWeeks: true,
-                        autoclose: true,
-                        format: 'yyyy-mm-dd',
-                        placement: 'bottom'
-                    });
-
-                    $('.changeSummaryTotal').on('keyup', function (e) {
-
-                        var target = $(this).data('target');
-                        var price = $(this).data('price');
-                        var qty = $(this).val();
-                        if (isNaN(qty) || qty === '') {
-                            qty = 1;
-                        }
-                        $(target).html(numberWithCommas(parseFloat(numberRemoveCommas(price)) * qty));
-                        computeTotalSummary();
-                        computeTotalCount();
-                    })
-
-                    computeTotalSummary()
-                    computeTotalCount();
-
-                });
-
-                function computeTotalCount() {
-                    var count = 0;
-                    lockInFields = [];
-                    // $('.changeSummaryTotal').each(function(i, e){
-                    //
-                    //     var target = $(e).data('target');
-                    //     var price = $(e).data('price');
-                    //     var id = $(e).data('id');
-                    //     var cart_id = $(e).data('cart_id');
-                    //     var sub_total = parseFloat(numberRemoveCommas($(target).html()));
-                    //     let qty = parseInt($(e).val());
-                    //     if(isNaN(qty)){
-                    //         qty = 1;
-                    //     }
-                    //     count += qty;
-                    //     let array = {id:id,cart_id:cart_id, price:price, qty:qty, sub_total:sub_total};
-                    //     lockInFields.push(array);
-                    // });
-                    $('#cart_count').html(parseInt(count));
-                }
-
-                function computeTotalSummary() {
-
-                    var subTotalPerItem = $('.sub_total_per_item');
-                    var total = 0;
-                    subTotalPerItem.each(function (i, e) {
-                        let eVal = parseFloat(numberRemoveCommas(e.innerHTML));
-                        total += eVal;
-                    });
-                    $('#total_summary').html(numberWithCommas(total));
-
-                }
-            </script>
+        }
+    </script>
 @endsection
