@@ -30,7 +30,7 @@ class CommunityLeaderController extends Controller
      */
     public function create()
     {
-        $farmers = Farmer::whereHas('profile')->get();
+        $farmers = Farmer::whereHas('profile')->where('community_leader', 0)->get();
 //        $farmers = Farmer::get();
 //        return $farmers;
 
