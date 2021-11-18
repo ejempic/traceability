@@ -29,7 +29,7 @@ class FarmerController extends Controller
     public function index()
     {
         if(auth()->user()->hasRole('super-admin')){
-            $datas = Farmer::with('leader')->has('profile')->get();
+            $datas = Farmer::with('leader')->where('community_leader', 0)->has('profile')->get();
         }else{
             $ids = Inventory::where('leader_id', Auth::user()->leader->id)->distinct('farmer_id')->pluck('farmer_id')->toArray();
             $datas = Farmer::with('leader')
