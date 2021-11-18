@@ -1,6 +1,6 @@
 @extends('layouts.login')
 
-@section('title', 'Blank')
+@section('title', 'QR Print')
 
 @section('content')
 {{--    <div class="ibox-content">--}}
@@ -14,8 +14,10 @@
             <div class="div">
                 <img src="{{ URL::to('/images/agrabah-logo.png') }}" alt="agrabah-logo" class="logo img-fluid mt-3">
             </div>
-            <div class="div">
-                <img src="{{ URL::to($data->profile->qr_image_path) }}" alt="{{ $data->profile->qr_image_path }}" class="qr img-fluid mt-3">
+            <div class="p-2">
+                {!! QrCode::size(250)->generate($data->account_id); !!}
+{{--                <img src="{!!$message->embedData(QrCode::format('png')->generate('Embed me into an e-mail!'), 'QrCode.png', 'image/png')!!}">--}}
+{{--                <img src="{{ URL::to($data->profile->qr_image_path) }}" alt="{{ $data->profile->qr_image_path }}" class="qr img-fluid mt-3">--}}
             </div>
             <h4>{{ $data->profile->first_name }} {{ $data->profile->last_name }}</h4>
             <h3><strong>PID:</strong> {{ $data->account_id }}</h3>
